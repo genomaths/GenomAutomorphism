@@ -3,16 +3,39 @@
 \name{codon_coord}
 \alias{codon_coord}
 \alias{base_coord}
-\alias{codon_coord,character-method}
+\alias{codon_coord,DNAStringSet_OR_missing-method}
+\alias{base_coord,DNAStringSet_OR_missing-method}
 \title{Represent codon (DNA base triplet) with its coordinates in a given
 Abelian group}
 \usage{
 codon_coord(codon, ...)
 
-\S4method{codon_coord}{character}(
-  codon,
-  cube = "ACGT",
-  group = c("Z4", "Z64", "GF(5)", "Z125", "R^3")
+\S4method{codon_coord}{DNAStringSet_OR_missing}(
+  codon = NULL,
+  filepath = NULL,
+  cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "CTAG", "GATC", "GTAC", "ACTG",
+    "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
+    "CTGA", "GACT", "GCAT", "TACG", "TCAG"),
+  group = c("Z4", "Z64", "Z125", "R^3"),
+  start = NA,
+  end = NA,
+  chr = 1L,
+  strand = "+"
+)
+
+base_coord(base = NULL, filepath = NULL, ...)
+
+\S4method{base_coord}{DNAStringSet_OR_missing}(
+  base = NULL,
+  filepath = NULL,
+  cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "CTAG", "GATC", "GTAC", "ACTG",
+    "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
+    "CTGA", "GACT", "GCAT", "TACG", "TCAG"),
+  group = c("Z4", "Z5", "R^3"),
+  start = NA,
+  end = NA,
+  chr = 1L,
+  strand = "+"
 )
 }
 \arguments{
@@ -20,14 +43,14 @@ codon_coord(codon, ...)
 letter from the DNA/RNA alphabet: "A","C","G","T", and "U").}
 
 \item{cube}{A character string denoting one of the 24 Genetic-code cubes,
-as given in references \link{#2} and \link{#3}.}
+as given in references (2 2 3).}
 
 \item{group}{A character string denoting the group representation for the
-given base or codon as shown in reference \link{#1}.}
+given base or codon as shown in reference (1).}
 }
 \description{
 Given a string denoting a codon or base from the DNA (or RNA)
-alphabet and a genetic-code Abelian group as given in reference \link{#1}.
+alphabet and a genetic-code Abelian group as given in reference (1).
 }
 \details{
 Symbols "-" and "N" usually found in DNA sequence alignments to
@@ -54,15 +77,14 @@ codon_coord("ACG", group = "Z5", cube = "UGCA")
 \references{
 \enumerate{
 \item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
-Groups. #1
+Groups.
 \href{https://doi.org/10.1101/2021.06.01.446543}{doi: 10.1101/2021.06.01.446543}.
 \item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
 algebraic representations of the standard genetic code in six or in three
 dimensions, Adv. Stud. Biol. 4 (2012) 119–152.\href{https://is.gd/na9eap}{PDF}.
-#2
 \item R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the
 Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math.
-Comput. Chem. 79 (2018) 527-560.#3
+Comput. Chem. 79 (2018) 527-560.
 }
 }
 \seealso{
