@@ -20,18 +20,22 @@
 #' each sequence in a list of 3D-vectors or a list of vectors located in the
 #' slot named 'CoordList'. The original codon sequence (if provided) will be
 #' stored in the slot named 'SeqRanges'.
+#' @import GenomicRanges
+#' @importFrom S4Vectors setValidity2
+#' @importFrom methods validObject
  
-
 #' @aliases CodonSeq
+#' @export
 setClass("CodonSeq",
         slots = c(
             CoordList = "list",
-            SeqRanges = "DataFrame_OR_NULL"
+            SeqRanges = "GenomicRanges_OR_missing"
         )
 )
 
 #' @aliases MatrixList
 #' @rdname allClasses
+#' @export
 setClass("MatrixList",
         slots = c(
             matrices = "list",
@@ -40,6 +44,65 @@ setClass("MatrixList",
 )
 
 setClassUnion("CodonSeq_OR_MatrixList", c("CodonSeq", "MatrixList"))
+setClassUnion("DNAStringSet_OR_NULL",
+              c("DNAStringSet", "DNAMultipleAlignment", "NULL", "missing"))
+
+
+#' @aliases Automorphism
+#' @rdname Automorphism
+#' @title A class definition to store codon automorphisms in given in the 
+#' Abelian group representation.
+#' @seealso \code{\link{automorphism}}
+#' @export
+setClass("Automorphism",
+    slots = c(
+        seqnames = "Rle",
+        ranges = "IRanges_OR_IPos",
+        strand = "Rle",
+        elementMetadata = "DataFrame",
+        seqinfo = "Seqinfo",
+        colnames = "character"
+    ),
+    contains = "GRanges"
+)
+
+# ========================== Validity ============================= #
+#' @rdname Automorphism
+#' @title Valid Automorphism mcols
+#' @param x A 'Automorphism object'
+#' @keywords internal
+valid.Automorphism.mcols <- function(x) {
+    if (length(x) > 0) {
+        coln <- x@colnames
+        if (any(!is.element(coln, c("seq1", "seq2", "autm", "cube")))) {
+            return("*** This is not a valid  Automorphism-class object.",
+                "Columns from the matacolumn have the wrong names")
+        }
+    }
+    NULL
+}
+
+#' @rdname Automorphism
+#' @title Valid 'Automorphism' inheritance from 'GRanges' class
+#' @param x A 'Automorphism object'
+#' @keywords internal
+valid.GRanges <- function(x) {
+    if (length(x) > 0) {
+        if (!inherits(x, "GRanges")) {
+            return("*** This is not a valid  Automorphism-class object.")
+        }
+    }
+    NULL
+}
+
+#' @rdname valid.Automorphism
+#' @title Valid Automorphism
+#' @param x A 'Automorphism object'
+#' @keywords internal
+valid.Automorphism <- function(x) 
+    c(valid.GRanges(x), valid.Automorphism.mcols(x))
+
+S4Vectors:::setValidity2("Automorphism", valid.Automorphism)
 
 
 # ======================= Show method =================================
@@ -102,18 +165,32 @@ setMethod(
 
 .showMatrix <- function(x) {
     d <- dim(x)
-    cat("Matrix with", d[1], "rows and", d[2], "columns:\n" )
-    if (d[1] > 10) {
-        r <- c()
-        for (k in c(1:5, (d[1] - 5):d[1])) {
-            r <- rbind(r, x[k,])
+    if (!is.null(d)) {
+        cat("Matrix with", d[1], "rows and", d[2], "columns:\n" )
+        if (d[1] > 10) {
+            r <- c()
+            for (k in c(1:5, (d[1] - 5):d[1])) {
+                r <- rbind(r, x[k,])
+            }
+            r[6, ] <- "..."
+        } 
+        r <- data.frame(r)
+        rown <- paste0(c(1:5, (d[1] - 5):d[1]), ":")
+        rown[6] <- "..."
+        rownames(r) <- rown
+    }
+    else {
+        l <- length(x)
+        cat("Vector of length:", l, "\n")
+        if (l > 10) {
+            r <- x[ c(1:5, (l - 5):l) ]
+            r[6] <- "..."
+            r <- data.frame(matrix(r, ncol = length(r)))
+            nms <- paste0(c(1:5, (l - 5):l), ":")
+            nms[6] <- r[6] 
+            colnames(r) <- nms
         }
-        r[6, ] <- "..."
-    } 
-    r <- data.frame(r)
-    rown <- paste0(c(1:5, (d[1] - 5):d[1]), ":")
-    rown[6] <- "..."
-    rownames(r) <- rown
+    }
     return(r)
 }
 

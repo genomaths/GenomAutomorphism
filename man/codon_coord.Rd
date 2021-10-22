@@ -7,23 +7,24 @@
 \alias{base_coord,DNAStringSet_OR_NULL-method}
 \alias{get_coord}
 \alias{get_coord,GRanges-method}
+\alias{get_coord,DNAStringSet_OR_NULL-method}
 \alias{matrices}
 \alias{matrices,CodonSeq_OR_MatrixList-method}
 \alias{matrices,DNAStringSet_OR_NULL-method}
 \alias{seqranges}
 \alias{seqranges,CodonSeq-method}
 \alias{seqranges,DNAStringSet_OR_NULL-method}
-\title{Codon representation with coordinates in a given Abelian group.}
+\title{Codon coordinates on a given a given Abelian group representation.}
 \usage{
 codon_coord(codon = NULL, filepath = NULL, cube = "ACGT", group = "Z4", ...)
 
 \S4method{codon_coord}{DNAStringSet_OR_NULL}(
   codon = NULL,
   filepath = NULL,
-  cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "CTAG", "GATC", "GTAC", "ACTG",
+  cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
     "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
     "CTGA", "GACT", "GCAT", "TACG", "TCAG"),
-  group = c("Z4", "Z5", "Z", "Z64", "Z125", "R^3"),
+  group = c("Z4", "Z5", "Z64", "Z125", "Z4^3", "Z5^3"),
   start = NA,
   end = NA,
   chr = 1L,
@@ -35,10 +36,10 @@ base_coord(base = NULL, filepath = NULL, cube = "ACGT", group = "Z4", ...)
 \S4method{base_coord}{DNAStringSet_OR_NULL}(
   base = NULL,
   filepath = NULL,
-  cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "CTAG", "GATC", "GTAC", "ACTG",
+  cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
     "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
     "CTGA", "GACT", "GCAT", "TACG", "TCAG"),
-  group = c("Z4", "Z5", "Z"),
+  group = c("Z4", "Z5"),
   start = NA,
   end = NA,
   chr = 1L,
@@ -48,6 +49,19 @@ base_coord(base = NULL, filepath = NULL, cube = "ACGT", group = "Z4", ...)
 get_coord(x, ...)
 
 \S4method{get_coord}{GRanges}(x, output = c("all", "matrix.list"))
+
+\S4method{get_coord}{DNAStringSet_OR_NULL}(
+  x,
+  output = c("all", "matrix.list"),
+  base_seq = TRUE,
+  filepath = NULL,
+  cube = "ACGT",
+  group = "Z4",
+  start = NA,
+  end = NA,
+  chr = 1L,
+  strand = "+"
+)
 
 matrices(x, ...)
 
@@ -83,10 +97,13 @@ seqranges(x, ...)
 )
 }
 \arguments{
-\item{codon, base}{A character string of DNA/RNA base-triplets (i.e., with
-letters from the DNA/RNA alphabet: "A","C","G","T", and "U").}
+\item{codon, base}{An object from a \code{\link[Biostrings]{DNAStringSet}} or
+\code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
+pairwise alignment of two sequences.}
 
-\item{filepath}{A character vector containing the path to the file to read.}
+\item{filepath}{A character vector containing the path to a file in
+\emph{\strong{fasta}} format to be read. This argument must be given if
+\emph{codon & base} arguments are not provided.}
 
 \item{cube}{A character string denoting one of the 24 Genetic-code cubes,
 as given in references (2 2 3).}
@@ -123,7 +140,8 @@ carrying the codon sequence(s) and their respective coordinates in the
 requested Abelian group or simply, when \emph{group =  'R^3'} the coordinates
 inserted in 3D space, which are derive from Z5 as indicated in reference (3).
 Notice that the coordinates can be 3D or just one-dimension ("Z64" or
-"Z125").
+"Z125"). Hence, the pairwise alignment provided in argument
+\emph{\strong{codon}} must correspond to codon sequences.
 }
 
 \subsection{base_coord:}{
@@ -132,8 +150,8 @@ This function returns a \code{\link[GenomicRanges]{GRanges-class}} object
 carrying the DNA sequence(s) and their respective coordinates in the
 requested Abelian group of base representation (one-dimension, "Z4" or "Z5").
 Observe that to get coordinates in the set of of integer numbers ("Z") is
-also possible but they are not defined to integrate a Abelian group. This are
-just used for the further insertion the codon set in the 3D space (R^3).
+also possible but they are not defined to integrate a Abelian group. These
+are just used for the further insertion the codon set in the 3D space (R^3).
 }
 
 \subsection{get_coord:}{
@@ -162,10 +180,10 @@ and \code{\link{codon_coord}}  or to operate directly on a
 \code{\link[Biostrings]{DNAStringSet}} or to retrieve the a DNA sequence
 alignment from a file.
 
-\emph{\strong{base_seq}} parameter will determine whether to return the matrices of
-coordinate for a DNA or codon sequence. While in function \code{\link{seqranges}},
-\emph{\strong{granges}} parameter will determine whether to return a
-\code{\link[GenomicRanges]{GRanges-class}} object or a
+\emph{\strong{base_seq}} parameter will determine whether to return the
+matrices of coordinate for a DNA or codon sequence. While in function
+\code{\link{seqranges}}, \emph{\strong{granges}} parameter will determine
+whether to return a \code{\link[GenomicRanges]{GRanges-class}} object or a
 \code{\link[S4Vectors]{DataFrame}}.
 }
 }
