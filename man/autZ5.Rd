@@ -19,9 +19,7 @@ autZ5(
 \arguments{
 \item{seq}{An object from a \code{\link[Biostrings]{DNAStringSet}} or
 \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
-pairwise alignment of two sequences. The pairwise alignment provided in
-argument \emph{\strong{seq}} or the 'fasta' file \emph{\strong{filepath}}
-must correspond to codon sequences.}
+pairwise alignment of two sequences.}
 
 \item{filepath}{A character vector containing the path to a file in
 \emph{\strong{fasta}} format to be read. This argument must be given if
@@ -50,7 +48,9 @@ this function computes the automorphisms describing codon mutational events.
 \details{
 Automorphisms in Z5 are described as functions
 \eqn{f(x) = k x mod 64}, where k and x are elements from the set of integers
-modulo 64. As noticed in reference (1)
+modulo 64. As noticed in reference (1).
+The pairwise alignment provided in argument \emph{\strong{seq}} or the
+'fasta' file \emph{\strong{filepath}} must correspond to DNA base sequences.
 }
 \references{
 \enumerate{
@@ -68,4 +68,7 @@ dimensions, Adv. Stud. Biol. 4 (2012) 119–152.\href{https://is.gd/na9eap}{PDF}
 Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math.
 Comput. Chem. 79 (2018) 527-560. \href{https://bit.ly/2Z9mjM7}{PDF}.
 }
+}
+\seealso{
+\code{\link{automorphism}}
 }

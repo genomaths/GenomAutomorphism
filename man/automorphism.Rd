@@ -13,7 +13,7 @@ automorphism(seq = NULL, filepath = NULL, group = "Z4", ...)
 \S4method{automorphism}{DNAStringSet_OR_NULL}(
   seq = NULL,
   filepath = NULL,
-  group = c("Z4", "Z5", "Z64", "Z125", "Z4^3", "Z5^3"),
+  group = c("Z5", "Z64", "Z125", "Z5^3"),
   cube = c("ACGT", "TGCA"),
   cube_alt = c("CATG", "GTAC"),
   start = NA,

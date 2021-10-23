@@ -117,7 +117,7 @@ setMethod("automorphism", signature(seq = "DNAStringSet_OR_NULL"),
     function( 
             seq = NULL,
             filepath = NULL,
-            group = c("Z4","Z5", "Z64", "Z125", "Z4^3", "Z5^3"),
+            group = c("Z5", "Z64", "Z125", "Z5^3"),
             cube = c("ACGT", "TGCA"),
             cube_alt = c("CATG", "GTAC"),
             start = NA,
@@ -127,24 +127,43 @@ setMethod("automorphism", signature(seq = "DNAStringSet_OR_NULL"),
         
         group <- match.arg(group)
         
-        seq <- switch (group,
-            "Z64" = autZ64(seq = seq,
-                          filepath = filepath,
-                          cube = cube,
-                          cube_alt = cube_alt,
-                          start = start,
-                          end = end,
-                          chr = chr,
-                          strand = strand),
-            "Z5^3" = aut3D(seq = seq,
-                            filepath = filepath,
-                            cube = cube,
-                            group = "Z5^3",
-                            cube_alt = cube_alt,
-                            start = start,
-                            end = end,
-                            chr = chr,
-                            strand = strand)
+        seq <- switch(group,
+                    "Z5" = autZ5(
+                                seq = seq,
+                                filepath = filepath,
+                                cube = cube,
+                                cube_alt = cube_alt,
+                                start = start,
+                                end = end,
+                                chr = chr,
+                                strand = strand),
+                    "Z64" = autZ64(
+                                seq = seq,
+                                filepath = filepath,
+                                cube = cube,
+                                cube_alt = cube_alt,
+                                start = start,
+                                end = end,
+                                chr = chr,
+                                strand = strand),
+                    "Z5^3" = aut3D(
+                                seq = seq,
+                                filepath = filepath,
+                                cube = cube,
+                                cube_alt = cube_alt,
+                                start = start,
+                                end = end,
+                                chr = chr,
+                                strand = strand),
+                    "Z125" = autZ125(
+                        seq = seq,
+                        filepath = filepath,
+                        cube = cube,
+                        cube_alt = cube_alt,
+                        start = start,
+                        end = end,
+                        chr = chr,
+                        strand = strand)
         )
         return(seq)
     }
@@ -172,9 +191,12 @@ setMethod("automorphismByRanges", signature(autm = "Automorphism"),
         i <- 1
         l <- length(autm)
         idx <- vector(mode = "numeric", length = length(autm))
+        cube <- autm$cube[1]
         for (k in seq_len(l)) {
-            if (autm$seq1[k] != autm$seq2[k])
+            if ( autm$cube[k] != cube ) {
                 i <- i + 1
+                cube <- autm$cube[k]
+            } 
             idx[ k ] <- i
         }
         

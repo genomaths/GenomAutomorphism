@@ -73,10 +73,10 @@ aut3D <- function(
         stop("*** One of the arguments 'seq' or 'filepath' must be given.")
     
     if (!is.null(seq)) {
-        if (inherits(seq, c("DNAStringSet", "DNAMultipleAlignment")))
+        if (!inherits(seq, c("DNAStringSet", "DNAMultipleAlignment")))
             stop("*** Agument 'seq' must belong to 'DNAStringSet'",
                  " DNAMultipleAlignment class.")
-        if ((nchar(seq) %% 3) != 0) 
+        if (any(nchar(seq) %% 3 != 0)) 
             stop("*** The argument of 'seq' must be a pairwise alignment", 
                  " of codon sequences.") 
     }
@@ -162,7 +162,7 @@ automorfismos_3D <- function(
         else 
             s <- c(paste0(s, collapse = ","), cube[ 1 ])
         if (any(s == -1) || inherits(s, "try-error"))
-            s <- c(NA, cube[ 1 ])
+            s <- c(NA, NA)
         return(s)
     })
     
@@ -174,12 +174,4 @@ automorfismos_3D <- function(
     return(gr)
 }
 
-modeq <- function(a,b,n) {
-    if (a != 0 && b != 0)
-        res <- modlin(a, b, n)
-    if (b == 0)
-        res <- 0
-    if (a == 0) 
-        res <- -1
-    return(res)
-}
+

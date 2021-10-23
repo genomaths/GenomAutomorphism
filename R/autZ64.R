@@ -60,57 +60,56 @@
 #'  Comput. Chem. 79 (2018) 527-560. [PDF](https://bit.ly/2Z9mjM7).
 #' }
 autZ64 <- function( 
-                seq = NULL,
-                filepath = NULL,
-                cube = c("ACGT", "TGCA"),
-                cube_alt = c("CATG", "GTAC"),
-                start = NA,
-                end = NA,
-                chr = 1L,
-                strand = "+") {
+    seq = NULL,
+    filepath = NULL,
+    cube = c("ACGT", "TGCA"),
+    cube_alt = c("CATG", "GTAC"),
+    start = NA,
+    end = NA,
+    chr = 1L,
+    strand = "+") {
     
     if (is.null(filepath) && is.null(seq))
         stop("*** One of the arguments 'seq' or 'filepath' must be given.")
     
     if (!is.null(seq)) {
-        if (inherits(seq, c("DNAStringSet", "DNAMultipleAlignment")))
+        if (!inherits(seq, c("DNAStringSet", "DNAMultipleAlignment")))
             stop("*** Agument 'seq' must belong to 'DNAStringSet'",
                  " DNAMultipleAlignment class.")
-        if ((nchar(seq) %% 3) != 0) 
-            stop("*** The argument of 'seq' must be a pairwise alignment", 
-                 " of codon sequences.") 
+        
+        if (any(nchar(seq) %% 3 != 0))
+            stop("*** The argument of 'seq' must be a pairwise alignment",
+                 " of codon sequences.")
     }
     
     autm1 <- automorfismos(seq = seq,
-                            filepath = filepath,
-                            cube = cube,
-                            output = "all",
-                            start = start,
-                            end = end,
-                            chr = chr,
-                            strand = strand)
+                           filepath = filepath,
+                           cube = cube,
+                           start = start,
+                           end = end,
+                           chr = chr,
+                           strand = strand)
     
     idx <- which(is.na(autm1$autm))
     
     if (length(idx) > 0) {
         autm2 <- automorfismos(seq = seq,
-                                filepath = filepath,
-                                cube = cube_alt,
-                                output = "all",
-                                start = start,
-                                end = end,
-                                chr = chr,
-                                strand = strand)
+                               filepath = filepath,
+                               cube = cube_alt,
+                               start = start,
+                               end = end,
+                               chr = chr,
+                               strand = strand)
         autm1[idx, ] <- autm2[idx, ]
     }
     autm1 <- new(
-                "Automorphism",
-                seqnames = seqnames(autm1),
-                ranges = ranges(autm1),
-                strand = strand(autm1),
-                elementMetadata = autm1@elementMetadata,
-                seqinfo = autm1@seqinfo,
-                colnames = colnames(autm1@elementMetadata))
+        "Automorphism",
+        seqnames = seqnames(autm1),
+        ranges = ranges(autm1),
+        strand = strand(autm1),
+        elementMetadata = autm1@elementMetadata,
+        seqinfo = autm1@seqinfo,
+        colnames = colnames(autm1@elementMetadata))
     return(autm1)
 }
 
@@ -119,17 +118,17 @@ autZ64 <- function(
 ## ===================== Auxiliary function ===========================
 
 automorfismos <- function(
-                        seq,
-                        filepath,
-                        cube,
-                        output,
-                        start,
-                        end = NA,
-                        chr = 1L,
-                        strand = "+") {
+    seq,
+    filepath,
+    cube,
+    start = NA,
+    end = NA,
+    chr = 1L,
+    strand = "+") {
+    
     seq <- get_coord(
         x = seq,
-        output = output,
+        output = "all",
         base_seq = FALSE,
         filepath = filepath,
         cube = cube[ 1 ],
@@ -142,34 +141,57 @@ automorfismos <- function(
     gr <- seq@SeqRanges
     gr$autm <- 1
     gr$cube <- cube[ 1 ]
+    strands <- as.character(strand(gr))
     
-    idx <- which(seq@CoordList$coord1 != seq@CoordList$coord2)
+    idx <- seq@CoordList$coord1 != seq@CoordList$coord2
+    idx <- sort(c(which(idx), which(is.na(idx))))
     
     seq <- lapply(idx, function(k) {
         c1 <- seq@CoordList$coord1[ k ]
         c2 <- seq@CoordList$coord2[ k ]
         
-        s <- try(modlin(c1, c2, 64)[1],
+        s <- try(modeq(c1, c2, 64)[1],
                  silent = TRUE)
         
-        if (is.null(s) || inherits(s, "try-error")) {
-            s <- try(modlin(63 - c1, 63 - c2, 64)[1],
+        if (any(s == -1) || inherits(s, "try-error")) {
+            s <- try(modeq(63 - c1, 63 - c2, 64)[1],
                      silent = TRUE)
-            s <- c(s, cube[ 2 ])
+            if (s != -1 && !inherits(s, "try-error")) {
+                s <- c(s, cube[ 2 ])
+            }
         } 
         else 
             s <- c(s, cube[ 1 ])
-        if (inherits(s, "try-error"))
-            s <- c(NA, cube[ 1 ])
+        if (any(s == -1) || inherits(s, "try-error"))
+            s <- c(NA, "None")
         return(s)
     })
-
+    
     seq <- do.call(rbind, seq)
     seq <- data.frame(seq)
     colnames(seq) <- c("autm", "cube")
     seq$autm <- suppressWarnings(as.numeric(seq$autm))
+    
     gr$autm[ idx ] <- seq$autm
     gr$cube[ idx ] <- seq$cube
+    idx <- which(gr$cube == cube[ 2 ])
+    strands[ idx ] <- "-"
+    strand(gr) <- strands
     return(gr)
 }
 
+modeq <- function(a,b,n) {
+    if (!any(is.na(c(a,b)))) {
+        if (a != 0 && b != 0)
+            res <- modlin(a, b, n)
+        if (b == 0)
+            res <- 0
+        if (a == 0) 
+            res <- -1
+    } 
+    else 
+        res <- -1
+    if (is.null(res)) 
+        res <- -1
+    return(res)
+}

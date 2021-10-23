@@ -141,7 +141,7 @@ setMethod("codon_coord", signature(codon = "DNAStringSet_OR_NULL"),
         if (!is.null(filepath) && is.character(filepath)) 
             codon <- readDNAMultipleAlignment(filepath = filepath)
         
-        if (nchar(codon) %% 3 != 0) {
+        if (any(nchar(codon) %% 3 != 0)) {
             stop("*** 'codon' argument is not a base-triplet sequence.",
                  " A base-triplet sequence is multiple of 3.")
         }
@@ -169,17 +169,23 @@ setMethod("codon_coord", signature(codon = "DNAStringSet_OR_NULL"),
                             chr = chr,
                             strand = strand)
         
+        if (length(codon) %% 3 != 0) {
+            stop("*** 'codon' argument is not a base-triplet sequence.",
+                 " A base-triplet sequence is multiple of 3.")
+        }
+        
         codon <- mcols(codon)
         idx_seq <- grep("seq", colnames(codon))
         idx_coord <- grep("coord", colnames(codon))
         
         sq <- data.frame(codon[, idx_seq])
-        sq <- split(sq, seq_len(nrow(sq)/3))
+        f <- factor(as.vector(sapply(seq_len(nrow(sq)/3), rep, 3)))
+        sq <- split(sq, f)
         
         crd <- data.frame(codon[, idx_coord])
-        crd <- split(crd, seq_len(nrow(crd)/3))
+        crd <- split(crd, f)
         
-        idx <- seq(1, length(sq))
+        idx <- seq_along(sq)
         if (is.element(group, c("Z4","Z5","Z4^3","Z5^3"))) {
             codon <- lapply(idx, function(k) {
                 c(apply(sq[[k]], 2, paste, collapse = ""),
@@ -559,8 +565,8 @@ base_repl <- function(base, cube, group) {
         base[ base == alf[2] ] <- 1
         base[ base == alf[3] ] <- 2
         base[ base == alf[4] ] <- 3
-        base[ base == "-" ] <- -1
-        base[ base == "N" ] <- -1
+        base[ base == "-" ] <- NA
+        base[ base == "N" ] <- NA
     }
     
     if (group == "Z5") {
@@ -580,7 +586,12 @@ base_repl <- function(base, cube, group) {
     return(base)
 }
 
-CodonCoordZ4toZ64 <-  function(x) 4 * x[1] + 16 * x[2] + x[3]
+CodonCoordZ4toZ64 <-  function(x) {
+    if (any(is.na(x))) 
+        res <- NA
+    res <- 4 * x[1] + 16 * x[2] + x[3]
+    return(res)
+}
 CodonCoordZ5toZ125 <-  function(x) 5 * x[1] + 25 * x[2] + x[3]
 
 
