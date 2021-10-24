@@ -1,0 +1,55 @@
+---
+    title: "Get started-with GenomAutomorphism"
+author: 
+    - name: Robersy Sanchez
+affiliation: Department of Biology.
+Pennsylvania State University, University Park, PA 16802
+email: rus547@psu.edu
+date: "`r format(Sys.time(), '%d %B %Y')`"
+bibliography: bibliography.bib
+output: 
+    BiocStyle::html_document:
+    toc: true
+toc_float: true
+toc_depth: 3
+package: BiocStyle
+abstract: |
+    A fast introduction into methylation analysis with Methyl-IT is provided
+here. The methylome analysis implemented in Methyl-IT based on a
+signal-detection and machine-learning approach. Vignettes with 
+further examples are available at <https://genomaths.github.io/methylit/>.
+vignette: >
+    %\VignetteIndexEntry{Get started-with Methyl-IT}
+%\VignetteEncoding{UTF-8}
+%\VignetteEngine{knitr::knitr}
+---
+    
+    <style type="text/css">
+    
+    .sidebar {
+        font-size: 9px;
+        text-indent: 0;
+    }
+
+</style>
+    
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>"
+)
+```
+
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+```
+
+
+```{r setup, message=FALSE}
+library(GenomAutomorphism)
+```
+
+
+
+
