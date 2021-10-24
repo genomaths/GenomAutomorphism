@@ -1,18 +1,28 @@
 # GenomAutomorphism
 
+Robersy Sanchez  
+Department of Biology. Eberly College of Science.  
+Pennsylvania State University, University Park, PA 16802  
+<rus547@psu.edu>  
+[ORCID:
+orcid.org/0000-0002-5246-1453](https://orcid.org/0000-0002-5246-1453)
+
+## Overview
+
 This is a R package to compute the autimorphisms between pairwise
 aligned DNA sequences represented as elements from a Genomic Abelian
 group as described in the paper [Genomic Abelian Finite
 Groups](https://www.biorxiv.org/content/10.1101/2021.06.01.446543v2). In
 a general scenario, whole chromosomes or genomic regions from a
 population (from any species or close related species) can be
-algebraically represented as a direct sum of abelian cyclic groups or
-more specifically Abelian *p*-groups. Basically, we propose the
-representation of multiple sequence alignments (MSA) of length N as a
+algebraically represented as a direct sum of cyclic groups or more
+specifically Abelian *p*-groups. Basically, we propose the
+representation of multiple sequence alignments (MSA) of length *N* as a
 finite Abelian group created by the direct sum of Abelian group of
-prime-power order:
+*prime-power order*:
 
 *G* = (ℤ<sub>*p*<sub>1</sub><sup>*α*<sub>1</sub></sup></sub>)<sup>*n*<sub>1</sub></sup> ⊕ (ℤ<sub>*p*<sub>1</sub><sup>*α*<sub>2</sub></sup></sub>)<sup>*n*<sub>2</sub></sup> ⊕ … ⊕ (ℤ<sub>*p*<sub>*k*</sub><sup>*α*<sub>*k*</sub></sup></sub>)<sup>*n*<sub>*k*</sub></sup>
+
 Where, the *p*<sub>*i*</sub>’s are prime numbers, *α*<sub>*i*</sub> ∈ ℕ
 and ℤ<sub>*p*<sub>*i*</sub><sup>*α*<sub>*i*</sub></sup></sub> is the
 group of integer modulo *p*<sub>*i*</sub><sup>*α*<sub>*i*</sub></sup>.

@@ -20,18 +20,27 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # GenomAutomorphism
 
+Robersy Sanchez  
+Department of Biology. Eberly College of Science.  
+Pennsylvania State University, University Park, PA 16802  
+<rus547@psu.edu>  
+[ORCID:
+orcid.org/0000-0002-5246-1453](https://orcid.org/0000-0002-5246-1453)
+
+## Overview
 This is a R package to compute the autimorphisms between pairwise aligned DNA
 sequences represented as elements from a Genomic Abelian group as described in
 the paper [Genomic Abelian Finite
 Groups](https://www.biorxiv.org/content/10.1101/2021.06.01.446543v2). In a
 general scenario, whole chromosomes or genomic regions from a population 
 (from any species or close related species) can be algebraically
-represented as a direct sum of abelian cyclic groups or more specifically
+represented as a direct sum of cyclic groups or more specifically
 Abelian *p*-groups. Basically, we propose the representation of multiple sequence
-alignments (MSA) of length N as a finite Abelian group created by the direct
-sum of Abelian group of prime-power order:
+alignments (MSA) of length _N_ as a finite Abelian group created by the direct
+sum of Abelian group of _prime-power order_:
 
 $$G = (\mathbb{Z}_{p^{\alpha_{1}}_1})^{n_1} \oplus (\mathbb{Z}_{p^{\alpha_{2}}_1})^{n_2} \oplus \dots \oplus (\mathbb{Z}_{p^{\alpha_{k}}_k})^{n_k} $$
+
 Where, the $p_i$'s are prime numbers, $\alpha_i \in \mathbb{N}$ and 
 $\mathbb{Z}_{p^{\alpha_{i}}_i}$ is the group of integer modulo 
 $p^{\alpha_{i}}_i$. 
