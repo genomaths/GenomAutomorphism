@@ -20,7 +20,7 @@
 #' this function computes the automorphisms describing codon mutational events.
 #' @details Automorphisms in Z64 are described as functions 
 #' \eqn{f(x) = k x mod 64}, where k and x are elements from the set of integers
-#' modulo 64. As noticed in reference (1)
+#' modulo 64.
 #' @param seq An object from a \code{\link[Biostrings]{DNAStringSet}} or 
 #' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
 #' pairwise alignment of two sequences. The pairwise alignment provided in
@@ -139,6 +139,8 @@ automorfismos <- function(
         strand = strand)
     
     gr <- seq@SeqRanges
+    gr$coord1 <- seq@CoordList$coord1
+    gr$coord2 <- seq@CoordList$coord2
     gr$autm <- 1
     gr$cube <- cube[ 1 ]
     strands <- as.character(strand(gr))

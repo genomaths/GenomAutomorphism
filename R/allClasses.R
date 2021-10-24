@@ -74,7 +74,8 @@ setClass("Automorphism",
 valid.Automorphism.mcols <- function(x) {
     if (length(x) > 0) {
         coln <- x@colnames
-        if (any(!is.element(coln, c("seq1", "seq2", "autm", "cube")))) {
+        if (any(!is.element(coln,
+                c("seq1", "seq2", "coord1", "coord2", "autm", "cube")))) {
             return("*** This is not a valid  Automorphism-class object.",
                 "Columns from the matacolumn have the wrong names")
         }
