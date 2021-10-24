@@ -39,7 +39,11 @@ Abelian *p*-groups. Basically, we propose the representation of multiple sequenc
 alignments (MSA) of length _N_ as a finite Abelian group created by the direct
 sum of Abelian group of _prime-power order_:
 
-$$G = (\mathbb{Z}_{p^{\alpha_{1}}_1})^{n_1} \oplus (\mathbb{Z}_{p^{\alpha_{2}}_1})^{n_2} \oplus \dots \oplus (\mathbb{Z}_{p^{\alpha_{k}}_k})^{n_k} $$
+$$
+\begin{aligned}
+G = (\mathbb{Z}_{p^{\alpha_{1}}_1})^{n_1} \oplus (\mathbb{Z}_{p^{\alpha_{2}}_1})^{n_2} \oplus \dots \oplus (\mathbb{Z}_{p^{\alpha_{k}}_k})^{n_k} 
+\end{aligned}
+$$
 
 Where, the $p_i$'s are prime numbers, $\alpha_i \in \mathbb{N}$ and 
 $\mathbb{Z}_{p^{\alpha_{i}}_i}$ is the group of integer modulo 
