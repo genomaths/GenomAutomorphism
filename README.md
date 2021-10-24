@@ -21,7 +21,10 @@ representation of multiple sequence alignments (MSA) of length *N* as a
 finite Abelian group created by the direct sum of Abelian group of
 *prime-power order*:
 
-  *G* = (ℤ<sub>*p*<sub>1</sub><sup>*α*<sub>1</sub></sup></sub>)<sup>*n*<sub>1</sub></sup> ⊕ (ℤ<sub>*p*<sub>1</sub><sup>*α*<sub>2</sub></sup></sub>)<sup>*n*<sub>2</sub></sup> ⊕ … ⊕ (ℤ<sub>*p*<sub>*k*</sub><sup>*α*<sub>*k*</sub></sup></sub>)<sup>*n*<sub>*k*</sub></sup>
+$$
+\\begin{align} G = (\\mathbb{Z}\_{p^{\\alpha\_{1}}\_1})^{n\_1} \\oplus (\\mathbb{Z}\_{p^{\\alpha\_{2}}\_1})^{n\_2} \\oplus \\dots \\oplus (\\mathbb{Z}\_{p^{\\alpha\_{k}}\_k})^{n\_k} 
+\\end{align}
+$$
 
 Where, the *p*<sub>*i*</sub>’s are prime numbers, *α*<sub>*i*</sub> ∈ ℕ
 and ℤ<sub>*p*<sub>*i*</sub><sup>*α*<sub>*i*</sub></sup></sub> is the
