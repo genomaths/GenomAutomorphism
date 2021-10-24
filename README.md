@@ -22,9 +22,9 @@ finite Abelian group created by the direct sum of Abelian group of
 *prime-power order*:
 
 $$
-\\begin{aligned}
+\begin{aligned}
 G = (\\mathbb{Z}\_{p^{\\alpha\_{1}}\_1})^{n\_1} \\oplus (\\mathbb{Z}\_{p^{\\alpha\_{2}}\_1})^{n\_2} \\oplus \\dots \\oplus (\\mathbb{Z}\_{p^{\\alpha\_{k}}\_k})^{n\_k} 
-\\end{aligned}
+\end{aligned}
 $$
 
 Where, the *p*<sub>*i*</sub>’s are prime numbers, *α*<sub>*i*</sub> ∈ ℕ
