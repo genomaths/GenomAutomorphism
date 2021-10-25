@@ -1,55 +1,395 @@
 ---
-    title: "Get started-with GenomAutomorphism"
+title: "Get started-with GenomAutomorphism"
 author: 
     - name: Robersy Sanchez
-affiliation: Department of Biology.
-Pennsylvania State University, University Park, PA 16802
-email: rus547@psu.edu
+      affiliation: Department of Biology.
+                   Pennsylvania State University, University Park, PA 16802
+      email: rus547@psu.edu
 date: "`r format(Sys.time(), '%d %B %Y')`"
-bibliography: bibliography.bib
-output: 
+fontsize: 11pt
+fontfamily: "serif"
+output:
     BiocStyle::html_document:
-    toc: true
+        toc: true
+        toc_depth: 3
+        toc_float: 
+                collapsed: false
+                smooth_scroll: true
+        number_sections: true
+        theme: united 
+        geometry: margin=0.8in
+        highlight: tango
 toc_float: true
 toc_depth: 3
-package: BiocStyle
 abstract: |
-    A fast introduction into methylation analysis with Methyl-IT is provided
-here. The methylome analysis implemented in Methyl-IT based on a
-signal-detection and machine-learning approach. Vignettes with 
-further examples are available at <https://genomaths.github.io/methylit/>.
+    A fast introduction into the analysis of DNA mutational events 
+    by means of automorphisms between two DNA sequences algebraically 
+    represented as Abelian finite group.
 vignette: >
     %\VignetteIndexEntry{Get started-with Methyl-IT}
-%\VignetteEncoding{UTF-8}
-%\VignetteEngine{knitr::knitr}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteEngine{knitr::knitr}
 ---
     
-    <style type="text/css">
+<style type="text/css">
     
-    .sidebar {
-        font-size: 9px;
-        text-indent: 0;
+.watch-out {
+  max-width: 1820px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  font-weight: bold
+  font-size: 20px;
+  padding: 2px;
+}
+    
+    
+.list-group-item.active, .list-group-item.active:focus, 
+.list-group-item.active:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.main-container {
+  max-width: 1820px !important;
+  width: 1820px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body{ /* Normal  */
+    max-width: 1820px !important;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FFFFF0;
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    text-align: justify
+}
+
+pre, code {
+  max-width: 1820px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  font-weight: bold
+  font-size: 20px;
+  padding: 2px;
+}
+
+div.tocify {
+  width: 40%;
+  max-width: 300px;
+  max-height: 85%;
+}
+
+.tocify-subheader .tocify-item {
+    /* font-size: 0.80em; */ 
+    padding-left: 25px;
+    text-indent: 0;
+}
+
+.tocify-header .tocify-item {
+    /* font-size: 0.85em; */ 
+    padding-left: 20px;
+    text-indent: 0;
+}
+
+td {  /* Table  */
+    /* font-size: 8px; */
+}
+
+h1.title {
+    /* font-size: 38px; */
+    font-family: "Times New Roman", Times, serif;
+    color: DarkRed;
+    .subTitle {
+        /* font-size: 24px; */
+        font-family: "Times New Roman", Times, serif;
+        color: DarkRed;
     }
+}
+
+h1 { /* Header 1 */
+    /* font-size: 28px; */
+    font-family: "Times New Roman", Times, serif;
+    color: DarkBlue;
+}
+h2 { /* Header 2 */
+    /* font-size: 22px; */
+    color: DarkBlue;
+    font-family: "Times New Roman", Times, serif;
+}
+h3 { /* Header 3 */
+    /* font-size: 18px; */
+    color: DarkBlue;
+    font-family: "Times New Roman", Times, serif;
+}
 
 </style>
     
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
+    class.source = "watch-out",
     collapse = TRUE,
     comment = "#>"
 )
 ```
 
 
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width = 120)
+```
+
 ```{r style, echo = FALSE, results = 'asis'}
 BiocStyle::markdown()
 ```
 
+# Overview
+This is a R package to compute the autimorphisms between pairwise aligned DNA
+sequences represented as elements from a Genomic Abelian group as described in
+reference ([1](#1)). In a general scenario, whole chromosomes or genomic regions
+from a population (from any species or close related species) can be
+algebraically represented as a direct sum of cyclic groups or more specifically
+Abelian *p*-groups. Basically, we propose the representation of multiple
+sequence alignments (MSA) of length _N_ as a finite Abelian group created by the
+direct sum of Abelian group of _prime-power order_:
 
-```{r setup, message=FALSE}
+
+$$
+\qquad G = (\mathbb{Z}_{p^{\alpha_{1}}_1})^{n_1} \oplus (\mathbb{Z}_{p^{\alpha_{2}}_1})^{n_2} \oplus \dots \oplus (\mathbb{Z}_{p^{\alpha_{k}}_k})^{n_k} 
+$$
+
+Where, the $p_i$'s are prime numbers, $\alpha_i \in \mathbb{N}$ and 
+$\mathbb{Z}_{p^{\alpha_{i}}_i}$ is the group of integer modulo 
+$p^{\alpha_{i}}_i$. 
+
+For the purpose of estimating the automorphism between two aligned DNA
+sequences, $p^{\alpha_{i}}_i \in \{5, 2^6, 5^3 \}$.
+
+## Automorphisms
+
+Herein, automorphisms are considered algebraic descriptions of mutational event
+observed in codon sequences represented on different Abelian groups. In
+particular, as described in references ([3-4](#3)), for each representation of
+the codon set on a defined Abelian group there are 24 possible isomorphic
+Abelian groups. These Abelian groups can be labeled based on the DNA base-order
+used to generate them. The set of 24 Abelian groups can be described as a group
+isomorphic to the symmetric group of degree four ($S_4$, see reference
+([4](#4))).
+
+For further support about the symmetric group on the 24 Abelian group of 
+genetic-code cubes, users can also see [Symmetric Group of the Genetic-Code Cubes.](https://github.com/genomaths/GenomeAlgebra_SymmetricGroup), 
+specifically the Mathematica notebook 
+_IntroductionToZ5GeneticCodeVectorSpace.nb_ and interact with it using
+Wolfram Player, freely available (for Windows and Linux OS) at,
+<https://www.wolfram.com/player/>.
+
+
+# Read the alignment _FASTA_  and encode the sequences
+
+The FASTA file carries the pairwise sequence alignment of SARS coronavirus GZ02
+(GenBank: AY390556.1: 265-13398_13398-21485) and Bat SARS-like coronavirus
+isolate bat-SL-CoVZC45 (GenBank: MG772933.1:265-1345513455-21542), complete
+genomes.
+
+The _FASTA_ file is read and the corresponding codon sequences are represented
+in the Abelian group $\mathbb{Z}_{64}$ (i.e., the set of integers remainder
+modulo 64). The codon coordinates are requested on the cube ACGT. Following
+reference ([4](#4))), cubes are labeled based on the order of DNA bases used to
+define the sum operation.
+
+
+```{r url, message=FALSE}
 library(GenomAutomorphism)
+
+url <- paste0("https://github.com/genomaths/seqalignments/raw/master/", 
+        "COVID-19/AY390556.1_265-13398_13398-21485_RNA-POL_SARS_COVI_GZ02.fas")
+codons <- codon_coord(filepath = url, 
+                      cube = "ACGT", 
+                      group = "Z64", 
+                      start = 1, 
+                      end = 102,
+                      chr = 1L,
+                      strand = "+")
+codons
+```
+
+The codon sequences (_seq1_ and _seq2_) with their corresponding coordinates
+(left) are returned, as well as the coordinated representation on
+$\mathbb{Z}_{64}$ (_coord1_ and _coord2_).
+
+# Automorphisms on $\mathbb{Z}_{64}$
+
+Automorphisms can be computed starting directly from the _FASTA_ file.
+Notice that we can work only with genomic regions of our interest by giving 
+the _start_ and _end_ alignment coordinates. In Z64 automorphisms are described 
+as functions $f(x) = k\,x \quad mod\,64$, where $k$ and $x$ are elements from 
+the set of integers modulo 64. Below, in function _automorphism_ three important
+arguments are given values: _group = "Z64"_, _cube = c("ACGT", "TGCA")_, and
+_cube_alt = c("CATG", "GTAC")_. Setting for group specifies on which group the
+automorphisms will be computed. These groups can be: "Z5", "Z64", "Z125", and
+"Z5^3". 
+
+In groups "Z64" and "Z125" not all the mutational events can be described as
+automorphisms from a given cube. So, a character string denoting pairs of "dual"
+the genetic-code cubes, as given in references ([1-4](#2))), is given as
+argument for _cube_. That is, the base pairs from the given cubes must be
+complementary each other. Such a cube pair are call dual cubes and, as shown in
+reference ([4](#4))), each pair integrates group. If automorphisms are not found
+in first set of dual cubes, then the algorithm search for automorphism in a
+alternative set of dual cubes.
+
+
+```{r aut}
+autms <- automorphism(filepath = url, 
+                      group = "Z64", 
+                      cube = c("ACGT", "TGCA"),
+                      cube_alt = c("CATG", "GTAC"),
+                      start = 70, 
+                      end = 102)
+autms
+```
+
+Observe that two new columns were added, the automorphism coefficient $k$ (named
+as _autm_) and the genetic-code cube where the automorphism was found. By
+convention the DNA sequence is given for the positive strand. Since the _dual
+cube_ of **"ACGT"** corresponds to the complementary base order **TGCA**,
+automorphisms described by the cube **TGCA** represent mutational events
+affecting the DNA negative strand (-).
+
+
+The last result can be summarized by gene regions as follow:
+```{r range}
+aut_range <- automorphismByRanges(autms)
+aut_range
 ```
 
 
+That is, function _automorphismByRanges_ permits the classification
+of the pairwise alignment of protein-coding sub-regions based on the
+mutational events observed on it quantitatively represented as automorphisms on 
+genetic-code cubes.
 
+Searching for automorphisms on $\mathbb{Z}_{64}$ permits us a quantitative
+differentiation between mutational events at different codon positions from a
+given DNA protein-encoding region. As shown in reference ([4](#4))) a set of
+different cubes can be applied to describe the best evolutionary aminoacid scale
+highly correlated with aminoacid physicochemical properties describing the
+observed evolutionary process in a given protein.
+
+More information about this subject can be found in the supporting material from
+reference ([4](#4))) at GitHub
+[GenomeAlgebra_SymmetricGroup](https://github.com/genomaths/GenomeAlgebra_SymmetricGroup),
+particularly by interacting with the Mathematica notebook
+[Genetic-Code-Scales_of_Amino-Acids.nb](https://github.com/genomaths/GenomeAlgebra_SymmetricGroup/blob/master/Genetic-Code-Scales_of_Amino-Acids.nb).
+
+# Automorphisms between whole genomes of SARS-CoV-2 related coronaviruses
+Next, the automorphism for the whole pairwise alignment of SARS-CoV-2 related 
+coronaviruses:
+```{r aut_1}
+autms <- automorphism(filepath = url, 
+                      group = "Z64", 
+                      cube = c("ACGT", "TGCA"),
+                      cube_alt = c("CATG", "GTAC"))
+autms
+```
+
+And the summary by range
+```{r range_2}
+aut_range <- automorphismByRanges(autms)
+aut_range
+```
+
+Regions no described by automorphism can be shown as follow:
+```{r non-aut}
+idx = which(autms$cube == "None")
+autms[ idx ]
+```
+
+These codon positions cover insertion-deletion (_indel_) mutational events.
+The wholes regions can be summarized typing:
+```{r range_3}
+idx = which(aut_range$cube == "None")
+aut_range[ idx ]
+```
+
+That is, the pairwise alignment of SARS coronavirus GZ02 and Bat SARS-like
+coronavirus (bat-SL-CoVZC45) reveals four single _indel_ mutational events and
+four regions with multiple _indel_ mutations. In general, _indel_ mutational 
+event can be modeled as translations on $\mathbb{Z}_{64}$. 
+
+## Bar plot automorphism distribution by cubes
+The automorphism distribution by cubes can be summarized in the bar-plot grphic
+
+```{r barplot, fig.height = 4, fig.width = 3}
+counts <- table(autms$cube)
+
+par(family = "serif", cex = 0.8, font = 2)
+barplot(counts, main="Automorphism distribution",
+        xlab="Genetic-code cube representation",
+        col=c("darkblue","red", "darkgreen"), 
+        ylim = c(0, 7000), border = NA, axes = FALSE)
+axis(2, at = c(0, 1000, 3000, 5000, 7000))
+mtext(side = 1,line = -1.2, at = c(0.7, 1.9, 3.1),
+      text = paste0( counts ), 
+      col = c("white","red", "yellow"))
+
+```
+
+# Automorphisms on $\mathbb{Z}_{125}$
+
+Alternatively, we can use the algebraic representation on on $\mathbb{Z}_{125}$.
+
+```{r aut_2}
+autms_2 <- automorphism(filepath = url, 
+                      group = "Z125", 
+                      cube = c("ACGT", "TGCA"),
+                      cube_alt = c("CATG", "GTAC"))
+autms_2
+```
+
+And the summary by range
+```{r range_4}
+aut_range_2 <- automorphismByRanges(autms_2)
+aut_range_2
+```
+
+The whole genome can be described by automorphisms on $\mathbb{Z}_{125}$.
+```{r barplot_2, fig.height = 4, fig.width = 3}
+counts <- table(autms_2$cube)
+
+par(family = "serif", cex = 0.8, font = 2)
+barplot(counts, main="Automorphism distribution",
+        xlab="Genetic-code cube representation",
+        col=c("darkblue","red"), 
+        ylim = c(0, 7000), border = NA, axes = FALSE)
+axis(2, at = c(0, 1000, 3000, 5000, 7000))
+mtext(side = 1,line = -2, at = c(0.7, 1.9),
+      text = paste0( counts ),  
+      col = c("white","red"))
+
+```
+
+
+# References
+ 1.<a name="1"></a> Sanchez R, Morgado E, Grau R. Gene algebra from a genetic
+ code algebraic structure. J Math Biol. 2005 Oct;51(4):431-57. doi:
+ 10.1007/s00285-005-0332-8. Epub 2005 Jul 13. PMID: 16012800. (
+ [PDF](https://arxiv.org/pdf/q-bio/0412033.pdf)).
+ 
+ 2.<a name="2"></a> Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
+  Groups.
+ [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543).
+ 
+ 3.<a name="3"></a> M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24
+ possible algebraic representations of the standard genetic code in six or in
+ three dimensions, Adv. Stud. Biol. 4 (2012)
+ 119–152.[PDF](https://is.gd/na9eap).
+ 
+ 4.<a name="4"></a> R. Sanchez. Symmetric Group of the Genetic–Code Cubes.
+ Effect of the Genetic–Code Architecture on the Evolutionary Process MATCH
+ Commun. Math. Comput. Chem. 79 (2018) 527-560. [PDF](https://bit.ly/2Z9mjM7).
 

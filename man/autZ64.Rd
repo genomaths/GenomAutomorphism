@@ -50,7 +50,7 @@ this function computes the automorphisms describing codon mutational events.
 \details{
 Automorphisms in Z64 are described as functions
 \eqn{f(x) = k x mod 64}, where k and x are elements from the set of integers
-modulo 64. As noticed in reference (1)
+modulo 64.
 }
 \references{
 \enumerate{

@@ -138,10 +138,14 @@ automorfismos_Z125 <- function(
         strand = strand)
     
     gr <- seq@SeqRanges
+    gr$coord1 <- seq@CoordList$coord1
+    gr$coord2 <- seq@CoordList$coord2
     gr$autm <- 1
     gr$cube <- cube[ 1 ]
+    strands <- as.character(strand(gr))
     
-    idx <- which(seq@CoordList$coord1 != seq@CoordList$coord2)
+    idx <- seq@CoordList$coord1 != seq@CoordList$coord2
+    idx <- sort(c(which(idx), which(is.na(idx))))
     
     seq <- lapply(idx, function(k) {
         c1 <- seq@CoordList$coord1[ k ]
@@ -150,16 +154,17 @@ automorfismos_Z125 <- function(
         s <- try(modeq(c1, c2, 125)[1],
                  silent = TRUE)
         
-        if (any(s == -1)  || inherits(s, "try-error")) {
+        if (any(s == -1) || inherits(s, "try-error")) {
             s <- try(modeq(124 - c1, 124 - c2, 125)[1],
                      silent = TRUE)
-            if (!(any(s == -1) || inherits(s, "try-error")))
+            if (s != -1 && !inherits(s, "try-error")) {
                 s <- c(s, cube[ 2 ])
+            }
         } 
         else 
             s <- c(s, cube[ 1 ])
         if (any(s == -1) || inherits(s, "try-error"))
-            s <- c(NA, NA)
+            s <- c(NA, "None")
         return(s)
     })
 

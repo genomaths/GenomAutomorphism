@@ -12,7 +12,125 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-#' @rdname allClasses
+# ========================== BaseGroup ============================= #
+
+#' @aliases BaseGroup
+#' @rdname BaseGroup
+#' @title A class definition to store codon automorphisms in given in the 
+#' Abelian group representation.
+#' @seealso \code{\link{automorphism}}
+#' @export
+setClass("BaseGroup",
+         slots = c(
+             seqnames = "Rle",
+             ranges = "IRanges_OR_IPos",
+             strand = "Rle",
+             elementMetadata = "DataFrame",
+             seqinfo = "Seqinfo",
+             colnames = "character"
+         ),
+         contains = "GRanges"
+)
+
+# ====================  Validity BaseGroup ======================== #
+#' @rdname BaseGroup
+#' @title Valid BaseGroup mcols
+#' @param x A 'BaseGroup' object
+#' @keywords internal
+valid.BaseGroup.mcols <- function(x) {
+    if (length(x) > 0) {
+        coln <- x@colnames
+        if (any(!is.element(coln,
+                            c("seq1", "seq2", "coord1", "coord2")))) {
+            return("*** This is not a valid  BaseGroup-class object.",
+                   "Columns from the matacolumn have the wrong names")
+        }
+        if (unique(nchar(x$seq1)) != 1 || unique(nchar(x$seq2)) != 1) 
+            stop("*** This is not a valid  BaseGroup-class object.",
+                 "seq1 or seq2 columns is not a base sequence") 
+    }
+    NULL
+}
+
+#' @rdname BaseGroup
+#' @title Valid 'BaseGroup' inheritance from 'GRanges' class
+#' @param x A 'BaseGroup object'
+#' @keywords internal
+valid.GRanges <- function(x) {
+    if (length(x) > 0) {
+        if (!inherits(x, "GRanges")) {
+            return("*** This is not a valid  Automorphism-class object.")
+        }
+    }
+    NULL
+}
+
+#' @rdname valid.BaseGroup
+#' @title Valid BaseGroup
+#' @param x A 'BaseGroup object'
+#' @keywords internal
+valid.BaseGroup <- function(x) 
+    c(valid.GRanges(x), valid.BaseGroup.mcols(x))
+
+S4Vectors:::setValidity2("BaseGroup", valid.BaseGroup)
+
+
+# ========================== CodonGroup ============================= #
+
+#' @aliases CodonGroup
+#' @rdname CodonGroup
+#' @title A class definition to store codon automorphisms in given in the 
+#' Abelian group representation.
+#' @seealso \code{\link{automorphism}}
+#' @export
+setClass("CodonGroup",
+    slots = c(
+            seqnames = "Rle",
+            ranges = "IRanges_OR_IPos",
+            strand = "Rle",
+            elementMetadata = "DataFrame",
+            seqinfo = "Seqinfo",
+            colnames = "character"
+    ),
+    contains = "GRanges"
+)
+
+# ====================  Validity CodonGroup ======================== #
+#' @rdname CodonGroup
+#' @title Valid CodonGroup mcols
+#' @param x A 'CodonGroup' object
+#' @keywords internal
+valid.CodonGroup.mcols <- function(x) {
+    if (length(x) > 0) {
+        coln <- x@colnames
+        if (any(!is.element(coln,
+                            c("seq1", "seq2", "coord1", "coord2")))) {
+            return("*** This is not a valid  CodonGroup-class object.",
+                "Columns from the matacolumn have the wrong names")
+        }
+        if (unique(nchar(x$seq1)) != 3 || unique(nchar(x$seq2)) != 3) 
+            stop("*** This is not a valid  BaseGroup-class object.",
+                "seq1 or seq2 columns is not a base-triplet sequence") 
+    }
+    NULL
+}
+
+#' @rdname valid.CodonGroup
+#' @title Valid CodonGroup
+#' @param x A 'CodonGroup object'
+#' @keywords internal
+valid.CodonGroup <- function(x) 
+    c(valid.GRanges(x), valid.CodonGroup.mcols(x))
+
+S4Vectors:::setValidity2("CodonGroup", valid.CodonGroup)
+
+
+setClassUnion("BaseGroup_OR_CodonGroup", c("BaseGroup","CodonGroup"))
+
+
+# ========================== CodonSeq ============================= #
+
+#' @rdname CodonSeq
 #' @title A class definition to store codon coordinates given in the Abelian
 #' group and the codon sequence.
 #' @description An objects from 'CodonSeq' or 'MatrixList' class is returned by
@@ -66,7 +184,7 @@ setClass("Automorphism",
     contains = "GRanges"
 )
 
-# ========================== Validity ============================= #
+# ======================== Validity CodonSeq ======================= #
 #' @rdname Automorphism
 #' @title Valid Automorphism mcols
 #' @param x A 'Automorphism object'
@@ -78,19 +196,6 @@ valid.Automorphism.mcols <- function(x) {
                 c("seq1", "seq2", "coord1", "coord2", "autm", "cube")))) {
             return("*** This is not a valid  Automorphism-class object.",
                 "Columns from the matacolumn have the wrong names")
-        }
-    }
-    NULL
-}
-
-#' @rdname Automorphism
-#' @title Valid 'Automorphism' inheritance from 'GRanges' class
-#' @param x A 'Automorphism object'
-#' @keywords internal
-valid.GRanges <- function(x) {
-    if (length(x) > 0) {
-        if (!inherits(x, "GRanges")) {
-            return("*** This is not a valid  Automorphism-class object.")
         }
     }
     NULL
@@ -108,9 +213,10 @@ S4Vectors:::setValidity2("Automorphism", valid.Automorphism)
 
 # ======================= Show method =================================
 
+
 #' @rdname allClasses
 #' @aliases show-CodonSeq
-#' @title Show method for 'CodonSeq' or 'MatrixList' class object
+#' @title Show method for 'CodonSeq' class object
 #' @param object An object from 'CodonSeq' or 'MatrixList' class 
 #' @importFrom methods show
 #' @keywords internal
@@ -135,6 +241,8 @@ setMethod(
         invisible(object)
     }
 )
+
+# ========================== MatrixList ============================= #
 
 #' @rdname allClasses
 #' @aliases show-MatrixList
