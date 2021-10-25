@@ -13,7 +13,7 @@
 ## <http://www.gnu.org/licenses/>.
 
 #' @rdname base_coord
-#' @title Codon coordinates on a given a given Abelian group representation.
+#' @title Base coordinates on a given a given Abelian group representation.
 #' @description Given a string denoting a codon or base from the DNA (or RNA) 
 #' alphabet and a genetic-code Abelian group as given in reference (1).
 #' @param base An object from a \code{\link[Biostrings]{DNAStringSet}} or 
@@ -64,17 +64,20 @@
 #' @examples 
 #' ## Load a pairwise alignment 
 #' data(aln)
+#' aln
 #' 
 #' ## DNA base representation in the Abelian group Z4
 #' bs_cor <- base_coord(
 #'     base = aln, 
 #'     cube = "ACGT")
+#' bs_cor
 #' 
 #' ## DNA base representation in the Abelian group Z5
 #' bs_cor <- base_coord(
 #'     base = aln, 
 #'     cube = "ACGT",
 #'     group = "Z5")
+#' bs_cor
 #'     
 #' @aliases base_coord
 #' @export

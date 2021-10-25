@@ -19,6 +19,7 @@
 #' @title A class definition to store codon automorphisms in given in the 
 #' Abelian group representation.
 #' @seealso \code{\link{automorphism}}
+#' @keywords internal
 #' @export
 setClass("BaseGroup",
          slots = c(
@@ -82,6 +83,7 @@ S4Vectors:::setValidity2("BaseGroup", valid.BaseGroup)
 #' @title A class definition to store codon automorphisms in given in the 
 #' Abelian group representation.
 #' @seealso \code{\link{automorphism}}
+#' @keywords internal
 #' @export
 setClass("CodonGroup",
     slots = c(
@@ -141,7 +143,7 @@ setClassUnion("BaseGroup_OR_CodonGroup", c("BaseGroup","CodonGroup"))
 #' @import GenomicRanges
 #' @importFrom S4Vectors setValidity2
 #' @importFrom methods validObject
- 
+#' @keywords internal
 #' @aliases CodonSeq
 #' @export
 setClass("CodonSeq",
@@ -153,6 +155,7 @@ setClass("CodonSeq",
 
 #' @aliases MatrixList
 #' @rdname allClasses
+#' @keywords internal
 #' @export
 setClass("MatrixList",
         slots = c(
@@ -171,6 +174,7 @@ setClassUnion("DNAStringSet_OR_NULL",
 #' @title A class definition to store codon automorphisms in given in the 
 #' Abelian group representation.
 #' @seealso \code{\link{automorphism}}
+#' @keywords internal
 #' @export
 setClass("Automorphism",
     slots = c(

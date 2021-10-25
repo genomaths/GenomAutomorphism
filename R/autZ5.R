@@ -60,6 +60,15 @@
 #'  Comput. Chem. 79 (2018) 527-560. [PDF](https://bit.ly/2Z9mjM7).
 #' }
 #' @seealso \code{\link{automorphism}}
+#' @examples 
+#' ## Load a pairwise alignment
+#' data(aln)
+#' aln
+#' 
+#' ## Automorphism on Z5
+#' autms <- autZ5(seq = aln)
+#' autms
+#' 
 
 autZ5 <- function( 
     seq = NULL,

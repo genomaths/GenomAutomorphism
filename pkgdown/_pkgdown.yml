@@ -3,13 +3,7 @@ url: https://genomaths.github.io/GenomAutomorphism/
     
 navbar:
   structure:
-    left:
-    - home
-    - intro
-    - reference
-    - articles
-    - tutorials
-    - news
+    left:  [home, intro, reference, articles, news, github]
   components:
     home:
       icon: "fas fa-home fa-lg"
@@ -42,6 +36,24 @@ home:
       href: https://genomaths.com
     - text: Affiliation (<img src="https://git.psu.edu/genomath/MethylIT_data/raw/master/penn-state-lion.png" height="24" /> PennState)
       href: https://bio.psu.edu/directory/rus547
+
+authors:
+  Robersy Sanchez:
+    href: https://genomaths.com
+
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#0054AD"
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
+
+  params:
+    ganalytics: UA-115082821-1
+
+development:
+  mode: auto
+
 
 reference:
 - title: Codon and DNA Base Algebraic Representation

@@ -13,9 +13,10 @@
 ## <http://www.gnu.org/licenses/>.
 
 #' @rdname matrices
-#' @title Codon coordinates on a given a given Abelian group representation.
-#' @description Given a string denoting a codon or base from the DNA (or RNA) 
-#' alphabet and a genetic-code Abelian group as given in reference (1).
+#' @title Get the Coordinate Representation from DNA Sequences on Specified 
+#' Abelian Group
+#' @description Extract the Coordinate Representation from DNA Sequences on 
+#' Specified Abelian Group.
 #' @param x An object from a \code{\link[Biostrings]{DNAStringSet}} or 
 #' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
 #' pairwise alignment of two sequences. 
@@ -26,7 +27,7 @@
 #' \emph{\strong{fasta}} format to be read. This argument must be given if 
 #' \emph{codon & base} arguments are not provided.
 #' @param cube A character string denoting one of the 24 Genetic-code cubes,
-#' as given in references (2 2 3).
+#' as given in references (2-3).
 #' @param start,end,chr,strand Optional parameters required to build a 
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default 
 #' values given for the function definition will be used.
@@ -56,6 +57,9 @@
 #' @importFrom methods new
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
+#' @return The a list of vectors (group = c("Z4", "Z5", "Z64", "Z125") or a 
+#' list of matrices (group = ("Z4^3", "Z5^3")) carrying the coordinate
+#' representation on the specified Abelian group.
 #' @references 
 #' \enumerate{
 #'  \item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite 
@@ -68,7 +72,30 @@
 #'  Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math. 
 #'  Comput. Chem. 79 (2018) 527-560.
 #' }
+#' @examples 
+#' ## Load a pairwise alignment
+#' data(aln)
+#' aln
 #' 
+#' ## Coordinate representation of the aligned sequences on "Z4".
+#' ## A list of vectors
+#' matrices(
+#'     x = aln,
+#'     base_seq = TRUE,
+#'     filepath = NULL,
+#'     cube = "ACGT",
+#'     group = "Z4",
+#' )
+#' 
+#' ## Coordinate representation of the aligned sequences on "Z4".
+#' ## A list of matrices
+#' matrices(
+#'     x = aln,
+#'     base_seq = FALSE,
+#'     filepath = NULL,
+#'     cube = "ACGT",
+#'     group = "Z5^3",
+#' )
 #' @aliases matrices
 setGeneric("matrices",
     function(
@@ -99,11 +126,14 @@ setMethod("matrices", signature(x = "DNAStringSet_OR_NULL"),
             base_seq = TRUE,
             filepath = NULL,
             cube = "ACGT",
-            group = "Z4",
+            group = c("Z4","Z5", "Z64", "Z125", "Z4^3", "Z5^3"),
             start = NA,
             end = NA,
             chr = 1L,
             strand = "+") {
+        
+        
+        group <- match.arg(group)
         
         if (!is.null(filepath)) 
             x <- NULL
@@ -119,7 +149,7 @@ setMethod("matrices", signature(x = "DNAStringSet_OR_NULL"),
                         strand = strand)
         }
         else {
-            x <- matrices(
+            x <- codon_coord(
                         codon = x,
                         filepath = filepath,
                         cube = cube,

@@ -59,6 +59,15 @@
 #'  Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math. 
 #'  Comput. Chem. 79 (2018) 527-560. [PDF](https://bit.ly/2Z9mjM7).
 #' }
+#' @examples 
+#' ## Load a pairwise alignment
+#' data(aln)
+#' aln
+#' 
+#' ## Automorphism on Z64
+#' autms <- autZ64(seq = aln)
+#' autms
+#' 
 autZ64 <- function( 
     seq = NULL,
     filepath = NULL,

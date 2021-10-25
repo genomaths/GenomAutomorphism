@@ -66,6 +66,7 @@
 #' @examples 
 #' ## Load a pairwise alignment 
 #' data(aln)
+#' aln
 #' 
 #' ## DNA base representation in the Abelian group Z5
 #' bs_cor <- codon_coord(

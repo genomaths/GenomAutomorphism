@@ -52,6 +52,16 @@ Automorphisms in Z125 are described as functions
 \eqn{f(x) = k x mod 64}, where k and x are elements from the set of integers
 modulo 64. As noticed in reference (1)
 }
+\examples{
+## Load a pairwise alignment
+data(aln)
+aln
+
+## Automorphism on Z125
+autms <- autZ125(seq = aln)
+autms
+
+}
 \references{
 \enumerate{
 \item Sanchez R, Morgado E, Grau R. Gene algebra from a genetic code

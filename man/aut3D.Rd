@@ -52,6 +52,16 @@ Automorphisms in Z5^3' are described as functions
 \eqn{f(x) = A x mod Z5}, where A is diagonal matrix, as noticed in
 reference (4).
 }
+\examples{
+## Load a pairwise alignment
+data(aln)
+aln
+
+## Automorphism on Z125
+autms <- aut3D(seq = aln)
+autms
+
+}
 \references{
 \enumerate{
 \item Sanchez R, Morgado E, Grau R. Gene algebra from a genetic code

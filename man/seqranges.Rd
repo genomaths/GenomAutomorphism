@@ -4,8 +4,8 @@
 \alias{seqranges}
 \alias{seqranges,CodonSeq-method}
 \alias{seqranges,DNAStringSet_OR_NULL-method}
-\title{Extract the Gene Ranges and Coordinate Representation on a
-Abelian Group.}
+\title{Get DNA sequence Ranges and Coordinates representation on a given
+Abelian Group}
 \usage{
 seqranges(x, ...)
 
@@ -16,8 +16,6 @@ seqranges(x, ...)
   granges = TRUE,
   base_seq = TRUE,
   filepath = NULL,
-  cube = "ACGT",
-  group = "Z4",
   start = NA,
   end = NA,
   chr = 1L,
@@ -41,19 +39,19 @@ number of the DNA bases in the given sequences must be multiple of 3.}
 \emph{\strong{fasta}} format to be read. This argument must be given if
 \emph{codon & base} arguments are not provided.}
 
-\item{cube}{A character string denoting one of the 24 Genetic-code cubes,
-as given in references (2 2 3).}
-
-\item{group}{A character string denoting the group representation for the
-given base or codon as shown in reference (1).}
-
 \item{start, end, chr, strand}{Optional parameters required to build a
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
+
+\item{cube}{A character string denoting one of the 24 Genetic-code cubes,
+as given in references (2-3).}
+
+\item{group}{A character string denoting the group representation for the
+given base or codon as shown in reference (1).}
 }
 \description{
-Extract the Gene Ranges and Coordinates from a Pairwise
-Alignment of Codon/Base Sequences on a iven Abelian Group Representation.
+Extract the gene ranges and coordinates from a pairwise
+alignment of codon/base sequences represented on a given Abelian group.
 }
 \details{
 This function provide an alternative way to get the codon coordinate
@@ -66,24 +64,21 @@ alignment from a file.
 \examples{
 ## Load a pairwise alignment
 data(aln)
+aln
 
-## DNA codon representation in the Abelian group Z64
-coord <- get_coord(
-            x = aln,
-            base_seq = FALSE,
-            cube = "ACGT",
-            group = "Z64")
-coord
-
-## Extract the sequence list
-seqranges(coord)
-
-## Extract the sequence list directly from the alignment
+## A GRanges object carrying the aligned DNA sequence.
 seqranges(
-        x = aln,
-        base_seq = FALSE,
-        cube = "ACGT",
-        group = "Z64")
+    x = aln,
+    base_seq = TRUE,
+    filepath = NULL,
+)
+
+## A GRanges object carrying the aligned codon sequence.
+seqranges(
+    x = aln,
+    base_seq = FALSE,
+    filepath = NULL,
+)
         
 }
 \references{
@@ -100,8 +95,8 @@ Comput. Chem. 79 (2018) 527-560.
 }
 }
 \seealso{
-\code{\link{matrices}, \code{\link{codon_coord}, and
-\code{\link{base_coord}.
+\code{\link{matrices}}, \code{\link{codon_coord}}, and
+\code{\link{base_coord}}.
 }
 \author{
 Robersy Sanchez \url{https://genomaths.com}

@@ -52,6 +52,16 @@ modulo 64. As noticed in reference (1).
 The pairwise alignment provided in argument \emph{\strong{seq}} or the
 'fasta' file \emph{\strong{filepath}} must correspond to DNA base sequences.
 }
+\examples{
+## Load a pairwise alignment
+data(aln)
+aln
+
+## Automorphism on Z5
+autms <- autZ5(seq = aln)
+autms
+
+}
 \references{
 \enumerate{
 \item Sanchez R, Morgado E, Grau R. Gene algebra from a genetic code

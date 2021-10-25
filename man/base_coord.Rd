@@ -3,7 +3,7 @@
 \name{base_coord}
 \alias{base_coord}
 \alias{base_coord,DNAStringSet_OR_NULL-method}
-\title{Codon coordinates on a given a given Abelian group representation.}
+\title{Base coordinates on a given a given Abelian group representation.}
 \usage{
 base_coord(base = NULL, filepath = NULL, cube = "ACGT", group = "Z4", ...)
 
@@ -59,17 +59,20 @@ are just used for the further insertion the codon set in the 3D space (R^3).
 \examples{
 ## Load a pairwise alignment 
 data(aln)
+aln
 
 ## DNA base representation in the Abelian group Z4
 bs_cor <- base_coord(
     base = aln, 
     cube = "ACGT")
+bs_cor
 
 ## DNA base representation in the Abelian group Z5
 bs_cor <- base_coord(
     base = aln, 
     cube = "ACGT",
     group = "Z5")
+bs_cor
     
 }
 \references{

@@ -109,6 +109,33 @@ Arguments \emph{\strong{cube}} and \emph{\strong{cube_alt}} must be pairs of
 dual cubes (see section 2.4 from reference 4).
 }
 }
+\examples{
+## Load a pairwise alignment
+data(aln)
+aln
+
+## Automorphism on "Z5^3"
+autms <- automorphism(seq = aln, group = "Z5^3")
+autms
+
+## Automorphism on "Z64"
+autms <- automorphism(seq = aln, group = "Z64")
+autms
+
+## Grouping into ranges the automorphisms by cubes 
+automorphismByRanges(autms)
+
+## Automorphism on "Z64" from position 1 to 33
+autms <- automorphism(seq = aln,
+                      group = "Z64",
+                      start = 1,
+                      end = 33)
+autms
+
+## Grouping into ranges the automorphisms by cubes 
+automorphismByRanges(autms)
+
+}
 \references{
 \enumerate{
 \item Sanchez R, Morgado E, Grau R. Gene algebra from a genetic code

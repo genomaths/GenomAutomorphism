@@ -4,7 +4,8 @@
 \alias{matrices}
 \alias{matrices,CodonSeq_OR_MatrixList-method}
 \alias{matrices,DNAStringSet_OR_NULL-method}
-\title{Codon coordinates on a given a given Abelian group representation.}
+\title{Get the Coordinate Representation from DNA Sequences on Specified
+Abelian Group}
 \usage{
 matrices(x, ...)
 
@@ -15,7 +16,7 @@ matrices(x, ...)
   base_seq = TRUE,
   filepath = NULL,
   cube = "ACGT",
-  group = "Z4",
+  group = c("Z4", "Z5", "Z64", "Z125", "Z4^3", "Z5^3"),
   start = NA,
   end = NA,
   chr = 1L,
@@ -36,7 +37,7 @@ number of the DNA bases in the given sequences must be multiple of 3.}
 \emph{codon & base} arguments are not provided.}
 
 \item{cube}{A character string denoting one of the 24 Genetic-code cubes,
-as given in references (2 2 3).}
+as given in references (2-3).}
 
 \item{group}{A character string denoting the group representation for the
 given base or codon as shown in reference (1).}
@@ -45,9 +46,14 @@ given base or codon as shown in reference (1).}
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
 }
+\value{
+The a list of vectors (group = c("Z4", "Z5", "Z64", "Z125") or a
+list of matrices (group = ("Z4^3", "Z5^3")) carrying the coordinate
+representation on the specified Abelian group.
+}
 \description{
-Given a string denoting a codon or base from the DNA (or RNA)
-alphabet and a genetic-code Abelian group as given in reference (1).
+Extract the Coordinate Representation from DNA Sequences on
+Specified Abelian Group.
 }
 \details{
 These are alternative ways to get the list of matrices of base/codon
@@ -63,6 +69,31 @@ matrices of coordinate for a DNA or codon sequence. While in function
 \code{\link{seqranges}}, \emph{\strong{granges}} parameter will determine
 whether to return a \code{\link[GenomicRanges]{GRanges-class}} object or a
 \code{\link[S4Vectors]{DataFrame}}.
+}
+\examples{
+## Load a pairwise alignment
+data(aln)
+aln
+
+## Coordinate representation of the aligned sequences on "Z4".
+## A list of vectors
+matrices(
+    x = aln,
+    base_seq = TRUE,
+    filepath = NULL,
+    cube = "ACGT",
+    group = "Z4",
+)
+
+## Coordinate representation of the aligned sequences on "Z4".
+## A list of matrices
+matrices(
+    x = aln,
+    base_seq = FALSE,
+    filepath = NULL,
+    cube = "ACGT",
+    group = "Z5^3",
+)
 }
 \references{
 \enumerate{

@@ -4,7 +4,8 @@
 \alias{get_coord}
 \alias{get_coord,BaseGroup_OR_CodonGroup-method}
 \alias{get_coord,DNAStringSet_OR_NULL-method}
-\title{Codon coordinates on a given a given Abelian group representation.}
+\title{DNA base/codon sequence and coordinates represented on a given Abelian
+group.}
 \usage{
 get_coord(x, ...)
 
@@ -64,7 +65,10 @@ if \emph{output = "matrix.list"}, then an object from
 }
 \description{
 Given a string denoting a codon or base from the DNA (or RNA)
-alphabet and a genetic-code Abelian group as given in reference (1).
+alphabet and a genetic-code Abelian group as given in reference (1), this
+function returns an object from \code{\link{CodonSeq}} class carrying the
+DNA base/codon sequence and coordinates represented on the given Abelian
+group.
 }
 \details{
 Symbols "-" and "N" usually found in DNA sequence alignments to
@@ -82,6 +86,7 @@ preserve the base/codon sequence information.
 \examples{
 ## Load a pairwise alignment 
 data(aln)
+aln
 
 ## DNA base representation in the Abelian group Z5
 coord <- get_coord(
