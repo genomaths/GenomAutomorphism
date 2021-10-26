@@ -32,8 +32,35 @@ vignette: >
 ---
     
 <style type="text/css">
+
+.watch-out {
+  max-width: 1820px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  font-weight: bold
+  font-size: 100%;
+  padding: 2px;
+}
+
+pre, code {
+  max-width: 1820px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  font-weight: bold
+  font-size: 100px;
+  padding: 2px;
+}
+
+code {
+    font-size: 100%;
+    font-family: Consolas,Monaco,"Courier New",monospace;
+    border-radius: 0;
+}
+
 code.r{
-  font-size: 24px;
+  font-size: 100%;
 }
 </style>
 
@@ -48,10 +75,6 @@ knitr::opts_chunk$set(
 
 ```{r set-options, echo=FALSE, cache=FALSE}
 options(width = 120)
-```
-
-```{r style, echo = FALSE, results = 'asis'}
-BiocStyle::markdown()
 ```
 
 # Overview

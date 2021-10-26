@@ -1,4 +1,6 @@
-# GenomAutomorphism
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# GenomAutomorphism [<img src="man/figures/logo.png" align="right" />](https://genomaths.github.io/genomautomorphism)
 
 Robersy Sanchez  
 Department of Biology. Eberly College of Science.  
