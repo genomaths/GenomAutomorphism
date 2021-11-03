@@ -12,7 +12,7 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-# ========================== BaseGroup ============================= #
+## ========================== BaseGroup ============================= 
 
 #' @aliases BaseGroup
 #' @rdname BaseGroup
@@ -76,7 +76,7 @@ valid.BaseGroup <- function(x)
 S4Vectors:::setValidity2("BaseGroup", valid.BaseGroup)
 
 
-# ========================== CodonGroup ============================= #
+## ========================== CodonGroup ============================= 
 
 #' @aliases CodonGroup
 #' @rdname CodonGroup
@@ -130,7 +130,7 @@ S4Vectors:::setValidity2("CodonGroup", valid.CodonGroup)
 setClassUnion("BaseGroup_OR_CodonGroup", c("BaseGroup","CodonGroup"))
 
 
-# ========================== CodonSeq ============================= #
+## ========================== CodonSeq ============================= 
 
 #' @rdname CodonSeq
 #' @title A class definition to store codon coordinates given in the Abelian
@@ -168,6 +168,7 @@ setClassUnion("CodonSeq_OR_MatrixList", c("CodonSeq", "MatrixList"))
 setClassUnion("DNAStringSet_OR_NULL",
               c("DNAStringSet", "DNAMultipleAlignment", "NULL", "missing"))
 
+## ========================== Automorphism ============================= 
 
 #' @aliases Automorphism
 #' @rdname Automorphism
@@ -188,19 +189,26 @@ setClass("Automorphism",
     contains = "GRanges"
 )
 
-# ======================== Validity CodonSeq ======================= #
+
+# ======================== Validity Automorphism ======================= #
 #' @rdname Automorphism
 #' @title Valid Automorphism mcols
 #' @param x A 'Automorphism object'
 #' @keywords internal
 valid.Automorphism.mcols <- function(x) {
     if (length(x) > 0) {
+        m1 <- m2 <- FALSE
         coln <- x@colnames
         if (any(!is.element(coln,
-                c("seq1", "seq2", "coord1", "coord2", "autm", "cube")))) {
-            return("*** This is not a valid  Automorphism-class object.",
-                "Columns from the matacolumn have the wrong names")
+                            c("seq1", "seq2", "coord1", 
+                              "coord2", "autm", "cube")))) {
+            m1 <- TRUE
         }
+        if (unique(nchar(x$seq1)) != 3 || unique(nchar(x$seq2)) != 3) 
+            m2 <- TRUE 
+        
+        if (m1 || m2)
+            return("*** This is not a valid Automorphism-class object.")
     }
     NULL
 }
@@ -215,7 +223,239 @@ valid.Automorphism <- function(x)
 S4Vectors:::setValidity2("Automorphism", valid.Automorphism)
 
 
-# ======================= Show method =================================
+## ========================== AutomorphismList ============================= 
+
+#' @rdname Automorphism
+#' @title A class definition to store list of Automorphism class objects.
+#' @description A class definition to store list of Automorphism class objects
+#' derivad from the pairwise automorphism estimation from pairwise 
+#' alignments.
+#' @import GenomicRanges
+#' @importFrom S4Vectors setValidity2
+#' @importFrom methods validObject
+#' @keywords internal
+#' @export
+#' @aliases AutomorphismList
+setClass("AutomorphismList",
+    slots = c(
+            DataList = "list",
+            SeqRanges = "GenomicRanges_OR_missing"
+    )
+)
+
+
+
+#' @rdname Automorphism
+#' @title AutomorphismList-class object constructor from a list.
+#' @description The function build a AutomorphismList-class object from a
+#' list of \code{\link[S4Vectors]{DataFrame}} or a \code{\link{Automorphism}}
+#' class object.
+#' @param x A \code{\link[S4Vectors]{DataFrame}} or a 
+#' \code{\link{Automorphism}} class object.
+#' @param gr A \code{\link[GenomicRanges]{GRanges}}
+#' @importFrom GenomicRanges GRanges GRangesList
+#' @importFrom S4Vectors mcols DataFrame
+
+#' @aliases as.AutomorphismList
+#' @importFrom GenomicRanges GRanges GRangesList
+#' @importFrom S4Vectors mcols
+#' @export
+setGeneric("as.AutomorphismList",
+    function(
+            x,
+            ...)
+        standardGeneric("as.AutomorphismList"))
+
+
+#' @rdname Automorphism
+#' @aliases as.AutomorphismList
+#' @export
+setMethod("as.AutomorphismList", 
+        signature(x = "GRangesList"),
+    function(
+        x,
+        ...) {
+              
+        grs <- x[[1]]
+        mcols(grs) <- NULL
+        
+        x <- lapply(x, function(y) {
+            x <- as(x, "Automorphism")
+            gr <- x
+            mcols(gr) <- NULL
+            if (gr != grs)
+                stop("*** The ranges from the GRanges-class objects 
+                    must equals.")
+            return(mcols(x))
+        })
+        
+        new("AutomorphismList", 
+            DataList = x,
+            SeqRanges = grs
+        )
+    }
+)
+
+
+#' @rdname Automorphism
+#' @aliases as.AutomorphismList
+#' @importFrom GenomicRanges GRanges
+#' @export
+setMethod("as.AutomorphismList", 
+        signature(x = "list"),
+    function(
+            x,
+            grs = GRanges(),
+            ...) {
+        
+        if (all(sapply(x, function(y) inherits(y, "GRanges")))) {
+            if (length(grs) == length(x)) {
+                grs <- x
+                mcols(grs) <- NULL
+            }
+            
+            x <- lapply(x, function(y) {
+                    x <- as(x, "Automorphism")
+                    return(mcols(x))
+                })
+            
+            x <- new("AutomorphismList", 
+                        DataList = x,
+                        SeqRanges = grs
+                    )
+        }
+        
+        if (all(sapply(x, function(y) inherits(y, "DataFrame")))) {
+            x <- new("AutomorphismList", 
+                     DataList = x,
+                     SeqRanges = grs
+            )
+        }
+        return(x)
+    }
+)
+
+
+#' @rdname Automorphism
+#' @aliases as.AutomorphismList
+#' @export
+setMethod("names", signature = "AutomorphismList",
+    function(x) names(x@DataList)
+)
+
+#' @rdname Automorphism
+#' @aliases as.AutomorphismList
+#' @export
+setReplaceMethod("names", "AutomorphismList",
+    function(x, value) {
+        names(x@DataList) <- value 
+        return(x)
+    }
+)
+
+# ======================== Validity .AutomorphismList ================== #
+#' @rdname Automorphism
+#' @title Valid AutomorphismList mcols
+#' @param x A 'AutomorphismList object'
+#' @importFrom S4Vectors mcols
+#' @keywords internal
+
+valid.AutomorphismList <- function(x) {
+    m1 <- m2 <- FALSE
+    if (any(sapply(x@DataList, 
+        function(y) {
+            if (inherits(y, "DataFrame")) 
+                coln <- colnames(y)
+            if (inherits(y, "GRanges")) 
+                coln <- colnames(mcols(y))
+            if (any(!is.element(coln,
+                    c("seq1", "seq2", "coord1", "coord2",
+                    "autm", "cube")))) {
+                m1 <- TRUE
+            }
+            if (unique(nchar(y$seq1)) != 3 || unique(nchar(y$seq2)) != 3) 
+                m2 <- TRUE 
+            return(m1 || m2)
+        }
+    )))
+    return("*** This is not a valid AutomorphismList
+                        class object.")
+
+    NULL
+}
+
+S4Vectors:::setValidity2("AutomorphismList", valid.AutomorphismList)
+
+
+## ========================= Show AutomorphismList ========================== #
+
+#' @rdname allClasses
+#' @aliases show-AutomorphismList
+#' @title Show method for 'AutomorphismList' class object
+#' @param object An object from 'AutomorphismList' class
+#' @importFrom methods show
+#' @importFrom S4Vectors mcols
+#' @keywords internal
+#' @export
+setMethod(
+    "show",
+    signature = "AutomorphismList",
+    definition = function(object) {
+        nams <- names(object@DataList)
+        l <- length(nams)
+        if (l > 10) {
+            nams <- nams[ c(1:4, l - 2, l - 1, l) ]
+            nams[ 4 ] <- "..."
+        }
+        cat(class(object)," object of length: ",
+            length(object@DataList), "\n", sep = "")
+        cat(paste0("names(", l, "):"), nams, "\n")
+        cat("------- \n")
+        gr <- object@SeqRanges
+        mcols(gr) <- object@DataList[[1]]
+        print(as(gr, "Automorphism"))
+        cat("...\n")
+        cat("<", l - 1, " more ",
+            class(object@DataList[[1]])[1], " element(s)>\n",
+            sep = "")
+        cat("Two slots: 'DataList' & 'SeqRanges'\n")
+        cat("------- \n")
+        invisible(object)
+    }
+)
+
+
+
+
+
+setMethod("names", signature = "AutomorphismList",
+          function(x) names(x@DataList)
+)
+
+
+setReplaceMethod("names", "AutomorphismList",
+    function(x, value) {
+        names(x@DataList) <- value
+        return(x)
+    }
+)
+
+
+# ============================= MatrixList =============================
+
+
+#' @aliases MatrixList
+#' @rdname allClasses
+#' @keywords internal
+#' @export
+setClass("MatrixList",
+         slots = c(
+             matrices = "list",
+             names = "character"
+         )
+)
+
+## ======================= Show methods =================================
 
 
 #' @rdname allClasses
@@ -246,7 +486,7 @@ setMethod(
     }
 )
 
-# ========================== MatrixList ============================= #
+## ========================= Show MatrixList ============================= #
 
 #' @rdname allClasses
 #' @aliases show-MatrixList

@@ -4,12 +4,16 @@
 \name{MatrixList-class}
 \alias{MatrixList-class}
 \alias{MatrixList}
+\alias{names,AutomorphismList-method}
+\alias{show-AutomorphismList}
 \alias{show,CodonSeq-method}
 \alias{show-CodonSeq}
 \alias{show,MatrixList-method}
 \alias{show-MatrixList}
-\title{Show method for 'CodonSeq' class object}
+\title{Show method for 'AutomorphismList' class object}
 \usage{
+\S4method{names}{AutomorphismList}(x)
+
 \S4method{show}{CodonSeq}(object)
 
 \S4method{show}{MatrixList}(object)
@@ -18,6 +22,8 @@
 \item{object}{An object from 'MatrixList' class}
 }
 \description{
+Show method for 'AutomorphismList' class object
+
 Show method for 'CodonSeq' class object
 
 Show method for 'MatrixList' class object

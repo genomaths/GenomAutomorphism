@@ -3,34 +3,43 @@
 \name{automorphism}
 \alias{automorphism}
 \alias{automorphism,DNAStringSet_OR_NULL-method}
-\alias{automorphismByRanges,Automorphism-method}
 \alias{automorphismByRanges}
+\alias{automorphismByRanges,Automorphism-method}
+\alias{automorphismByCoef}
+\alias{automorphismByCoef,Automorphism-method}
+\alias{getAutomorphisms}
+\alias{getAutomorphisms,AutomorphismList-method}
 \title{Compute the Automorphisms of Mutational Events Between two Codon
 Sequences Represented in a Given Abelian group.}
 \usage{
-automorphism(seq = NULL, filepath = NULL, group = "Z4", ...)
+automorphism(seqs = NULL, filepath = NULL, group = "Z4", ...)
 
 \S4method{automorphism}{DNAStringSet_OR_NULL}(
-  seq = NULL,
+  seqs = NULL,
   filepath = NULL,
   group = c("Z5", "Z64", "Z125", "Z5^3"),
   cube = c("ACGT", "TGCA"),
   cube_alt = c("CATG", "GTAC"),
+  nms = NULL,
   start = NA,
   end = NA,
   chr = 1L,
   strand = "+"
 )
 
+automorphismByRanges(autm, ...)
+
 \S4method{automorphismByRanges}{Automorphism}(autm)
+
+automorphismByCoef(autm, ...)
+
+\S4method{automorphismByCoef}{Automorphism}(autm)
+
+getAutomorphisms(x, ...)
+
+\S4method{getAutomorphisms}{AutomorphismList}(x)
 }
 \arguments{
-\item{seq}{An object from a \code{\link[Biostrings]{DNAStringSet}} or
-\code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
-pairwise alignment of two sequences. The pairwise alignment provided in
-argument \emph{\strong{seq}} or the 'fasta' file \emph{\strong{filepath}}
-must correspond to codon sequences.}
-
 \item{filepath}{A character vector containing the path to a file in
 \emph{\strong{fasta}} format to be read. This argument must be given if
 \emph{codon & base} arguments are not provided.}
@@ -43,12 +52,23 @@ cubes, as given in references (2-3). That is, the base pairs from the given
 cubes must be complementary each other. Such a cube pair are call
 \eqn{dual cubes} and, as shown in reference (3), each pair integrates group.}
 
+\item{nms}{Optional. Only used if the DNA sequence alignment provided carries
+more than two sequences. A character string giving short names for the
+alignments to be compared. If not given then the automorphisms between
+pairwise alignment are named as: "aln_1", "aln_2", and so on.}
+
 \item{start, end, chr, strand}{Optional parameters required to build a
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
 
-\item{autm}{An Automorphism-class object returned by function
+\item{autm}{An automorphism-class object returned by function
 \code{\link{automorphism}}.}
+
+\item{seq}{An object from a \code{\link[Biostrings]{DNAStringSet}} or
+\code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
+pairwise alignment of two sequences. The pairwise alignment provided in
+argument \emph{\strong{seq}} or the 'fasta' file \emph{\strong{filepath}}
+must correspond to codon sequences.}
 }
 \value{
 \subsection{automorphism:}{
@@ -63,6 +83,20 @@ columns on its metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and
 This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
 Consecutive mutational events (on the codon sequence) described by
 automorphisms on a same cube are grouped in a range.
+}
+
+\subsection{automorphismByCoef}{
+
+This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
+Consecutive mutational events (on the codon sequence) described by
+the same automorphism coefficients are grouped in a range.
+}
+
+\subsection{getAutomorphisms}{
+
+it returns an AutomorphismList-class object as a list of Automorphism-class
+objects, which inherits from \code{\link[GenomicRanges]{GRanges-class}}
+objects.
 }
 }
 \description{

@@ -64,6 +64,10 @@
 #' cubes, as given in references (2-3). That is, the base pairs from the given 
 #' cubes must be complementary each other. Such a cube pair are call 
 #' \eqn{dual cubes} and, as shown in reference (3), each pair integrates group.
+#' @param nms Optional. Only used if the DNA sequence alignment provided carries
+#' more than two sequences. A character string giving short names for the
+#' alignments to be compared. If not given then the automorphisms between 
+#' pairwise alignment are named as: "aln_1", "aln_2", and so on.
 #' @param start,end,chr,strand Optional parameters required to build a 
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default 
 #' values given for the function definition will be used.
@@ -79,6 +83,16 @@
 #' This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
 #' Consecutive mutational events (on the codon sequence) described by 
 #' automorphisms on a same cube are grouped in a range.
+#' 
+#' ## automorphismByCoef
+#' This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
+#' Consecutive mutational events (on the codon sequence) described by 
+#' the same automorphism coefficients are grouped in a range.
+#' 
+#' ## getAutomorphisms
+#' it returns an AutomorphismList-class object as a list of Automorphism-class
+#' objects, which inherits from \code{\link[GenomicRanges]{GRanges-class}} 
+#' objects.
 #' 
 #' @seealso \code{\link{autZ64}}.
 #' @importFrom numbers modlin
@@ -129,7 +143,7 @@
 #' @export
 setGeneric("automorphism",
     function(
-            seq = NULL,
+            seqs = NULL,
             filepath = NULL,
             group = "Z4",
             ...)
@@ -137,65 +151,123 @@ setGeneric("automorphism",
 
 #' @aliases automorphism
 #' @rdname automorphism
+#' @importFrom foreach foreach %dopar% %:%
+#' @importFrom doParallel registerDoParallel
+#' @importFrom stats setNames
+#' @importFrom parallel detectCores makeCluster stopCluster
+#' @importFrom BiocGenerics width 
+#' @import Biostrings
 #' @export
-setMethod("automorphism", signature(seq = "DNAStringSet_OR_NULL"),
+setMethod("automorphism", signature(seqs = "DNAStringSet_OR_NULL"),
     function( 
-            seq = NULL,
+            seqs = NULL,
             filepath = NULL,
             group = c("Z5", "Z64", "Z125", "Z5^3"),
             cube = c("ACGT", "TGCA"),
             cube_alt = c("CATG", "GTAC"),
+            nms = NULL,
             start = NA,
             end = NA,
             chr = 1L,
             strand = "+") {
         
+        if (is.null(seqs) && is.null(filepath)) 
+            stop("*** One of the arguments 'seqs' or 'filepath' must
+                be provided.")
+        
         group <- match.arg(group)
         
-        seq <- switch(group,
-                    "Z5" = autZ5(
-                                seq = seq,
-                                filepath = filepath,
-                                cube = cube,
-                                cube_alt = cube_alt,
-                                start = start,
-                                end = end,
-                                chr = chr,
-                                strand = strand),
-                    "Z64" = autZ64(
-                                seq = seq,
-                                filepath = filepath,
-                                cube = cube,
-                                cube_alt = cube_alt,
-                                start = start,
-                                end = end,
-                                chr = chr,
-                                strand = strand),
-                    "Z5^3" = aut3D(
-                                seq = seq,
-                                filepath = filepath,
-                                cube = cube,
-                                cube_alt = cube_alt,
-                                start = start,
-                                end = end,
-                                chr = chr,
-                                strand = strand),
-                    "Z125" = autZ125(
-                        seq = seq,
-                        filepath = filepath,
-                        cube = cube,
-                        cube_alt = cube_alt,
-                        start = start,
-                        end = end,
-                        chr = chr,
-                        strand = strand)
-        )
-        return(seq)
+        if (!is.null(filepath) && is.character(filepath)) 
+            seqs <- readDNAMultipleAlignment(filepath = filepath)
+        
+        if (inherits(seqs, "DNAStringSet"))
+            nr <- length(y)
+        
+        if (inherits(seqs, "DNAMultipleAlignment"))
+            nr <- nrow(seqs)
+        
+        if (nr < 3) {
+            seqs <- selectAutomorphism(
+                                    seq = seqs, 
+                                    filepath = filepath, 
+                                    group = group, 
+                                    cube = cube, 
+                                    cube_alt = cube_alt, 
+                                    start = start, 
+                                    end = end, 
+                                    chr = chr, 
+                                    strand = strand)
+        } 
+        else {
+            
+            gr <- seqs@unmasked[ c(1, 1) ]
+            gr <- selectAutomorphism(
+                seq = gr, 
+                filepath = NULL, 
+                group = group, 
+                cube = cube, 
+                cube_alt = cube_alt, 
+                start = start, 
+                end = end, 
+                chr = chr, 
+                strand = strand)
+            mcols(gr) <- NULL
+
+            ## ------------ Setting up parallel computation ------------ #
+            no_cores <- detectCores() - 1  
+            cl <- makeCluster(no_cores, type="FORK")  
+            registerDoParallel(cl)  
+            
+            if (is.null(nms)) 
+                nms <- paste0("aln_", seq_len(nr))
+            nams <- function(x) {
+                nms <- rev(nms[ (length(nms) - seq_along(x) + 1) ] )
+                nms
+            }
+            
+            ## -------------------------------------------------------- #
+            
+            seqs <- try(foreach(k = seq_len(nr - 1), 
+                        .final = function(x) setNames(x, nms[ -nr ])) %:%
+                        foreach(j = seq((k + 1), nr, 1), 
+                            .final = function(x) setNames(x, nams(x))) %dopar%
+                {
+                    aln <- seqs@unmasked[ c(k, j) ]
+                    
+                    aln <- selectAutomorphism(
+                                            seq = aln, 
+                                            filepath = NULL, 
+                                            group = group, 
+                                            cube = cube, 
+                                            cube_alt = cube_alt, 
+                                            start = start, 
+                                            end = end, 
+                                            chr = chr, 
+                                            strand = strand)
+                    mcols(aln)
+                }, silent = TRUE)
+            
+            if (inherits(seqs, "try-error"))  {   
+                stopCluster(cl)
+                stop("*** Automorphism cannot be computed from
+                     the MSA.")
+            }
+            else {
+                stopCluster(cl)
+                seqs <- unlist(seqs, recursive = FALSE)
+                seqs <- as.AutomorphismList(seqs, grs = gr)
+            }
+        }
+
+        return(seqs)
     }
 )
 
 
+## ========================== automorphismByRanges ============================
+
 #' @aliases automorphismByRanges
+#' @rdname automorphism
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @export
 setGeneric("automorphismByRanges",
@@ -207,7 +279,7 @@ setGeneric("automorphismByRanges",
 
 #' @aliases automorphismByRanges
 #' @rdname automorphism
-#' @param autm An Automorphism-class object returned by function 
+#' @param autm An automorphism-class object returned by function 
 #' \code{\link{automorphism}}.
 #' @importFrom data.table data.table
 #' @export
@@ -237,6 +309,161 @@ setMethod("automorphismByRanges", signature(autm = "Automorphism"),
         return(autm)
     }
 )
+
+## ========================== automorphismByCoef ============================
+
+#' @aliases automorphismByCoef
+#' @rdname automorphism
+#' @importFrom GenomicRanges makeGRangesFromDataFrame
+#' @export
+setGeneric("automorphismByCoef",
+           function(
+               autm,
+               ...)
+               standardGeneric("automorphismByCoef"))
+
+#' @aliases automorphismByCoef
+#' @rdname automorphism
+#' @param autm An automorphism-class object returned by function 
+#' \code{\link{automorphism}}.
+#' @importFrom data.table data.table
+#' @export
+setMethod("automorphismByCoef", signature(autm = "Automorphism"),
+    function(autm) {
+        i <- 1
+        l <- length(autm)
+        idx <- vector(mode = "numeric", length = length(autm))
+        coefs <- autm$autm[1]
+        for (k in seq_len(l)) {
+            if ( autm$autm[k] != coefs ) {
+                i <- i + 1
+                coefs <- autm$autm[k]
+            } 
+            idx[ k ] <- i
+        }
+        
+        autm$idx <- factor(idx)
+        autm <- data.table(data.frame(autm))
+        autm <- autm[, list(
+            seqnames = unique(seqnames), start = min(start),
+            end = max(end), strand = unique(strand), 
+            autm = unique(autm),
+            cube = unique(cube)), 
+            by = idx ]
+        autm <- autm[, c( "seqnames", "start", "end", 
+                          "strand", "autm", "cube") ]
+        autm <- makeGRangesFromDataFrame(autm, keep.extra.columns = TRUE)
+        return(autm)
+    }
+)
+
+
+#' @rdname automorphism
+#' @aliases getAutomorphisms
+#' @importFrom GenomicRanges GRanges GRangesList
+#' @importFrom S4Vectors mcols
+#' @export
+setGeneric("getAutomorphisms",
+           function(
+               x,
+               ...)
+               standardGeneric("getAutomorphisms"))
+
+
+#' @rdname automorphism
+#' @aliases getAutomorphisms
+#' @importFrom GenomicRanges GRanges
+#' @export
+setMethod("getAutomorphisms", signature = "AutomorphismList",
+          function(x) {
+              gr <- x@SeqRanges
+              x <- x@DataList  
+              x <- lapply(x, function(y) {
+                  mcols(gr) <- y
+                  x <- as(x, "Automorphism")
+                  return(gr)
+              })
+              new("AutomorphismList", 
+                  DataList = x,
+                  SeqRanges = GRanges()
+              )
+          }
+)
+
+
+setMethod("[", "AutomorphismList", 
+    function(x, i, ...) {
+        x@DataList <- x@DataList[ i ]
+        return(x)
+    }
+)
+
+## ===================== Auxiliary functions ===========================
+
+selectAutomorphism <- function(
+    seq, 
+    filepath, 
+    group, 
+    cube, 
+    cube_alt, 
+    start, 
+    end, 
+    chr, 
+    strand) {
+    
+    seq <- switch(group,
+                  "Z5" = autZ5(
+                      seq = seq,
+                      filepath = filepath,
+                      cube = cube,
+                      cube_alt = cube_alt,
+                      start = start,
+                      end = end,
+                      chr = chr,
+                      strand = strand),
+                  "Z64" = autZ64(
+                      seq = seq,
+                      filepath = filepath,
+                      cube = cube,
+                      cube_alt = cube_alt,
+                      start = start,
+                      end = end,
+                      chr = chr,
+                      strand = strand),
+                  "Z5^3" = aut3D(
+                      seq = seq,
+                      filepath = filepath,
+                      cube = cube,
+                      cube_alt = cube_alt,
+                      start = start,
+                      end = end,
+                      chr = chr,
+                      strand = strand),
+                  "Z125" = autZ125(
+                      seq = seq,
+                      filepath = filepath,
+                      cube = cube,
+                      cube_alt = cube_alt,
+                      start = start,
+                      end = end,
+                      chr = chr,
+                      strand = strand)
+    )
+    return(seq)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

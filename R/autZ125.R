@@ -156,33 +156,35 @@ automorfismos_Z125 <- function(
     idx <- seq@CoordList$coord1 != seq@CoordList$coord2
     idx <- sort(c(which(idx), which(is.na(idx))))
     
-    seq <- lapply(idx, function(k) {
-        c1 <- seq@CoordList$coord1[ k ]
-        c2 <- seq@CoordList$coord2[ k ]
-        
-        s <- try(modeq(c1, c2, 125)[1],
-                 silent = TRUE)
-        
-        if (any(s == -1) || inherits(s, "try-error")) {
-            s <- try(modeq(124 - c1, 124 - c2, 125)[1],
+    if (length(idx) != 0) {
+        seq <- lapply(idx, function(k) {
+            c1 <- seq@CoordList$coord1[ k ]
+            c2 <- seq@CoordList$coord2[ k ]
+            
+            s <- try(modeq(c1, c2, 125)[1],
                      silent = TRUE)
-            if (s != -1 && !inherits(s, "try-error")) {
-                s <- c(s, cube[ 2 ])
-            }
-        } 
-        else 
-            s <- c(s, cube[ 1 ])
-        if (any(s == -1) || inherits(s, "try-error"))
-            s <- c(NA, "None")
-        return(s)
-    })
-
-    seq <- do.call(rbind, seq)
-    seq <- data.frame(seq)
-    colnames(seq) <- c("autm", "cube")
-    seq$autm <- suppressWarnings(as.numeric(seq$autm))
-    gr$autm[ idx ] <- seq$autm
-    gr$cube[ idx ] <- seq$cube
+            
+            if (any(s == -1) || inherits(s, "try-error")) {
+                s <- try(modeq(124 - c1, 124 - c2, 125)[1],
+                         silent = TRUE)
+                if (s != -1 && !inherits(s, "try-error")) {
+                    s <- c(s, cube[ 2 ])
+                }
+            } 
+            else 
+                s <- c(s, cube[ 1 ])
+            if (any(s == -1) || inherits(s, "try-error"))
+                s <- c(NA, "None")
+            return(s)
+        })
+    
+        seq <- do.call(rbind, seq)
+        seq <- data.frame(seq)
+        colnames(seq) <- c("autm", "cube")
+        seq$autm <- suppressWarnings(as.numeric(seq$autm))
+        gr$autm[ idx ] <- seq$autm
+        gr$cube[ idx ] <- seq$cube
+    }
     return(gr)
 }
 
