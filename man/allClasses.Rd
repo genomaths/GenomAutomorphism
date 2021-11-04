@@ -4,7 +4,8 @@
 \name{MatrixList-class}
 \alias{MatrixList-class}
 \alias{MatrixList}
-\alias{names,AutomorphismList-method}
+\alias{DNAStringSet_OR_NULL-class}
+\alias{show,AutomorphismList-method}
 \alias{show-AutomorphismList}
 \alias{show,CodonSeq-method}
 \alias{show-CodonSeq}
@@ -12,7 +13,7 @@
 \alias{show-MatrixList}
 \title{Show method for 'AutomorphismList' class object}
 \usage{
-\S4method{names}{AutomorphismList}(x)
+\S4method{show}{AutomorphismList}(object)
 
 \S4method{show}{CodonSeq}(object)
 

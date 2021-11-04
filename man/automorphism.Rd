@@ -5,10 +5,13 @@
 \alias{automorphism,DNAStringSet_OR_NULL-method}
 \alias{automorphismByRanges}
 \alias{automorphismByRanges,Automorphism-method}
+\alias{automorphismByRanges,AutomorphismList-method}
 \alias{automorphismByCoef}
 \alias{automorphismByCoef,Automorphism-method}
 \alias{getAutomorphisms}
 \alias{getAutomorphisms,AutomorphismList-method}
+\alias{getAutomorphisms,list-method}
+\alias{getAutomorphisms,DataFrame_OR_data.frame-method}
 \title{Compute the Automorphisms of Mutational Events Between two Codon
 Sequences Represented in a Given Abelian group.}
 \usage{
@@ -31,6 +34,14 @@ automorphismByRanges(autm, ...)
 
 \S4method{automorphismByRanges}{Automorphism}(autm)
 
+\S4method{automorphismByRanges}{AutomorphismList}(
+  autm,
+  min.len = 1L,
+  num.cores = detectCores(),
+  tasks = 0L,
+  verbose = TRUE
+)
+
 automorphismByCoef(autm, ...)
 
 \S4method{automorphismByCoef}{Automorphism}(autm)
@@ -38,6 +49,10 @@ automorphismByCoef(autm, ...)
 getAutomorphisms(x, ...)
 
 \S4method{getAutomorphisms}{AutomorphismList}(x)
+
+\S4method{getAutomorphisms}{list}(x)
+
+\S4method{getAutomorphisms}{DataFrame_OR_data.frame}(x)
 }
 \arguments{
 \item{filepath}{A character vector containing the path to a file in
@@ -63,6 +78,17 @@ values given for the function definition will be used.}
 
 \item{autm}{An automorphism-class object returned by function
 \code{\link{automorphism}}.}
+
+\item{num.cores, tasks}{Integers. Argument \emph{num.cores} denotes the
+number of cores to use, i.e. at most how many child processes will be run
+simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
+BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
+job. value must be a scalar integer >= 0L. In this documentation a job is
+defined as a single call to a function, such as
+\code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
+argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
+as possible over the number of workers (see
+\code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).}
 
 \item{seq}{An object from a \code{\link[Biostrings]{DNAStringSet}} or
 \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
@@ -94,9 +120,9 @@ the same automorphism coefficients are grouped in a range.
 
 \subsection{getAutomorphisms}{
 
-it returns an AutomorphismList-class object as a list of Automorphism-class
-objects, which inherits from \code{\link[GenomicRanges]{GRanges-class}}
-objects.
+This function returns an AutomorphismList-class object as a list of
+Automorphism-class objects, which inherits from
+\code{\link[GenomicRanges]{GRanges-class}} objects.
 }
 }
 \description{

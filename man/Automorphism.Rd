@@ -4,14 +4,16 @@
 \name{Automorphism-class}
 \alias{Automorphism-class}
 \alias{Automorphism}
+\alias{AutomorphismList}
+\alias{DataFrame_OR_data.frame-class}
 \alias{valid.Automorphism.mcols}
 \alias{AutomorphismList-class}
-\alias{AutomorphismList}
 \alias{as.AutomorphismList}
 \alias{as.AutomorphismList,GRangesList-method}
 \alias{as.AutomorphismList,list-method}
 \alias{names,AutomorphismList-method}
 \alias{names<-,AutomorphismList-method}
+\alias{as.list,AutomorphismList-method}
 \alias{valid.AutomorphismList}
 \title{A class definition to store codon automorphisms in given in the
 Abelian group representation.}
@@ -28,6 +30,8 @@ as.AutomorphismList(x, ...)
 
 \S4method{names}{AutomorphismList}(x) <- value
 
+\S4method{as.list}{AutomorphismList}(x)
+
 valid.AutomorphismList(x)
 }
 \arguments{
@@ -36,6 +40,10 @@ valid.AutomorphismList(x)
 \item{gr}{A \code{\link[GenomicRanges]{GRanges}}}
 }
 \description{
+Two classes are involved in to storing codon automorphisms:
+\emph{\strong{Automorphism-class}} and
+\emph{\strong{AutomorphismList-class}}.
+
 A class definition to store list of Automorphism class objects
 derivad from the pairwise automorphism estimation from pairwise
 alignments.
@@ -43,6 +51,40 @@ alignments.
 The function build a AutomorphismList-class object from a
 list of \code{\link[S4Vectors]{DataFrame}} or a \code{\link{Automorphism}}
 class object.
+}
+\details{
+\emph{\strong{Automorphism-class}} has the method.
+\subsection{as(from, "Automorphism")}{
+
+Permits the transformation of a \code{\link[base]{data.frame}} or a
+\code{\link[S4Vectors]{DataFrame-class}} object into
+\emph{\strong{Automorphism-class}} object the proper columns are provided. An
+\emph{\strong{Automorphism-class}} object has six columns: "seq1", "seq2",
+"coord1", "coord2", "autm", and "cube". See the examples for function
+\code{\link{automorphism}}. Observe that as the
+\emph{\strong{Automorphism-class}} inherits from
+\code{\link[GenomicRanges]{GRanges-class}} the transformation starting from a
+\code{\link[GenomicRanges]{GRanges-class}} object into an
+\emph{\strong{Automorphism-class}} is straightforward. However, the
+transformation starting from a \code{\link[base]{data.frame}} or a
+\code{\link[S4Vectors]{DataFrame-class}} object \eqn{"x"} requires for the
+creation of an additional \code{\link[GenomicRanges]{GRanges-class}} object,
+which by default will have the argument seqnames = "1", strand = "+"
+start/end = 1:nrow(x), length = nrow(x). These details must be keep in mind
+to prevent fundamental errors in the downstream analyses.
+}
+
+\subsection{\emph{\strong{AutomorphismList-class}} has the methods}{
+\subsection{as.AutomorphismList}{
+
+\emph{\strong{as.AutomorphismList}} function transform a list of
+\code{\link[GenomicRanges]{GRanges-class}}, a
+\code{\link[GenomicRanges]{GRangesList-class}}, a list of
+\code{\link[base]{data.frame}} or a \code{\link[S4Vectors]{DataFrame-class}}
+objects into a \emph{\strong{AutomorphismList-class}} object.
+}
+
+}
 }
 \seealso{
 \code{\link{automorphism}}

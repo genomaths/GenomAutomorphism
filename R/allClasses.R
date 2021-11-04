@@ -165,15 +165,52 @@ setClass("MatrixList",
 )
 
 setClassUnion("CodonSeq_OR_MatrixList", c("CodonSeq", "MatrixList"))
+
+#' @importFrom S4Vectors setValidity2
+#' @importFrom Biostrings DNAMultipleAlignment DNAMultipleAlignment
+#' @rdname allClasses
+#' @keywords internal
+#' @export
 setClassUnion("DNAStringSet_OR_NULL",
               c("DNAStringSet", "DNAMultipleAlignment", "NULL", "missing"))
 
 ## ========================== Automorphism ============================= 
 
 #' @aliases Automorphism
+#' @aliases AutomorphismList
 #' @rdname Automorphism
 #' @title A class definition to store codon automorphisms in given in the 
 #' Abelian group representation.
+#' @description Two classes are involved in to storing codon automorphisms:
+#' \emph{\strong{Automorphism-class}} and 
+#' \emph{\strong{AutomorphismList-class}}.
+#' @details \emph{\strong{Automorphism-class}} has the method.
+#' ## as(from, "Automorphism")
+#' Permits the transformation of a \code{\link[base]{data.frame}} or a
+#' \code{\link[S4Vectors]{DataFrame-class}} object into
+#' \emph{\strong{Automorphism-class}} object the proper columns are provided. An
+#' \emph{\strong{Automorphism-class}} object has six columns: "seq1", "seq2",
+#' "coord1", "coord2", "autm", and "cube". See the examples for function
+#' \code{\link{automorphism}}. Observe that as the
+#' \emph{\strong{Automorphism-class}} inherits from
+#' \code{\link[GenomicRanges]{GRanges-class}} the transformation starting from a
+#' \code{\link[GenomicRanges]{GRanges-class}} object into an
+#' \emph{\strong{Automorphism-class}} is straightforward. However, the
+#' transformation starting from a \code{\link[base]{data.frame}} or a
+#' \code{\link[S4Vectors]{DataFrame-class}} object \eqn{"x"} requires for the
+#' creation of an additional \code{\link[GenomicRanges]{GRanges-class}} object,
+#' which by default will have the argument seqnames = "1", strand = "+"
+#' start/end = 1:nrow(x), length = nrow(x). These details must be keep in mind
+#' to prevent fundamental errors in the downstream analyses.
+#' 
+#' ## \emph{\strong{AutomorphismList-class}} has the methods
+#' ### as.AutomorphismList
+#' \emph{\strong{as.AutomorphismList}} function transform a list of
+#' \code{\link[GenomicRanges]{GRanges-class}}, a
+#' \code{\link[GenomicRanges]{GRangesList-class}}, a list of
+#' \code{\link[base]{data.frame}} or a \code{\link[S4Vectors]{DataFrame-class}}
+#' objects into a \emph{\strong{AutomorphismList-class}} object.
+#' 
 #' @seealso \code{\link{automorphism}}
 #' @keywords internal
 #' @export
@@ -187,6 +224,36 @@ setClass("Automorphism",
         colnames = "character"
     ),
     contains = "GRanges"
+)
+
+#' @rdname Automorphism
+#' @importFrom S4Vectors DataFrame
+#' @keywords internal
+#' @export
+setClassUnion("DataFrame_OR_data.frame",
+              c("DataFrame", "data.frame"))
+
+#' @importFrom GenomicRanges GRanges
+#' @importFrom S4Vectors mcols
+#' @importFrom GenomeInfoDb Seqinfo
+#' @importFrom IRanges IRanges
+setAs("DataFrame_OR_data.frame", "Automorphism", 
+    function(from) {
+        nr <- nrow(from)
+        pos = seq(1, nr, 1)
+        gr <- GRanges(seqnames = 1, 
+                    ranges = IRanges(start = pos, end = pos),
+                    strand = "+")
+        mcols(gr) <- from
+        
+        new("Automorphism",
+            seqnames = seqnames(gr),
+            ranges = ranges(gr),
+            strand = strand(gr),
+            elementMetadata = from,
+            seqinfo = seqinfo(gr),
+            colnames = colnames(from))
+    }
 )
 
 
@@ -231,7 +298,7 @@ S4Vectors:::setValidity2("Automorphism", valid.Automorphism)
 #' derivad from the pairwise automorphism estimation from pairwise 
 #' alignments.
 #' @import GenomicRanges
-#' @importFrom S4Vectors setValidity2
+#' @import S4Vectors
 #' @importFrom methods validObject
 #' @keywords internal
 #' @export
@@ -242,8 +309,6 @@ setClass("AutomorphismList",
             SeqRanges = "GenomicRanges_OR_missing"
     )
 )
-
-
 
 #' @rdname Automorphism
 #' @title AutomorphismList-class object constructor from a list.
@@ -337,14 +402,12 @@ setMethod("as.AutomorphismList",
 
 
 #' @rdname Automorphism
-#' @aliases as.AutomorphismList
 #' @export
 setMethod("names", signature = "AutomorphismList",
     function(x) names(x@DataList)
 )
 
 #' @rdname Automorphism
-#' @aliases as.AutomorphismList
 #' @export
 setReplaceMethod("names", "AutomorphismList",
     function(x, value) {
@@ -352,6 +415,14 @@ setReplaceMethod("names", "AutomorphismList",
         return(x)
     }
 )
+
+#' @rdname Automorphism
+#' @export
+setMethod("as.list", signature = "AutomorphismList",
+    function(x) 
+        return(x@DataList)
+)
+
 
 # ======================== Validity .AutomorphismList ================== #
 #' @rdname Automorphism
@@ -412,7 +483,10 @@ setMethod(
         cat(paste0("names(", l, "):"), nams, "\n")
         cat("------- \n")
         gr <- object@SeqRanges
-        mcols(gr) <- object@DataList[[1]]
+        if (length(gr) > 0)
+            mcols(gr) <- object@DataList[[1]]
+        else
+            gr <- object@DataList[[1]]
         print(as(gr, "Automorphism"))
         cat("...\n")
         cat("<", l - 1, " more ",
