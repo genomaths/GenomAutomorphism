@@ -12,11 +12,11 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-#' Simulated \code{\link[Biostrings]{DNAStringSet}} class object
+#' Automorphisms between DNA Sequences from Primate Somatic Cytochrome C
+#' 
+#' This is a \code{\link{AutomorphismList}} object carrying a list of pairwise
+#' automorphisms between the DNA sequences from the MSA of primate somatic 
+#' cytochrome C from the \code{\link{cyc_aln}} dataset.
 #'
-#' This is a \code{\link[Biostrings]{DNAStringSet}} carrying a small pairwise 
-#' DNA sequence alignment to be used in the examples provided for the 
-#' package functions. 
-#'
-#' @format \code{\link[Biostrings]{DNAStringSet}} class object.
-"aln"
+#' @format \code{\link{AutomorphismList} class object.
+"autm"

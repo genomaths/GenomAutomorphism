@@ -1,6 +1,6 @@
 ## Copyright (C) 2021 Robersy Sanchez <https://genomaths.com/>
 ## Author: Robersy Sanchez This file is part of the R package
-## 'GenomAutomorphism'.  'GenomAutomorphism' is free
+## 'GenomAutomorphism'.  'GenomAutomorphism' is a free
 ## software: you can redistribute it and/or modify it under the
 ## terms of the GNU General Public License as published by the Free
 ## Software Foundation, either version 3 of the License, or (at
@@ -181,7 +181,7 @@ setMethod("automorphism", signature(seqs = "DNAStringSet_OR_NULL"),
             seqs <- readDNAMultipleAlignment(filepath = filepath)
         
         if (inherits(seqs, "DNAStringSet"))
-            nr <- length(y)
+            nr <- length(seqs)
         
         if (inherits(seqs, "DNAMultipleAlignment"))
             nr <- nrow(seqs)
