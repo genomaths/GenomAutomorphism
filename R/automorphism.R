@@ -426,9 +426,75 @@ setMethod("automorphismByCoef", signature(autm = "Automorphism"),
         autm <- autm[, c( "seqnames", "start", "end", 
                           "strand", "autm", "cube") ]
         autm <- makeGRangesFromDataFrame(autm, keep.extra.columns = TRUE)
+        return(as(autm, "AtomorphismByCoef"))
+    }
+)
+
+
+
+#' @aliases automorphismByCoef
+#' @rdname automorphism
+#' @param autm An AutomorphismList-class object returned by function 
+#' \code{\link{automorphism}}.
+#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the 
+#' number of cores to use, i.e. at most how many child processes will be run
+#' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
+#' BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
+#' job. value must be a scalar integer >= 0L. In this documentation a job is
+#' defined as a single call to a function, such as
+#' \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
+#' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
+#' as possible over the number of workers (see
+#' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
+#' @importFrom GenomicRanges GRangesList
+#' @importFrom parallel detectCores
+#' @importFrom BiocParallel MulticoreParam bplapply SnowParam
+#' @importFrom data.table data.table
+#' @export
+setMethod("automorphismByCoef", signature(autm = "AutomorphismList"),
+    function(
+            autm,
+            min.len = 1L,
+            num.cores = detectCores(),
+            tasks = 0L,
+            verbose = TRUE) {
+              
+        gr <- try(autm@SeqRanges, silent = TRUE)
+        if (!inherits(gr, "try-error"))  
+            autm <- getAutomorphisms(autm)
+        
+        autm <- autm@DataList
+        
+        ## ---------------- Setting parallel distribution --------- ##
+        
+        if (num.cores > 1) 
+            num.cores <- num.cores - 1
+        progressbar = FALSE
+        if (verbose) progressbar = TRUE
+        if (Sys.info()["sysname"] == "Linux")
+            bpparam <- MulticoreParam(workers = num.cores, tasks = tasks,
+                                      progressbar = progressbar)
+        else bpparam <- SnowParam(workers = num.cores, type = "SOCK",
+                                  progressbar = progressbar)
+        
+        ## ------------------------------------------------------- ##
+        
+        if (length(gr) > 0) {
+            autm <- lapply(autm, function(x) {
+                mcols(gr) <- x
+                x <- automorphismByCoef(x)
+                return(x)
+            })
+        }
+        
+        idx <- which(sapply(autm, function(x) length(x) > min.len))
+        autm <- autm[ idx ]
+        
+        # return(as(autm, "AtomorphismByCoefList"))
         return(autm)
     }
 )
+
 
 ## ========================== getAutomorphisms ============================
 

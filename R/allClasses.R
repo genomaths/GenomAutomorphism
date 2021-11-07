@@ -499,9 +499,6 @@ setMethod(
 )
 
 
-
-
-
 setMethod("names", signature = "AutomorphismList",
           function(x) names(x@DataList)
 )
@@ -513,6 +510,163 @@ setReplaceMethod("names", "AutomorphismList",
         return(x)
     }
 )
+
+## ========================== AtomorphismByCoef =========================== 
+
+#' @aliases AtomorphismByCoef
+#' @rdname Automorphism
+#' @title A class definition to store conserved gene/genomic regions found
+#' in a MSA. 
+#' @keywords internal
+#' @export
+setClass("AtomorphismByCoef",
+        contains = "GRanges"
+)
+
+# ======================== Validity AtomorphismByCoef ================== #
+#' @rdname Automorphism
+#' @title Valid AtomorphismByCoef mcols
+#' @param x A 'AtomorphismByCoef object'
+#' @importFrom S4Vectors mcols
+#' @keywords internal
+
+valid.AtomorphismByCoef <- function(x) {
+    coln <- colnames(mcols(x))
+    if (!inherits(x, "GRanges") || 
+        any(!is.element(coln,  c("autm", "cube")))) 
+        return("*** This is not a valid AtomorphismByCoef
+                class object.")
+    else
+        NULL
+}
+
+S4Vectors:::setValidity2("AtomorphismByCoef", valid.AtomorphismByCoef)
+
+## ========================= AtomorphismByCoefList ====================== 
+
+#' @aliases AtomorphismByCoefList
+#' @rdname Automorphism
+#' @title A class definition for a list of AtomorphismByCoef class objects. 
+#' @keywords internal
+#' @export
+setClass(
+    "AtomorphismByCoefList",
+    slots = c(  elementMetadata = "DataFrame",
+                elementType = "character",
+                metadata = "list",
+                listData = "list"),
+    contains = "SimpleGRangesList"
+)
+
+as_list_of_AtomorphismByCoef <- function(from)
+    lapply(from, as, Class = "AtomorphismByCoef")
+
+setAs("list", "AtomorphismByCoefList", function(from) {
+    from <- as_list_of_AtomorphismByCoef(from)
+    from <- S4Vectors:::new_SimpleList_from_list(Class = "SimpleGRangesList",
+                                                x = from)
+    new("AtomorphismByCoefList", from)
+})
+
+# ===================== Validity AtomorphismByCoefList ================== #
+#' @rdname Automorphism
+#' @title Valid AtomorphismByCoefList mcols
+#' @param x A 'AtomorphismByCoefList object'
+#' @importFrom S4Vectors mcols
+#' @keywords internal
+
+valid.AtomorphismByCoefList <- function(x) {
+    if (any(!sapply(x, validObject)) || any(sapply(x, function(y) {
+        coln <- colnames(mcols(y))
+        !is.element(coln,  c("autm", "cube"))
+        }))) 
+        return("*** This is not a valid AtomorphismByCoefList
+                class object.")
+    else
+        NULL
+}
+
+S4Vectors:::setValidity2("AtomorphismByCoefList", 
+                        valid.AtomorphismByCoefList)
+
+
+
+## ========================== ConservedRegion =========================== 
+
+#' @aliases ConservedRegion
+#' @rdname Automorphism
+#' @title A class definition to store conserved gene/genomic regions found
+#' in a MSA. 
+#' @keywords internal
+#' @export
+setClass("ConservedRegion",
+        contains = "GRanges"
+)
+
+# ======================== Validity ConservedRegion ================== #
+#' @rdname Automorphism
+#' @title Valid ConservedRegion mcols
+#' @param x A 'ConservedRegion object'
+#' @importFrom S4Vectors mcols
+#' @keywords internal
+
+valid.ConservedRegion <- function(x) {
+    coln <- colnames(mcols(x))
+    if (!inherits(x, "GRanges") || 
+        any(!is.element(coln,  c("autm", "cube")))) 
+        return("*** This is not a valid ConservedRegion
+                class object.")
+    else
+        NULL
+}
+
+S4Vectors:::setValidity2("ConservedRegion", valid.ConservedRegion)
+
+## ========================= ConservedRegionList ====================== 
+
+#' @aliases ConservedRegionList
+#' @rdname Automorphism
+#' @title A class definition for a list of ConservedRegion class objects. 
+#' @keywords internal
+#' @export
+setClass(
+    "ConservedRegionList",
+    slots = c(  elementMetadata = "DataFrame",
+                elementType = "character",
+                metadata = "list",
+                listData = "list"),
+    contains = "SimpleGRangesList"
+)
+
+as_list_of_ConservedRegion <- function(from)
+    lapply(from, as, Class = "ConservedRegion")
+
+setAs("list", "ConservedRegionList", function(from) {
+    from <- as_list_of_ConservedRegion(from)
+    from <- S4Vectors:::new_SimpleList_from_list(Class = "SimpleGRangesList",
+                                                x = from)
+    new("ConservedRegionList", from)
+})
+
+# ===================== Validity ConservedRegionList ================== #
+#' @rdname Automorphism
+#' @title Valid ConservedRegionList mcols
+#' @param x A 'ConservedRegionList object'
+#' @importFrom S4Vectors mcols
+#' @keywords internal
+
+valid.ConservedRegionList <- function(x) {
+    coln <- colnames(mcols(x))
+    if (any(!sapply(x, validObject)) || any(sapply(x, function(y) 
+        coln != "autm"))) 
+        return("*** This is not a valid ConservedRegionList
+                class object.")
+    else
+        NULL
+}
+
+S4Vectors:::setValidity2("ConservedRegionList", valid.ConservedRegionList)
+
 
 
 # ============================= MatrixList =============================

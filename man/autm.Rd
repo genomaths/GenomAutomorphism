@@ -5,7 +5,7 @@
 \alias{autm}
 \title{Automorphisms between DNA Sequences from Primate Somatic Cytochrome C}
 \format{
-\code{\link{AutomorphismList} class object.
+\code{\link{AutomorphismList}} class object.
 }
 \usage{
 autm

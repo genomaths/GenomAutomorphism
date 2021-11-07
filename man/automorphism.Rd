@@ -8,6 +8,7 @@
 \alias{automorphismByRanges,AutomorphismList-method}
 \alias{automorphismByCoef}
 \alias{automorphismByCoef,Automorphism-method}
+\alias{automorphismByCoef,AutomorphismList-method}
 \alias{getAutomorphisms}
 \alias{getAutomorphisms,AutomorphismList-method}
 \alias{getAutomorphisms,list-method}
@@ -46,6 +47,14 @@ automorphismByCoef(autm, ...)
 
 \S4method{automorphismByCoef}{Automorphism}(autm)
 
+\S4method{automorphismByCoef}{AutomorphismList}(
+  autm,
+  min.len = 1L,
+  num.cores = detectCores(),
+  tasks = 0L,
+  verbose = TRUE
+)
+
 getAutomorphisms(x, ...)
 
 \S4method{getAutomorphisms}{AutomorphismList}(x)
@@ -76,7 +85,7 @@ pairwise alignment are named as: "aln_1", "aln_2", and so on.}
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
 
-\item{autm}{An automorphism-class object returned by function
+\item{autm}{An AutomorphismList-class object returned by function
 \code{\link{automorphism}}.}
 
 \item{num.cores, tasks}{Integers. Argument \emph{num.cores} denotes the

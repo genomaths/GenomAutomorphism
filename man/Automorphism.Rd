@@ -15,6 +15,18 @@
 \alias{names<-,AutomorphismList-method}
 \alias{as.list,AutomorphismList-method}
 \alias{valid.AutomorphismList}
+\alias{AtomorphismByCoef-class}
+\alias{AtomorphismByCoef}
+\alias{valid.AtomorphismByCoef}
+\alias{AtomorphismByCoefList-class}
+\alias{AtomorphismByCoefList}
+\alias{valid.AtomorphismByCoefList}
+\alias{ConservedRegion-class}
+\alias{ConservedRegion}
+\alias{valid.ConservedRegion}
+\alias{ConservedRegionList-class}
+\alias{ConservedRegionList}
+\alias{valid.ConservedRegionList}
 \title{A class definition to store codon automorphisms in given in the
 Abelian group representation.}
 \usage{
@@ -33,9 +45,17 @@ as.AutomorphismList(x, ...)
 \S4method{as.list}{AutomorphismList}(x)
 
 valid.AutomorphismList(x)
+
+valid.AtomorphismByCoef(x)
+
+valid.AtomorphismByCoefList(x)
+
+valid.ConservedRegion(x)
+
+valid.ConservedRegionList(x)
 }
 \arguments{
-\item{x}{A 'AutomorphismList object'}
+\item{x}{A 'ConservedRegionList object'}
 
 \item{gr}{A \code{\link[GenomicRanges]{GRanges}}}
 }

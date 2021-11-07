@@ -18,5 +18,5 @@
 #' automorphisms between the DNA sequences from the MSA of primate somatic 
 #' cytochrome C from the \code{\link{cyc_aln}} dataset.
 #'
-#' @format \code{\link{AutomorphismList} class object.
+#' @format \code{\link{AutomorphismList}} class object.
 "autm"
