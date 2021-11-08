@@ -22,33 +22,63 @@
 #' @keywords internal
 #' @export
 setClass("BaseGroup",
-         slots = c(
-             seqnames = "Rle",
-             ranges = "IRanges_OR_IPos",
-             strand = "Rle",
-             elementMetadata = "DataFrame",
-             seqinfo = "Seqinfo",
-             colnames = "character"
-         ),
-         contains = "GRanges"
+    slots = c(
+            seqnames = "Rle",
+            ranges = "IRanges_OR_IPos",
+            strand = "Rle",
+            elementMetadata = "DataFrame",
+            seqinfo = "Seqinfo",
+            colnames = "character",
+            group = "character",
+            cube = "character"
+        ),
+    contains = "GRanges"
 )
 
 # ====================  Validity BaseGroup ======================== #
+
+
 #' @rdname BaseGroup
 #' @title Valid BaseGroup mcols
 #' @param x A 'BaseGroup' object
 #' @keywords internal
-valid.BaseGroup.mcols <- function(x) {
+valid.BaseGroup.elem <- function(x) {
+    m1 <- paste0("*** This is not a valid  BaseGroup-class object.",
+                 " Columns from the matacolumn have the wrong names") 
+    m2 <- paste0("*** This is not a valid  BaseGroup-class object.",
+                 " seq1 or seq2 columns is not a base sequence")
+    m3 <- paste0("*** Argument 'x' is not a BaseGroup-class object.",
+                 " The slot 'group' is not present or wrong naming.")
+    m4 <- paste0("*** Argument 'x' is not a BaseGroup-class object.",
+                 " The slot 'cube' is not present or wrong naming.")
+    r1 <- r2 <- r3 <- r4 <- FALSE
     if (length(x) > 0) {
         coln <- x@colnames
         if (any(!is.element(coln,
                             c("seq1", "seq2", "coord1", "coord2")))) {
-            return("*** This is not a valid  BaseGroup-class object.",
-                   "Columns from the matacolumn have the wrong names")
+            r1 <- TRUE
         }
         if (unique(nchar(x$seq1)) != 1 || unique(nchar(x$seq2)) != 1) 
-            stop("*** This is not a valid  BaseGroup-class object.",
-                 "seq1 or seq2 columns is not a base sequence") 
+            r2 <- TRUE
+        
+        group <- try(x@group, silent = TRUE)
+        elem <- is.element(group, c("Z4","Z5","Z4^3","Z5^3"))
+        if (inherits(group, "try-error") || !elem ) 
+            r3 <- TRUE
+        
+        cube <- try(x@cube, silent = TRUE)
+        celem <- is.element(cube, c(
+            "ACGT","AGCT","TCGA","TGCA","CATG",
+            "GTAC","CTAG","GATC","ACTG","ATCG",
+            "GTCA","GCTA","CAGT","TAGC","TGAC",
+            "CGAT","AGTC","ATGC","CGTA","CTGA",
+            "GACT","GCAT","TACG","TCAG"))
+        if (inherits(celem, "try-error") || !celem ) 
+            r4 <- TRUE
+    }
+    if (any( c(r1,r2,r3,r4) )) {  
+        res <- c(m1,m2,m3,m4)[ c(r1,r2,r3,r4) ]
+        return(res[1])
     }
     NULL
 }
@@ -71,7 +101,7 @@ valid.GRanges <- function(x) {
 #' @param x A 'BaseGroup object'
 #' @keywords internal
 valid.BaseGroup <- function(x) 
-    c(valid.GRanges(x), valid.BaseGroup.mcols(x))
+    c(valid.GRanges(x), valid.BaseGroup.elem(x))
 
 S4Vectors:::setValidity2("BaseGroup", valid.BaseGroup)
 
@@ -92,12 +122,16 @@ setClass("CodonGroup",
             strand = "Rle",
             elementMetadata = "DataFrame",
             seqinfo = "Seqinfo",
-            colnames = "character"
+            colnames = "character",
+            group = "character",
+            cube = "character"
     ),
     contains = "GRanges"
 )
 
 # ====================  Validity CodonGroup ======================== #
+
+
 #' @rdname CodonGroup
 #' @title Valid CodonGroup mcols
 #' @param x A 'CodonGroup' object
@@ -105,14 +139,42 @@ setClass("CodonGroup",
 valid.CodonGroup.mcols <- function(x) {
     if (length(x) > 0) {
         coln <- x@colnames
+        m1 <- paste0("*** This is not a valid  CodonGroup-class object.",
+                     "Columns from the matacolumn have the wrong names")
+        m2 <- paste0("*** This is not a valid  BaseGroup-class object.",
+                     "seq1 or seq2 columns is not a base-triplet sequence")
+        m3 <- paste0("*** This is not a CodonGroup-class object.",
+                     " The slot 'cube' is not present or wrong naming.")
+        m4 <- paste0("*** Argument 'x' is not a CodonGroup-class object.",
+                     "The slot 'group' is not present or wrong naming.")
+        r1 <- r2 <- r3 <- r4 <- FALSE
+        
         if (any(!is.element(coln,
                             c("seq1", "seq2", "coord1", "coord2")))) {
-            return("*** This is not a valid  CodonGroup-class object.",
-                "Columns from the matacolumn have the wrong names")
+            r1 <- TRUE
         }
         if (unique(nchar(x$seq1)) != 3 || unique(nchar(x$seq2)) != 3) 
-            stop("*** This is not a valid  BaseGroup-class object.",
-                "seq1 or seq2 columns is not a base-triplet sequence") 
+            r2 <- TRUE
+        
+        cube <- try(x@cube, silent = TRUE)
+        celem <- is.element(cube, c(
+            "ACGT","AGCT","TCGA","TGCA","CATG",
+            "GTAC","CTAG","GATC","ACTG","ATCG",
+            "GTCA","GCTA","CAGT","TAGC","TGAC",
+            "CGAT","AGTC","ATGC","CGTA","CTGA",
+            "GACT","GCAT","TACG","TCAG"))
+        if (inherits(celem, "try-error") || !celem ) 
+            r3 <- TRUE
+        
+        group <- try(x@group, silent = TRUE)
+        elem <- is.element(group, c("Z4","Z5","Z4^3","
+                                    Z5^3", "Z64", "Z125"))
+        if (inherits(group, "try-error") || !elem ) 
+            r4 <- TRUE
+    }
+    if (any( c(r1,r2,r3,r4) )) {  
+        res <- c(m1,m2,m3,m4)[ c(r1,r2,r3,r4) ]
+        return(res[1])
     }
     NULL
 }
@@ -128,7 +190,6 @@ S4Vectors:::setValidity2("CodonGroup", valid.CodonGroup)
 
 
 setClassUnion("BaseGroup_OR_CodonGroup", c("BaseGroup","CodonGroup"))
-
 
 ## ========================== CodonSeq ============================= 
 

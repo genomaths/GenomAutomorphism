@@ -125,7 +125,19 @@ The FASTA file carries the pairwise sequence alignment of SARS coronavirus GZ02
 isolate bat-SL-CoVZC45 (GenBank: MG772933.1:265-1345513455-21542), complete
 genomes.
 
-The _FASTA_ file is read and the corresponding codon sequences are represented
+
+```{r fasta, message=FALSE}
+library(Biostrings)
+
+URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/", 
+        "COVID-19/AY390556.1_265-13398_13398-21485_RNA-POL_SARS_COVI_GZ02.fas")
+
+aln <- readDNAMultipleAlignment(filepath = URL)
+aln
+```
+
+
+The DNA sequence is read and the corresponding codon sequences are represented
 in the Abelian group $\mathbb{Z}_{64}$ (i.e., the set of integers remainder
 modulo 64). The codon coordinates are requested on the cube ACGT. Following
 reference ([4](#4))), cubes are labeled based on the order of DNA bases used to
@@ -135,9 +147,7 @@ define the sum operation.
 ```{r url, message=FALSE}
 library(GenomAutomorphism)
 
-url <- paste0("https://github.com/genomaths/seqalignments/raw/master/", 
-        "COVID-19/AY390556.1_265-13398_13398-21485_RNA-POL_SARS_COVI_GZ02.fas")
-codons <- codon_coord(filepath = url, 
+codons <- codon_coord(codon = aln, 
                       cube = "ACGT", 
                       group = "Z64", 
                       start = 1, 
@@ -174,11 +184,11 @@ alternative set of dual cubes.
 
 
 ```{r aut}
-autms <- automorphism(filepath = url, 
+autms <- automorphism(seqs = aln, 
                       group = "Z64", 
                       cube = c("ACGT", "TGCA"),
                       cube_alt = c("CATG", "GTAC"),
-                      start = 70, 
+                      start = 1, 
                       end = 102)
 autms
 ```
@@ -220,7 +230,7 @@ particularly by interacting with the Mathematica notebook
 Next, the automorphism for the whole pairwise alignment of SARS-CoV-2 related 
 coronaviruses:
 ```{r aut_1}
-autms <- automorphism(filepath = url, 
+autms <- automorphism(filepath = URL, 
                       group = "Z64", 
                       cube = c("ACGT", "TGCA"),
                       cube_alt = c("CATG", "GTAC"))
@@ -274,7 +284,7 @@ mtext(side = 1,line = -1.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
 Alternatively, we can use the algebraic representation on on $\mathbb{Z}_{125}$.
 
 ```{r aut_2}
-autms_2 <- automorphism(filepath = url, 
+autms_2 <- automorphism(filepath = URL, 
                       group = "Z125", 
                       cube = c("ACGT", "TGCA"),
                       cube_alt = c("CATG", "GTAC"))

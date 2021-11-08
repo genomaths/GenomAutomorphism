@@ -66,7 +66,7 @@
 #' values given for the function definition will be used.
 #' @param group A character string denoting the group representation for the 
 #' given base or codon as shown in reference (1).
-#' @return This function returns a \code{\link{Automorphism}} class object  
+#' @return This function returns a \code{\link{Automorphism-class}} object  
 #' with four columns on its metacolumn named: \emph{seq1}, \emph{seq2},
 #' \emph{autm}, and \emph{cube}.
 #' 
@@ -172,6 +172,7 @@ setMethod("automorphism", signature(seqs = "DNAStringSet_OR_NULL"),
                 be provided.")
         
         group <- match.arg(group)
+        nr <- NA
         
         if (!is.null(filepath) && is.character(filepath)) 
             seqs <- readDNAMultipleAlignment(filepath = filepath)
@@ -181,6 +182,9 @@ setMethod("automorphism", signature(seqs = "DNAStringSet_OR_NULL"),
         
         if (inherits(seqs, "DNAMultipleAlignment"))
             nr <- nrow(seqs)
+        
+        if (is.na(nr)) 
+            stop("*** Proper argument 'filepath' or 'seqs' must be provided.")
         
         if (nr < 3) {
             seqs <- selectAutomorphism(

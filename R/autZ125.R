@@ -38,8 +38,9 @@
 #' values given for the function definition will be used.
 #' @param group A character string denoting the group representation for the 
 #' given base or codon as shown in reference (1).
-#' @return An object \code{\link{Automorphism}} class with four columns on its
-#' metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and \emph{cube}.
+#' @return An object \code{\link{Automorphism-class}} with four columns 
+#' on its metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and
+#' \emph{cube}.
 #' @importFrom numbers modlin
 #' @import GenomicRanges
 #' @export

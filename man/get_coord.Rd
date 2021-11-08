@@ -25,12 +25,14 @@ get_coord(x, ...)
 )
 }
 \arguments{
-\item{x}{An object from a \code{\link{BaseGroup}}, \code{\link{CodonGroup}},
+\item{x}{An object from a \code{\link{BaseGroup-class}},
+\code{\link{CodonGroup-class}},
 \code{\link[Biostrings]{DNAStringSet}} or
 \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
-pairwise alignment of two sequences. Objects from \code{\link{BaseGroup}} and
-\code{\link{CodonGroup}} class are generated with functions:
-\code{\link{base_coord}} and \code{\link{codon_coord}}, respectively.}
+pairwise alignment of two sequences. Objects from
+\code{\link{BaseGroup-class}} and \code{\link{CodonGroup-class}} are
+generated with functions: \code{\link{base_coord}} and
+\code{\link{codon_coord}}, respectively.}
 
 \item{output}{See \href{@return}{Value} section.}
 
@@ -53,12 +55,12 @@ given base or codon as shown in reference (1).}
 values given for the function definition will be used.}
 }
 \value{
-An object from \code{\link{CodonSeq}} class is returned when
+An object from \code{\link{CodonGroup-class}} class is returned when
 \emph{output = "all"}. This has two slots, the first one carrying a list of
 matrices and the second one carrying the codon/base sequence information.
-That is, if \emph{x} is an object from \code{\link{CodonSeq}} class, then a
-list of matrices of codon coordinate can be retrieved as x@CoordList and the
-information on the codon sequence as x@SeqRanges.
+That is, if \emph{x} is an object from \code{\link{CodonGroup-class}} class,
+then a list of matrices of codon coordinate can be retrieved as x@CoordList
+and the information on the codon sequence as x@SeqRanges.
 
 if \emph{output = "matrix.list"}, then an object from
 \code{\link{MatrixList}} class is returned.
@@ -66,7 +68,7 @@ if \emph{output = "matrix.list"}, then an object from
 \description{
 Given a string denoting a codon or base from the DNA (or RNA)
 alphabet and a genetic-code Abelian group as given in reference (1), this
-function returns an object from \code{\link{CodonSeq}} class carrying the
+function returns an object from \code{\link{CodonGroup-class}} carrying the
 DNA base/codon sequence and coordinates represented on the given Abelian
 group.
 }
@@ -76,7 +78,7 @@ denote gaps and missing/unknown bases are represented by the number: '-1' on
 Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons
 including symbols "-" and "N".
 
-Although the \code{\link{CodonGroup}} object returned by
+Although the \code{\link{CodonGroup-class}} object returned by
 functions \code{\link{codon_coord}} and \code{\link{base_coord}} are useful
 to store genomic information, the base and codon coordinates are not given on
 them as numeric magnitudes. Function \code{\link{get_coord}} provides the way

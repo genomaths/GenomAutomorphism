@@ -40,8 +40,9 @@ values given for the function definition will be used.}
 given base or codon as shown in reference (1).}
 }
 \value{
-An object \code{\link{Automorphism}} class with four columns on its
-metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and \emph{cube}.
+An object \code{\link{Automorphism-class}} with four columns
+on its metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and
+\emph{cube}.
 }
 \description{
 Given two codon sequences represented in the Z125 Abelian group,

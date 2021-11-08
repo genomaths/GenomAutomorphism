@@ -50,7 +50,7 @@ argument \emph{\strong{seq}} or the 'fasta' file \emph{\strong{filepath}}
 must correspond to codon sequences.}
 }
 \value{
-This function returns a \code{\link{Automorphism}} class object
+This function returns a \code{\link{Automorphism-class}} object
 with four columns on its metacolumn named: \emph{seq1}, \emph{seq2},
 \emph{autm}, and \emph{cube}.
 \subsection{Methods}{

@@ -50,6 +50,7 @@
 #' @importFrom Biostrings DNAStringSet
 #' @importFrom methods new
 #' @export
+#' @return A \code{\link{CodonGroup-class}} object.
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @references 
 #' \enumerate{
@@ -87,15 +88,86 @@
 setGeneric("codon_coord",
     function(
             codon = NULL,
-            filepath = NULL,
-            cube = "ACGT",
-            group = "Z4",
             ...)
         standardGeneric("codon_coord"))
+
+#' @aliases codon_coord
+#' @rdname codon_coord
+#' @importFrom S4Vectors mcols
+#' @importFrom GenomicRanges makeGRangesFromDataFrame
+#' @importFrom BiocGenerics strand
+#' @importFrom GenomeInfoDb seqnames
+setMethod("codon_coord", signature(codon = "BaseGroup"),
+    function(
+            codon,
+            group = NULL ) {
+    
+        if (is.null(group)) 
+            group <- codon@group
+        cube <- codon@cube
+        chr <- unique(as.character(seqnames(codon)))
+        strands <- unique(as.character(strand(codon)))
+        
+        codon <- mcols(codon)
+        idx_seq <- grep("seq", colnames(codon))
+        idx_coord <- grep("coord", colnames(codon))
+        
+        sq <- data.frame(codon[, idx_seq])
+        f <- factor(as.vector(sapply(seq_len(nrow(sq)/3), rep, 3)))
+        sq <- split(sq, f)
+        
+        crd <- data.frame(codon[, idx_coord])
+        crd <- split(crd, f)
+        
+        idx <- seq_along(sq)
+        if (is.element(group, c("Z4","Z5","Z4^3","Z5^3"))) {
+            codon <- lapply(idx, function(k) {
+                c(apply(sq[[k]], 2, paste, collapse = ""),
+                apply(crd[[k]], 2, paste, collapse = ","))
+            })
+        }
+        else {
+            fun <- switch(group,
+                Z64 = CodonCoordZ4toZ64,
+                Z125 = CodonCoordZ5toZ125,
+            )
+            
+            codon <- lapply(idx, function(k) {
+                c(apply(sq[[k]], 2, paste, collapse = ""),
+                  apply(crd[[k]], 2, fun))
+            })
+        }
+
+        rm(sq, crd); gc()
+        codon <- do.call(rbind, codon)
+        
+        pos <- seq(1, nrow(codon), 1L)
+        codon <- data.frame(
+                        seqnames = chr, 
+                        start = pos, 
+                        end = pos,
+                        strand = strands, 
+                        codon)
+        
+        codon <- makeGRangesFromDataFrame(codon, keep.extra.columns = TRUE)
+        codon <- new(
+            "CodonGroup",
+            seqnames = seqnames(codon),
+            ranges = ranges(codon),
+            strand = strand(codon),
+            elementMetadata = codon@elementMetadata,
+            seqinfo = codon@seqinfo,
+            colnames = colnames(codon@elementMetadata),
+            group = group,
+            cube = cube)
+        return(codon)
+    }
+)
 
 
 #' @aliases codon_coord
 #' @rdname codon_coord
+#' @importFrom Biostrings readDNAMultipleAlignment
 setMethod("codon_coord", signature(codon = "DNAStringSet_OR_NULL"),
     function(
             codon = NULL,
@@ -142,62 +214,7 @@ setMethod("codon_coord", signature(codon = "DNAStringSet_OR_NULL"),
                             end = end,
                             chr = chr,
                             strand = strand)
-        
-        if (length(codon) %% 3 != 0) {
-            stop("*** 'codon' argument is not a base-triplet sequence.",
-                 " A base-triplet sequence is multiple of 3.")
-        }
-        
-        codon <- mcols(codon)
-        idx_seq <- grep("seq", colnames(codon))
-        idx_coord <- grep("coord", colnames(codon))
-        
-        sq <- data.frame(codon[, idx_seq])
-        f <- factor(as.vector(sapply(seq_len(nrow(sq)/3), rep, 3)))
-        sq <- split(sq, f)
-        
-        crd <- data.frame(codon[, idx_coord])
-        crd <- split(crd, f)
-        
-        idx <- seq_along(sq)
-        if (is.element(group, c("Z4","Z5","Z4^3","Z5^3"))) {
-            codon <- lapply(idx, function(k) {
-                c(apply(sq[[k]], 2, paste, collapse = ""),
-                apply(crd[[k]], 2, paste, collapse = ","))
-            })
-        }
-        else {
-            fun <- switch(group,
-                Z64 = CodonCoordZ4toZ64,
-                Z125 = CodonCoordZ5toZ125,
-            )
-            
-            codon <- lapply(idx, function(k) {
-                c(apply(sq[[k]], 2, paste, collapse = ""),
-                  apply(crd[[k]], 2, fun))
-            })
-        }
-
-        rm(sq, crd); gc()
-        codon <- do.call(rbind, codon)
-        
-        pos <- seq(1, nrow(codon), 1L)
-        codon <- data.frame(
-                        seqnames = chr, 
-                        start = pos, 
-                        end = pos,
-                        strand = strand, 
-                        codon)
-        
-        codon <- makeGRangesFromDataFrame(codon, keep.extra.columns = TRUE)
-        codon <- new(
-            "CodonGroup",
-            seqnames = seqnames(codon),
-            ranges = ranges(codon),
-            strand = strand(codon),
-            elementMetadata = codon@elementMetadata,
-            seqinfo = codon@seqinfo,
-            colnames = colnames(codon@elementMetadata))
+        codon <- codon_coord(codon, group = group)
         return(codon)
     }
 )

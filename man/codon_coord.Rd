@@ -2,10 +2,13 @@
 % Please edit documentation in R/codon_coord.R
 \name{codon_coord}
 \alias{codon_coord}
+\alias{codon_coord,BaseGroup-method}
 \alias{codon_coord,DNAStringSet_OR_NULL-method}
 \title{Codon coordinates on a given a given Abelian group representation.}
 \usage{
-codon_coord(codon = NULL, filepath = NULL, cube = "ACGT", group = "Z4", ...)
+codon_coord(codon = NULL, ...)
+
+\S4method{codon_coord}{BaseGroup}(codon, group = NULL)
 
 \S4method{codon_coord}{DNAStringSet_OR_NULL}(
   codon = NULL,
@@ -25,6 +28,9 @@ codon_coord(codon = NULL, filepath = NULL, cube = "ACGT", group = "Z4", ...)
 \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
 pairwise alignment of two sequences.}
 
+\item{group}{A character string denoting the group representation for the
+given base or codon as shown in reference (2-3).}
+
 \item{filepath}{A character vector containing the path to a file in
 \emph{\strong{fasta}} format to be read. This argument must be given if
 \emph{codon & base} arguments are not provided.}
@@ -32,12 +38,12 @@ pairwise alignment of two sequences.}
 \item{cube}{A character string denoting one of the 24 Genetic-code cubes,
 as given in references (2-3).}
 
-\item{group}{A character string denoting the group representation for the
-given base or codon as shown in reference (2-3).}
-
 \item{start, end, chr, strand}{Optional parameters required to build a
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
+}
+\value{
+A \code{\link{CodonGroup-class}} object.
 }
 \description{
 Given a string denoting a codon or base from the DNA (or RNA)

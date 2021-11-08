@@ -4,12 +4,12 @@
 \name{BaseGroup-class}
 \alias{BaseGroup-class}
 \alias{BaseGroup}
-\alias{valid.BaseGroup.mcols}
+\alias{valid.BaseGroup.elem}
 \alias{valid.GRanges}
 \title{A class definition to store codon automorphisms in given in the
 Abelian group representation.}
 \usage{
-valid.BaseGroup.mcols(x)
+valid.BaseGroup.elem(x)
 
 valid.GRanges(x)
 }

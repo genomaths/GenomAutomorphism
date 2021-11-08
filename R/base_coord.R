@@ -93,6 +93,9 @@ setGeneric("base_coord",
 
 #' @aliases base_coord
 #' @rdname base_coord
+#' @import Biostrings 
+#' @importFrom GenomicRanges makeGRangesFromDataFrame
+#' @importFrom methods new
 #' @export
 setMethod("base_coord", signature(base = "DNAStringSet_OR_NULL"),
     function(
@@ -116,7 +119,7 @@ setMethod("base_coord", signature(base = "DNAStringSet_OR_NULL"),
 
         if (is.null(base) && is.null(filepath)) 
             stop("*** Arguments 'base' & 'filepath' cannot be",
-                 " simultaneously NULL.")
+                " simultaneously NULL.")
         
         if (!is.null(filepath) && is.character(filepath)) 
             base <- readDNAMultipleAlignment(filepath = filepath)
@@ -176,7 +179,9 @@ setMethod("base_coord", signature(base = "DNAStringSet_OR_NULL"),
             strand = strand(base),
             elementMetadata = base@elementMetadata,
             seqinfo = base@seqinfo,
-            colnames = colnames(base @elementMetadata))
+            colnames = colnames(base @elementMetadata),
+            group = group,
+            cube = cube)
         return(base)
     }
 )
