@@ -197,14 +197,12 @@ modeq <- function(a,b,n) {
     if (!any(is.na(c(a,b)))) {
         if (a != 0 && b != 0)
             res <- modlin(a, b, n)
-        if (b == 0)
-            res <- 0
-        if (a == 0) 
+        if (b == 0 || a == 0)
             res <- -1
     } 
     else 
         res <- -1
-    if (is.null(res)) 
+    if (is.null(res) || res == 0) 
         res <- -1
     return(res)
 }

@@ -263,16 +263,24 @@ setAs("DataFrame_OR_data.frame", "Automorphism",
 #' @param x A 'Automorphism object'
 #' @keywords internal
 valid.Automorphism.mcols <- function(x) {
+    alf <- c("A","C", "G", "T", "-")
     if (length(x) > 0) {
         m1 <- m2 <- FALSE
-        coln <- x@colnames
+        if (inherits(x, "GRanges")) 
+            coln <- colnames(x@elementMetadata)
+        else 
+            coln <- x@colnames
         if (any(!is.element(coln,
                             c("seq1", "seq2", "coord1", 
-                              "coord2", "autm", "cube")))) {
+                            "coord2", "autm", "cube")))) {
             m1 <- TRUE
         }
         if (unique(nchar(x$seq1)) != 3 || unique(nchar(x$seq2)) != 3) 
             m2 <- TRUE 
+        if (m2) {
+            if (all(is.element(x$seq1, alf)) && all(is.element(x$seq1, alf)))
+                m2 <- FALSE
+        }
         
         if (m1 || m2)
             return("*** This is not a valid Automorphism-class object.")
@@ -424,7 +432,8 @@ setMethod("as.list", signature = "AutomorphismList",
 )
 
 
-# ======================== Validity .AutomorphismList ================== #
+## ====================== Validity AutomorphismList ================== #
+
 #' @rdname Automorphism
 #' @title Valid AutomorphismList mcols
 #' @param x A 'AutomorphismList object'
@@ -432,33 +441,37 @@ setMethod("as.list", signature = "AutomorphismList",
 #' @keywords internal
 
 valid.AutomorphismList <- function(x) {
-    m1 <- m2 <- FALSE
-    if (any(sapply(x@DataList, 
-        function(y) {
-            if (inherits(y, "DataFrame")) 
-                coln <- colnames(y)
-            if (inherits(y, "GRanges")) 
-                coln <- colnames(mcols(y))
-            if (any(!is.element(coln,
-                    c("seq1", "seq2", "coord1", "coord2",
-                    "autm", "cube")))) {
-                m1 <- TRUE
-            }
-            if (unique(nchar(y$seq1)) != 3 || unique(nchar(y$seq2)) != 3) 
-                m2 <- TRUE 
-            return(m1 || m2)
-        }
-    )))
-    return("*** This is not a valid AutomorphismList
-                        class object.")
+    m1 <- FALSE
+    if (!(inherits(x@DataList[[1]], "Automorphism") || 
+        inherits(x@DataList[[1]], "DataFrame")))
+        m1 <- TRUE
+    
+    if (inherits(x@DataList[[1]], "Automorphism")) {
+        if (any(!sapply(x@DataList, 
+            function(y) {
+                return(inherits(y, "Automorphism") && validObject(y))
+            } )))
+            m1 <- TRUE
+    }
+
+    if (inherits(x@DataList[[1]], "DataFrame")) {
+        if (any(!sapply(x@DataList, 
+            function(y) {
+                return(inherits(y, "DataFrame") && validObject(y))
+            } )))
+            m1 <- TRUE
+        if (!inherits(x@SeqRanges, "GRanges"))             
+            m1 <- TRUE
+    }
+    if (m1)
+        return("*** This is not a valid AutomorphismList class object.")
 
     NULL
 }
 
 S4Vectors:::setValidity2("AutomorphismList", valid.AutomorphismList)
 
-
-## ========================= Show AutomorphismList ========================== #
+## ======================== Show AutomorphismList ==================== #
 
 #' @rdname allClasses
 #' @aliases show-AutomorphismList

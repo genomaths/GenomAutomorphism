@@ -3,16 +3,6 @@
 \name{automorphism}
 \alias{automorphism}
 \alias{automorphism,DNAStringSet_OR_NULL-method}
-\alias{automorphismByRanges}
-\alias{automorphismByRanges,Automorphism-method}
-\alias{automorphismByRanges,AutomorphismList-method}
-\alias{automorphismByCoef}
-\alias{automorphismByCoef,Automorphism-method}
-\alias{automorphismByCoef,AutomorphismList-method}
-\alias{getAutomorphisms}
-\alias{getAutomorphisms,AutomorphismList-method}
-\alias{getAutomorphisms,list-method}
-\alias{getAutomorphisms,DataFrame_OR_data.frame-method}
 \title{Compute the Automorphisms of Mutational Events Between two Codon
 Sequences Represented in a Given Abelian group.}
 \usage{
@@ -30,38 +20,6 @@ automorphism(seqs = NULL, filepath = NULL, group = "Z4", ...)
   chr = 1L,
   strand = "+"
 )
-
-automorphismByRanges(autm, ...)
-
-\S4method{automorphismByRanges}{Automorphism}(autm)
-
-\S4method{automorphismByRanges}{AutomorphismList}(
-  autm,
-  min.len = 1L,
-  num.cores = detectCores(),
-  tasks = 0L,
-  verbose = TRUE
-)
-
-automorphismByCoef(autm, ...)
-
-\S4method{automorphismByCoef}{Automorphism}(autm)
-
-\S4method{automorphismByCoef}{AutomorphismList}(
-  autm,
-  min.len = 1L,
-  num.cores = detectCores(),
-  tasks = 0L,
-  verbose = TRUE
-)
-
-getAutomorphisms(x, ...)
-
-\S4method{getAutomorphisms}{AutomorphismList}(x)
-
-\S4method{getAutomorphisms}{list}(x)
-
-\S4method{getAutomorphisms}{DataFrame_OR_data.frame}(x)
 }
 \arguments{
 \item{filepath}{A character vector containing the path to a file in
@@ -85,20 +43,6 @@ pairwise alignment are named as: "aln_1", "aln_2", and so on.}
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
 
-\item{autm}{An AutomorphismList-class object returned by function
-\code{\link{automorphism}}.}
-
-\item{num.cores, tasks}{Integers. Argument \emph{num.cores} denotes the
-number of cores to use, i.e. at most how many child processes will be run
-simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
-BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
-job. value must be a scalar integer >= 0L. In this documentation a job is
-defined as a single call to a function, such as
-\code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
-argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
-as possible over the number of workers (see
-\code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).}
-
 \item{seq}{An object from a \code{\link[Biostrings]{DNAStringSet}} or
 \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
 pairwise alignment of two sequences. The pairwise alignment provided in
@@ -106,45 +50,46 @@ argument \emph{\strong{seq}} or the 'fasta' file \emph{\strong{filepath}}
 must correspond to codon sequences.}
 }
 \value{
-\subsection{automorphism:}{
-
-This function returns a \code{\link{Automorphism}} class object  with four
-columns on its metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and
-\emph{cube}.
-}
-
-\subsection{automorphismByRanges:}{
+This function returns a \code{\link{Automorphism}} class object
+with four columns on its metacolumn named: \emph{seq1}, \emph{seq2},
+\emph{autm}, and \emph{cube}.
+\subsection{Methods}{
+\subsection{\code{\link{automorphismByRanges}}:}{
 
 This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
 Consecutive mutational events (on the codon sequence) described by
 automorphisms on a same cube are grouped in a range.
 }
 
-\subsection{automorphismByCoef}{
+\subsection{\code{\link{automorphismByCoef}}}{
 
 This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
 Consecutive mutational events (on the codon sequence) described by
 the same automorphism coefficients are grouped in a range.
 }
 
-\subsection{getAutomorphisms}{
+\subsection{\code{\link{getAutomorphisms}}}{
 
 This function returns an AutomorphismList-class object as a list of
 Automorphism-class objects, which inherits from
 \code{\link[GenomicRanges]{GRanges-class}} objects.
 }
+
+\subsection{\code{\link{conserved_regions}}}{
+
+Returns a \code{\link{AtomorphismByCoef}} class object containing the
+requested regions.
+}
+
+}
 }
 \description{
-\subsection{automorphism:}{
-
 Given two codon sequences represented in a given Abelian group,
 this function computes the automorphisms describing codon mutational events.
 Basically, this function is a wrapping to call the corresponding function
 for a specified Abelian group.
 }
-
-\subsection{automorphismByRanges:}{
-
+\details{
 Herein, automorphisms are algebraic descriptions of mutational event
 observed in codon sequences represented on different Abelian groups. In
 particular, as described in references (3-4), for each representation of the
@@ -156,10 +101,6 @@ isomorphic to the symmetric group of degree four (\eqn{S_4}, see reference
 of the pairwise alignment of protein-coding sub-regions based on the
 mutational events observed on it and on the genetic-code cubes that describe
 them.
-}
-}
-\details{
-\subsection{automorphism:}{
 
 Automorphisms in Z5, Z64 and Z125 are described as functions \eqn{f(x) =
 k x mod 64} and \eqn{f(x) = k x mod 125}, where k and x are elements from the
@@ -170,13 +111,9 @@ cubes provided in the argument \eqn{cube_alt}.
 
 Automorphisms in Z5^3' are described as functions \eqn{f(x) = Ax mod Z5},
 where A is diagonal matrix.
-}
 
-\subsection{automorphismByRanges:}{
-
-Arguments \emph{\strong{cube}} and \emph{\strong{cube_alt}} must be pairs of
-dual cubes (see section 2.4 from reference 4).
-}
+Arguments \emph{\strong{cube}} and \emph{\strong{cube_alt}} must be
+pairs of' dual cubes (see section 2.4 from reference 4).
 }
 \examples{
 ## Load a pairwise alignment

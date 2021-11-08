@@ -20,6 +20,9 @@ navbar:
       menu:
       - text: "GenomAutomorphism"
         href: articles/GenomAutomorphism.html
+      - text: ------
+      - text: "Analysis of Automorphisms on a DNA Multiple Sequence Alignment"
+        href: articles/automorphism_on_msa.html
     news:
       text: News
       href: news/index.html
@@ -70,8 +73,24 @@ reference:
   - '`autZ64`'
   - '`autZ125`'
   - '`aut3D`'
+- title: Automorphisms methods
+  contents:
+  - '`automorphismByRanges`'
+  - '`automorphismByCoef`'
+  - '`getAutomorphisms`'
+  - '`conserved_regions`'
+- title: utils
+  contents:
+  - '`sortByChromAndStart`'
+- title: Data sets
+  contents:
+  - '`aln`'
+  - '`autm`'
+  - '`cyc_aln`'
+  
 articles:
 - title: Vignettes
   desc: ~
   contents:
   - '`GenomAutomorphism`'
+  - '`automorphism_on_msa`'

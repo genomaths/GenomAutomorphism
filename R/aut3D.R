@@ -61,10 +61,10 @@
 #' }
 #' @examples 
 #' ## Load a pairwise alignment
-#' data(aln)
+#' data(aln, package = "GenomAutomorphism")
 #' aln
 #' 
-#' ## Automorphism on Z125
+#' ## Automorphism on Z5^3
 #' autms <- aut3D(seq = aln)
 #' autms
 #' 
@@ -93,7 +93,6 @@ aut3D <- function(
     autm1 <- automorfismos_3D(seq = seq,
                            filepath = filepath,
                            cube = cube,
-                           output = "all",
                            start = start,
                            end = end,
                            chr = chr,
@@ -105,7 +104,6 @@ aut3D <- function(
         autm2 <- automorfismos_3D(seq = seq,
                                filepath = filepath,
                                cube = cube_alt,
-                               output = "all",
                                start = start,
                                end = end,
                                chr = chr,
@@ -131,15 +129,14 @@ automorfismos_3D <- function(
     seq,
     filepath,
     cube,
-    output,
-    start,
+    start = NA,
     end = NA,
     chr = 1L,
     strand = "+") {
     
     seq <- get_coord(
         x = seq,
-        output = output,
+        output = "all",
         base_seq = FALSE,
         filepath = filepath,
         cube = cube[ 1 ],
@@ -150,10 +147,12 @@ automorfismos_3D <- function(
         strand = strand)
     
     gr <- seq@SeqRanges
+    gr$coord1 <- seq@CoordList$coord1
+    gr$coord2 <- seq@CoordList$coord2
     gr$autm <- "1,1,1"
     gr$cube <- cube[ 1 ]
     
-    idx <- which(apply(seq@CoordList$coord1 != seq@CoordList$coord2, 1, any))
+    idx <- apply(seq@CoordList$coord1 != seq@CoordList$coord2, 1, any)
     idx <- sort(c(which(idx), which(is.na(idx))))
     
     if (length(idx) != 0) {
@@ -173,7 +172,7 @@ automorfismos_3D <- function(
             else 
                 s <- c(paste0(s, collapse = ","), cube[ 1 ])
             if (any(s == -1) || inherits(s, "try-error"))
-                s <- c(NA, NA)
+                s <- c(NA, "None")
             return(s)
         })
         

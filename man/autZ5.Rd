@@ -54,7 +54,7 @@ The pairwise alignment provided in argument \emph{\strong{seq}} or the
 }
 \examples{
 ## Load a pairwise alignment
-data(aln)
+data(aln, package = "GenomAutomorphism")
 aln
 
 ## Automorphism on Z5
