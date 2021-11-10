@@ -4,30 +4,46 @@
 \alias{conserved_regions}
 \alias{conserved_regions,Automorphism-method}
 \alias{conserved_regions,AutomorphismList-method}
-\alias{conserved_regions,AtomorphismByCoef-method}
-\alias{conserved_regions,AtomorphismByCoefList-method}
+\alias{conserved_regions,AutomorphismByCoef-method}
+\alias{conserved_regions,AutomorphismByCoefList-method}
 \title{Conserved and Non-conserved Regions from a MSA}
 \usage{
 conserved_regions(x, ...)
 
-\S4method{conserved_regions}{Automorphism}(x, conserved = TRUE)
+\S4method{conserved_regions}{Automorphism}(
+  x,
+  conserved = TRUE,
+  output = c("all_pairs", "unique_pairs", "unique")
+)
 
-\S4method{conserved_regions}{AutomorphismList}(x, conserved = TRUE)
+\S4method{conserved_regions}{AutomorphismList}(
+  x,
+  conserved = TRUE,
+  output = c("all_pairs", "unique_pairs", "unique")
+)
 
-\S4method{conserved_regions}{AtomorphismByCoef}(x, conserved = TRUE)
+\S4method{conserved_regions}{AutomorphismByCoef}(
+  x,
+  conserved = TRUE,
+  output = c("all_pairs", "unique_pairs", "unique")
+)
 
-\S4method{conserved_regions}{AtomorphismByCoefList}(x, conserved = TRUE)
+\S4method{conserved_regions}{AutomorphismByCoefList}(
+  x,
+  conserved = TRUE,
+  output = c("all_pairs", "unique_pairs", "unique")
+)
 }
 \arguments{
 \item{x}{A \code{\link{Automorphism}}, a \code{\link{AutomorphismList}},
-a \code{\link{AtomorphismByCoef}} or a \code{\link{AtomorphismByCoefList}}
+a \code{\link{AutomorphismByCoef}} or a \code{\link{AutomorphismByCoefList}}
 class object.}
 
 \item{conserved}{Logical, Whether to return the \emph{conserved} or the
 \emph{non-conserved regions}.}
 }
 \value{
-A \code{\link{AtomorphismByCoef}} class object containing the
+A \code{\link{AutomorphismByCoef}} class object containing the
 requested regions.
 }
 \description{

@@ -585,46 +585,46 @@ setReplaceMethod("names", "AutomorphismList",
     }
 )
 
-## ========================== AtomorphismByCoef =========================== 
+## ========================== AutomorphismByCoef =========================== 
 
-#' @aliases AtomorphismByCoef
+#' @aliases AutomorphismByCoef
 #' @rdname Automorphism
 #' @title A class definition to store conserved gene/genomic regions found
 #' in a MSA. 
 #' @keywords internal
 #' @export
-setClass("AtomorphismByCoef",
+setClass("AutomorphismByCoef",
         contains = "GRanges"
 )
 
-# ======================== Validity AtomorphismByCoef ================== #
+# ======================== Validity AutomorphismByCoef ================== #
 #' @rdname Automorphism
-#' @title Valid AtomorphismByCoef mcols
-#' @param x A 'AtomorphismByCoef object'
+#' @title Valid AutomorphismByCoef mcols
+#' @param x A 'AutomorphismByCoef object'
 #' @importFrom S4Vectors mcols
 #' @keywords internal
 
-valid.AtomorphismByCoef <- function(x) {
+valid.AutomorphismByCoef <- function(x) {
     coln <- colnames(mcols(x))
     if (!inherits(x, "GRanges") || 
         any(!is.element(coln,  c("autm", "cube")))) 
-        return("*** This is not a valid AtomorphismByCoef
+        return("*** This is not a valid AutomorphismByCoef
                 class object.")
     else
         NULL
 }
 
-S4Vectors:::setValidity2("AtomorphismByCoef", valid.AtomorphismByCoef)
+S4Vectors:::setValidity2("AutomorphismByCoef", valid.AutomorphismByCoef)
 
-## ========================= AtomorphismByCoefList ====================== 
+## ========================= AutomorphismByCoefList ====================== 
 
-#' @aliases AtomorphismByCoefList
+#' @aliases AutomorphismByCoefList
 #' @rdname Automorphism
-#' @title A class definition for a list of AtomorphismByCoef class objects. 
+#' @title A class definition for a list of AutomorphismByCoef class objects. 
 #' @keywords internal
 #' @export
 setClass(
-    "AtomorphismByCoefList",
+    "AutomorphismByCoefList",
     slots = c(  elementMetadata = "DataFrame",
                 elementType = "character",
                 metadata = "list",
@@ -632,36 +632,36 @@ setClass(
     contains = "SimpleGRangesList"
 )
 
-as_list_of_AtomorphismByCoef <- function(from)
-    lapply(from, as, Class = "AtomorphismByCoef")
+as_list_of_AutomorphismByCoef <- function(from)
+    lapply(from, as, Class = "AutomorphismByCoef")
 
-setAs("list", "AtomorphismByCoefList", function(from) {
-    from <- as_list_of_AtomorphismByCoef(from)
+setAs("list", "AutomorphismByCoefList", function(from) {
+    from <- as_list_of_AutomorphismByCoef(from)
     from <- S4Vectors:::new_SimpleList_from_list(Class = "SimpleGRangesList",
                                                 x = from)
-    new("AtomorphismByCoefList", from)
+    new("AutomorphismByCoefList", from)
 })
 
-# ===================== Validity AtomorphismByCoefList ================== #
+# ===================== Validity AutomorphismByCoefList ================== #
 #' @rdname Automorphism
-#' @title Valid AtomorphismByCoefList mcols
-#' @param x A 'AtomorphismByCoefList object'
+#' @title Valid AutomorphismByCoefList mcols
+#' @param x A 'AutomorphismByCoefList object'
 #' @importFrom S4Vectors mcols
 #' @keywords internal
 
-valid.AtomorphismByCoefList <- function(x) {
+valid.AutomorphismByCoefList <- function(x) {
     if (any(!sapply(x, validObject)) || any(sapply(x, function(y) {
         coln <- colnames(mcols(y))
         !is.element(coln,  c("autm", "cube"))
         }))) 
-        return("*** This is not a valid AtomorphismByCoefList
+        return("*** This is not a valid AutomorphismByCoefList
                 class object.")
     else
         NULL
 }
 
-S4Vectors:::setValidity2("AtomorphismByCoefList", 
-                        valid.AtomorphismByCoefList)
+S4Vectors:::setValidity2("AutomorphismByCoefList", 
+                        valid.AutomorphismByCoefList)
 
 
 

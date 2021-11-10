@@ -17,11 +17,11 @@
 #' @title Conserved and Non-conserved Regions from a MSA
 #' @description Returns the Conserved or the Non-conserved Regions from a MSA.
 #' @param x A \code{\link{Automorphism}}, a \code{\link{AutomorphismList}}, 
-#' a \code{\link{AtomorphismByCoef}} or a \code{\link{AtomorphismByCoefList}} 
+#' a \code{\link{AutomorphismByCoef}} or a \code{\link{AutomorphismByCoefList}} 
 #' class object.
 #' @param conserved Logical, Whether to return the *conserved* or the 
 #' *non-conserved regions*.
-#' @return A \code{\link{AtomorphismByCoef}} class object containing the 
+#' @return A \code{\link{AutomorphismByCoef}} class object containing the 
 #' requested regions.
 #' @importFrom S4Vectors mcols
 #' @export
@@ -41,13 +41,18 @@ setGeneric("conserved_regions",
 #' @importFrom GenomicRanges GRanges
 #' @export
 setMethod("conserved_regions", signature = "Automorphism",
-    function(x, conserved = TRUE) {
+    function(
+            x, 
+            conserved = TRUE,
+            output = c("all_pairs", "unique_pairs", "unique")) {
+        
+        output <- match.arg(output)
+        
         x <- automorphismByCoef(x)
-        if (conserved)
-            x <- x[ x$autm == 1 ]
-        else 
-            x <- x[ x$autm != 1 ]
-        x <- sortByChromAndStart(x)
+        x <- conserved_regions(
+                                x, 
+                                conserved = conserved, 
+                                output = output)
         return(x)
     }    
 )
@@ -58,14 +63,19 @@ setMethod("conserved_regions", signature = "Automorphism",
 #' @importFrom GenomicRanges GRanges
 #' @export
 setMethod("conserved_regions", signature = "AutomorphismList",
-    function(x, conserved = TRUE) {
+    function(
+            x, 
+            conserved = TRUE,
+            output = c("all_pairs", "unique_pairs", "unique")) {
+        
+        output <- match.arg(output)
+        
         x <- automorphismByCoef(x)
         x <-  unlist(x)
-        if (conserved)
-            x <- x[ x$autm == 1 ]
-        else 
-            x <- x[ x$autm != 1 ]
-        x <- sortByChromAndStart(x)
+        x <- conserved_regions(
+                                x, 
+                                conserved = conserved, 
+                                output = output)
         return(x)
     }    
 )
@@ -74,13 +84,36 @@ setMethod("conserved_regions", signature = "AutomorphismList",
 #' @aliases conserved_regions
 #' @importFrom GenomicRanges GRanges
 #' @export
-setMethod("conserved_regions", signature = "AtomorphismByCoef",
-    function(x, conserved = TRUE) {
+setMethod("conserved_regions", signature = "AutomorphismByCoef",
+    function(
+            x, 
+            conserved = TRUE,
+            output = c("all_pairs", "unique_pairs", "unique")) {
+        
+        output <- match.arg(output)
+        
         if (conserved)
             x <- x[ x$autm == 1 ]
         else 
             x <- x[ x$autm != 1 ]
-        x <- sortByChromAndStart(x)
+        x <- sortByChromAndEnd(x)
+        
+        x <- switch (output,
+                all_pairs = x,
+                unique_pairs = unique(x),
+                unique = {
+                    x <- unique(x)
+                    x <- data.table(data.frame(x))
+                    x <- x[, list(seqnames = unique(seqnames), 
+                                  end = min(end), 
+                                  strand = unique(strand), 
+                                  autm = unique(autm)), 
+                           by = c("start", "cube") ]
+                    x <-makeGRangesFromDataFrame(x, 
+                                                keep.extra.columns = TRUE)
+                    x <- x[, c("autm", "cube")]
+                }
+        )
         return(x)
     }    
 )
@@ -89,14 +122,19 @@ setMethod("conserved_regions", signature = "AtomorphismByCoef",
 #' @aliases conserved_regions
 #' @importFrom GenomicRanges GRanges
 #' @export
-setMethod("conserved_regions", signature = "AtomorphismByCoefList",
-    function(x, conserved = TRUE) {
+setMethod("conserved_regions", signature = "AutomorphismByCoefList",
+    function(
+            x, 
+            conserved = TRUE,
+            output = c("all_pairs", "unique_pairs", "unique")) {
+        
+        output <- match.arg(output)
+        
         x <-  unlist(x)
-        if (conserved)
-            x <- x[ x$autm == 1 ]
-        else 
-            x <- x[ x$autm != 1 ]
-        x <- sortByChromAndStart(x)
+        x <- conserved_regions(
+                                x, 
+                                conserved = conserved, 
+                                output = output)
         return(x)
     }    
 )

@@ -15,12 +15,12 @@
 \alias{names<-,AutomorphismList-method}
 \alias{as.list,AutomorphismList-method}
 \alias{valid.AutomorphismList}
-\alias{AtomorphismByCoef-class}
-\alias{AtomorphismByCoef}
-\alias{valid.AtomorphismByCoef}
-\alias{AtomorphismByCoefList-class}
-\alias{AtomorphismByCoefList}
-\alias{valid.AtomorphismByCoefList}
+\alias{AutomorphismByCoef-class}
+\alias{AutomorphismByCoef}
+\alias{valid.AutomorphismByCoef}
+\alias{AutomorphismByCoefList-class}
+\alias{AutomorphismByCoefList}
+\alias{valid.AutomorphismByCoefList}
 \alias{ConservedRegion-class}
 \alias{ConservedRegion}
 \alias{valid.ConservedRegion}
@@ -46,9 +46,9 @@ as.AutomorphismList(x, ...)
 
 valid.AutomorphismList(x)
 
-valid.AtomorphismByCoef(x)
+valid.AutomorphismByCoef(x)
 
-valid.AtomorphismByCoefList(x)
+valid.AutomorphismByCoefList(x)
 
 valid.ConservedRegion(x)
 

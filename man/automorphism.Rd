@@ -77,7 +77,7 @@ Automorphism-class objects, which inherits from
 
 \subsection{\code{\link{conserved_regions}}}{
 
-Returns a \code{\link{AtomorphismByCoef}} class object containing the
+Returns a \code{\link{AutomorphismByCoef}} class object containing the
 requested regions.
 }
 

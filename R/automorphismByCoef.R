@@ -18,7 +18,7 @@
 #' @title Autmorphism Grouping by Coefficient
 #' @description Automorphisms with the same automorphism's coefficients are 
 #' grouped.
-#' @return An \code{\link{AtomorphismByCoef}} class object.
+#' @return An \code{\link{AutomorphismByCoef}} class object.
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @export
 #' @examples 
@@ -64,7 +64,7 @@ setMethod("automorphismByCoef", signature(x = "Automorphism"),
                           "strand", "autm", "cube") ]
         x <- makeGRangesFromDataFrame(x, keep.extra.columns = TRUE)
         x <- sortByChromAndStart(x)
-        return(as(x, "AtomorphismByCoef"))
+        return(as(x, "AutomorphismByCoef"))
     }
 )
 
@@ -128,7 +128,7 @@ setMethod("automorphismByCoef", signature(x = "AutomorphismList"),
         idx <- which(sapply(x, function(x) length(x) > min.len))
         x <- x[ idx ]
         
-        return(as(x, "AtomorphismByCoefList"))
+        return(as(x, "AutomorphismByCoefList"))
         return(x)
     }
 )

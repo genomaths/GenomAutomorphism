@@ -34,7 +34,7 @@ as possible over the number of workers (see
 \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).}
 }
 \value{
-An \code{\link{AtomorphismByCoef}} class object.
+An \code{\link{AutomorphismByCoef}} class object.
 }
 \description{
 Automorphisms with the same automorphism's coefficients are

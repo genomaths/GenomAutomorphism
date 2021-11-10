@@ -262,7 +262,7 @@ four regions with multiple _indel_ mutations. In general, _indel_ mutational
 event can be modeled as translations on $\mathbb{Z}_{64}$. 
 
 ## Bar plot automorphism distribution by cubes
-The automorphism distribution by cubes can be summarized in the bar-plot grphic
+The automorphism distribution by cubes can be summarized in the bar-plot graphic
 
 ```{r barplot, fig.height = 4, fig.width = 5}
 counts <- table(autms$cube)
@@ -278,6 +278,39 @@ mtext(side = 1,line = -1.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
       col = c("white","red", "black", "orange", "yellow"))
 
 ```
+
+## Conserved and non-conserved regions
+
+Conserved and non-conserved gene regions can be easily observed in most of 
+MSA editing bioinformatic tools. However, here were interesting into get the
+regions coordinates for further downstream analysis.
+
+Conserved regions from pairwise comparisons are obtain with function 
+conserved_regions:
+```{r conserved_regions}
+conserv <- conserved_regions(autm)
+conserv
+```
+
+
+The non-conserved regions coordinates are obtained by typing
+```{r non-consv}
+non_conserv <- conserved_regions(autm, conserved = FALSE)
+non_conserv
+```
+
+Several regions are similar for more than one comparison.
+```{r uniq}
+conserv_unique <- conserved_regions(autm, output = "unique")
+conserv_unique
+```
+
+Unique non-conserved pairwise regions:
+```{r uniq-non-consr}
+non_conserv_unique <- conserved_regions(autm, conserved = FALSE, output = "unique")
+non_conserv_unique
+```
+
 
 # Automorphisms on $\mathbb{Z}_{125}$
 
