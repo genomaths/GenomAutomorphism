@@ -117,6 +117,14 @@ _IntroductionToZ5GeneticCodeVectorSpace.nb_ and interact with it using
 Wolfram Player, freely available (for Windows and Linux OS) at,
 <https://www.wolfram.com/player/>.
 
+## Load the R libraries
+
+```{r lib}
+library(Biostrings)
+library(GenomAutomorphism)
+library(usefr)
+```
+
 
 # Read the alignment _FASTA_  and encode the sequences
 
@@ -127,7 +135,6 @@ genomes.
 
 
 ```{r fasta, message=FALSE}
-library(Biostrings)
 
 URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/", 
         "COVID-19/AY390556.1_265-13398_13398-21485_RNA-POL_SARS_COVI_GZ02.fas")
@@ -145,7 +152,6 @@ define the sum operation.
 
 
 ```{r url, message=FALSE}
-library(GenomAutomorphism)
 
 codons <- codon_coord(codon = aln, 
                       cube = "ACGT", 
@@ -280,7 +286,7 @@ mtext(side = 1,line = -1.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
 ```
 
 ## Conserved and non-conserved regions
-
+### Conserved regions
 Conserved and non-conserved gene regions can be easily observed in most of 
 MSA editing bioinformatic tools. However, here were interesting into get the
 regions coordinates for further downstream analysis.
@@ -288,27 +294,99 @@ regions coordinates for further downstream analysis.
 Conserved regions from pairwise comparisons are obtain with function 
 conserved_regions:
 ```{r conserved_regions}
-conserv <- conserved_regions(autm)
+conserv <- conserved_regions(autms)
 conserv
 ```
 
 
-The non-conserved regions coordinates are obtained by typing
-```{r non-consv}
-non_conserv <- conserved_regions(autm, conserved = FALSE)
-non_conserv
-```
-
 Several regions are similar for more than one comparison.
 ```{r uniq}
-conserv_unique <- conserved_regions(autm, output = "unique")
+conserv_unique <- conserved_regions(autms, output = "unique")
 conserv_unique
 ```
 
+
+### The best fitted CDF model for the sizes of conserved regions
+Next, function [fitCDF](https://rdrr.io/github/genomaths/usefr/man/fitCDF.html)
+is applied to find the best fitted probability function to the the sizes of
+conserved regions. 
+```{r dist}
+widths <- width(conserv)
+dist <- fitCDF(widths, distNames = c(2, 3, 7, 11, 19, 20), plot = TRUE)
+cat("\n ----------------\n")
+dist
+```
+
+```{r hist, fig.height = 4, fig.width = 5}
+hist(widths, 20, freq = FALSE, las = 1, family = "serif", 
+panel.first={points(0, 0, pch=16, cex=1e6, col="grey95",)
+grid(col="white", lty = 1)}, family = "serif", col = "cyan1",
+main = "Histogram and best fitted CDF model for conserved region sizes",
+xlab = "Conserved region size")
+x1 <- seq(1, 36, by = 0.01)
+lines(x1, dweibull(x1, 
+                   shape = coef(dist$bestfit)$shape, 
+                   scale = coef(dist$bestfit)$scale), 
+      col = "red")
+```
+
+After apply Bootstrap test for Goodness of fit,  tt seems to be that we have 
+no reasons to reject the hypothesis that the sizes of conserved regions follows 
+Weibull distribution.
+```{r gof}
+mcgoftest(model = dist, 
+          varobj = widths, 
+          stat = "rmse",
+          breaks = 20)
+
+cat("\n ----------------\n")
+
+mcgoftest(model = dist, 
+          varobj = widths, 
+          stat = "chisq",
+          breaks = 20)
+
+```
+
+
+Nevertheless, the data comes from only one pairwise DNA sequence alignment and
+the distribution would differ when consider a large DNA multiple sequence 
+alignment. 
+
+Short summary for the other CDFs analyzed are shown typing:
+
+```{r othersD}
+dist$fit
+```
+
+### Conserved regions
+
+The non-conserved regions coordinates are obtained by typing
+```{r non-consv}
+non_conserv <- conserved_regions(autms, conserved = FALSE)
+non_conserv
+```
+
+
 Unique non-conserved pairwise regions:
 ```{r uniq-non-consr}
-non_conserv_unique <- conserved_regions(autm, conserved = FALSE, output = "unique")
+non_conserv_unique <- conserved_regions(autms, conserved = FALSE, output = "unique")
 non_conserv_unique
+```
+
+Each non-conserved region corresponds to a single codon mutational event:
+```{r barplot, fig.height = 6, fig.width = 6}
+counts <- table(non_conserv_unique$cube)
+
+par(family = "serif", cex = 0.8, font = 2)
+barplot(counts, main="Distribution of Single Codon Mutational Events",
+        xlab="Genetic-code cube representation",
+        col=c("darkblue","red", "darkgreen", "orange", "magenta"), 
+        ylim = c(0, 2200), border = NA, axes = FALSE)
+axis(2, at = c(0, 500, 1000, 1500, 2000))
+mtext(side = 1,line = -1.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
+      text = paste0( counts ), 
+      col = c("white","red", "black", "orange", "yellow"))
 ```
 
 

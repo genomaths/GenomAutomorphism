@@ -18,7 +18,9 @@
 #' @title Autmorphism Grouping by Coefficient
 #' @description Automorphisms with the same automorphism's coefficients are 
 #' grouped.
-#' @return An \code{\link{AutomorphismByCoef}} class object.
+#' @return An \code{\link{AutomorphismByCoef}} class object. A coefficient with
+#' 0 value is assigned to mutational events that are not automorphisms, e.g., 
+#' indel mutations.
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @export
 #' @examples 
@@ -40,6 +42,7 @@ setGeneric("automorphismByCoef",
 #' @export
 setMethod("automorphismByCoef", signature(x = "Automorphism"),
     function(x) {
+        x$autm[ which(is.na(x$autm)) ] <- 0
         i <- 1
         l <- length(x)
         idx <- vector(mode = "numeric", length = length(x))
