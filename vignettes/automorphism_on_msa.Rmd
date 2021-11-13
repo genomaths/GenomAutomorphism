@@ -199,7 +199,6 @@ autm <- automorphism(filepath = URL,
                       nms = nams)
 ```
 
-
 Object *autm* is included with package and can be load typing:
 ```{r autm}
 data(autm)

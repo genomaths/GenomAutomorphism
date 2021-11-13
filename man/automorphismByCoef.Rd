@@ -34,7 +34,9 @@ as possible over the number of workers (see
 \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).}
 }
 \value{
-An \code{\link{AutomorphismByCoef}} class object.
+An \code{\link{AutomorphismByCoef}} class object. A coefficient with
+0 value is assigned to mutational events that are not automorphisms, e.g.,
+indel mutations.
 }
 \description{
 Automorphisms with the same automorphism's coefficients are

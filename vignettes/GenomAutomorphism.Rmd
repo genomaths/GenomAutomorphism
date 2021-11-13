@@ -11,7 +11,7 @@ fontfamily: "serif"
 output:
     BiocStyle::html_document:
         toc: true
-        toc_depth: 3
+        toc_depth: 4
         toc_float: 
                 collapsed: false
                 smooth_scroll: true
@@ -20,7 +20,7 @@ output:
         geometry: margin=0.8in
         highlight: tango
 toc_float: true
-toc_depth: 3
+toc_depth: 4
 abstract: |
     A fast introduction into the analysis of DNA mutational events 
     by means of automorphisms between two DNA sequences algebraically 
@@ -318,16 +318,16 @@ dist
 ```
 
 ```{r hist, fig.height = 4, fig.width = 5}
-hist(widths, 20, freq = FALSE, las = 1, family = "serif", 
-panel.first={points(0, 0, pch=16, cex=1e6, col="grey95",)
-grid(col="white", lty = 1)}, family = "serif", col = "cyan1",
+par(lwd = 0.5)
+hist(widths, 14, freq = FALSE, las = 1, family = "serif",
+family = "serif", col = "cyan1", cex.main = 0.9,
 main = "Histogram and best fitted CDF model for conserved region sizes",
 xlab = "Conserved region size")
 x1 <- seq(1, 36, by = 0.01)
-lines(x1, dweibull(x1, 
-                   shape = coef(dist$bestfit)$shape, 
-                   scale = coef(dist$bestfit)$scale), 
-      col = "red")
+lines(x1, dweibull(x1,
+                   shape = coef(dist$bestfit)$shape,
+                   scale = coef(dist$bestfit)$scale),
+      col = "red", lwd = 1)
 ```
 
 After apply Bootstrap test for Goodness of fit,  tt seems to be that we have 
@@ -339,7 +339,6 @@ mcgoftest(model = dist,
           stat = "rmse",
           breaks = 20)
 
-cat("\n ----------------\n")
 
 mcgoftest(model = dist, 
           varobj = widths, 
@@ -375,7 +374,7 @@ non_conserv_unique
 ```
 
 Each non-conserved region corresponds to a single codon mutational event:
-```{r barplot, fig.height = 6, fig.width = 6}
+```{r barplot_2, fig.height = 6, fig.width = 6}
 counts <- table(non_conserv_unique$cube)
 
 par(family = "serif", cex = 0.8, font = 2)
@@ -409,7 +408,7 @@ aut_range_2
 ```
 
 The whole genome can be described by automorphisms on $\mathbb{Z}_{125}$.
-```{r barplot_2, fig.height = 4, fig.width = 3.2}
+```{r barplot_3, fig.height = 4, fig.width = 3.2}
 counts <- table(autms_2$cube)
 
 par(family = "serif", cex = 0.8, font = 2)
