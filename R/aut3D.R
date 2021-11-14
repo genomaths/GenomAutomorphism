@@ -172,7 +172,7 @@ automorfismos_3D <- function(
             else 
                 s <- c(paste0(s, collapse = ","), cube[ 1 ])
             if (any(s == -1) || inherits(s, "try-error"))
-                s <- c(NA, "None")
+                s <- c(NA, "Trnl")
             return(s)
         })
         

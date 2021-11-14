@@ -170,7 +170,7 @@ automorfismos_Z5 <- function(
             else 
                 s <- c(s, cube[ 1 ])
             if (any(s == -1) || inherits(s, "try-error"))
-                s <- c(NA, "None")
+                s <- c(NA, "Trnl")
             return(s)
         })
         

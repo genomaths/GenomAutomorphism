@@ -251,14 +251,14 @@ aut_range
 
 Regions no described by automorphism can be shown as follow:
 ```{r non-aut}
-idx = which(autms$cube == "None")
+idx = which(autms$cube == "Trnl")
 autms[ idx ]
 ```
 
 These codon positions cover insertion-deletion (_indel_) mutational events.
 The wholes regions can be summarized typing:
 ```{r range_3}
-idx = which(aut_range$cube == "None")
+idx = which(aut_range$cube == "Trnl")
 aut_range[ idx ]
 ```
 
@@ -313,7 +313,6 @@ conserved regions.
 ```{r dist}
 widths <- width(conserv)
 dist <- fitCDF(widths, distNames = c(2, 3, 7, 11, 19, 20), plot = TRUE)
-cat("\n ----------------\n")
 dist
 ```
 

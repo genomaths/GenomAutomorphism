@@ -13,6 +13,7 @@ autm
 \description{
 This is a \code{\link{AutomorphismList}} object carrying a list of pairwise
 automorphisms between the DNA sequences from the MSA of primate somatic
-cytochrome C from the \code{\link{cyc_aln}} dataset.
+cytochrome C. The automorphisms were estimated from the
+\code{\link{cyc_aln}} MSA with function from the \code{\link{cyc_aln}}.
 }
 \keyword{datasets}
