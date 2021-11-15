@@ -48,15 +48,20 @@ nams <- c("human_1","human_2","gorilla_1","gorilla_2","gorilla_3",
           "silvery_gibbon_1","silvery_gibbon_3","golden_monkey_1",
           "golden_monkey_2","gelada_baboon","bolivian_monkey")
 
-brca1_autm <- automorphism(filepath = URL, 
+brca1_aln <- readDNAMultipleAlignment(filepath = URL)
+
+
+brca1_autm <- automorphism(seqs = brca1_aln, 
                            group = "Z64", 
                            cube = c("ACGT", "TGCA"),
                            cube_alt = c("CATG", "GTAC"),
                            nms = nams)
-usethis::use_data(brca1_autm, overwrite = TRUE)
+usethis::use_data(brca1_autm, brca1_aln, overwrite = TRUE)
 
+autby_coef <- automorphismByCoef(brca1_autm)
+autby_coef
 
-
+usethis::use_data(autby_coef, overwrite = TRUE)
 
 
 
