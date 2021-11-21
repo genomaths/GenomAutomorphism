@@ -218,4 +218,8 @@ base_repl <- function(base, cube, group) {
     return(base)
 }
 
-
+is.url <- function(x) {
+    heads <- c("//", "http://", "https://", "ftp://", "ftps://",
+               "file://")
+    any(sapply(heads, function(p) grepl(pattern = p, x) ))
+}

@@ -82,6 +82,9 @@ autZ125 <- function(
     if (is.null(filepath) && is.null(seq))
         stop("*** One of the arguments 'seq' or 'filepath' must be given.")
     
+    if (!is.null(filepath) && is.character(filepath)) 
+        seq <- readDNAMultipleAlignment(filepath = filepath)
+    
     if (!is.null(seq)) {
         if (!inherits(seq, c("DNAStringSet", "DNAMultipleAlignment")))
             stop("*** Agument 'seq' must belong to 'DNAStringSet'",
@@ -92,7 +95,7 @@ autZ125 <- function(
     }
     
     autm1 <- automorfismos_Z125(seq = seq,
-                            filepath = filepath,
+                            filepath = NULL,
                             cube = cube,
                             start = start,
                             end = end,
@@ -103,7 +106,7 @@ autZ125 <- function(
     
     if (length(idx) > 0) {
         autm2 <- automorfismos_Z125(seq = seq,
-                                filepath = filepath,
+                                filepath = NULL,
                                 cube = cube_alt,
                                 start = start,
                                 end = end,
@@ -166,8 +169,24 @@ automorfismos_Z125 <- function(
                      silent = TRUE)
             
             if (any(s == -1) || inherits(s, "try-error")) {
-                s <- try(modeq(124 - c1, 124 - c2, 125)[1],
-                         silent = TRUE)
+                seq <- get_coord(
+                    x = seq,
+                    output = "all",
+                    base_seq = FALSE,
+                    filepath = filepath,
+                    cube = cube[ 2 ],
+                    group = "Z125",
+                    start = start,
+                    end = end,
+                    chr = chr,
+                    strand = strand) 
+                
+                c1 <- seq@CoordList$coord1[ k ]
+                c2 <- seq@CoordList$coord2[ k ]
+                
+                s <- try(modeq(c1, c2, 125)[1],
+                        silent = TRUE)
+                
                 if (s != -1 && !inherits(s, "try-error")) {
                     s <- c(s, cube[ 2 ])
                 }

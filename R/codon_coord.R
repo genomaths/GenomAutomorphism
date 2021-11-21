@@ -226,9 +226,17 @@ setMethod("codon_coord", signature(codon = "DNAStringSet_OR_NULL"),
 CodonCoordZ4toZ64 <-  function(x) {
     if (any(is.na(x))) 
         res <- NA
-    res <- 4 * x[1] + 16 * x[2] + x[3]
+    else
+        res <- 4 * x[1] + 16 * x[2] + x[3]
     return(res)
 }
-CodonCoordZ5toZ125 <-  function(x) 5 * x[1] + 25 * x[2] + x[3]
+
+CodonCoordZ5toZ125 <-  function(x) {
+    if (any(is.na(x))) 
+        res <- NA
+    else 
+        res <- 5 * x[1] + 25 * x[2] + x[3]
+    return(res)
+}
 
 

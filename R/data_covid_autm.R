@@ -12,12 +12,15 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-#' Automorphisms between DNA Sequences from Primate Somatic Cytochrome C
+#' Automorphisms between DNA Sequences from two COVID-19 genomes
 #' 
 #' This is a \code{\link{AutomorphismList}} object carrying a list of pairwise
-#' automorphisms between the DNA sequences from the MSA of primate somatic 
-#' cytochrome C. The automorphisms were estimated from the 
-#' \code{\link{cyc_aln}} MSA with function from the \code{\link{cyc_aln}}.
+#' automorphisms between the SARS coronavirus GZ02 (GenBank: AY390556.1:
+#' 265-13398_13398-21485) and Bat SARS-like coronavirus isolate bat-SL-CoVZC45
+#' (GenBank: MG772933.1:265-1345513455-21542), complete genomes. The pairwise
+#' DNA sequence alignment is available in the dataset named  
+#' \code{\link{covid_aln}} and the automorphisms were estimated with function
+#' \code{\link{autZ64}}.
 #'
 #' @format \code{\link{AutomorphismList}} class object.
-"autm"
+"covid_autm"
