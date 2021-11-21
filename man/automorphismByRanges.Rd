@@ -13,7 +13,7 @@ automorphismByRanges(x, ...)
 \S4method{automorphismByRanges}{AutomorphismList}(
   x,
   min.len = 0L,
-  num.cores = detectCores(),
+  num.cores = detectCores() - 1,
   tasks = 0L,
   verbose = TRUE
 )

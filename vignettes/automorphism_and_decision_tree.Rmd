@@ -131,15 +131,21 @@ library(partykit)
 library(data.table)
 library(ggplot2)
 library(ggparty)
+library(dplyr)
+library(CHAID)
+
 ```
 
-Next, we proceed to check the DNA multiple sequence alignment (MSA) file. This
-is a FASTA file carrying the MSA of mammals (somatic) Cystocrome c. Notice that
-we are familiar with the _FASTA_ file, then it is better to directly read it
-with function automorphism.
+[CHAID](install.packages("CHAID", repos="http://R-Forge.R-project.org")) 
+can be download at: 
+ <install.packages("CHAID", repos="http://R-Forge.R-project.org")>
 
-However, for the current example, this step can be bypassed, since the 
-MSA is provided provided together with _*GenomAutomorphism*_ R package 
+Next, we proceed to check the DNA multiple sequence alignment (MSA) file. This
+is a FASTA file carrying the MSA of primate BRCA1 DNA repair gene. Notice that
+we are familiar with the _FASTA_ file, then it is better to directly read it
+with function automorphism. However, for the current example, this step can be
+bypassed, since the MSA is provided provided together with _*GenomAutomorphism*_
+R package
 
 ```{r fasta, message=FALSE, eval = FALSE}
 ## Do not run it. This is included with package
@@ -147,7 +153,6 @@ URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/BRCA1/",
               "brca1_primates_dna_repair_20_sequences.fasta")
 
 brca1_aln <- readDNAMultipleAlignment(filepath = URL)
-brca1_aln
 ```
 
 Load MSA available in the package
@@ -201,12 +206,12 @@ brca1_autm <- automorphism(
                       nms = nams)
 ```
 
+
 Object *brca1_autm* is included with package and can be load typing:
 ```{r brca1_autm}
-data(brca1_autm)
+data(brca1_autm, package = "GenomAutomorphism")
 brca1_autm
 ```
-
 
 ## Grouping automorphism by automorphism's coefficients
 Automorphisms with the same automorphism's coefficients can be grouped. This
@@ -221,15 +226,15 @@ autby_coef <- automorphismByCoef(brca1_autm)
 Object *brca1_autm* is included with package and can be load typing:
 ```{r brca1_autm}
 data(autby_coef, package = "GenomAutomorphism")
-brca1_autm
+autby_coef
 ```
 
-## Conditional Inference Trees with *party* & *partykit* R packages
- 
-Recursive partitioning of the grouped automorphism data can be accomplished with
-function [ctree](https://rdrr.io/cran/party/man/ctree.html) from the R package
-[party](https://rdrr.io/cran/party/).
 
+## Bar plot automorphism distribution by cubes
+The automorphism distribution by cubes can be summarized in the bar-plot graphic.
+
+Object *autby_coef* carried all the pairwise comparisons, while it will be
+enough to use data from a single spieces as reference, e.g., humans.
 
 First the data must be reordered into a \code{\link[base]{data.frame}} object:
 ```{r dat}
@@ -238,8 +243,7 @@ h_autby_coef <- unlist(hautby_coef)
 h_autby_coef <- h_autby_coef[ which(h_autby_coef$autm != 1) ]
 ```
 
-Object *autby_coef* carried all the pairwise comparisons, while it will be
-enough to use data from a single spieces as reference, e.g., humans.
+
 
 ```{r rm-h}
 nams <- names(h_autby_coef)
@@ -250,6 +254,7 @@ dt <- data.frame(h_autby_coef, species = nams)
 dt <- dt[, c("start", "autm", "species", "cube")]
 ```
 
+
 Nominal variables are transformed into \code{\link[base]{factor}}
 ```{r as.factor}
 dt$start <- as.numeric(dt$start)
@@ -257,6 +262,31 @@ dt$autm <- as.numeric(dt$autm)
 dt$cube <- as.factor(dt$cube)
 dt$species <- as.factor(dt$species)
 ```
+
+
+```{r barplot, fig.height = 5, fig.width = 7}
+counts <- table(dt$cube)
+
+par(family = "serif", cex = 0.8, font = 2, mar=c(4,6,4,4))
+barplot(counts, #main="Automorphism distribution",
+        xlab="Genetic-code cube representation",
+        ylab="Fixed mutational events",
+        col=c("darkblue","red", "darkgreen", "magenta", "orange"), 
+        border = NA, axes = F, #ylim = c(0, 6000),
+        cex.lab = 2, cex.main = 1.5, cex.names = 2)
+axis(2, at = c(0, 200, 400, 600, 800, 1000), cex.axis = 1.5)
+mtext(side = 1,line = -2.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
+      text = paste0( counts ), cex = 2,
+      col = c("white","red", "yellow", "black"))
+
+```
+
+
+## Conditional Inference Trees with *party* & *partykit* R packages
+ 
+Recursive partitioning of the grouped automorphism data can be accomplished with
+function [ctree](https://rdrr.io/cran/party/man/ctree.html) from the R package
+[party](https://rdrr.io/cran/party/).
 
 
 Next, we accomplish the Conditional Inference Tree analysis
@@ -268,6 +298,7 @@ tree <- partykit::ctree(species ~., data = dt, minsplit = 200,
                                       splittest = TRUE, alpha = 0.00027),
               splitflavour = "exhaustive")
 ```
+
 
 Updating decision tree information: 
 ```{r util-info}
@@ -283,6 +314,7 @@ node.freq <- sapply(seq_along(tree), function(id) {
 ## total counts on each
 node.size =  colSums(node.freq)
 ```
+
 
 Plotting the tree with [ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html)
 ```{r ggparty, fig.height = 20, fig.width = 12}
@@ -322,14 +354,16 @@ ggparty(tree) +
 The current CHAID implementation only accepts nominal or ordinal categorical
 predictors. When predictors are continuous, they have to be transformed into
 ordinal predictors before using the following algorithm. We create a ordinal 
-variable *autms* from variable *autm*.
+variable *autms* from variable *autm*. [CHAID](install.packages("CHAID", repos="http://R-Forge.R-project.org")) can be download at: <install.packages("CHAID", repos="http://R-Forge.R-project.org")>
+
+
 
 ```{r datos}
 datos = dt
-datos$autms <- case_when(datos$autm < 16 ~ 'col1',
-                  between(datos$autm, 16, 31) ~ 'col2',
-                  between(datos$autm, 32, 47) ~ 'col3',
-                  datos$autm > 47 ~ 'col4')
+datos$autms <- case_when(datos$autm < 16 ~ 'XAZ',
+                  between(datos$autm, 16, 31) ~ 'XCZ',
+                  between(datos$autm, 32, 47) ~ 'XGZ',
+                  datos$autm > 47 ~ 'XTZ')
 datos$autms <- as.factor(datos$autms)
 
 datos$regions <- case_when(datos$start < 230 ~ 'r_0',
@@ -348,7 +382,7 @@ datos$autm <- as.factor(datos$autm)
 datos$species <- as.factor(datos$species)
 datos$start <- as.factor(datos$start)
 datos$cube <- as.factor(datos$cube)
-datos <- datos[, c( "regions", "autms", "cube", "species")]
+datos <- datos[, c( "regions","autms", "cube", "species")]
 datos
 ```
 
@@ -359,35 +393,9 @@ chaid_res <- chaid(species ~ regions + autms + cube , data = datos,
                    control = ctrl)
 ```
 
-Next, the data must be prepared for plotting the tree with 
-[ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html):
-```{r, plot-data}
-## Extract p-values
-pvals <- unlist(nodeapply(chaid_res, ids = nodeids(chaid_res), function(n) {
-    pvals <- info_node(n)$adjpvals
-    pvals < pvals[ which.min(pvals) ]
-    return(pvals)
-}))
-pvals <- pvals[ pvals < 0.05 ]
-
-## Counts of event per spciees on each node
-node.freq <- sapply(seq_along(chaid_res), function(id) {
-    y <- data_party(chaid_res[id])
-    y <- y[[ "(response)" ]]
-    table(y)
-})
-## total counts on each
-node.size =  colSums(node.freq)
 
 
-##  Updating CHAID decision tree
-dp <- data_party(chaid_res)[, c("(fitted)", "(response)")]
-
-chaid_tree <- party(node = node_party(chaid_res), data = datos,
-                    fitted = dp, names = names(chaid_res))
-```
-
-```{r ch, fig.height = 10, fig.width = 12}
+```{r ch, fig.height = 10, fig.width = 14}
 plot(chaid_res, margins = c(8, 0, 0, 0),
      terminal_panel = node_barplot(chaid_res, beside = F, id = F),
     tp_args = list(rot = 50, just = c("right", "top")),
@@ -397,26 +405,55 @@ plot(chaid_res, margins = c(8, 0, 0, 0),
 
 
 
+Next, the data must be prepared for plotting the tree with 
+[ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html):
+```{r, plot-data}
+##  Updating CHAID decision tree
+dp <- data_party(chaid_res)[, c("(fitted)", "(response)")]
+
+chaid_tree <- party(node = node_party(chaid_res), data = datos,
+                    fitted = dp, names = names(chaid_res))
+
+## Extract p-values
+pvals <- unlist(nodeapply(chaid_tree, ids = nodeids(chaid_tree), function(n) {
+    pvals <- info_node(n)$adjpvals
+    pvals < pvals[ which.min(pvals) ]
+    return(pvals)
+}))
+pvals <- pvals[ pvals < 0.05 ]
+
+## Counts of event per spciees on each node
+node.freq <- sapply(seq_along(chaid_tree), function(id) {
+    y <- data_party(chaid_tree, id = id)
+    y <- y[[ "(response)" ]]
+    table(y)
+})
+## total counts on each
+node.size =  colSums(node.freq)
+```
+
+
+
 Plotting the tree with [ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html)
-```{r chaid-tree, fig.height = 10, fig.width = 12}
+```{r chaid-tree, fig.height = 10, fig.width = 14}
 ggparty(chaid_tree) +
-    geom_edge() +
-    geom_edge_label() +
-    geom_node_label(line_list = list(aes(label = splitvar),
-                aes(label = paste0("N=", node.size, ", p", 
+    geom_edge(aes(color = id, size = node.size[id]/300), show.legend = FALSE) +
+    geom_edge_label(size = 4, colour = "red", fontface = "bold") +
+    geom_node_label(line_list = list(aes(label = paste0("Node ", id, ": ", splitvar)),
+                aes(label = paste0("N=", node.size[id], ", p", 
                                  ifelse(pvals < .001, "<.001",
                                         paste0("=", round(pvals, 3)))), 
-                    size = 8)),
-                    line_gpar = list(list(size = 8), 
-                                     list(size = 8)),
-                ids = "inner") +
+                    size = 9)),
+                    line_gpar = list(list(size = 12), 
+                                     list(size = 11)),
+                ids = "inner", fontface = "bold", size = 12) +
     geom_node_info() +
-    geom_node_label(aes(label = paste0("N = ", nodesize)),
+    geom_node_label(aes(label = paste0("N = ", node.size), fontface = "bold"),
                     ids = "terminal", nudge_y = -0.0, nudge_x = 0.01) +
     geom_node_plot(gglist = list(
         geom_bar(aes(x = "", fill = species), size = 0.2, width = 0.9,
                  position = position_fill(), color = "black"),
-        theme_minimal(base_family = "arial"),
+        theme_minimal(base_family = "arial", base_size = 14),
         scale_fill_manual(values = c("gray50","gray55","gray60",
                                      "gray70","gray80","gray85",
                                      "blue","gray95")),
@@ -428,6 +465,50 @@ ggparty(chaid_tree) +
                   vjust = 1.)),
         shared_axis_labels = TRUE, size = 1.25)
 ```
+
+
+A printing version in TIFF format could be:
+```{r grh_print, eval=FALSE}
+tiff(filename = "~/home/chaid_tree.tiff",
+     width = 3000, height = 1800, units = "px", pointsize = 1,
+     compression = "lzw", bg = "white", res = 600)
+
+ggparty(chaid_tree) +
+    geom_edge(aes(color = id), show.legend = FALSE) +
+    geom_edge_label(size = 1, colour = "red", fontface = "bold") +
+    geom_node_label(line_list = list(aes(label = paste0("Node ", id,": ", splitvar)),
+                            aes(label = paste0("N=", node.size[id], ", p",
+                                ifelse(pvals < .001, "<.001",
+                                     paste0("=", round(pvals, 3)))))),
+                    line_gpar = list(list(size = 4), 
+                                     list(size = 4)),
+                    ids = "inner", label.size = 0.1) +
+    geom_node_info(size = 2) +
+    geom_node_label(aes(label = paste0("N = ", nodesize)),
+                    ids = "terminal", nudge_y = -0.0, 
+                    nudge_x = 0.01, label.size = 0.1,
+                    line_gpar = list(list(size = 3.5), 
+                                     list(size = 3.5))) +
+    geom_node_plot(gglist = list(
+        geom_bar(aes(x = "", fill = species), size = 0.2, width = 10,
+                 position = position_fill(), color = "black"),
+        theme_minimal(base_family = "arial", base_size = 5),
+        scale_fill_manual(values = c("gray50","gray55","gray60",
+                                     "gray70","gray80","gray85",
+                                     "blue","gray95")),
+        xlab(""), 
+        ylab("Probability"), 
+        geom_text(aes(x = "", group = species, 
+                      label = stat(count)),
+                  stat = "count", position = position_fill(), 
+                  vjust = 1., size = 1)),
+        shared_axis_labels = TRUE, size = 1.)
+
+
+dev.off()
+
+```
+
 
 
 # References

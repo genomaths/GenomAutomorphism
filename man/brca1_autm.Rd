@@ -14,6 +14,6 @@ brca1_autm
 This is a \code{\link{AutomorphismList}} object carrying a list of pairwise
 automorphisms between the DNA sequences from the MSA of primate BRCA1
 DNA repair gene. The automorphisms were estimated from the
-\code{\link{brca1_aln}} MSA with function.
+\code{\link{brca1_aln}} MSA with function \code{\link{autZ64}}.
 }
 \keyword{datasets}

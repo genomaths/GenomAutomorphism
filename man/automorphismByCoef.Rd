@@ -13,7 +13,7 @@ automorphismByCoef(x, ...)
 \S4method{automorphismByCoef}{AutomorphismList}(
   x,
   min.len = 1L,
-  num.cores = detectCores(),
+  num.cores = detectCores() - 1,
   tasks = 0L,
   verbose = TRUE
 )

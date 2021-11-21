@@ -12,12 +12,13 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-#' Automorphisms between DNA Sequences from Primate BRCA1 Genes
+#' Automorphisms between DNA Sequences from Primate Cytochrome C Genes
 #' 
 #' This is a \code{\link{AutomorphismList}} object carrying a list of pairwise
-#' automorphisms between the DNA sequences from the MSA of primate BRCA1 
-#' DNA repair gene. The automorphisms were estimated from the 
-#' \code{\link{brca1_aln}} MSA with function \code{\link{autZ64}}.
+#' automorphisms between the DNA sequences from the MSA of  
+#' [Primate Somatic Cytochrome C](https://bit.ly/3kdEAzs) to be used in the
+#' examples provided for the package functions. The automorphisms were estimated
+#' from the \code{\link{cyc_aln}} MSA with function \code{\link{autZ64}}.
 #'
 #' @format \code{\link{AutomorphismList}} class object.
-"brca1_autm"
+"cyc_autm"

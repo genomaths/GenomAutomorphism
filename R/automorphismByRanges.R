@@ -108,7 +108,7 @@ setMethod("automorphismByRanges", signature(x = "AutomorphismList"),
     function(
             x,
             min.len = 0L,
-            num.cores = detectCores(),
+            num.cores = detectCores() - 1,
             tasks = 0L,
             verbose = TRUE) {
         
@@ -120,8 +120,6 @@ setMethod("automorphismByRanges", signature(x = "AutomorphismList"),
         
         ## ---------------- Setting parallel distribution --------------- ##
         
-        if (num.cores > 1) 
-            num.cores <- num.cores - 1
         progressbar = FALSE
         if (verbose) progressbar = TRUE
         if (Sys.info()["sysname"] == "Linux")
