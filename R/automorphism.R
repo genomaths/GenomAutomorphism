@@ -66,6 +66,12 @@
 #' values given for the function definition will be used.
 #' @param group A character string denoting the group representation for the 
 #' given base or codon as shown in reference (1).
+#' @param num.cores,tasks Parameters for parallel computation using package
+#' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to use,
+#' i.e. at most how many child processes will be run simultaneously (see
+#' \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
+#' for Linux OS).
+#' @param verbose If TRUE, prints the progress bar.
 #' @return This function returns a \code{\link{Automorphism-class}} object  
 #' with four columns on its metacolumn named: \emph{seq1}, \emph{seq2},
 #' \emph{autm}, and \emph{cube}.
@@ -165,7 +171,10 @@ setMethod("automorphism", signature(seqs = "DNAStringSet_OR_NULL"),
             start = NA,
             end = NA,
             chr = 1L,
-            strand = "+") {
+            strand = "+",
+            num.cores = detectCores() - 1,
+            tasks = 0L,
+            verbose = TRUE) {
         
         if (is.null(seqs) && is.null(filepath)) 
             stop("*** One of the arguments 'seqs' or 'filepath' must
@@ -196,7 +205,10 @@ setMethod("automorphism", signature(seqs = "DNAStringSet_OR_NULL"),
                                     start = start, 
                                     end = end, 
                                     chr = chr, 
-                                    strand = strand)
+                                    strand = strand,
+                                    num.cores = num.cores,
+                                    tasks = tasks,
+                                    verbose = verbose)
         } 
         else {
             
@@ -210,11 +222,16 @@ setMethod("automorphism", signature(seqs = "DNAStringSet_OR_NULL"),
                 start = start, 
                 end = end, 
                 chr = chr, 
-                strand = strand)
+                strand = strand,
+                num.cores = num.cores,
+                tasks = tasks,
+                verbose = verbose)
             mcols(gr) <- NULL
 
             ## ------------ Setting up parallel computation ------------ #
-            no_cores <- detectCores() - 1  
+            
+            num.cores <- floor(num.cores/2)
+            no_cores <- num.cores
             cl <- makeCluster(no_cores, type="FORK")  
             registerDoParallel(cl)  
             
@@ -243,7 +260,10 @@ setMethod("automorphism", signature(seqs = "DNAStringSet_OR_NULL"),
                                             start = start, 
                                             end = end, 
                                             chr = chr, 
-                                            strand = strand)
+                                            strand = strand,
+                                            num.cores = num.cores,
+                                            tasks = tasks,
+                                            verbose = verbose)
                     mcols(aln)
                 }, silent = TRUE)
             
@@ -275,45 +295,60 @@ selectAutomorphism <- function(
     start, 
     end, 
     chr, 
-    strand) {
+    strand,
+    num.cores,
+    tasks,
+    verbose) {
     
     seq <- switch(group,
-                  "Z5" = autZ5(
-                      seq = seq,
-                      filepath = filepath,
-                      cube = cube,
-                      cube_alt = cube_alt,
-                      start = start,
-                      end = end,
-                      chr = chr,
-                      strand = strand),
-                  "Z64" = autZ64(
-                      seq = seq,
-                      filepath = filepath,
-                      cube = cube,
-                      cube_alt = cube_alt,
-                      start = start,
-                      end = end,
-                      chr = chr,
-                      strand = strand),
-                  "Z5^3" = aut3D(
-                      seq = seq,
-                      filepath = filepath,
-                      cube = cube,
-                      cube_alt = cube_alt,
-                      start = start,
-                      end = end,
-                      chr = chr,
-                      strand = strand),
-                  "Z125" = autZ125(
-                      seq = seq,
-                      filepath = filepath,
-                      cube = cube,
-                      cube_alt = cube_alt,
-                      start = start,
-                      end = end,
-                      chr = chr,
-                      strand = strand)
+                "Z5" = autZ5(
+                            seq = seq,
+                            filepath = filepath,
+                            cube = cube,
+                            cube_alt = cube_alt,
+                            start = start,
+                            end = end,
+                            chr = chr,
+                            strand = strand,
+                            num.cores = num.cores,
+                            tasks = tasks,
+                            verbose = verbose),
+                "Z64" = autZ64(
+                            seq = seq,
+                            filepath = filepath,
+                            cube = cube,
+                            cube_alt = cube_alt,
+                            start = start,
+                            end = end,
+                            chr = chr,
+                            strand = strand,
+                            num.cores = num.cores,
+                            tasks = tasks,
+                            verbose = verbose),
+                "Z5^3" = aut3D(
+                            seq = seq,
+                            filepath = filepath,
+                            cube = cube,
+                            cube_alt = cube_alt,
+                            start = start,
+                            end = end,
+                            chr = chr,
+                            strand = strand,
+                            num.cores = num.cores,
+                            tasks = tasks,
+                            verbose = verbose),
+                "Z125" = autZ125(
+                            seq = seq,
+                            filepath = filepath,
+                            cube = cube,
+                            cube_alt = cube_alt,
+                            start = start,
+                            end = end,
+                            chr = chr,
+                            strand = strand,
+                            num.cores = num.cores,
+                            tasks = tasks,
+                            verbose = verbose)
     )
     return(seq)
 }

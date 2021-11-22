@@ -305,7 +305,7 @@ Updating decision tree information:
 pvals <- unlist(nodeapply(tree, ids = nodeids(tree), function(n) info_node(n)$p.value))
 pvals <- pvals[ pvals < 0.05 ]
 
-## Counts of event per spciees on each node
+## Counts of event per species on each node
 node.freq <- sapply(seq_along(tree), function(id) {
                     y <- data_party(tree[id])
                     y <- y[[ "(response)" ]]
@@ -469,43 +469,43 @@ ggparty(chaid_tree) +
 
 A printing version in TIFF format could be:
 ```{r grh_print, eval=FALSE}
-tiff(filename = "~/home/chaid_tree.tiff",
-     width = 3000, height = 1800, units = "px", pointsize = 1,
-     compression = "lzw", bg = "white", res = 600)
-
-ggparty(chaid_tree) +
-    geom_edge(aes(color = id), show.legend = FALSE) +
-    geom_edge_label(size = 1, colour = "red", fontface = "bold") +
-    geom_node_label(line_list = list(aes(label = paste0("Node ", id,": ", splitvar)),
-                            aes(label = paste0("N=", node.size[id], ", p",
-                                ifelse(pvals < .001, "<.001",
-                                     paste0("=", round(pvals, 3)))))),
-                    line_gpar = list(list(size = 4), 
-                                     list(size = 4)),
-                    ids = "inner", label.size = 0.1) +
-    geom_node_info(size = 2) +
-    geom_node_label(aes(label = paste0("N = ", nodesize)),
-                    ids = "terminal", nudge_y = -0.0, 
-                    nudge_x = 0.01, label.size = 0.1,
-                    line_gpar = list(list(size = 3.5), 
-                                     list(size = 3.5))) +
-    geom_node_plot(gglist = list(
-        geom_bar(aes(x = "", fill = species), size = 0.2, width = 10,
-                 position = position_fill(), color = "black"),
-        theme_minimal(base_family = "arial", base_size = 5),
-        scale_fill_manual(values = c("gray50","gray55","gray60",
-                                     "gray70","gray80","gray85",
-                                     "blue","gray95")),
-        xlab(""), 
-        ylab("Probability"), 
-        geom_text(aes(x = "", group = species, 
-                      label = stat(count)),
-                  stat = "count", position = position_fill(), 
-                  vjust = 1., size = 1)),
-        shared_axis_labels = TRUE, size = 1.)
-
-
-dev.off()
+# tiff(filename = "~/home/chaid_tree.tiff",
+#      width = 3000, height = 1800, units = "px", pointsize = 1,
+#      compression = "lzw", bg = "white", res = 600)
+# 
+# ggparty(chaid_tree) +
+#     geom_edge(aes(color = id), show.legend = FALSE) +
+#     geom_edge_label(size = 1, colour = "red", fontface = "bold") +
+#     geom_node_label(line_list = list(aes(label = paste0("Node ", id,": ", splitvar)),
+#                             aes(label = paste0("N=", node.size[id], ", p",
+#                                 ifelse(pvals < .001, "<.001",
+#                                      paste0("=", round(pvals, 3)))))),
+#                     line_gpar = list(list(size = 4), 
+#                                      list(size = 4)),
+#                     ids = "inner", label.size = 0.1) +
+#     geom_node_info(size = 2) +
+#     geom_node_label(aes(label = paste0("N = ", nodesize)),
+#                     ids = "terminal", nudge_y = -0.0, 
+#                     nudge_x = 0.01, label.size = 0.1,
+#                     line_gpar = list(list(size = 3.5), 
+#                                      list(size = 3.5))) +
+#     geom_node_plot(gglist = list(
+#         geom_bar(aes(x = "", fill = species), size = 0.2, width = 10,
+#                  position = position_fill(), color = "black"),
+#         theme_minimal(base_family = "arial", base_size = 5),
+#         scale_fill_manual(values = c("gray50","gray55","gray60",
+#                                      "gray70","gray80","gray85",
+#                                      "blue","gray95")),
+#         xlab(""), 
+#         ylab("Probability"), 
+#         geom_text(aes(x = "", group = species, 
+#                       label = stat(count)),
+#                   stat = "count", position = position_fill(), 
+#                   vjust = 1., size = 1)),
+#         shared_axis_labels = TRUE, size = 1.)
+# 
+# 
+# dev.off()
 
 ```
 

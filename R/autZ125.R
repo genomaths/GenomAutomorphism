@@ -38,10 +38,17 @@
 #' values given for the function definition will be used.
 #' @param group A character string denoting the group representation for the 
 #' given base or codon as shown in reference (1).
+#' @param num.cores,tasks Parameters for parallel computation using package
+#' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to use,
+#' i.e. at most how many child processes will be run simultaneously (see
+#' \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
+#' for Linux OS).
+#' @param verbose If TRUE, prints the progress bar.
 #' @return An object \code{\link{Automorphism-class}} with four columns 
 #' on its metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and
 #' \emph{cube}.
 #' @importFrom numbers modlin
+#' @importFrom BiocParallel MulticoreParam bplapply SnowParam
 #' @import GenomicRanges
 #' @export
 #' @references 
@@ -77,7 +84,10 @@ autZ125 <- function(
                 start = NA,
                 end = NA,
                 chr = 1L,
-                strand = "+") {
+                strand = "+",
+                num.cores = detectCores() - 1,
+                tasks = 0L,
+                verbose = TRUE) {
     
     if (is.null(filepath) && is.null(seq))
         stop("*** One of the arguments 'seq' or 'filepath' must be given.")
@@ -100,7 +110,10 @@ autZ125 <- function(
                             start = start,
                             end = end,
                             chr = chr,
-                            strand = strand)
+                            strand = strand,
+                            num.cores = num.cores,
+                            tasks = tasks,
+                            verbose = verbose)
     
     idx <- which(is.na(autm1$autm))
     
@@ -111,7 +124,10 @@ autZ125 <- function(
                                 start = start,
                                 end = end,
                                 chr = chr,
-                                strand = strand)
+                                strand = strand,
+                                num.cores = num.cores,
+                                tasks = tasks,
+                                verbose = verbose)
         autm1[idx, ] <- autm2[idx, ]
     }
     autm1 <- new(
@@ -137,8 +153,11 @@ automorfismos_Z125 <- function(
                         start = NA,
                         end = NA,
                         chr = 1L,
-                        strand = "+") {
-    seq <- get_coord(
+                        strand = "+",
+                        num.cores,
+                        tasks,
+                        verbose) {
+    sq <- get_coord(
         x = seq,
         output = "all",
         base_seq = FALSE,
@@ -150,26 +169,42 @@ automorfismos_Z125 <- function(
         chr = chr,
         strand = strand)
     
-    gr <- seq@SeqRanges
-    gr$coord1 <- seq@CoordList$coord1
-    gr$coord2 <- seq@CoordList$coord2
+    gr <- sq@SeqRanges
+    gr$coord1 <- sq@CoordList$coord1
+    gr$coord2 <- sq@CoordList$coord2
     gr$autm <- 1
     gr$cube <- cube[ 1 ]
     strands <- as.character(strand(gr))
     
-    idx <- seq@CoordList$coord1 != seq@CoordList$coord2
+    idx <- sq@CoordList$coord1 != sq@CoordList$coord2
     idx <- sort(c(which(idx), which(is.na(idx))))
     
+    # ## -------------- Setting parallel computation ----------------- #
+    
+    progressbar = FALSE
+    if (verbose)
+        progressbar = TRUE
+    if (Sys.info()["sysname"] == "Linux")
+        bpparam <- MulticoreParam(workers = num.cores, tasks = tasks,
+                                  progressbar = progressbar)
+    else
+        bpparam <- SnowParam(workers = num.cores, type = "SOCK",
+                             progressbar = progressbar)
+    
+    # ## -------------------------------------------------------------- #
+    
+    
+    
     if (length(idx) != 0) {
-        seq <- lapply(idx, function(k) {
-            c1 <- seq@CoordList$coord1[ k ]
-            c2 <- seq@CoordList$coord2[ k ]
+        sq <- bplapply(idx, function(k) {
+            c1 <- sq@CoordList$coord1[ k ]
+            c2 <- sq@CoordList$coord2[ k ]
             
             s <- try(modeq(c1, c2, 125)[1],
                      silent = TRUE)
             
             if (any(s == -1) || inherits(s, "try-error")) {
-                seq <- get_coord(
+                sq <- get_coord(
                     x = seq,
                     output = "all",
                     base_seq = FALSE,
@@ -181,8 +216,8 @@ automorfismos_Z125 <- function(
                     chr = chr,
                     strand = strand) 
                 
-                c1 <- seq@CoordList$coord1[ k ]
-                c2 <- seq@CoordList$coord2[ k ]
+                c1 <- sq@CoordList$coord1[ k ]
+                c2 <- sq@CoordList$coord2[ k ]
                 
                 s <- try(modeq(c1, c2, 125)[1],
                         silent = TRUE)
@@ -196,14 +231,14 @@ automorfismos_Z125 <- function(
             if (any(s == -1) || inherits(s, "try-error"))
                 s <- c(NA, "Trnl")
             return(s)
-        })
+        }, BPPARAM = bpparam)
     
-        seq <- do.call(rbind, seq)
-        seq <- data.frame(seq)
-        colnames(seq) <- c("autm", "cube")
-        seq$autm <- suppressWarnings(as.numeric(seq$autm))
-        gr$autm[ idx ] <- seq$autm
-        gr$cube[ idx ] <- seq$cube
+        sq <- do.call(rbind, sq)
+        sq <- data.frame(sq)
+        colnames(sq) <- c("autm", "cube")
+        sq$autm <- suppressWarnings(as.numeric(sq$autm))
+        gr$autm[ idx ] <- sq$autm
+        gr$cube[ idx ] <- sq$cube
     }
     return(gr)
 }

@@ -75,7 +75,7 @@ covid_aln
 usethis::use_data(covid_aln, overwrite = TRUE)
 
 
-covid_autm <- automorphism(filepath = URL, 
+covid_autm <- automorphism(seq = covid_aln, 
                       group = "Z64", 
                       cube = c("ACGT", "TGCA"),
                       cube_alt = c("CATG", "GTAC"))

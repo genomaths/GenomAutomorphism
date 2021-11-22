@@ -135,12 +135,10 @@ genomes.
 
 
 ```{r fasta, message=FALSE}
-
 URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/", 
         "COVID-19/AY390556.1_265-13398_13398-21485_RNA-POL_SARS_COVI_GZ02.fas")
 
-aln <- readDNAMultipleAlignment(filepath = URL)
-aln
+covid_aln <- readDNAMultipleAlignment(filepath = URL)
 ```
 
 
@@ -152,8 +150,8 @@ define the sum operation.
 
 
 ```{r url, message=FALSE}
-
-codons <- codon_coord(codon = aln, 
+data(covid_aln, package = "GenomAutomorphism")
+codons <- codon_coord(codon = covid_aln, 
                       cube = "ACGT", 
                       group = "Z64", 
                       start = 1, 
@@ -190,13 +188,14 @@ alternative set of dual cubes.
 
 
 ```{r aut}
-autms <- automorphism(seqs = aln, 
-                      group = "Z64", 
+autm <- automorphism(
+                      seqs = covid_aln,
+                      group = "Z64",
                       cube = c("ACGT", "TGCA"),
                       cube_alt = c("CATG", "GTAC"),
-                      start = 1, 
+                      start = 1,
                       end = 102)
-autms
+
 ```
 
 Observe that two new columns were added, the automorphism coefficient $k$ (named
@@ -209,7 +208,7 @@ affecting the DNA negative strand (-).
 
 The last result can be summarized by gene regions as follow:
 ```{r range}
-aut_range <- automorphismByRanges(autms)
+aut_range <- automorphismByRanges(covid_autm)
 aut_range
 ```
 
@@ -237,26 +236,27 @@ Next, the automorphism for the whole pairwise alignment of SARS-CoV-2 related
 coronaviruses:
 ```{r aut_1, eval=FALSE}
 ## Do not need to run it. 
-autms <- automorphism(filepath = URL, 
-                      group = "Z64", 
-                      cube = c("ACGT", "TGCA"),
-                      cube_alt = c("CATG", "GTAC"))
+# covid_autm <- automorphism(
+#                     seq = covid_aln,
+#                     group = "Z64",
+#                     cube = c("ACGT", "TGCA"),
+#                     cube_alt = c("CATG", "GTAC"))
 
 ## This data is available with the package
-data(autms, package = "GenomAutomorphism")
-autms
+data(covid_autm, package = "GenomAutomorphism")
+covid_autm
 ```
 
 And the summary by range
 ```{r range_2}
-aut_range <- automorphismByRanges(autms)
+aut_range <- automorphismByRanges(covid_autm)
 aut_range
 ```
 
 Regions no described by automorphism can be shown as follow:
 ```{r non-aut}
-idx = which(autms$cube == "Trnl")
-autms[ idx ]
+idx = which(covid_autm$cube == "Trnl")
+covid_autm[ idx ]
 ```
 
 These codon positions cover insertion-deletion (_indel_) mutational events.
@@ -275,7 +275,7 @@ event can be modeled as translations on $\mathbb{Z}_{64}$.
 The automorphism distribution by cubes can be summarized in the bar-plot graphic
 
 ```{r barplot, fig.height = 4, fig.width = 7}
-counts <- table(autms$cube[ autms$autm != 1 | is.na(autms$autm) ])
+counts <- table(covid_autm$cube[ covid_autm$autm != 1 | is.na(covid_autm$autm) ])
 
 par(family = "serif", cex = 0.8, font = 2, mar=c(4,6,4,4))
 barplot(counts, main="Automorphism distribution",
@@ -300,14 +300,14 @@ regions coordinates for further downstream analysis.
 Conserved regions from pairwise comparisons are obtain with function 
 conserved_regions:
 ```{r conserved_regions}
-conserv <- conserved_regions(autms)
+conserv <- conserved_regions(covid_autm)
 conserv
 ```
 
 
 Several regions are similar for more than one comparison.
 ```{r uniq}
-conserv_unique <- conserved_regions(autms, output = "unique")
+conserv_unique <- conserved_regions(covid_autm, output = "unique")
 conserv_unique
 ```
 
@@ -321,6 +321,8 @@ widths <- width(conserv)
 dist <- fitCDF(widths, distNames = c(2, 3, 7, 11, 19, 20), plot = TRUE)
 dist
 ```
+
+
 
 ```{r hist, fig.height = 4, fig.width = 5}
 par(lwd = 0.5)
@@ -367,14 +369,14 @@ dist$fit
 
 The non-conserved regions coordinates are obtained by typing
 ```{r non-consv}
-non_conserv <- conserved_regions(autms, conserved = FALSE)
+non_conserv <- conserved_regions(covid_autm, conserved = FALSE)
 non_conserv
 ```
 
 
 Unique non-conserved pairwise regions:
 ```{r uniq-non-consr}
-non_conserv_unique <- conserved_regions(autms, conserved = FALSE, output = "unique")
+non_conserv_unique <- conserved_regions(covid_autm, conserved = FALSE, output = "unique")
 non_conserv_unique
 ```
 
@@ -399,32 +401,41 @@ mtext(side = 1,line = -1.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
 Alternatively, we can use the algebraic representation on on $\mathbb{Z}_{125}$.
 
 ```{r aut_2}
-autms_2 <- automorphism(filepath = URL, 
+covid_autm_2 <- automorphism(
+                      seq = covid_aln, 
                       group = "Z125", 
                       cube = c("ACGT", "TGCA"),
                       cube_alt = c("CATG", "GTAC"))
-autms_2
+covid_autm_2
 ```
+
 
 And the summary by range
 ```{r range_4}
-aut_range_2 <- automorphismByRanges(autms_2)
+aut_range_2 <- automorphismByRanges(covid_autm_2)
 aut_range_2
 ```
 
 The whole genome can be described by automorphisms on $\mathbb{Z}_{125}$.
 ```{r barplot_3, fig.height = 4, fig.width = 3.2}
-counts <- table(autms_2$cube)
+counts <- table(covid_autm_2$cube[ covid_autm_2$autm != 1 ])
 
 par(family = "serif", cex = 0.8, font = 2)
 barplot(counts, main="Automorphism distribution",
         xlab="Genetic-code cube representation",
+        ylab="Fixed mutational events",
         col=c("darkblue","red"), 
-        ylim = c(0, 7000), border = NA, axes = FALSE)
-axis(2, at = c(0, 1000, 3000, 5000, 7000))
-mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1),
-      text = paste0( counts ),  
-      col = c("white","red", "black"))
+        ylim = c(0, 3000), border = NA, axes = T)
+axis(2, at = c(0, 500, 1000, 1500, 2000, 2500, 3000))
+# mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1),
+#       text = paste0( counts ),  
+#       col = c("white","red", "black"))
+# 
+# axis(2, at = c(0, 500, 1000, 1500, 2000), cex.axis = 1.5)
+# mtext(side = 1,line = -1.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
+#       text = paste0( counts ), cex = 2,
+#       col = c("white","red", "black", "yellow", "orange"))
+
 
 ```
 

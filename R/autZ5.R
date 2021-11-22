@@ -38,10 +38,17 @@
 #' values given for the function definition will be used.
 #' @param group A character string denoting the group representation for the 
 #' given base or codon as shown in reference (1).
+#' @param num.cores,tasks Parameters for parallel computation using package
+#' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to use,
+#' i.e. at most how many child processes will be run simultaneously (see
+#' \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
+#' for Linux OS).
+#' @param verbose If TRUE, prints the progress bar.
 #' @return An object \code{\link{Automorphism-class}} with four columns on its
 #' metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and \emph{cube}.
 #' @importFrom numbers modlin
 #' @import GenomicRanges
+#' @importFrom BiocParallel MulticoreParam bplapply SnowParam
 #' @export
 #' @references 
 #' \enumerate{
@@ -78,7 +85,10 @@ autZ5 <- function(
     start = NA,
     end = NA,
     chr = 1L,
-    strand = "+") {
+    strand = "+",
+    num.cores = detectCores() - 1,
+    tasks = 0L,
+    verbose = TRUE) {
     
     if (is.null(filepath) && is.null(seq))
         stop("*** One of the arguments 'seq' or 'filepath' must be given.")
@@ -95,7 +105,10 @@ autZ5 <- function(
                            start = start,
                            end = end,
                            chr = chr,
-                           strand = strand)
+                           strand = strand,
+                           num.cores = num.cores,
+                           tasks = tasks,
+                           verbose = verbose)
     
     idx <- which(is.na(autm1$autm))
     
@@ -106,7 +119,10 @@ autZ5 <- function(
                                start = start,
                                end = end,
                                chr = chr,
-                               strand = strand)
+                               strand = strand,
+                               num.cores = num.cores,
+                               tasks = tasks,
+                               verbose = verbose)
         autm1[idx, ] <- autm2[idx, ]
     }
     autm1 <- new(
@@ -131,7 +147,10 @@ automorfismos_Z5 <- function(
     start = NA,
     end = NA,
     chr = 1L,
-    strand = "+") {
+    strand = "+",
+    num.cores,
+    tasks,
+    verbose) {
     
     seq <- get_coord(
         x = seq,
@@ -153,8 +172,23 @@ automorfismos_Z5 <- function(
     idx <- (seq@CoordList$coord1 != seq@CoordList$coord2)
     idx <- sort(c(which(idx), which(is.na(idx))))
     
+    # ## -------------- Setting parallel computation ----------------- #
+    
+    progressbar = FALSE
+    if (verbose)
+        progressbar = TRUE
+    if (Sys.info()["sysname"] == "Linux")
+        bpparam <- MulticoreParam(workers = num.cores, tasks = tasks,
+                                  progressbar = progressbar)
+    else
+        bpparam <- SnowParam(workers = num.cores, type = "SOCK",
+                             progressbar = progressbar)
+    
+    # ## -------------------------------------------------------------- #
+    
+    
     if (length(idx) != 0) {
-        seq <- lapply(idx, function(k) {
+        seq <- bplapply(idx, function(k) {
             c1 <- seq@CoordList$coord1[ k ]
             c2 <- seq@CoordList$coord2[ k ]
             
@@ -172,7 +206,7 @@ automorfismos_Z5 <- function(
             if (any(s == -1) || inherits(s, "try-error"))
                 s <- c(NA, "Trnl")
             return(s)
-        })
+        }, BPPARAM = bpparam)
         
         seq <- do.call(rbind, seq)
         seq <- data.frame(seq)

@@ -18,7 +18,10 @@ automorphism(seqs = NULL, filepath = NULL, group = "Z4", ...)
   start = NA,
   end = NA,
   chr = 1L,
-  strand = "+"
+  strand = "+",
+  num.cores = detectCores() - 1,
+  tasks = 0L,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -42,6 +45,14 @@ pairwise alignment are named as: "aln_1", "aln_2", and so on.}
 \item{start, end, chr, strand}{Optional parameters required to build a
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
+
+\item{num.cores, tasks}{Parameters for parallel computation using package
+\code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to use,
+i.e. at most how many child processes will be run simultaneously (see
+\code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
+for Linux OS).}
+
+\item{verbose}{If TRUE, prints the progress bar.}
 
 \item{seq}{An object from a \code{\link[Biostrings]{DNAStringSet}} or
 \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
