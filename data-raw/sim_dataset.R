@@ -68,6 +68,17 @@ usethis::use_data(autby_coef, overwrite = TRUE)
 URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/", 
         "COVID-19/AY390556.1_265-13398_13398-21485_RNA-POL_SARS_COVI_GZ02.fas")
 
+autm <- automorphism(
+                    filepath  = URL,
+                    group = "Z64",
+                    cube = c("ACGT", "TGCA"),
+                    cube_alt = c("CATG", "GTAC"))
+
+usethis::use_data(autm, overwrite = TRUE)
+
+
+URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/", 
+              "COVID-19/AY390556.1_and_KY417151.1_aligned_protein-coding.fas")
 
 covid_aln <- readDNAMultipleAlignment(filepath = URL)
 covid_aln

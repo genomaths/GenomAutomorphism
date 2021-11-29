@@ -292,10 +292,12 @@ function [ctree](https://rdrr.io/cran/party/man/ctree.html) from the R package
 Next, we accomplish the Conditional Inference Tree analysis
 ```{r ctree}
 set.seed(1455)
+control <- partykit::ctree_control(testtype = "MonteCarlo",
+                         splittest = TRUE, alpha = 0.00027)
+
 tree <- partykit::ctree(species ~., data = dt, minsplit = 200,
                         teststat = "quadratic",
-                        control = ctree_control(testtype = "MonteCarlo",
-                                      splittest = TRUE, alpha = 0.00027),
+                        control = control,
               splitflavour = "exhaustive")
 ```
 
@@ -397,7 +399,7 @@ chaid_res <- chaid(species ~ regions + autms + cube , data = datos,
 
 ```{r ch, fig.height = 10, fig.width = 14}
 plot(chaid_res, margins = c(8, 0, 0, 0),
-     terminal_panel = node_barplot(chaid_res, beside = F, id = F),
+     terminal_panel = partykit::node_barplot(chaid_res, beside = F, id = F),
     tp_args = list(rot = 50, just = c("right", "top")),
     tnex = 1)
 
@@ -464,6 +466,12 @@ ggparty(chaid_tree) +
                   stat = "count", position = position_fill(), 
                   vjust = 1.)),
         shared_axis_labels = TRUE, size = 1.25)
+```
+
+```{r}
+library(rpart.plot)
+
+rpart.rules(chaid_tree)
 ```
 
 

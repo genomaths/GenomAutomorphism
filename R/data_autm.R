@@ -17,10 +17,10 @@
 #' This is a \code{\link{AutomorphismList}} object carrying a list of pairwise
 #' automorphisms between the SARS coronavirus GZ02 (GenBank: AY390556.1:
 #' 265-13398_13398-21485) and Bat SARS-like coronavirus isolate bat-SL-CoVZC45
-#' (GenBank: KY417151.1: protein-coding regions). The pairwise
-#' DNA sequence alignment is available in the dataset named  
+#' (GenBank: MG772933.1:265-1345513455-21542), nonstructural_polyprotein. The
+#' pairwise DNA sequence alignment is available in the dataset named
 #' \code{\link{covid_aln}} and the automorphisms were estimated with function
 #' \code{\link{autZ64}}.
 #'
 #' @format \code{\link{AutomorphismList}} class object.
-"covid_autm"
+"autm"
