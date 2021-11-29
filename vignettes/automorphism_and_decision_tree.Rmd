@@ -437,25 +437,25 @@ node.size =  colSums(node.freq)
 
 
 Plotting the tree with [ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html)
-```{r chaid-tree, fig.height = 10, fig.width = 14}
+```{r chaid-tree, fig.height = 10, fig.width = 18}
 ggparty(chaid_tree) +
     geom_edge(aes(color = id, size = node.size[id]/300), show.legend = FALSE) +
-    geom_edge_label(size = 4, colour = "red", fontface = "bold") +
+    geom_edge_label(size = 5, colour = "red", fontface = "bold", shift = 0.64, nudge_x = -0.01) +
     geom_node_label(line_list = list(aes(label = paste0("Node ", id, ": ", splitvar)),
                 aes(label = paste0("N=", node.size[id], ", p", 
                                  ifelse(pvals < .001, "<.001",
                                         paste0("=", round(pvals, 3)))), 
-                    size = 9)),
+                    size = 10)),
                     line_gpar = list(list(size = 12), 
                                      list(size = 11)),
-                ids = "inner", fontface = "bold", size = 12) +
+                ids = "inner", fontface = "bold", size = 11) +
     geom_node_info() +
     geom_node_label(aes(label = paste0("N = ", node.size), fontface = "bold"),
                     ids = "terminal", nudge_y = -0.0, nudge_x = 0.01) +
     geom_node_plot(gglist = list(
         geom_bar(aes(x = "", fill = species), size = 0.2, width = 0.9,
                  position = position_fill(), color = "black"),
-        theme_minimal(base_family = "arial", base_size = 14),
+        theme_minimal(base_family = "arial", base_size = 16),
         scale_fill_manual(values = c("gray50","gray55","gray60",
                                      "gray70","gray80","gray85",
                                      "blue","gray95")),
@@ -464,14 +464,14 @@ ggparty(chaid_tree) +
         geom_text(aes(x = "", group = species, 
                       label = stat(count)),
                   stat = "count", position = position_fill(), 
-                  vjust = 1.)),
-        shared_axis_labels = TRUE, size = 1.25)
+                  vjust = 1., size = 5)),
+        shared_axis_labels = TRUE, size = 1.2)
 ```
 
 ```{r}
 library(rpart.plot)
-
-rpart.rules(chaid_tree)
+rules<-partykit:::.list.rules.party(tree)
+terminals$rule <- rules[as.character(predict(tree, type = "node"))]
 ```
 
 
