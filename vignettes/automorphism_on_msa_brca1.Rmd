@@ -155,12 +155,6 @@ The sequence names
 ```{r names}
 strtrim(rownames(brca1_aln), 100)
 ```
-
-The corresponding aminoacid sequence is:
-```{r trans}
-translate(brca1_aln@unmasked)
-```
-
 Next, function automorphism will be applied to represent the codon sequence in
 the Abelian group $\mathbb{Z}_{64}$ (i.e., the set of integers remainder modulo
 64). The codon coordinates are requested on the cube ACGT. Following reference

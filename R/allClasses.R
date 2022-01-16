@@ -18,6 +18,7 @@
 #' @rdname BaseGroup
 #' @title A class definition to store codon automorphisms in given in the 
 #' Abelian group representation.
+#' @importClassesFrom S4Vectors DataFrame
 #' @seealso \code{\link{automorphism}}
 #' @keywords internal
 #' @export
@@ -112,6 +113,8 @@ S4Vectors:::setValidity2("BaseGroup", valid.BaseGroup)
 #' @rdname CodonGroup
 #' @title A class definition to store codon automorphisms in given in the 
 #' Abelian group representation.
+#' @importClassesFrom S4Vectors DataFrame
+#' @importClassesFrom GenomicRanges GRanges
 #' @seealso \code{\link{automorphism}}
 #' @keywords internal
 #' @export
@@ -228,7 +231,7 @@ setClass("MatrixList",
 setClassUnion("CodonSeq_OR_MatrixList", c("CodonSeq", "MatrixList"))
 
 #' @importFrom S4Vectors setValidity2
-#' @importFrom Biostrings DNAMultipleAlignment DNAMultipleAlignment
+#' @importClassesFrom Biostrings DNAMultipleAlignment DNAMultipleAlignment
 #' @rdname allClasses
 #' @keywords internal
 #' @export
@@ -274,6 +277,8 @@ setClassUnion("DNAStringSet_OR_NULL",
 #' 
 #' @seealso \code{\link{automorphism}}
 #' @keywords internal
+#' @importClassesFrom S4Vectors DataFrame
+#' @importClassesFrom GenomicRanges GRanges
 #' @export
 setClass("Automorphism",
     slots = c(
@@ -297,6 +302,8 @@ setClassUnion("DataFrame_OR_data.frame",
 #' @importFrom GenomicRanges GRanges
 #' @importFrom S4Vectors mcols
 #' @importFrom GenomeInfoDb Seqinfo
+#' @importClassesFrom S4Vectors DataFrame
+#' @importClassesFrom GenomicRanges GRanges
 #' @importFrom IRanges IRanges
 setAs("DataFrame_OR_data.frame", "Automorphism", 
     function(from) {
@@ -331,9 +338,10 @@ valid.Automorphism.mcols <- function(x) {
             coln <- colnames(x@elementMetadata)
         else 
             coln <- x@colnames
-        if (any(!is.element(coln,
-                            c("seq1", "seq2", "coord1", 
-                            "coord2", "autm", "cube")))) {
+        if (any(!is.element(c("seq1", "seq2", "coord1", 
+                            "coord2", "autm", "cube"), 
+                            coln
+                            ))) {
             m1 <- TRUE
         }
         if (unique(nchar(x$seq1)) != 3 || unique(nchar(x$seq2)) != 3) 
@@ -488,10 +496,33 @@ setReplaceMethod("names", "AutomorphismList",
 #' @rdname Automorphism
 #' @export
 setMethod("as.list", signature = "AutomorphismList",
-    function(x) 
+    function(x) {
+        x <- getAutomorphisms(x)
         return(x@DataList)
+    }
 )
 
+
+setAs("AutomorphismList", "list", function(from) {
+    from <- getAutomorphisms(from)
+    return(from@DataList)
+})
+
+
+setAs("AutomorphismList", "GRangesList", function(from) {
+    from <- getAutomorphisms(from)
+    from <- as.list(from)
+    return(as(from, "GRangesList"))
+})
+
+
+#' @importClassesFrom GenomicRanges GRangesList
+setMethod("unlist", signature = "AutomorphismList",
+    function(x) {
+        x <- as(x, "GRangesList")
+        return(unlist(x))
+    }
+)
 
 ## ====================== Validity AutomorphismList ================== #
 
@@ -607,7 +638,7 @@ setClass("AutomorphismByCoef",
 valid.AutomorphismByCoef <- function(x) {
     coln <- colnames(mcols(x))
     if (!inherits(x, "GRanges") || 
-        any(!is.element(coln,  c("autm", "cube")))) 
+        any(!is.element(c("autm", "cube"), coln))) 
         return("*** This is not a valid AutomorphismByCoef
                 class object.")
     else
@@ -622,6 +653,7 @@ S4Vectors:::setValidity2("AutomorphismByCoef", valid.AutomorphismByCoef)
 #' @rdname Automorphism
 #' @title A class definition for a list of AutomorphismByCoef class objects. 
 #' @keywords internal
+#' @importClassesFrom S4Vectors DataFrame
 #' @export
 setClass(
     "AutomorphismByCoefList",
@@ -642,6 +674,14 @@ setAs("list", "AutomorphismByCoefList", function(from) {
     new("AutomorphismByCoefList", from)
 })
 
+#' @importClassesFrom GenomicRanges GRangesList
+setMethod("unlist", signature = "AutomorphismByCoefList",
+    function(x) {
+        x <- as(x, "GRangesList")
+        return(unlist(x))
+    }
+)
+
 # ===================== Validity AutomorphismByCoefList ================== #
 #' @rdname Automorphism
 #' @title Valid AutomorphismByCoefList mcols
@@ -652,7 +692,7 @@ setAs("list", "AutomorphismByCoefList", function(from) {
 valid.AutomorphismByCoefList <- function(x) {
     if (any(!sapply(x, validObject)) || any(sapply(x, function(y) {
         coln <- colnames(mcols(y))
-        !is.element(coln,  c("autm", "cube"))
+        !is.element(c("autm", "cube"), coln)
         }))) 
         return("*** This is not a valid AutomorphismByCoefList
                 class object.")

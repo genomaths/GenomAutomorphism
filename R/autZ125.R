@@ -229,7 +229,7 @@ automorfismos_Z125 <- function(
             else 
                 s <- c(s, cube[ 1 ])
             if (any(s == -1) || inherits(s, "try-error"))
-                s <- c(NA, "Trnl")
+                s <- c(0, "Trnl")
             return(s)
         }, BPPARAM = bpparam)
     

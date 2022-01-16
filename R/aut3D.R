@@ -101,29 +101,29 @@ aut3D <- function(
     }
     
     autm1 <- automorfismos_3D(seq = seq,
-                           filepath = filepath,
-                           cube = cube,
-                           start = start,
-                           end = end,
-                           chr = chr,
-                           strand = strand,
-                           num.cores = num.cores,
-                           tasks = tasks,
-                           verbose = verbose)
+                            filepath = filepath,
+                            cube = cube,
+                            start = start,
+                            end = end,
+                            chr = chr,
+                            strand = strand,
+                            num.cores = num.cores,
+                            tasks = tasks,
+                            verbose = verbose)
     
     idx <- which(is.na(autm1$autm))
     
     if (length(idx) > 0) {
         autm2 <- automorfismos_3D(seq = seq,
-                               filepath = filepath,
-                               cube = cube_alt,
-                               start = start,
-                               end = end,
-                               chr = chr,
-                               strand = strand,
-                               num.cores = num.cores,
-                               tasks = tasks,
-                               verbose = verbose)
+                                filepath = filepath,
+                                cube = cube_alt,
+                                start = start,
+                                end = end,
+                                chr = chr,
+                                strand = strand,
+                                num.cores = num.cores,
+                                tasks = tasks,
+                                verbose = verbose)
         autm1[idx, ] <- autm2[idx, ]
     }
     autm1 <- new(
@@ -205,7 +205,7 @@ automorfismos_3D <- function(
             else 
                 s <- c(paste0(s, collapse = ","), cube[ 1 ])
             if (any(s == -1) || inherits(s, "try-error"))
-                s <- c(NA, "Trnl")
+                s <- c(0, "Trnl")
             return(s)
         }, BPPARAM = bpparam)
         

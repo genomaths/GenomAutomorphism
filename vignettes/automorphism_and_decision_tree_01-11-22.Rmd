@@ -224,7 +224,6 @@ autby_coef <- automorphismByCoef(x = brca1_autm)
 ```
 
 
-
 Object *brca1_autm* is included with package and can be load typing:
 ```{r brca1_autm}
 data(autby_coef, package = "GenomAutomorphism")
@@ -232,29 +231,44 @@ autby_coef
 ```
 
 
-## Bar plot automorphism distribution by cubes
+In the next we are interested on mutational events in respect to human (as 
+reference).
+```{r h}
+nams <- names(brca1_autm)
+idx1 <- grep("human_1.", nams)
+idx2 <- grep("human_2.", nams)
+idx <- union(idx1, idx2)
+h_brca1_autm <- unlist(brca1_autm[ idx ])
+h_brca1_autm = h_brca1_autm[ which(h_brca1_autm$autm != 1) ]
+h_brca1_autm
+```
+
+
+
+## Bar plot automorphism distribution by coefficient
 The automorphism distribution by cubes can be summarized in the bar-plot graphic.
 
 Object *autby_coef* carried all the pairwise comparisons, while it will be
-enough to use data from a single spieces as reference, e.g., humans.
+enough to use data from a single species as reference, e.g., humans.
 
 First the data must be reordered into a \code{\link[base]{data.frame}} object:
 ```{r dat}
-hautby_coef <- autby_coef[ grep("human", names(autby_coef)) ]
-h_autby_coef <- unlist(hautby_coef)
-h_autby_coef <- h_autby_coef[ which(h_autby_coef$autm != 1) ]
+h_autby_coef <- automorphismByCoef(x = h_brca1_autm)
 h_autby_coef
 ```
 
 
 
 ```{r rm-h}
+
 nams <- names(h_autby_coef)
 nams <- sub("human[_][1-2][.]", "", nams)
 nams <- sub("[_][1-6]", "", nams)
 
 dt <- data.frame(h_autby_coef, species = nams)
-dt <- dt[, c("start", "autm", "species", "cube")]
+dt <- data.frame(dt, species = nams)
+dt <- dt[, c("start", "autm", "species", "mut_type", "cube")]
+dt
 ```
 
 
@@ -264,6 +278,7 @@ dt$start <- as.numeric(dt$start)
 dt$autm <- as.numeric(dt$autm)
 dt$cube <- as.factor(dt$cube)
 dt$species <- as.factor(dt$species)
+dt$mut_type <- as.factor(dt$mut_type)
 ```
 
 
@@ -296,9 +311,9 @@ Next, we accomplish the Conditional Inference Tree analysis
 ```{r ctree}
 set.seed(1455)
 control <- partykit::ctree_control(testtype = "MonteCarlo",
-                         splittest = TRUE, alpha = 0.00027)
+                         splittest = TRUE, minsplit = 70, alpha = 0.05)
 
-tree <- partykit::ctree(species ~., data = dt, minsplit = 200,
+tree <- partykit::ctree(species ~., data = dt, 
                         teststat = "quadratic",
                         control = control,
               splitflavour = "exhaustive")
@@ -307,7 +322,8 @@ tree <- partykit::ctree(species ~., data = dt, minsplit = 200,
 
 Updating decision tree information: 
 ```{r util-info}
-pvals <- unlist(nodeapply(tree, ids = nodeids(tree), function(n) info_node(n)$p.value))
+pvals <- unlist(nodeapply(tree, ids = nodeids(tree), 
+                          function(n) info_node(n)$p.value))
 pvals <- pvals[ pvals < 0.05 ]
 
 ## Counts of event per species on each node
@@ -364,22 +380,35 @@ variable *autms* from variable *autm*. [CHAID](install.packages("CHAID", repos="
 
 
 ```{r datos}
+
+interval <- function(x, a, b) {
+    x >= a & x <= b
+}
+
 datos = dt
-datos$autms <- case_when(datos$autm < 16 ~ 'XAZ',
-                  between(datos$autm, 16, 31) ~ 'XCZ',
-                  between(datos$autm, 32, 47) ~ 'XGZ',
-                  datos$autm > 47 ~ 'XTZ')
+datos$autms <- case_when(datos$autm < 16 ~ 'A1',
+                  interval(datos$autm, 16, 31) ~ 'A2',
+                  interval(datos$autm, 32, 47) ~ 'A3',
+                  datos$autm > 47 ~ 'A4')
 datos$autms <- as.factor(datos$autms)
 
-datos$regions <- case_when(datos$start < 230 ~ 'r_0',
-                  between(datos$start, 230, 270) ~ 'r_1',
-                  between(datos$start, 271, 305) ~ 'r_2',
-                  between(datos$start, 306, 338) ~ 'r_3',
-                  between(datos$start, 339, 533) ~ 'r_4',
-                  between(datos$start, 534, 570) ~ 'r_5',
-                  between(datos$start, 571, 653) ~ 'r_6',
-                  between(datos$start, 654, 709) ~ 'r_7',
-                  datos$start > 709 ~ 'r_8')
+# datos$mut_type <- case_when(substring(datos$mut_type,1,2) == "HH" ~ "HHX",
+#                             grepl("H[KMRYSW]H", datos$mut_type) ~ 'HXH',
+#                             substring(datos$mut_type,2,3) == "HH" ~ 'XHH')
+
+datos$mut_type <- as.character(datos$mut_type)
+datos$mut_type[ which(datos$cube == "Trnl") ] <- "---"
+datos$mut_type <- as.factor(datos$mut_type)
+
+datos$regions <- case_when(datos$start < 230 ~ 'R0',
+                  interval(datos$start, 230, 270) ~ 'R1',
+                  interval(datos$start, 271, 305) ~ 'R2',
+                  interval(datos$start, 306, 338) ~ 'R3',
+                  interval(datos$start, 339, 533) ~ 'R4',
+                  interval(datos$start, 534, 570) ~ 'R5',
+                  interval(datos$start, 571, 653) ~ 'R6',
+                  interval(datos$start, 654, 709) ~ 'R7',
+                  datos$start > 709 ~ 'R8')
 
 datos$regions <- as.factor(datos$regions)
 
@@ -387,24 +416,24 @@ datos$autm <- as.factor(datos$autm)
 datos$species <- as.factor(datos$species)
 datos$start <- as.factor(datos$start)
 datos$cube <- as.factor(datos$cube)
-datos <- datos[, c( "regions","autms", "cube", "species")]
+datos <- datos[, c( "regions","autms", "mut_type", "cube", "species")]
 datos
 ```
 
 Fitting a classification tree with CHAID algorithm
 ```{r chaid}
-ctrl <- chaid_control(minsplit = 160, minprob = 0.20, alpha2 = 0.01, alpha4 = 0.01)
-chaid_res <- chaid(species ~ regions + autms + cube , data = datos,
+ctrl <- chaid_control(minsplit = 200, minprob = 0.51, alpha2 = 0.01, alpha4 = 0.01)
+chaid_res <- chaid(species ~ regions + autms + mut_type + cube , data = datos,
                    control = ctrl)
 ```
 
 
 
-```{r ch, fig.height = 10, fig.width = 14}
+```{r ch, fig.height = 12, fig.width = 24}
 plot(chaid_res, margins = c(8, 0, 0, 0),
      terminal_panel = partykit::node_barplot(chaid_res, beside = F, id = F),
-    tp_args = list(rot = 50, just = c("right", "top")),
-    tnex = 1)
+    tp_args = list(rot = 50, just = c("right", "top"),ep_args = list(justmin = 15)),
+    tnex = 2)
 
 ```
 
@@ -414,10 +443,15 @@ Next, the data must be prepared for plotting the tree with
 [ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html):
 ```{r, plot-data}
 ##  Updating CHAID decision tree
-dp <- data_party(chaid_res)[, c("(fitted)", "(response)")]
-
-chaid_tree <- party(node = node_party(chaid_res), data = datos,
-                    fitted = dp, names = names(chaid_res))
+dp <- data_party(chaid_res)
+dat <- dp[, c("regions", "autms", "mut_type", "cube")]
+dat$species <- dp[, "(response)"]
+    
+    
+chaid_tree <- party(node = node_party(chaid_res), 
+                    data = dat,
+                    fitted =  dp[, c("(fitted)", "(response)")], 
+                    names = names(chaid_res))
 
 ## Extract p-values
 pvals <- unlist(nodeapply(chaid_tree, ids = nodeids(chaid_tree), function(n) {
@@ -440,10 +474,15 @@ node.size =  colSums(node.freq)
 
 
 Plotting the tree with [ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html)
-```{r chaid-tree, fig.height = 10, fig.width = 18}
+```{r chaid-tree, fig.height = 18, fig.width = 26}
 ggparty(chaid_tree) +
     geom_edge(aes(color = id, size = node.size[id]/300), show.legend = FALSE) +
-    geom_edge_label(size = 5, colour = "red", fontface = "bold", shift = 0.64, nudge_x = -0.01) +
+    geom_edge_label(size = 5, colour = "red",
+                    fontface = "bold", 
+                    shift = 0.64, 
+                    nudge_x = -0.01,
+                    max_length = 10,
+                    splitlevels = 1:4) +
     geom_node_label(line_list = list(aes(label = paste0("Node ", id, ": ", splitvar)),
                 aes(label = paste0("N=", node.size[id], ", p", 
                                  ifelse(pvals < .001, "<.001",
@@ -470,6 +509,23 @@ ggparty(chaid_tree) +
                   vjust = 1., size = 5)),
         shared_axis_labels = TRUE, size = 1.2)
 ```
+
+Since only one mutational event human-to-human in region R1 from class A3 is 
+reported in the right side of the tree, with high probability only non-humans 
+hold the following rule: 
+```{r rule1}
+rule <- (dat$autms == "A4" | (dat$autms == "A3" & dat$mut_type != "HRH"))
+unique(as.character(dat[rule,]$species))
+```
+
+
+
+Only humans-to-human mutations hold the following rule:
+```{r rule}
+idx <- dat$autm == "A1" & dat$regions == "R3" & (dat$mut_type == "HHY" | dat$mut_type == "YHH")
+dat[ idx, ]
+```
+
 
 ```{r}
 library(rpart.plot)

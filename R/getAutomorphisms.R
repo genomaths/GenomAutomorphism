@@ -57,6 +57,7 @@ setGeneric("getAutomorphisms",
 #' @export
 setMethod("getAutomorphisms", signature = "AutomorphismList",
     function(x) {
+        nams <- names(x)
         gr <- x@SeqRanges
         x <- x@DataList  
         if (length(gr) > 0) {
@@ -77,6 +78,7 @@ setMethod("getAutomorphisms", signature = "AutomorphismList",
                     SeqRanges = GRanges()
             )
         }
+        names(x) <- nams
         return(x)
     }
 )
@@ -114,10 +116,20 @@ setMethod("[", "AutomorphismList",
 
 setMethod("[[", "AutomorphismList", 
     function(x, i, ...) {
+        x <- x[ i ]
         x <- getAutomorphisms(x)
-        x <- x@DataList[[ i ]]
-        return(x)
+        x <- as(x, "GRangesList")
+        return(x[[1]])
     }
 )
 
+
+setMethod("$", "AutomorphismList", 
+    function(x, name) {
+        x@DataList <- x@DataList[ match(name, names(x)) ]
+        x <- getAutomorphisms(x)
+        x <- as(x, "GRangesList")
+        return(x[[1]])    
+    }
+)
 

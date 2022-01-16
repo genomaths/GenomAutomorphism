@@ -56,12 +56,12 @@ brca1_autm <- automorphism(seqs = brca1_aln,
                            cube = c("ACGT", "TGCA"),
                            cube_alt = c("CATG", "GTAC"),
                            nms = nams)
-usethis::use_data(brca1_autm, brca1_aln, overwrite = TRUE)
+usethis::use_data(brca1_autm, brca1_aln, overwrite = TRUE, compress = "xz")
 
 autby_coef <- automorphismByCoef(brca1_autm)
 autby_coef
 
-usethis::use_data(autby_coef, overwrite = TRUE)
+usethis::use_data(autby_coef, overwrite = TRUE, compress = "xz")
 
 
 

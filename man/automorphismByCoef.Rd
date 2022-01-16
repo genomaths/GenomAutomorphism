@@ -8,19 +8,23 @@
 \usage{
 automorphismByCoef(x, ...)
 
-\S4method{automorphismByCoef}{Automorphism}(x)
+\S4method{automorphismByCoef}{Automorphism}(x, mut.type = TRUE)
 
 \S4method{automorphismByCoef}{AutomorphismList}(
   x,
   min.len = 1L,
+  mut.type = TRUE,
   num.cores = detectCores() - 1,
   tasks = 0L,
   verbose = TRUE
 )
 }
 \arguments{
-\item{x}{An AutomorphismList-class object returned by function
+\item{x}{An automorphism-class object returned by function
 \code{\link{automorphism}}.}
+
+\item{mut.type}{Logical. Whether to include the mutation type as given by
+function \code{\link{mut_type}}.}
 
 \item{num.cores, tasks}{Integers. Argument \emph{num.cores} denotes the
 number of cores to use, i.e. at most how many child processes will be run
