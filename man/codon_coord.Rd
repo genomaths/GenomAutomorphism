@@ -4,6 +4,7 @@
 \alias{codon_coord}
 \alias{codon_coord,BaseGroup-method}
 \alias{codon_coord,DNAStringSet_OR_NULL-method}
+\alias{codon_coord,matrix_OR_data_frame-method}
 \title{Codon coordinates on a given a given Abelian group representation.}
 \usage{
 codon_coord(codon = NULL, ...)
@@ -22,10 +23,19 @@ codon_coord(codon = NULL, ...)
   chr = 1L,
   strand = "+"
 )
+
+\S4method{codon_coord}{matrix_OR_data_frame}(
+  codon,
+  cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
+    "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
+    "CTGA", "GACT", "GCAT", "TACG", "TCAG"),
+  group = c("Z64", "Z125", "Z4^3", "Z5^3")
+)
 }
 \arguments{
-\item{codon}{An object from a \code{\link[Biostrings]{DNAStringSet}} or
-\code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
+\item{codon}{An object from \code{\link{BaseGroup-class}} (generated with
+function \code{\link{base_coord}}), \code{\link[Biostrings]{DNAStringSet}} or
+from \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
 pairwise alignment of two sequences.}
 
 \item{group}{A character string denoting the group representation for the
@@ -83,6 +93,9 @@ bs_cor <- codon_coord(
             group = "Z64")
 bs_cor
 
+## Giving a matrix of codons
+codon_coords(base2codon(x = aln))
+
 }
 \references{
 \enumerate{
@@ -99,6 +112,8 @@ Comput. Chem. 79 (2018) 527-560.
 }
 \seealso{
 \href{https://github.com/genomaths/GenomeAlgebra_SymmetricGroup}{Symmetric Group of the Genetic-Code Cubes.}
+
+\code{\link{base_coord}}
 }
 \author{
 Robersy Sanchez \url{https://genomaths.com}

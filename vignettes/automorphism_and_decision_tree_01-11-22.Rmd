@@ -282,7 +282,7 @@ dt$mut_type <- as.factor(dt$mut_type)
 ```
 
 
-```{r barplot, fig.height = 5, fig.width = 7}
+```{r barplot, fig.height = 5, fig.width = 6}
 counts <- table(dt$cube)
 
 par(family = "serif", cex = 0.8, font = 2, mar=c(4,6,4,4))
@@ -293,80 +293,10 @@ barplot(counts, #main="Automorphism distribution",
         border = NA, axes = F, #ylim = c(0, 6000),
         cex.lab = 2, cex.main = 1.5, cex.names = 2)
 axis(2, at = c(0, 200, 400, 600, 800, 1000), cex.axis = 1.5)
-mtext(side = 1,line = -2.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
+mtext(side = 1,line = -2.5, at = c(0.7, 1.9, 3.1, 4.3),
       text = paste0( counts ), cex = 2,
-      col = c("white","red", "yellow", "black"))
+      col = c("white","yellow", "red"))
 
-```
-
-
-## Conditional Inference Trees with *party* & *partykit* R packages
- 
-Recursive partitioning of the grouped automorphism data can be accomplished with
-function [ctree](https://rdrr.io/cran/party/man/ctree.html) from the R package
-[party](https://rdrr.io/cran/party/).
-
-
-Next, we accomplish the Conditional Inference Tree analysis
-```{r ctree}
-set.seed(1455)
-control <- partykit::ctree_control(testtype = "MonteCarlo",
-                         splittest = TRUE, minsplit = 70, alpha = 0.05)
-
-tree <- partykit::ctree(species ~., data = dt, 
-                        teststat = "quadratic",
-                        control = control,
-              splitflavour = "exhaustive")
-```
-
-
-Updating decision tree information: 
-```{r util-info}
-pvals <- unlist(nodeapply(tree, ids = nodeids(tree), 
-                          function(n) info_node(n)$p.value))
-pvals <- pvals[ pvals < 0.05 ]
-
-## Counts of event per species on each node
-node.freq <- sapply(seq_along(tree), function(id) {
-                    y <- data_party(tree[id])
-                    y <- y[[ "(response)" ]]
-                    table(y)
-            })
-## total counts on each
-node.size =  colSums(node.freq)
-```
-
-
-Plotting the tree with [ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html)
-```{r ggparty, fig.height = 20, fig.width = 12}
-ggparty(tree) +
-        geom_edge() +
-        geom_edge_label() +
-        geom_node_label(line_list = list(aes(label = splitvar),
-                aes(label = paste0("N=", node.size, ", p", 
-                                ifelse(pvals < .001, "<.001",
-                                       paste0("=", round(pvals, 3)))), 
-                                             size = 8)),
-                        line_gpar = list(list(size = 8), 
-                                         list(size = 8)), 
-                        ids = "inner") +
-        geom_node_info() +
-        geom_node_label(aes(label = paste0("N = ", nodesize)),
-                        ids = "terminal", nudge_y = -0.0, nudge_x = 0.01) +
-        geom_node_plot(gglist = list(
-                geom_bar(aes(x = "", fill = species), size = 0.2, width = 0.9,
-                         position = position_fill(), color = "black"),
-                theme_minimal(base_family = "arial"),
-                scale_fill_manual(values = c("gray50","gray55","gray60",
-                                             "gray70","gray80","gray85",
-                                             "blue","gray95")),
-                xlab(""), 
-                ylab("Probability"), 
-                geom_text(aes(x = "", group = species, 
-                              label = stat(count)),
-                          stat = "count", position = position_fill(), 
-                          vjust = 1.)),
-                shared_axis_labels = TRUE, size = 1.25)
 ```
 
 
@@ -392,10 +322,6 @@ datos$autms <- case_when(datos$autm < 16 ~ 'A1',
                   datos$autm > 47 ~ 'A4')
 datos$autms <- as.factor(datos$autms)
 
-# datos$mut_type <- case_when(substring(datos$mut_type,1,2) == "HH" ~ "HHX",
-#                             grepl("H[KMRYSW]H", datos$mut_type) ~ 'HXH',
-#                             substring(datos$mut_type,2,3) == "HH" ~ 'XHH')
-
 datos$mut_type <- as.character(datos$mut_type)
 datos$mut_type[ which(datos$cube == "Trnl") ] <- "---"
 datos$mut_type <- as.factor(datos$mut_type)
@@ -411,7 +337,7 @@ datos$regions <- case_when(datos$start < 230 ~ 'R0',
                   datos$start > 709 ~ 'R8')
 
 datos$regions <- as.factor(datos$regions)
-
+ 
 datos$autm <- as.factor(datos$autm)
 datos$species <- as.factor(datos$species)
 datos$start <- as.factor(datos$start)
@@ -426,17 +352,6 @@ ctrl <- chaid_control(minsplit = 200, minprob = 0.51, alpha2 = 0.01, alpha4 = 0.
 chaid_res <- chaid(species ~ regions + autms + mut_type + cube , data = datos,
                    control = ctrl)
 ```
-
-
-
-```{r ch, fig.height = 12, fig.width = 24}
-plot(chaid_res, margins = c(8, 0, 0, 0),
-     terminal_panel = partykit::node_barplot(chaid_res, beside = F, id = F),
-    tp_args = list(rot = 50, just = c("right", "top"),ep_args = list(justmin = 15)),
-    tnex = 2)
-
-```
-
 
 
 Next, the data must be prepared for plotting the tree with 
@@ -518,7 +433,9 @@ rule <- (dat$autms == "A4" | (dat$autms == "A3" & dat$mut_type != "HRH"))
 unique(as.character(dat[rule,]$species))
 ```
 
-
+```{r rules}
+ct_rules(chaid_tree)
+```
 
 Only humans-to-human mutations hold the following rule:
 ```{r rule}
@@ -529,8 +446,8 @@ dat[ idx, ]
 
 ```{r}
 library(rpart.plot)
-rules<-partykit:::.list.rules.party(tree)
-terminals$rule <- rules[as.character(predict(tree, type = "node"))]
+rules<-partykit:::.list.rules.party(chaid_tree)
+rules[as.character(predict(chaid_tree, type = "node"))]
 ```
 
 

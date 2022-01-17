@@ -199,36 +199,41 @@ automorfismos <- function(
             c1 <- sq@CoordList$coord1[ k ]
             c2 <- sq@CoordList$coord2[ k ]
             
-            s <- try(modeq(c1, c2, 64)[1],
-                     silent = TRUE)
-            
-            if (any(s == -1) || inherits(s, "try-error")) {
-                sq <- get_coord(
-                    x = seq,
-                    output = "all",
-                    base_seq = FALSE,
-                    filepath = filepath,
-                    cube = cube[ 2 ],
-                    group = "Z64",
-                    start = start,
-                    end = end,
-                    chr = chr,
-                    strand = strand)
-                
-                c1 <- sq@CoordList$coord1[ k ]
-                c2 <- sq@CoordList$coord2[ k ]
-                
+            if (is.na(c1) && is.na(c2)) {
+                s <- c(-1, "Gaps")
+            }
+            else {
                 s <- try(modeq(c1, c2, 64)[1],
                          silent = TRUE)
                 
-                if (s != -1 && !inherits(s, "try-error")) {
-                    s <- c(s, cube[ 2 ])
-                }
-            } 
-            else 
-                s <- c(s, cube[ 1 ])
-            if (any(s == -1) || inherits(s, "try-error"))
-                s <- c(0, "Trnl")
+                if (any(s == -1) || inherits(s, "try-error")) {
+                    sq <- get_coord(
+                        x = seq,
+                        output = "all",
+                        base_seq = FALSE,
+                        filepath = filepath,
+                        cube = cube[ 2 ],
+                        group = "Z64",
+                        start = start,
+                        end = end,
+                        chr = chr,
+                        strand = strand)
+                    
+                    c1 <- sq@CoordList$coord1[ k ]
+                    c2 <- sq@CoordList$coord2[ k ]
+                    
+                    s <- try(modeq(c1, c2, 64)[1],
+                             silent = TRUE)
+                    
+                    if (s != -1 && !inherits(s, "try-error")) {
+                        s <- c(s, cube[ 2 ])
+                    }
+                } 
+                else 
+                    s <- c(s, cube[ 1 ])
+                if (any(s == -1) || inherits(s, "try-error"))
+                    s <- c(0, "Trnl")
+            }
             return(s)
         }, BPPARAM = bpparam)
         

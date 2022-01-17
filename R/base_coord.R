@@ -61,6 +61,7 @@
 #'  Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math. 
 #'  Comput. Chem. 79 (2018) 527-560.
 #' }
+#' @seealso \code{\link{codon_coord}}
 #' @examples 
 #' ## Load a pairwise alignment 
 #' data(aln)

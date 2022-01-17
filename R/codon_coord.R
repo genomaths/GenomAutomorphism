@@ -16,9 +16,10 @@
 #' @title Codon coordinates on a given a given Abelian group representation.
 #' @description Given a string denoting a codon or base from the DNA (or RNA) 
 #' alphabet and a genetic-code Abelian group as given in reference (1).
-#' @param codon An object from a \code{\link[Biostrings]{DNAStringSet}} or 
-#' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
-#' pairwise alignment of two sequences. 
+#' @param codon An object from \code{\link{BaseGroup-class}} (generated with 
+#' function \code{\link{base_coord}}), \code{\link[Biostrings]{DNAStringSet}} or
+#' from \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
+#' pairwise alignment of two sequences.
 #' @param filepath A character vector containing the path to a file in 
 #' \emph{\strong{fasta}} format to be read. This argument must be given if 
 #' \emph{codon & base} arguments are not provided.
@@ -51,6 +52,7 @@
 #' @importFrom methods new
 #' @export
 #' @return A \code{\link{CodonGroup-class}} object.
+#' @seealso \code{\link{base_coord}}
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @references 
 #' \enumerate{
@@ -83,6 +85,9 @@
 #'             cube = "ACGT",
 #'             group = "Z64")
 #' bs_cor
+#' 
+#' ## Giving a matrix of codons
+#' codon_coords(base2codon(x = aln))
 #' 
 #' @aliases codon_coord
 setGeneric("codon_coord",
@@ -219,6 +224,66 @@ setMethod("codon_coord", signature(codon = "DNAStringSet_OR_NULL"),
     }
 )
 
+setClassUnion("matrix_OR_data_frame", c("matrix", "data.frame"))
+
+#' @aliases codon_coord
+#' @rdname codon_coord
+setMethod("codon_coord", signature(codon = "matrix_OR_data_frame"),
+    function(
+            codon, 
+            cube = c(
+                    "ACGT","AGCT","TCGA","TGCA","CATG",
+                    "GTAC","CTAG","GATC","ACTG","ATCG",
+                    "GTCA","GCTA","CAGT","TAGC","TGAC",
+                    "CGAT","AGTC","ATGC","CGTA","CTGA",
+                    "GACT","GCAT","TACG","TCAG"), 
+            group = c("Z64", "Z125", "Z4^3", "Z5^3")) {
+    
+        cube <- match.arg(cube)
+        group <- match.arg(group)
+        
+        crd <- data.frame(codon)
+        base_grp <- group
+        if (is.element(group, "Z64")) 
+            base_grp <- "Z4"
+        if (is.element(group, "Z125")) 
+            base_grp <- "Z5"
+        if (is.element(group, "Z4^3")) 
+            base_grp <- "Z4"
+        if (is.element(group, "Z5^3")) 
+            base_grp <- "Z5"
+    
+        crd <- sapply(seq_len(nrow(codon)), function(k) {
+            c1 <- base_repl(base = str2ch(crd[k,1]), 
+                            cube = cube, 
+                            group = base_grp)
+            
+            c2 <- base_repl(base = str2ch(crd[k,2]), 
+                            cube = cube, 
+                            group = base_grp)
+            
+            if (is.element(group, c("Z64", "Z125"))) {
+                c1 <- switch(group,
+                             "Z64" = CodonCoordZ4toZ64(c1),
+                             "Z125" = CodonCoordZ5toZ125(c1)
+                )
+                c2 <- switch(group,
+                             "Z64" = CodonCoordZ4toZ64(c2),
+                             "Z125" = CodonCoordZ5toZ125(c2)
+                )
+            }
+            else {
+                c1 <- paste(c1, collapse = ",")
+                c2 <- paste(c2, collapse = ",")
+            }
+            return(c(c1, c2))
+        })
+        
+        crd <- data.frame(codon, t(crd))
+        colnames(crd) <- c("seq1","seq2","coord1","coord2")
+        return(crd)
+    }
+)
 
 
 ## --------------------------- Auxiliary functions --------------------------
