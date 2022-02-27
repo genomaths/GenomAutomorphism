@@ -295,7 +295,7 @@ barplot(counts, #main="Automorphism distribution",
 axis(2, at = c(0, 200, 400, 600, 800, 1000), cex.axis = 1.5)
 mtext(side = 1,line = -2.5, at = c(0.7, 1.9, 3.1, 4.3),
       text = paste0( counts ), cex = 2,
-      col = c("white","yellow", "red"))
+      col = c("white", "red","yellow", "black"))
 
 ```
 
@@ -322,9 +322,9 @@ datos$autms <- case_when(datos$autm < 16 ~ 'A1',
                   datos$autm > 47 ~ 'A4')
 datos$autms <- as.factor(datos$autms)
 
-datos$mut_type <- as.character(datos$mut_type)
-datos$mut_type[ which(datos$cube == "Trnl") ] <- "---"
-datos$mut_type <- as.factor(datos$mut_type)
+df$mut_type <- as.character(df$mut_type)
+df$mut_type[ which(df$cube == "Trnl") ] <- "indel"
+df$mut_type[ which(df$cube == "Gaps") ] <- "---"
 
 datos$regions <- case_when(datos$start < 230 ~ 'R0',
                   interval(datos$start, 230, 270) ~ 'R1',
@@ -348,7 +348,7 @@ datos
 
 Fitting a classification tree with CHAID algorithm
 ```{r chaid}
-ctrl <- chaid_control(minsplit = 200, minprob = 0.51, alpha2 = 0.01, alpha4 = 0.01)
+ctrl <- chaid_control(minsplit = 200, minprob = 0.8, alpha2 = 0.01, alpha4 = 0.01)
 chaid_res <- chaid(species ~ regions + autms + mut_type + cube , data = datos,
                    control = ctrl)
 ```
@@ -433,9 +433,6 @@ rule <- (dat$autms == "A4" | (dat$autms == "A3" & dat$mut_type != "HRH"))
 unique(as.character(dat[rule,]$species))
 ```
 
-```{r rules}
-ct_rules(chaid_tree)
-```
 
 Only humans-to-human mutations hold the following rule:
 ```{r rule}
