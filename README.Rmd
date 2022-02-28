@@ -14,50 +14,6 @@ date: "`r format(Sys.time(), '%d %B %Y')`"
 output: md_document
 ---
 
-<style type="text/css">
-
-div.main-container {
-  max-width: 2200px !important;
-  padding: 2px;
-}
-
-
-.watch-out {
-  max-width: 2200px !important;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #c9feed;
-  font-weight: bold
-  font-size: 100%;
-  padding: 2px;
-}
-
-pre, code {
-  max-width: 2200px !important;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #c9feed;
-  font-weight: bold
-  font-size: 100px;
-  padding: 2px;
-}
-
-code {
-    font-size: 100%;
-    font-family: Consolas,Monaco,"Courier New",monospace;
-    border-radius: 0;
-}
-
-body {
-  max-width: 2200px !important;
-  margin: auto;
-}  
-
-code.r{
-  font-size: 100%;
-}
-</style>
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r setup, include = FALSE}
