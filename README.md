@@ -114,16 +114,29 @@ This package depends, so far, from: *Biostrings*, *GenomicRanges*,
     10.1007/s00285-005-0332-8. Epub 2005 Jul 13. PMID: 16012800. (
     [PDF](https://arxiv.org/pdf/q-bio/0412033.pdf)).
 
-2.  Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite Groups.
+2.  Sanchez R, Grau R, Morgado E. A novel Lie algebra of the genetic
+    code over the Galois field of four DNA bases. Math Biosci. 2006;202:
+    156–174. <doi:10.1016/j.mbs.2006.03.017>
+
+3.  Sanchez R, Grau R. An algebraic hypothesis about the primeval
+    genetic code architecture. Math Biosci. 2009/07/18. 2009;221: 60–76.
+    <doi:S0025-5564(09)00114-X> \[pii\] 10.1016/j.mbs.2009.07.001
+
+4.  Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite Groups.
     [doi:
     10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543).
 
-3.  M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
+5.  M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
     algebraic representations of the standard genetic code in six or in
     three dimensions, Adv. Stud. Biol. 4 (2012)
     119–152.[PDF](https://is.gd/na9eap).
 
-4.  R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the
+6.  R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the
     Genetic–Code Architecture on the Evolutionary Process MATCH Commun.
     Math. Comput. Chem. 79 (2018) 527-560.
     [PDF](https://bit.ly/2Z9mjM7).
+
+## See also
+
+[Symmetric Group of the Genetic-Code
+Cubes](https://github.com/genomaths/GenomeAlgebra_SymmetricGroup)
