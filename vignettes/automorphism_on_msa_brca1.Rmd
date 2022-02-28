@@ -1,5 +1,5 @@
 ---
-title: "Analysis of Automorphisms on a DNA Multiple Sequence Alignment"
+title: "Analysis of Automorphisms on a MSA of Primate BRCA1 Gene"
 author: 
     - name: Robersy Sanchez
       affiliation: Department of Biology.
@@ -24,8 +24,8 @@ toc_depth: 3
 abstract: |
     Analysis of DNA mutational events on DNA Multiple Sequence 
     Alignment (MSA) by means of automorphisms between pairwise DNA sequences
-    algebraically represented as Abelian finite group. Herein, show a simple
-    example on how the package can be applied.
+    algebraically represented as Abelian finite group. Herein, we show a simple
+    example on how to apply the analysis on MSA of primate BRCA1 gene.
 vignette: >
     %\VignetteIndexEntry{Get started-with Methyl-IT}
     %\VignetteEncoding{UTF-8}
@@ -38,7 +38,7 @@ vignette: >
   max-width: 1820px !important;
   margin-left: auto;
   margin-right: auto;
-  background-color: white;
+  background-color: #c9feed;
   font-weight: bold
   font-size: 100%;
   padding: 2px;
@@ -48,7 +48,7 @@ pre, code {
   max-width: 1820px !important;
   margin-left: auto;
   margin-right: auto;
-  background-color: white;
+  background-color: #c9feed;
   font-weight: bold
   font-size: 100px;
   padding: 2px;
@@ -86,7 +86,7 @@ from a population (from any species or close related species) can be
 algebraically represented as a direct sum of cyclic groups or more specifically
 Abelian *p*-groups. Basically, we propose the representation of multiple
 sequence alignments (MSA) of length _N_ as a finite Abelian group created by the
-direct sum of Abelian group of _prime-power order_:
+direct sum of homocyclic Abelian groups of _prime-power order_:
 
 
 $$
@@ -129,7 +129,7 @@ library(ggseqlogo)
 ```
 
 Next, we proceed to check the DNA multiple sequence alignment (MSA) file. This
-ia a FASTA file carrying the MSA of mammals (somatic) Cystocrome c. Notice that
+ia a FASTA file carrying the MSA of primates BRCA1 gene. Notice that
 we are familiar with the _FASTA_ file, then it is better to directly read it
 with function automorphism.
 
@@ -192,7 +192,8 @@ brca1_autm <- automorphism(
                       group = "Z64", 
                       cube = c("ACGT", "TGCA"),
                       cube_alt = c("CATG", "GTAC"),
-                      nms = nams)
+                      nms = nams,
+                      verbose = FALSE)
 ```
 
 Object *brca1_autm* is included with package and can be load typing:
@@ -215,7 +216,8 @@ The last result can be summarized by gene regions as follow:
 ```{r range}
 brca1_autm_range <- automorphismByRanges(brca1_autm, 
                                   min.len = 2,
-                                  num.cores = 10L)
+                                  num.cores = 10L,
+                                  verbose = FALSE)
 brca1_autm_range
 ```
 
@@ -240,13 +242,13 @@ particularly by interacting with the Mathematica notebook
 
 
 ## Bar plot automorphism distribution by cubes
-The automorphism distribution by cubes can be summarized in the bar-plot grphic
+The automorphism distribution by cubes can be summarized in the bar-plot graphic
 
-```{r barplot, fig.height = 4, fig.width = 4}
+```{r barplot, fig.height = 6, fig.width = 6}
 cts <- unlist(brca1_autm_range)
 counts <- table(cts$cube)
 
-par(family = "serif", cex = 0.8, font = 2, las = 1)
+par(family = "serif", cex = 1, font = 2, las = 1)
 barplot(counts, main="Automorphism distribution",
         xlab="Genetic-code cube representation",
         col=c("darkblue","red", "darkgreen", "magenta"), 
@@ -261,7 +263,8 @@ mtext(side = 1,line = -6, at = c(0.7, 1.9, 3.1, 4.3),
 Automorphisms with the same automorphism's coefficients can be grouped.
 
 ```{r autby}
-autby_coef <- automorphismByCoef(brca1_autm)
+autby_coef <- automorphismByCoef(brca1_autm, 
+                                 verbose = FALSE)
 autby_coef
 ```
 
@@ -324,23 +327,6 @@ ggseqlogo( as.character(brca1_aln_region_aa) )
 That is, the first mutational event reported in the codon sequence correspond to
 a synonymous mutation.
 
-Alternatively, we can start translating the DNA MSA. 
-
-```{r trasnl}
-brca1_aln_aa <- translate(brca1_aln@unmasked)
-brca1_aln_aa
-```
-
-
-```{r subs}
-brca1_aln_aa_region <- AAStringSet(brca1_aln_aa, start = 37, end = 42)
-brca1_aln_aa_region
-```
-
-
-```{r seqlogo_aa}
-ggseqlogo( as.character(brca1_aln_aa_region) )
-```
 
 # References
  1.<a name="1"></a> Sanchez R, Morgado E, Grau R. Gene algebra from a genetic

@@ -65,7 +65,7 @@ Two classes are involved in to storing codon automorphisms:
 \emph{\strong{AutomorphismList-class}}.
 
 A class definition to store list of Automorphism class objects
-derivad from the pairwise automorphism estimation from pairwise
+derived from the pairwise automorphism estimation from pairwise
 alignments.
 
 The function build a AutomorphismList-class object from a

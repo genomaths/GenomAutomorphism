@@ -2,5 +2,5 @@
 
 * Available at https://github.com/genomaths/GenomAutomorphism
 * Release:
-    November 15, 2021
+    February 28, 2022
     * Initial development.

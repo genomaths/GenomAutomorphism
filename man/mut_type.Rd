@@ -10,7 +10,7 @@ mut_type(x, y)
 \item{x, y}{Character strings denoting DNA bases}
 }
 \value{
-A charqacter string of same lengnth of 'x' and 'y'.
+A charqacter string of same length of 'x' and 'y'.
 }
 \description{
 Each DNA/RNA base can be classified into three main classes

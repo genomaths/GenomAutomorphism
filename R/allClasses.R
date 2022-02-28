@@ -372,7 +372,7 @@ S4Vectors:::setValidity2("Automorphism", valid.Automorphism)
 #' @rdname Automorphism
 #' @title A class definition to store list of Automorphism class objects.
 #' @description A class definition to store list of Automorphism class objects
-#' derivad from the pairwise automorphism estimation from pairwise 
+#' derived from the pairwise automorphism estimation from pairwise 
 #' alignments.
 #' @import GenomicRanges
 #' @import S4Vectors

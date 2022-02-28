@@ -23,6 +23,12 @@ navbar:
       - text: ------
       - text: "Analysis of Automorphisms on a DNA Multiple Sequence Alignment"
         href: articles/automorphism_on_msa.html
+      - text: ------
+      - text: "Analysis of Automorphisms on a MSA of Primate BRCA1 Gene"
+        href: articles/automorphism_on_msa_brca1.html
+      - text: ------
+      - text: "A Short Introduction to Algebraic Taxonomy on Genes Regions"
+        href: articles/automorphism_and_decision_tree.html
     news:
       text: News
       href: news/index.html
@@ -79,18 +85,27 @@ reference:
   - '`automorphismByCoef`'
   - '`getAutomorphisms`'
   - '`conserved_regions`'
+  - '`mut_type`'
 - title: utils
   contents:
+  - '`base2codon`'
   - '`sortByChromAndStart`'
 - title: Data sets
   contents:
   - '`aln`'
   - '`autm`'
   - '`cyc_aln`'
-  
+  - '`cyc_autm`'
+  - '`autby_coef`'
+  - '`covid_aln`'
+  - '`covid_autm`'
+  - '`brca1_aln`'
+  - '`brca1_autm`'
 articles:
 - title: Vignettes
   desc: ~
   contents:
   - '`GenomAutomorphism`'
   - '`automorphism_on_msa`'
+  - '`automorphism_on_msa_brca1`'
+  - '`automorphism_and_decision_tree`'

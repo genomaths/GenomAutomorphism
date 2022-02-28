@@ -38,7 +38,7 @@ vignette: >
   max-width: 1820px !important;
   margin-left: auto;
   margin-right: auto;
-  background-color: white;
+  background-color: #c9feed;
   font-weight: bold
   font-size: 100%;
   padding: 2px;
@@ -48,7 +48,7 @@ pre, code {
   max-width: 1820px !important;
   margin-left: auto;
   margin-right: auto;
-  background-color: white;
+  background-color: #c9feed;
   font-weight: bold
   font-size: 100px;
   padding: 2px;
@@ -86,7 +86,7 @@ from a population (from any species or close related species) can be
 algebraically represented as a direct sum of cyclic groups or more specifically
 Abelian *p*-groups. Basically, we propose the representation of multiple
 sequence alignments (MSA) of length _N_ as a finite Abelian group created by the
-direct sum of Abelian group of _prime-power order_:
+direct sum of homocyclic Abelian groups of _prime-power order_:
 
 
 $$
@@ -196,7 +196,8 @@ cyc_autm <- automorphism(filepath = URL,
                       group = "Z64", 
                       cube = c("ACGT", "TGCA"),
                       cube_alt = c("CATG", "GTAC"),
-                      nms = nams)
+                      nms = nams,
+                      verbose = FALSE)
 ```
 
 Object *autm* is included with package and can be load typing:
@@ -236,15 +237,17 @@ col=c("darkblue","red", "darkgreen", "magenta", "orange"),
         cex.lab = 2, cex.main = 1.5, cex.names = 2)
 axis(2, at = c(0, 100, 200, 300), cex.axis = 1.5)
 mtext(side = 1,line = -1.5, at = c(0.7, 1.9),
-      text = paste0( counts ), cex = 2,
+      text = paste0( counts ), cex = 1.4,
       col = c("white","yellow"))
 ```
 
+## Bar plot automorphism distribution by regions
 
 The last result can be summarized by gene regions as follow:
 ```{r range}
 autm_range <- automorphismByRanges(cyc_autm, 
-                                  min.len = 2)
+                                  min.len = 2, 
+                                  verbose = FALSE)
 autm_range
 ```
 
@@ -268,20 +271,19 @@ particularly by interacting with the Mathematica notebook
 [Genetic-Code-Scales_of_Amino-Acids.nb](https://github.com/genomaths/GenomeAlgebra_SymmetricGroup/blob/master/Genetic-Code-Scales_of_Amino-Acids.nb).
 
 
-## Bar plot automorphism distribution by cubes
-The automorphism distribution by cubes can be summarized in the bar-plot grphic
+The automorphism distribution by cubes can be summarized in the bar-plot graphic
 
-```{r barplot, fig.height = 4, fig.width = 3}
+```{r barplot1, fig.height = 4, fig.width = 3}
 cts <- unlist(autm_range)
 counts <- table(cts$cube)
 
-par(family = "serif", cex = 0.8, font = 2, las = 1)
+par(family = "serif", cex = 0.6, font = 2, las = 1)
 barplot(counts, main="Automorphism distribution",
         xlab="Genetic-code cube representation",
         col=c("darkblue","red", "darkgreen"), 
         border = NA, axes = T)
 mtext(side = 1,line = -6, at = c(0.7, 1.9, 3.1),
-      text = paste0( counts ), 
+      text = paste0( counts ), cex = 1.4,
       col = c("white","yellow"))
 
 ```
@@ -290,7 +292,8 @@ mtext(side = 1,line = -6, at = c(0.7, 1.9, 3.1),
 Automorphisms with the same automorphism's coefficients can be grouped.
 
 ```{r autby}
-autby_coef <- automorphismByCoef(cyc_autm)
+autby_coef <- automorphismByCoef(cyc_autm, 
+                                 verbose = FALSE)
 autby_coef
 ```
 
@@ -303,7 +306,7 @@ Object *autby_coef* carried all the pairwise comparisons, while it will be
 enough to use data from a single species as reference, e.g., humans.
 
 First the data must be reordered into a \code{\link[base]{data.frame}} object:
-```{r dat}
+```{r dat1}
 hautby_coef <- autby_coef[ grep("human", names(autby_coef)) ]
 h_autby_coef <- unlist(hautby_coef)
 h_autby_coef <- h_autby_coef[ which(h_autby_coef$autm != 1) ]
@@ -323,14 +326,14 @@ dt$start <- as.numeric(dt$start)
 dt$autm <- as.numeric(dt$autm)
 dt$cube <- as.factor(dt$cube)
 dt$species <- as.factor(dt$species)
-dt
+DataFrame(dt)
 ```
 
 
-```{r barplot, fig.height = 5, fig.width = 4}
+```{r barplot2, fig.height = 5, fig.width = 4}
 counts <- table(dt$cube)
 
-par(family = "serif", cex = 0.8, font = 2, mar=c(4,6,4,4))
+par(family = "serif", cex = 0.6, font = 2, mar=c(4,6,4,4))
 barplot(counts, #main="Automorphism distribution",
         xlab="Genetic-code cube representation",
         ylab="Fixed mutational events",
@@ -339,7 +342,7 @@ barplot(counts, #main="Automorphism distribution",
         cex.lab = 2, cex.main = 1.5, cex.names = 2)
 axis(2, at = c(0, 50, 100, 150, 200), cex.axis = 1.5)
 mtext(side = 1,line = -2.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
-      text = paste0( counts ), cex = 2,
+      text = paste0( counts ), cex = 1.4,
       col = c("white", "yellow"))
 ```
 

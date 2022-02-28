@@ -1,3 +1,46 @@
+<style type="text/css">
+
+div.main-container {
+  max-width: 2200px !important;
+  padding: 2px;
+}
+
+
+.watch-out {
+  max-width: 2200px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #c9feed;
+  font-weight: bold
+  font-size: 100%;
+  padding: 2px;
+}
+
+pre, code {
+  max-width: 2200px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #c9feed;
+  font-weight: bold
+  font-size: 100px;
+  padding: 2px;
+}
+
+code {
+    font-size: 100%;
+    font-family: Consolas,Monaco,"Courier New",monospace;
+    border-radius: 0;
+}
+
+body {
+  max-width: 2200px !important;
+  margin: auto;
+}  
+
+code.r{
+  font-size: 100%;
+}
+</style>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # GenomAutomorphism [<img src="man/figures/logo.png" align="right" />](https://genomaths.github.io/genomautomorphism)
@@ -20,8 +63,8 @@ population (from any species or close related species) can be
 algebraically represented as a direct sum of cyclic groups or more
 specifically Abelian *p*-groups. Basically, we propose the
 representation of multiple sequence alignments (MSA) of length *N* as a
-finite Abelian group created by the direct sum of Abelian group of
-*prime-power order*:
+finite Abelian group created by the direct sum of homocyclic Abelian
+group of *prime-power order*:
 
    *G* = (ℤ<sub>*p*<sub>1</sub><sup>*α*<sub>1</sub></sup></sub>)<sup>*n*<sub>1</sub></sup> ⊕ (ℤ<sub>*p*<sub>1</sub><sup>*α*<sub>2</sub></sup></sub>)<sup>*n*<sub>2</sub></sup> ⊕ … ⊕ (ℤ<sub>*p*<sub>*k*</sub><sup>*α*<sub>*k*</sub></sup></sub>)<sup>*n*<sub>*k*</sub></sup>
 

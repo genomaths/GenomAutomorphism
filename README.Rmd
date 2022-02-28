@@ -14,6 +14,50 @@ date: "`r format(Sys.time(), '%d %B %Y')`"
 output: md_document
 ---
 
+<style type="text/css">
+
+div.main-container {
+  max-width: 2200px !important;
+  padding: 2px;
+}
+
+
+.watch-out {
+  max-width: 2200px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #c9feed;
+  font-weight: bold
+  font-size: 100%;
+  padding: 2px;
+}
+
+pre, code {
+  max-width: 2200px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #c9feed;
+  font-weight: bold
+  font-size: 100px;
+  padding: 2px;
+}
+
+code {
+    font-size: 100%;
+    font-family: Consolas,Monaco,"Courier New",monospace;
+    border-radius: 0;
+}
+
+body {
+  max-width: 2200px !important;
+  margin: auto;
+}  
+
+code.r{
+  font-size: 100%;
+}
+</style>
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r setup, include = FALSE}
@@ -44,7 +88,7 @@ general scenario, whole chromosomes or genomic regions from a population
 represented as a direct sum of cyclic groups or more specifically
 Abelian *p*-groups. Basically, we propose the representation of multiple sequence
 alignments (MSA) of length _N_ as a finite Abelian group created by the direct
-sum of Abelian group of _prime-power order_:
+sum of homocyclic Abelian group of _prime-power order_:
 
 $$
 \qquad G = (\mathbb{Z}_{p^{\alpha_{1}}_1})^{n_1} \oplus (\mathbb{Z}_{p^{\alpha_{2}}_1})^{n_2} \oplus \dots \oplus (\mathbb{Z}_{p^{\alpha_{k}}_k})^{n_k} 

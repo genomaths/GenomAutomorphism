@@ -25,7 +25,7 @@
 #' of involved in it (2).
 
 #' @param x,y Character strings denoting DNA bases
-#' @return A charqacter string of same lengnth of 'x' and 'y'.
+#' @return A charqacter string of same length of 'x' and 'y'.
 #' @export
 #' @references 
 #' \enumerate{

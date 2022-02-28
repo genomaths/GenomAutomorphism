@@ -37,7 +37,7 @@ vignette: >
   max-width: 1820px !important;
   margin-left: auto;
   margin-right: auto;
-  background-color: white;
+  background-color: #c9feed;
   font-weight: bold
   font-size: 100%;
   padding: 2px;
@@ -47,7 +47,7 @@ pre, code {
   max-width: 1820px !important;
   margin-left: auto;
   margin-right: auto;
-  background-color: white;
+  background-color: #c9feed;
   font-weight: bold
   font-size: 100px;
   padding: 2px;
@@ -194,7 +194,8 @@ autm <- automorphism(
                       cube = c("ACGT", "TGCA"),
                       cube_alt = c("CATG", "GTAC"),
                       start = 1,
-                      end = 750)
+                      end = 750, 
+                      verbose = FALSE)
 autm
 ```
 
@@ -240,7 +241,8 @@ covid_autm <- automorphism(
                     seq = covid_aln,
                     group = "Z64",
                     cube = c("ACGT", "TGCA"),
-                    cube_alt = c("CATG", "GTAC"))
+                    cube_alt = c("CATG", "GTAC"),
+                    verbose = FALSE)
 
 ## This data is available with the package
 # data(covid_autm, package = "GenomAutomorphism")
@@ -253,7 +255,8 @@ aut_range <- automorphismByRanges(covid_autm)
 aut_range
 ```
 
-Regions no described by automorphism can be shown as follow:
+Regions no described by automorphism can be described as translations (labeled 
+"Trnl") and they can be shown as follow:
 ```{r non-aut}
 idx = which(covid_autm$cube == "Trnl")
 covid_autm[ idx ]
@@ -280,7 +283,7 @@ The automorphism distribution by cubes can be summarized in the bar-plot graphic
 ```{r barplot, fig.height = 5, fig.width = 6}
 counts <- table(covid_autm$cube[ covid_autm$autm != 1 | is.na(covid_autm$autm) ])
 
-par(family = "serif", cex = 1, font = 2, mar=c(4,6,4,4))
+par(family = "serif", cex = 0.9, font = 2, mar=c(4,6,4,4))
 barplot(counts, main="Automorphism distribution",
         xlab="Genetic-code cube representation",
         ylab="Fixed mutational events",
@@ -289,7 +292,7 @@ barplot(counts, main="Automorphism distribution",
         cex.lab = 2, cex.main = 1.5, cex.names = 2)
 axis(2, at = c(0, 200, 400, 600, 800), cex.axis = 1.5)
 mtext(side = 1,line = -1.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
-      text = paste0( counts ), cex = 2,
+      text = paste0( counts ), cex = 1.4,
       col = c("white","yellow", "black"))
 
 ```
@@ -321,7 +324,7 @@ conserv_unique
 Next, function [fitCDF](https://rdrr.io/github/genomaths/usefr/man/fitCDF.html)
 is applied to find the best fitted probability function to the the sizes of
 conserved regions. 
-```{r dist}
+```{r dist, fig.height= 8, fig.width=12}
 widths <- width(conserv)
 dist <- fitCDF(widths, distNames = c(2, 3, 7, 10, 11, 19, 20), plot = TRUE, 
                loss.fun = "cauchy")
@@ -330,7 +333,7 @@ dist
 
 
 
-```{r hist, fig.height = 4, fig.width = 5}
+```{r hist, fig.height = 4, fig.width = 6}
 par(lwd = 0.5)
 hist(widths, 14, freq = FALSE, las = 1, family = "serif",
 family = "serif", col = "cyan1", cex.main = 0.9,
@@ -385,7 +388,8 @@ covid_autm_2 <- automorphism(
                       seq = covid_aln, 
                       group = "Z125", 
                       cube = c("ACGT", "TGCA"),
-                      cube_alt = c("CATG", "GTAC"))
+                      cube_alt = c("CATG", "GTAC"),
+                      verbose = FALSE)
 covid_autm_2
 ```
 
@@ -401,7 +405,7 @@ The whole genome can be described by automorphisms on $\mathbb{Z}_{125}$.
 ```{r barplot_3, fig.height = 5, fig.width = 4}
 counts <- table(covid_autm_2$cube[ covid_autm_2$autm != 1 ])
 
-par(family = "serif", cex = 1.2, font = 2)
+par(family = "serif", cex = 1, font = 2)
 barplot(counts, main="Automorphism distribution",
         xlab="Genetic-code cube representation",
         ylab="Fixed mutational events",
@@ -409,7 +413,7 @@ barplot(counts, main="Automorphism distribution",
         ylim = c(0, 1100),
         border = NA, axes = T)
 mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1),
-      text = paste0( counts ),
+      text = paste0( counts ), cex = 1.4,
       col = c("white","red"))
 ```
 
