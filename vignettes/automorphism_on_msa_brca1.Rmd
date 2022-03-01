@@ -212,6 +212,30 @@ cube_ of **"ACGT"** corresponds to the complementary base order **TGCA**,
 automorphisms described by the cube **TGCA** represent mutational events
 affecting the DNA negative strand (-).
 
+## Bar plot automorphism distribution by cubes
+The automorphism distribution by cubes can be summarized in the bar-plot graphic
+
+```{r barplot_1, fig.height = 5, fig.width = 6}
+autms <- unlist(brca1_autm)
+counts <- table(autms$cube[ autms$autm != 1 | is.na(autms$autm) ])
+
+
+par(family = "serif", cex = 0.8, font = 2, mar = c(4,6,4,4))
+barplot(counts, #main="Automorphism distribution",
+        xlab="Genetic-code cube representation",
+        ylab="Fixed mutational events",
+col=c("darkblue","red", "darkgreen", "magenta", "orange"), 
+        border = NA, axes = FALSE, ylim = c(0,7000),
+        cex.lab = 2, cex.main = 1.5, cex.names = 2)
+axis(2, at = c(0, 2000, 4000, 6000), cex.axis = 1.5)
+mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
+      text = paste0( counts ), cex = 1.4,
+      col = c("white", "red", "yellow", "magenta"))
+```
+
+
+## Bar plot automorphism distribution by ranges (regions)
+
 The last result can be summarized by gene regions as follow:
 ```{r range}
 brca1_autm_range <- automorphismByRanges(brca1_autm, 
@@ -241,7 +265,6 @@ particularly by interacting with the Mathematica notebook
 [Genetic-Code-Scales_of_Amino-Acids.nb](https://github.com/genomaths/GenomeAlgebra_SymmetricGroup/blob/master/Genetic-Code-Scales_of_Amino-Acids.nb).
 
 
-## Bar plot automorphism distribution by cubes
 The automorphism distribution by cubes can be summarized in the bar-plot graphic
 
 ```{r barplot, fig.height = 6, fig.width = 6}
@@ -259,14 +282,48 @@ mtext(side = 1,line = -6, at = c(0.7, 1.9, 3.1, 4.3),
 
 ```
 
+
 ## Grouping automorphism by automorphism's coefficients
 Automorphisms with the same automorphism's coefficients can be grouped.
 
-```{r autby}
+```{r autby, eval=FALSE}
 autby_coef <- automorphismByCoef(brca1_autm, 
                                  verbose = FALSE)
+```
+
+The result is provided with the package
+```{r}
+data(autby_coef, package = "GenomAutomorphism")
 autby_coef
 ```
+
+
+
+As a result of the evolutionary pressure on DNA protein-coding regions
+(addressed to preserve the aminoacid physicochemical properties and,
+consequently, the biological functions of the encoded proteins) the highest
+mutational rate is found in the third base of the codon, followed by the first
+base, and the lowest rate is found in the second one. DNA bases are classified
+based on the physicochemical criteria used to ordering the set of codons: number
+of hydrogen bonds (strong-weak, S-W), chemical type (purine-pyrimidine, Y-R),
+and chemical groups (amino versus keto, M-K) (see reference 4). Preserved codon
+positions are labeled with letter “H”. Preserved codon positions are labeled 
+with letter “H” and insertion-mutations identified in the multiple sequence 
+alignment are labeled as “---”. 
+```{r barplot_2, fig.height = 12, fig.width = 12}
+cts <- unlist(autby_coef)
+counts <- table(cts$mut_type[ cts$autm != 1 & cts$autm != -1 ])
+counts <- sort(counts, decreasing = TRUE)
+
+par(family = "serif", cex.axis = 1.4, font = 2, las = 1, 
+    cex.main = 1.4, cex.lab = 2)
+barplot(counts, main="Automorphism distribution per Mutation type",
+        col = colorRampPalette(c("red", "yellow", "blue"))(36), 
+        border = NA, axes = TRUE,las=2)
+```
+
+
+
 
 ## Conserved and non-conserved regions 
 
