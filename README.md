@@ -46,7 +46,7 @@ updates.
 There are several tutorials on how to use the package at
 [GenomAutomorphism](https://genomaths.github.io/genomautomorphism)
 website
-[<img src="favicon-32x32.png" align="middle" />](https://genomaths.github.io/genomautomorphism)
+[<img src="man/figures/logo.png" align="middle" width="32" height="32" />](https://genomaths.github.io/genomautomorphism)
 
 ## Dependences
 
