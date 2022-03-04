@@ -275,6 +275,15 @@ h_autby_coef
 ```
 
 
+Every single base mutational event across the MSA was classified according IUPAC
+nomenclature: 1) According to the number of hydrogen bonds (on DNA/RNA
+double helix): strong S={C, G} (three hydrogen bonds) and weak W={A, U} (two
+hydrogen bonds). According to the chemical type: purines R={A, G} and
+pyrimidines Y={C, U}. 3). According to the presence of amino or keto groups on
+the base rings: amino M={C, A} and keto K={G, T}.  Constant (hold) base
+positions were labeled with letter H. So, codon positions labeled as HKH means
+that the first and third bases remains constant and mutational events between
+bases G and T were found in the MSA.
 
 ```{r rm-h}
 

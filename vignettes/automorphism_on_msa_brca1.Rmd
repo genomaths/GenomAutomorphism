@@ -112,7 +112,8 @@ isomorphic to the symmetric group of degree four ($S_4$, see reference
 ([4](#4))).
 
 For further support about the symmetric group on the 24 Abelian group of 
-genetic-code cubes, users can also see [Symmetric Group of the Genetic-Code Cubes.](https://github.com/genomaths/GenomeAlgebra_SymmetricGroup), 
+genetic-code cubes, users can also see 
+[Symmetric Group of the Genetic-Code Cubes.](https://github.com/genomaths/GenomeAlgebra_SymmetricGroup), 
 specifically the Mathematica notebook 
 _IntroductionToZ5GeneticCodeVectorSpace.nb_ and interact with it using
 Wolfram Player, freely available (for Windows and Linux OS) at,

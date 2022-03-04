@@ -298,6 +298,31 @@ autby_coef
 ```
 
 
+Every single base mutational event across the MSA was classified according IUPAC
+nomenclature: 1) According to the number of hydrogen bonds (on DNA/RNA
+double helix): strong S={C, G} (three hydrogen bonds) and weak W={A, U} (two
+hydrogen bonds). According to the chemical type: purines R={A, G} and
+pyrimidines Y={C, U}. 3). According to the presence of amino or keto groups on
+the base rings: amino M={C, A} and keto K={G, T}.  Constant (hold) base
+positions were labeled with letter H. So, codon positions labeled as HKH means
+that the first and third bases remains constant and mutational events between
+bases G and T were found in the MSA.
+
+```{r barplot_2, fig.height = 6, fig.width = 6}
+cts <- unlist(autby_coef)
+counts <- table(cts$mut_type[ cts$autm != 1 & cts$autm != -1 ])
+counts <- sort(counts, decreasing = TRUE)
+
+par(family = "serif", cex.axis = 1.4, font = 2, las = 1, 
+    cex.main = 1.4, cex.lab = 2)
+barplot(counts, main="Automorphism distribution per Mutation type",
+        col = c("red", "orange", "yellow", "green", "dodgerblue"), 
+        border = NA, axes = TRUE,las=2)
+mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
+      text = paste0( counts ), cex = 1.4,
+      col = c("white", "red", "blue", "black", "yellow"))
+```
+
 
 ## Bar plot automorphism distribution by cubes
 The automorphism distribution by cubes can be summarized in the bar-plot graphic.

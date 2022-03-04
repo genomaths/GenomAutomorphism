@@ -77,6 +77,7 @@ knitr::opts_chunk$set(
 options(width = 120)
 ```
 
+
 # Overview
 This is a R package to compute the autimorphisms between pairwise aligned DNA
 sequences represented as elements from a Genomic Abelian group as described in
@@ -243,9 +244,11 @@ covid_autm <- automorphism(
                     cube = c("ACGT", "TGCA"),
                     cube_alt = c("CATG", "GTAC"),
                     verbose = FALSE)
+```
 
-## This data is available with the package
-# data(covid_autm, package = "GenomAutomorphism")
+This data is available with the package
+```{r dat}
+data(covid_autm, package = "GenomAutomorphism")
 covid_autm
 ```
 
@@ -298,6 +301,33 @@ mtext(side = 1,line = -1.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
 ```
 
 
+## Grouping automorphism by automorphism's coefficients. Types of mutations
+
+```{r autby}
+autby_coef <- automorphismByCoef(covid_autm)
+autby_coef <- autby_coef[ autby_coef$autm != 1 & autby_coef$autm != -1  ]
+```
+
+Barplot of  frequency of mutation types greater than 2
+```{r barplot_2, fig.height = 12, fig.width = 14}
+counts <- table(autby_coef$mut_type)
+counts <- sort(counts, decreasing = TRUE)
+count. <- counts[ counts > 2 ]
+
+par(family = "serif", cex.axis = 2, font = 2, las = 1, 
+    cex.main = 1.4, mar = c(6,2,4,4))
+barplot(count., main="Automorphism distribution per Mutation type",
+        col = colorRampPalette(c("red", "yellow", "blue"))(36), 
+        border = NA, axes = FALSE,las=2)
+axis(side = 2,  cex.axis = 2, line = -1.8 )
+
+```
+
+
+```{r ct}
+counts
+```
+
 ## Conserved and non-conserved regions
 ### Conserved regions
 Conserved and non-conserved gene regions can be easily observed in most of 
@@ -311,6 +341,16 @@ conserv <- conserved_regions(covid_autm)
 conserv
 ```
 
+
+Every single base mutational event across the MSA was classified according IUPAC
+nomenclature: 1) According to the number of hydrogen bonds (on DNA/RNA
+double helix): strong S={C, G} (three hydrogen bonds) and weak W={A, U} (two
+hydrogen bonds). According to the chemical type: purines R={A, G} and
+pyrimidines Y={C, U}. 3). According to the presence of amino or keto groups on
+the base rings: amino M={C, A} and keto K={G, T}.  Constant (hold) base
+positions were labeled with letter H. So, codon positions labeled as HKH means
+that the first and third bases remains constant and mutational events between
+bases G and T were found in the MSA.
 
 Several regions are similar for more than one comparison.
 ```{r uniq}

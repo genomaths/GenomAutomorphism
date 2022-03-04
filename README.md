@@ -41,6 +41,13 @@ updates.
 
 ------------------------------------------------------------------------
 
+## Tutotials
+
+There are several tutorials on how to use the package at
+[GenomAutomorphism](https://genomaths.github.io/genomautomorphism)
+website
+[<img src="favicon-32x32.png" align="middle" />](https://genomaths.github.io/genomautomorphism)
+
 ## Dependences
 
 This package depends, so far, from: *Biostrings*, *GenomicRanges*,
