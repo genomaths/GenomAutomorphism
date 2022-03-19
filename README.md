@@ -60,8 +60,11 @@ This package depends, so far, from: *Biostrings*, *GenomicRanges*,
         if (!requireNamespace("BiocManager")) install.packages("BiocManager")
         BiocManager::install()
         
-        BiocManager::install(c("Biostrings", "GenomicRanges", "S4Vectors"))
-        install.packages(c("numbers", "devtools"), dependencies=TRUE)
+        BiocManager::install(c("Biostrings", "GenomicRanges", "S4Vectors",
+        "BiocParallel", "GenomeInfoDb", "BiocGenerics"))
+        install.packages(c("numbers", "devtools", "doParallel", "data.table",
+        "foreach","parallel"), 
+        dependencies=TRUE)
 
 ------------------------------------------------------------------------
 
