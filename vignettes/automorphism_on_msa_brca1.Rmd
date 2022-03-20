@@ -127,6 +127,8 @@ First, we proceed to load the R package required for our analysis
 library(GenomAutomorphism)
 library(Biostrings)
 library(ggseqlogo)
+library(usefr)
+library(latex2exp)
 ```
 
 Next, we proceed to check the DNA multiple sequence alignment (MSA) file. This
@@ -333,7 +335,39 @@ non-conserved regions, which can be used in further downstream analyses.
 
 The conserved regions from each pairwise comparison are retrieved typing: 
 ```{r conserv}
-conserved_regions(x = autby_coef)
+conserv <- conserved_regions(x = brca1_autm)
+```
+
+
+```{r consv}
+widths <- width(conserv)
+dist <- fitCDF(widths, distNames = c(2, 3, 7, 10, 11, 19, 20), plot = TRUE, 
+               loss.fun = "cauchy")
+dist
+```
+
+
+```{r hist, fig.height = 4, fig.width = 6}
+par(lwd = 0.5, cex.axis = 2, cex.lab =1.4,
+    cex.main = 2, mar=c(5,6,4,4), family = "serif")
+hist(widths, 40, freq = FALSE, las = 1, family = "serif",
+col = "cyan1", cex.main = 1.2,
+main = "Histogram and best fitted CDF model",
+xlab = "Conserved region size (bp)", yaxt = "n", ylab="", cex.axis = 1.4)
+axis(side = 2, cex.axis = 1.4, las = 2, line = -0.2)
+mtext("Density", side = 2, cex = 1.4, line = 4)
+
+x1 <- seq(1, 600, by = 1)
+txt <- TeX(r'($\textit{f}(\textit{x}) = \frac{\alpha}{\beta}
+    {(\frac{\textit{x}}{\beta})}^{\alpha-1}
+    e^{(-\frac{\textit{x}}{\beta})^\alpha}$)')
+
+lines(x1, dweibull(x1,
+                  shape = coef(dist$bestfit)[1],
+                  scale = coef(dist$bestfit)[2]
+                  ),
+      col = "red", lwd = 1)
+mtext(txt, side = 3, line = -4, cex = 1.8, adj = 0.4)
 ```
 
 
@@ -343,6 +377,10 @@ the same function but different settings:
 ncs <- conserved_regions(x = autby_coef, conserved = FALSE)
 ncs
 ```
+
+
+
+
 
 # Subsetting regions of interest
 The application of some of the available bioinformatic tools is straightforward.

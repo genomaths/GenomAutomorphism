@@ -417,7 +417,7 @@ node.size =  colSums(node.freq)
 
 Plotting the tree with [ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html) 
 (font size adjusted for html output)
-```{r chaid-tree, fig.height = 24, fig.width = 42, out.width = '100%'}
+```{r chaid-tree, fig.height = 35, fig.width = 55}
 ggparty(chaid_tree) +
     geom_edge(aes(color = id, size = node.size[id]/300), show.legend = FALSE) +
     geom_edge_label(size = 14, colour = "red",
@@ -433,7 +433,7 @@ ggparty(chaid_tree) +
                     size = 30)),
                     line_gpar = list(list(size = 30), 
                                      list(size = 30)),
-                ids = "inner", fontface = "bold", size = 28) +
+                ids = "inner", fontface = "bold", size = 30) +
     geom_node_info() +
     geom_node_label(aes(label = paste0("N = ", node.size), 
                         fontface = "bold"),
@@ -450,7 +450,7 @@ ggparty(chaid_tree) +
         geom_text(aes(x = "", group = species, 
                       label = stat(count)),
                   stat = "count", position = position_fill(), 
-                  vjust = 1., size = 14)),
+                  vjust = 1., size = 12)),
         shared_axis_labels = TRUE, size = 1.2) 
 ```
 

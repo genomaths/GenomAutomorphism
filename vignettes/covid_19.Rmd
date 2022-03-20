@@ -29,26 +29,36 @@ vignette: >
     %\VignetteEngine{knitr::knitr}
 ---
     
-    <style type="text/css">
-    
-    .watch-out {
-        max-width: 1820px !important;
-        margin-left: auto;
-        margin-right: auto;
-        background-color: #c9feed;
-            font-weight: bold
-        font-size: 100%;
-        padding: 2px;
-    }
+<style type="text/css">
+
+div.main-container {
+  max-width: 2200px !important;
+  padding: 2px;
+}
+
+.main-container {
+  max-width: 2200px !important;
+  padding: 2px;
+}
+
+.watch-out {
+  max-width: 2200px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #c9feed;
+  font-weight: bold
+  font-size: 100%;
+  padding: 2px;
+}
 
 pre, code {
-    max-width: 1820px !important;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #c9feed;
-        font-weight: bold
-    font-size: 100px;
-    padding: 2px;
+  max-width: 2200px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #c9feed;
+  font-weight: bold
+  font-size: 100px;
+  padding: 2px;
 }
 
 code {
@@ -57,8 +67,13 @@ code {
     border-radius: 0;
 }
 
+body {
+  max-width: 2200px !important;
+  margin: auto;
+}  
+
 code.r{
-    font-size: 100%;
+  font-size: 100%;
 }
 </style>
     
@@ -75,10 +90,11 @@ knitr::opts_chunk$set(
 options(width = 120)
 ```
 
-```{r lib}
+```{r lib, message=FALSE}
 library(Biostrings)
 library(GenomAutomorphism)
 library(usefr)
+library(latex2exp)
 ```
 
 # SARS coronavirus GZ02 vs bat-SL-CoVZC45 
@@ -137,19 +153,28 @@ dist2
 ```
 
 
-```{r hist, fig.height = 4, fig.width = 6}
-par(lwd = 0.5)
+```{r hist, fig.height = 6, fig.width = 7}
+par(lwd = 0.5, cex.axis = 2, cex.lab =1.4,
+    cex.main = 2, mar=c(5,6,4,4), family = "serif")
 hist(widths, 14, freq = FALSE, las = 1, family = "serif",
-family = "serif", col = "cyan1", cex.main = 0.9,
+col = "cyan1", cex.main = 0.9,
 main = "Histogram and best fitted CDF model for conserved region sizes",
-xlab = "Conserved region size")
+xlab = "Conserved region size (bp)", yaxt = "n", ylab="", cex.axis = 1.4)
+axis(side = 2, cex.axis = 1.4, las = 2)
+mtext("Density", side = 2, cex = 1.4, line = 3.5)
+
 x1 <- seq(1, 150, by = 1)
+txt <- TeX(r'($\textit{f}(\textit{x}) = \frac{\alpha}{\beta\Gamma(\gamma)}
+  {(\frac{\textit{x}}{\beta})}^{\alpha\delta-1}
+  e^{(-\frac{\textit{x}}{\beta})^\alpha}$)')
+
 lines(x1, dggamma(x1,
                   alpha = coef(dist2$bestfit)[1],
                   scale = coef(dist2$bestfit)[2],
                   psi = coef(dist2$bestfit)[3]
                   ),
       col = "red", lwd = 1)
+mtext(txt, side = 3, line = -4, cex = 1.4, adj = 0.7)
 ```
 
 
@@ -162,7 +187,7 @@ mcgoftest(
           model = dist2,
           stat = "ks")
 
-cat("\n===========================\n")
+
 mcgoftest(
           varobj = widths,
           model = dist2,
@@ -180,17 +205,17 @@ autby_coef2 <- autby_coef2[ autby_coef2$autm != 1 & autby_coef2$autm != -1  ]
 
 
 Alignment gaps denoting indel mutations are labeled as “---”. 
-```{r barplot2, fig.height = 14, fig.width = 35}
+```{r barplot2, fig.height = 14, fig.width = 14}
 counts2 <- table(autby_coef2$mut_type)
-counts2 <- sort(counts, decreasing = TRUE)
-count. <- counts[ counts > 2 ]
+counts2 <- sort(counts2, decreasing = TRUE)
+count. <- counts2[ counts2 > 9 ]
 
 par(family = "serif", cex.axis = 2, font = 2, las = 1, 
-    cex.main = 1.4, mar = c(4,1,4,4))
+    cex.main = 1.4, mar = c(6,3,4,4))
 barplot(count., main="Automorphism distribution per Mutation type",
         col = colorRampPalette(c("red", "yellow", "blue"))(36), 
         border = NA, axes = FALSE,las=2)
-axis(side = 2,  cex.axis = 2, line = -2.8 )
+axis(side = 2,  cex.axis = 2, line = -1.8 )
 counts2
 ```
 
@@ -218,20 +243,31 @@ dist <- fitCDF(widths, distNames = c(2, 3, 7, 10, 11, 19, 20), plot = TRUE,
 dist
 ```
 
-Joining the datasets increases the sample size and improved predictions
+Joining the datasets increases the sample size and improved predictions in 
+respect to the comparison SARS coronavirus GZ02 vs Bat SARS-like coronavirus
+alone.
 ```{r hist2, fig.height = 4, fig.width = 6}
-par(lwd = 0.5)
+par(lwd = 0.5, cex.axis = 2, cex.lab =1.4,
+    cex.main = 2, mar=c(5,6,4,4), family = "serif")
 hist(widths, 14, freq = FALSE, las = 1, family = "serif",
-family = "serif", col = "cyan1", cex.main = 0.9,
+col = "cyan1", cex.main = 0.9,
 main = "Histogram and best fitted CDF model for conserved region sizes",
-xlab = "Conserved region size")
+xlab = "Conserved region size (bp)", yaxt = "n", ylab="", cex.axis = 1.4)
+axis(side = 2, cex.axis = 1.4, las = 2)
+mtext("Density", side = 2, cex = 1.4, line = 3.5)
+
 x1 <- seq(1, 150, by = 1)
+txt <- TeX(r'($\textit{f}(\textit{x}) = \frac{\alpha}{\beta\Gamma(\gamma)}
+  {(\frac{\textit{x}}{\beta})}^{\alpha\delta-1}
+  e^{(-\frac{\textit{x}}{\beta})^\alpha}$)')
+
 lines(x1, dggamma(x1,
                   alpha = coef(dist$bestfit)[1],
                   scale = coef(dist$bestfit)[2],
                   psi = coef(dist$bestfit)[3]
                   ),
       col = "red", lwd = 1)
+mtext(txt, side = 3, line = -4, cex = 1.4, adj = 0.7)
 ```
 
 
@@ -259,19 +295,21 @@ autby_coef <- autby_coef[ autby_coef$autm != 1 & autby_coef$autm != -1  ]
 ```
 
 
-
-alignment are labeled as “---”. 
-```{r barplot_3, fig.height = 14, fig.width = 12}
+Alignment gaps denoting indel mutations are labeled as “---”. 
+```{r barplot_3, fig.height = 14, fig.width = 15}
 counts <- table(autby_coef$mut_type)
 counts <- sort(counts, decreasing = TRUE)
-count. <- counts[ counts > 2 ]
+count. <- counts[ counts > 9 ]
 
 par(family = "serif", cex.axis = 2, font = 2, las = 1, 
-    cex.main = 1.4, cex.lab = 2)
+    cex.main = 1.4, cex.lab = 2, mar = c(6,4,4,1))
 barplot(count., main="Automorphism distribution per Mutation type",
         col = colorRampPalette(c("red", "yellow", "blue"))(36), 
-        border = NA, axes = TRUE,las=2)
+        border = NA, axes = FALSE,las=2)
+axis(side = 2,  cex.axis = 2, line = -1.8 )
 ```
 
 
-
+```{r ct}
+counts
+```

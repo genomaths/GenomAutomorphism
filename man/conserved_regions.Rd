@@ -19,7 +19,10 @@ conserved_regions(x, ...)
 \S4method{conserved_regions}{AutomorphismList}(
   x,
   conserved = TRUE,
-  output = c("all_pairs", "unique_pairs", "unique")
+  output = c("all_pairs", "unique_pairs", "unique"),
+  num.cores = detectCores() - 1,
+  tasks = 0L,
+  verbose = FALSE
 )
 
 \S4method{conserved_regions}{AutomorphismByCoef}(
@@ -41,6 +44,17 @@ class object.}
 
 \item{conserved}{Logical, Whether to return the \emph{conserved} or the
 \emph{non-conserved regions}.}
+
+\item{num.cores, tasks}{Integers. Argument \emph{num.cores} denotes the
+number of cores to use, i.e. at most how many child processes will be run
+simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
+BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
+job. value must be a scalar integer >= 0L. In this documentation a job is
+defined as a single call to a function, such as
+\code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
+argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
+as possible over the number of workers (see
+\code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).}
 }
 \value{
 A \code{\link{AutomorphismByCoef}} class object containing the

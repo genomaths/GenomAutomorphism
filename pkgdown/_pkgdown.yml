@@ -29,6 +29,9 @@ navbar:
       - text: ------
       - text: "A Short Introduction to Algebraic Taxonomy on Genes Regions"
         href: articles/automorphism_and_decision_tree.html
+      - text: ------
+      - text: "Automorphism analysis on COVID-19 data"
+        href: articles/covid_19.html
     news:
       text: News
       href: news/index.html
@@ -109,3 +112,4 @@ articles:
   - '`automorphism_on_msa`'
   - '`automorphism_on_msa_brca1`'
   - '`automorphism_and_decision_tree`'
+  - '`covid_19`'
