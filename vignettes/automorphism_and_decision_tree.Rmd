@@ -22,11 +22,10 @@ output:
 toc_float: true
 toc_depth: 3
 abstract: |
-    A short and simply introduction to Algebraic taxonomy of genomic/genes 
-    regions is presented here. Analysis of DNA mutational events on DNA 
+    Herein, we show a short and simply introduction to algebraic taxonomy of 
+    genomic/genes regions based on the nalysis of DNA mutational events on DNA 
     Multiple Sequence Alignment (MSA) by means of automorphisms between 
-    pairwise DNA sequences algebraically represented as Abelian finite
-    group. Herein, show a simple example on how the package can be applied.
+    pairwise DNA sequences algebraically represented as Abelian finite group.
 vignette: >
     %\VignetteIndexEntry{Get started-with Methyl-IT}
     %\VignetteEncoding{UTF-8}
@@ -137,7 +136,29 @@ Wolfram Player, freely available (for Windows and Linux OS) at,
 
 # Automorphisms on $\mathbb{Z}_{64}$
 
-First, we proceed to load the R package required for our analysis
+First, we proceed to load or install, if needed, the R packages required for our
+analysis. If needed the R package required for the current analysis can be
+installed as:
+
+```{r inst1, eval=FALSE}
+install.packages(c("party", "partykit", "data.table", "ggplot2",
+                   "ggparty", "dplyr"), dependencies=TRUE)
+```
+
+In particular, you might require to install the library 
+[CHAID](https://r-forge.r-project.org/R/?group_id=343) can be installed typing 
+in R console: 
+```{r inst2, eval=FALSE}
+install.packages("CHAID", repos="http://R-Forge.R-project.org")
+```
+
+You can install GenomAutomorphism package from GitHub
+```{r inst3, eval=FALSE}
+devtools::install_git("https://github.com/genomaths/GenomAutomorphism.git")
+```
+
+If all the required libraries all installed, then we proceed to load the 
+libraries
 ```{r library,warning=FALSE,message=FALSE}
 library(GenomAutomorphism)
 library(Biostrings)
@@ -150,10 +171,6 @@ library(dplyr)
 library(CHAID)
 
 ```
-
-[CHAID](install.packages("CHAID", repos="http://R-Forge.R-project.org")) 
-can be download at: 
- <install.packages("CHAID", repos="http://R-Forge.R-project.org")>
 
 Next, we proceed to check the DNA multiple sequence alignment (MSA) file. This
 is a FASTA file carrying the MSA of primate BRCA1 DNA repair gene. Notice that
@@ -261,7 +278,6 @@ h_brca1_autm
 ```
 
 
-
 ## Bar plot automorphism distribution by coefficient
 The automorphism distribution by cubes can be summarized in the bar-plot graphic.
 
@@ -336,7 +352,6 @@ variable *autms* from variable *autm*. [CHAID](install.packages("CHAID", repos="
 
 
 ```{r datos}
-
 interval <- function(x, a, b) {
     x >= a & x <= b
 }
@@ -373,7 +388,7 @@ datos <- datos[, c( "autms", "regions", "mut_type", "cube", "species")]
 DataFrame(datos)
 ```
 
-Fitting a classification tree with CHAID algorithm
+A classification tree is estimated with CHAID algorithm:
 ```{r chaid}
 ctrl <- chaid_control(minsplit = 200, minprob = 0.8, alpha2 = 0.01, alpha4 = 0.01)
 chaid_res <- chaid(species ~ autms + regions + mut_type + cube , data = datos,
@@ -381,6 +396,7 @@ chaid_res <- chaid(species ~ autms + regions + mut_type + cube , data = datos,
 ```
 
 
+### Plotting the CHAID tree
 Next, the data must be prepared for plotting the tree with 
 [ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html):
 ```{r, plot-data}
@@ -454,7 +470,7 @@ ggparty(chaid_tree) +
         shared_axis_labels = TRUE, size = 1.2) 
 ```
 
-
+### Stochastic-deterministic logical rules
 Since only one mutational event human-to-human in region R1 from class A3 is 
 reported in the right side of the tree, with high probability only non-humans 
 hold the following rule: 
