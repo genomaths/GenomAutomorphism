@@ -134,7 +134,8 @@ library(latex2exp)
 Next, we proceed to check the DNA multiple sequence alignment (MSA) file. This
 ia a FASTA file carrying the MSA of primates BRCA1 gene. Notice that
 we are familiar with the _FASTA_ file, then it is better to directly read it
-with function automorphism.
+with function 
+[automorphisms](https://genomaths.github.io/genomautomorphism/reference/automorphism.html).
 
 However, for the current example, this step can be bypassed, since the 
 MSA is provided provided together with _*GenomAutomorphism*_ R package 
@@ -158,7 +159,8 @@ The sequence names
 ```{r names}
 strtrim(rownames(brca1_aln), 100)
 ```
-Next, function automorphism will be applied to represent the codon sequence in
+Next, function 
+[automorphisms](https://genomaths.github.io/genomautomorphism/reference/automorphism.html) will be applied to represent the codon sequence in
 the Abelian group $\mathbb{Z}_{64}$ (i.e., the set of integers remainder modulo
 64). The codon coordinates are requested on the cube ACGT. Following reference
 ([4](#4))), cubes are labeled based on the order of DNA bases used to define the
@@ -166,7 +168,8 @@ sum operation.
 
 In Z64, automorphisms are described as functions $f(x) = k\,x \quad mod\,64$,
 where $k$ and $x$ are elements from the set of integers modulo 64. Below, in
-function _automorphism_ three important arguments are given values: _group =
+function [automorphisms](https://genomaths.github.io/genomautomorphism/reference/automorphism.html)
+three important arguments are given values: _group =
 "Z64"_, _cube = c("ACGT", "TGCA")_, and _cube_alt = c("CATG", "GTAC")_. Setting
 for group specifies on which group the automorphisms will be computed. These
 groups can be: "Z5", "Z64", "Z125", and "Z5^3".
@@ -190,7 +193,7 @@ nams <- c("human_1","human_2","gorilla_1","gorilla_2","gorilla_3",
         "silvery_gibbon_1","silvery_gibbon_3","golden_monkey_1",
         "golden_monkey_2","gelada_baboon","bolivian_monkey")
 
-brca1_autm <- automorphism(
+brca1_autm <- automorphisms(
                       seqs = brca1_aln, 
                       group = "Z64", 
                       cube = c("ACGT", "TGCA"),
@@ -249,7 +252,8 @@ brca1_autm_range
 ```
 
 
-That is, function _automorphismByRanges_ permits the classification
+That is, function 
+[automorphismByRanges](https://genomaths.github.io/genomautomorphism/reference/automorphismByRanges.html) permits the classification
 of the pairwise alignment of protein-coding sub-regions based on the
 mutational events observed on it quantitatively represented as automorphisms on 
 genetic-code cubes.

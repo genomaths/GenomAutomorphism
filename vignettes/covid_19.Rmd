@@ -107,7 +107,7 @@ covid_aln2 <- readDNAMultipleAlignment(filepath = URL)
 
 
 ```{r aut_1}
-covid_aut <- automorphism(
+covid_aut <- automorphisms(
                     seq = covid_aln2,
                     group = "Z64",
                     cube = c("ACGT", "TGCA"),

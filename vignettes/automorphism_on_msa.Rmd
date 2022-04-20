@@ -131,7 +131,8 @@ library(ggseqlogo)
 Next, we proceed to check the DNA multiple sequence alignment (MSA) file. This
 ia a FASTA file carrying the MSA of mammals (somatic) Cystocrome c. Notice that
 we are familiar with the _FASTA_ file, then it is better to directly read it
-with function automorphism.
+with function 
+[automorphisms](https://genomaths.github.io/genomautomorphism/reference/automorphism.html).
 
 However, for the current example, this step can be bypassed, since the 
 MSA is provided provided together with _*GenomAutomorphism*_ R package 
@@ -160,7 +161,8 @@ The corresponding aminoacid sequence is:
 translate(cyc_aln@unmasked)
 ```
 
-Next, function automorphism will be applied to represent the codon sequence in
+Next, function [automorphisms](https://genomaths.github.io/genomautomorphism/reference/automorphism.html)
+will be applied to represent the codon sequence in
 the Abelian group $\mathbb{Z}_{64}$ (i.e., the set of integers remainder modulo
 64). The codon coordinates are requested on the cube ACGT. Following reference
 ([4](#4))), cubes are labeled based on the order of DNA bases used to define the
@@ -168,7 +170,8 @@ sum operation.
 
 In Z64, automorphisms are described as functions $f(x) = k\,x \quad mod\,64$,
 where $k$ and $x$ are elements from the set of integers modulo 64. Below, in
-function _automorphism_ three important arguments are given values: _group =
+function [automorphisms](https://genomaths.github.io/genomautomorphism/reference/automorphism.html)
+three important arguments are given values: _group =
 "Z64"_, _cube = c("ACGT", "TGCA")_, and _cube_alt = c("CATG", "GTAC")_. Setting
 for group specifies on which group the automorphisms will be computed. These
 groups can be: "Z5", "Z64", "Z125", and "Z5^3".
@@ -192,7 +195,7 @@ nams <- c("human_1", "human_2", "gorilla", "human_3", "human_4",
           "golden_monkey", "rhesus_monkeys_1", "rhesus_monkeys_2",
           "gelada_baboon_1", "gelada_baboon_2", "orangutan_1", "orangutan_2")
 
-cyc_autm <- automorphism(filepath = URL, 
+cyc_autm <- automorphisms(filepath = URL, 
                       group = "Z64", 
                       cube = c("ACGT", "TGCA"),
                       cube_alt = c("CATG", "GTAC"),

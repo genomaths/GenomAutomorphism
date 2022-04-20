@@ -175,7 +175,7 @@ library(CHAID)
 Next, we proceed to check the DNA multiple sequence alignment (MSA) file. This
 is a FASTA file carrying the MSA of primate BRCA1 DNA repair gene. Notice that
 we are familiar with the _FASTA_ file, then it is better to directly read it
-with function automorphism. However, for the current example, this step can be
+with function automorphisms. However, for the current example, this step can be
 bypassed, since the MSA is provided provided together with _*GenomAutomorphism*_
 R package
 
@@ -198,7 +198,7 @@ The sequence names
 strtrim(names(brca1_aln@unmasked), 100)
 ```
 
-Next, function automorphism will be applied to represent the codon sequence in
+Next, function [automorphisms](https://genomaths.github.io/genomautomorphism/reference/automorphism.html) will be applied to represent the codon sequence in
 the Abelian group $\mathbb{Z}_{64}$ (i.e., the set of integers remainder modulo
 64). The codon coordinates are requested on the cube ACGT. Following reference
 ([4](#4))), cubes are labeled based on the order of DNA bases used to define the
@@ -206,7 +206,7 @@ sum operation.
 
 In Z64, automorphisms are described as functions $f(x) = k\,x \quad mod\,64$,
 where $k$ and $x$ are elements from the set of integers modulo 64. Below, in
-function _automorphism_ three important arguments are given values: _group =
+function [automorphisms](https://genomaths.github.io/genomautomorphism/reference/automorphism.html) three important arguments are given values: _group =
 "Z64"_, _cube = c("ACGT", "TGCA")_, and _cube_alt = c("CATG", "GTAC")_. Setting
 for group specifies on which group the automorphisms will be computed. These
 groups can be: "Z5", "Z64", "Z125", and "Z5^3".
@@ -217,7 +217,7 @@ the genetic-code cubes, as given in references ([1-4](#2))), is given as
 argument for _cube_. That is, the base pairs from the given cubes must be
 complementary each other. Such a cube pair are call dual cubes and, as shown in
 reference ([4](#4))), each pair integrates group. If automorphisms are not found
-in first set of dual cubes, then the algorithm search for automorphism in a
+in first set of dual cubes, then the algorithm search for automorphisms in a
 alternative set of dual cubes.
 
 
@@ -230,7 +230,7 @@ nams <- c("human_1","human_2","gorilla_1","gorilla_2","gorilla_3",
         "silvery_gibbon_1","silvery_gibbon_3","golden_monkey_1",
         "golden_monkey_2","gelada_baboon","bolivian_monkey")
 
-brca1_autm <- automorphism(
+brca1_autm <- automorphisms(
                       seqs = brca1_aln, 
                       group = "Z64", 
                       cube = c("ACGT", "TGCA"),
@@ -246,10 +246,10 @@ data(brca1_autm, package = "GenomAutomorphism")
 brca1_autm
 ```
 
-## Grouping automorphism by automorphism's coefficients
+## Grouping automorphisms by automorphism's coefficients
 Automorphisms with the same automorphism's coefficients can be grouped. This
-task can be accomplished with function automorphismByCoef. However, for the sake
-of time, its output is included in the package
+task can be accomplished with function [automorphismByCoef](https://genomaths.github.io/genomautomorphism/reference/automorphismByCoef.html). 
+However, for the sake of time, its output is included in the package
 
 ```{r autby, eval = FALSE}
 ## Not need to run it here

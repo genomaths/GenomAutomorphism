@@ -77,7 +77,7 @@ reference:
   - '`seqranges`'
 - title: Automorphisms
   contents:
-  - '`automorphism`'
+  - '`automorphisms`'
   - '`autZ5`'
   - '`autZ64`'
   - '`autZ125`'

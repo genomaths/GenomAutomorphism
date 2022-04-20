@@ -12,7 +12,7 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-#' @rdname automorphism
+#' @rdname automorphisms
 #' @title Compute the Automorphisms of Mutational Events Between two Codon 
 #' Sequences Represented in a Given Abelian group.
 #' @description Given two codon sequences represented in a given Abelian group,
@@ -34,9 +34,9 @@
 #' 
 #' Automorphisms in Z5, Z64 and Z125 are described as functions \eqn{f(x) =
 #' k x mod 64} and \eqn{f(x) = k x mod 125}, where k and x are elements from the
-#' set of integers modulo 64 or modulo 125, respectively. If an automorphism
+#' set of integers modulo 64 or modulo 125, respectively. If an automorphisms
 #' cannot be found on any of the cubes provided in the argument \eqn{cube}, then
-#' function \code{\link{automorphism}} will search for automorphisms in the
+#' function \code{\link{automorphisms}} will search for automorphisms in the
 #' cubes provided in the argument \eqn{cube_alt}.
 #' 
 #' Automorphisms in Z5^3' are described as functions \eqn{f(x) = Ax mod Z5}, 
@@ -85,7 +85,7 @@
 #' ### \code{\link{automorphismByCoef}}
 #' This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
 #' Consecutive mutational events (on the codon sequence) described by 
-#' the same automorphism coefficients are grouped in a range.
+#' the same automorphisms coefficients are grouped in a range.
 #' 
 #' ### \code{\link{getAutomorphisms}}
 #' This function returns an AutomorphismList-class object as a list of
@@ -121,18 +121,18 @@
 #' aln
 #' 
 #' ## Automorphism on "Z5^3"
-#' autms <- automorphism(seq = aln, group = "Z5^3")
+#' autms <- automorphisms(seq = aln, group = "Z5^3")
 #' autms
 #' 
 #' ## Automorphism on "Z64"
-#' autms <- automorphism(seq = aln, group = "Z64")
+#' autms <- automorphisms(seq = aln, group = "Z64")
 #' autms
 #' 
 #' ## Grouping into ranges the automorphisms by cubes 
 #' automorphismByRanges(autms)
 #' 
 #' ## Automorphism on "Z64" from position 1 to 33
-#' autms <- automorphism(seq = aln,
+#' autms <- automorphisms(seq = aln,
 #'                       group = "Z64",
 #'                       start = 1,
 #'                       end = 33)
@@ -141,18 +141,18 @@
 #' ## Grouping into ranges the automorphisms by cubes 
 #' automorphismByRanges(autms)
 #' 
-#' @aliases automorphism
+#' @aliases automorphisms
 #' @export
-setGeneric("automorphism",
+setGeneric("automorphisms",
     function(
             seqs = NULL,
             filepath = NULL,
             group = "Z4",
             ...)
-        standardGeneric("automorphism"))
+        standardGeneric("automorphisms"))
 
-#' @aliases automorphism
-#' @rdname automorphism
+#' @aliases automorphisms
+#' @rdname automorphisms
 #' @importFrom foreach foreach %dopar% %:%
 #' @importFrom doParallel registerDoParallel
 #' @importFrom stats setNames
@@ -160,7 +160,7 @@ setGeneric("automorphism",
 #' @importFrom BiocGenerics width 
 #' @import Biostrings
 #' @export
-setMethod("automorphism", signature(seqs = "DNAStringSet_OR_NULL"),
+setMethod("automorphisms", signature(seqs = "DNAStringSet_OR_NULL"),
     function( 
             seqs = NULL,
             filepath = NULL,

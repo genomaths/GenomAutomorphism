@@ -172,7 +172,7 @@ Automorphisms can be computed starting directly from the _FASTA_ file.
 Notice that we can work only with genomic regions of our interest by giving 
 the _start_ and _end_ alignment coordinates. In Z64 automorphisms are described 
 as functions $f(x) = k\,x \quad mod\,64$, where $k$ and $x$ are elements from 
-the set of integers modulo 64. Below, in function _automorphism_ three important
+the set of integers modulo 64. Below, in function [automorphism](https://genomaths.github.io/genomautomorphism/reference/automorphism.html) three important
 arguments are given values: _group = "Z64"_, _cube = c("ACGT", "TGCA")_, and
 _cube_alt = c("CATG", "GTAC")_. Setting for group specifies on which group the
 automorphisms will be computed. These groups can be: "Z5", "Z64", "Z125", and
@@ -189,7 +189,7 @@ alternative set of dual cubes.
 
 
 ```{r aut}
-autm <- automorphism(
+autm <- automorphisms(
                       seqs = covid_aln,
                       group = "Z64",
                       cube = c("ACGT", "TGCA"),
@@ -215,7 +215,8 @@ aut_range
 ```
 
 
-That is, function _automorphismByRanges_ permits the classification
+That is, function 
+[automorphismByRanges](https://genomaths.github.io/genomautomorphism/reference/automorphismByRanges.html) permits the classification
 of the pairwise alignment of protein-coding sub-regions based on the
 mutational events observed on it quantitatively represented as automorphisms on 
 genetic-code cubes.
@@ -238,7 +239,7 @@ Next, the automorphism for the whole pairwise alignment of SARS-CoV-2 related
 coronaviruses:
 ```{r aut_1, eval=FALSE}
 ## Do not need to run it. 
-covid_autm <- automorphism(
+covid_autm <- automorphisms(
                     seq = covid_aln,
                     group = "Z64",
                     cube = c("ACGT", "TGCA"),
@@ -424,7 +425,7 @@ dist$fit
 Alternatively, we can use the algebraic representation on on $\mathbb{Z}_{125}$.
 
 ```{r aut_2}
-covid_autm_2 <- automorphism(
+covid_autm_2 <- automorphisms(
                       seq = covid_aln, 
                       group = "Z125", 
                       cube = c("ACGT", "TGCA"),
