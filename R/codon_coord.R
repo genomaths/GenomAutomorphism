@@ -98,10 +98,11 @@ setGeneric("codon_coord",
 
 #' @aliases codon_coord
 #' @rdname codon_coord
-#' @importFrom S4Vectors mcols
+#' @import S4Vectors  
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @importFrom BiocGenerics strand
 #' @importFrom GenomeInfoDb seqnames
+#' @importFrom IRanges ranges
 setMethod("codon_coord", signature(codon = "BaseGroup"),
     function(
             codon,
@@ -155,7 +156,7 @@ setMethod("codon_coord", signature(codon = "BaseGroup"),
                         codon)
         
         codon <- makeGRangesFromDataFrame(codon, keep.extra.columns = TRUE)
-        codon <- new(
+        codon <- new2(
             "CodonGroup",
             seqnames = seqnames(codon),
             ranges = ranges(codon),
@@ -164,7 +165,7 @@ setMethod("codon_coord", signature(codon = "BaseGroup"),
             seqinfo = codon@seqinfo,
             colnames = colnames(codon@elementMetadata),
             group = group,
-            cube = cube)
+            cube = cube, check = FALSE)
         return(codon)
     }
 )

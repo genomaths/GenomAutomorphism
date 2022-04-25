@@ -121,21 +121,22 @@
 #' aln
 #' 
 #' ## Automorphism on "Z5^3"
-#' autms <- automorphisms(seq = aln, group = "Z5^3")
+#' autms <- automorphisms(seq = aln, group = "Z5^3", verbose = FALSE)
 #' autms
 #' 
 #' ## Automorphism on "Z64"
-#' autms <- automorphisms(seq = aln, group = "Z64")
+#' autms <- automorphisms(seq = aln, group = "Z64", verbose = FALSE)
 #' autms
 #' 
 #' ## Grouping into ranges the automorphisms by cubes 
-#' automorphismByRanges(autms)
+#' automorphismByRanges(autms, verbose = FALSE)
 #' 
 #' ## Automorphism on "Z64" from position 1 to 33
 #' autms <- automorphisms(seq = aln,
 #'                       group = "Z64",
 #'                       start = 1,
-#'                       end = 33)
+#'                       end = 33, 
+#'                       verbose = FALSE)
 #' autms
 #' 
 #' ## Grouping into ranges the automorphisms by cubes 
