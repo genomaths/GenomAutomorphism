@@ -62,22 +62,31 @@ setMethod("getAutomorphisms", signature = "AutomorphismList",
         x <- x@DataList  
         if (length(gr) > 0) {
             x <- lapply(x, function(y) {
-                    mcols(gr) <- y
-                    x <- as(y, "Automorphism")
-                    return(gr)
+                    if (inherits(y, c("DataFrame", "data.frame"))) {
+                        mcols(gr) <- y
+                        y <- as(gr, "Automorphism")
+                    }
+                    return(y)
             })
-            x <- new("AutomorphismList", 
-                    DataList = x,
-                    SeqRanges = GRanges()
-            )
         } 
         else {
-            x <- lapply(x, as, "Automorphism")
-            x <- new("AutomorphismList", 
-                    DataList = x,
-                    SeqRanges = GRanges()
-            )
+            pos = seq(1, length(x[[1]]), 1)
+            gr <- GRanges(seqnames = 1, 
+                        ranges = IRanges(start = pos, end = pos),
+                        strand = "+")
+            
+            x <- lapply(x, function(y) {
+                if (inherits(y, c("DataFrame", "data.frame"))) {
+                    mcols(gr) <- y
+                    y <- as(gr, "Automorphism")
+                }
+                return(y)
+            })
         }
+        x <- new("AutomorphismList", 
+                 DataList = x,
+                 SeqRanges = gr
+        )
         names(x) <- nams
         return(x)
     }

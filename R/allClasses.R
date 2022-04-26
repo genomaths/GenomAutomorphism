@@ -324,7 +324,7 @@ setAs("DataFrame_OR_data.frame", "Automorphism",
 
 
 # ======================== Validity Automorphism ======================= #
-#' @rdname Automorphism
+#' @rdname valid.Automorphism
 #' @title Valid Automorphism mcols
 #' @param x A 'Automorphism object'
 #' @keywords internal
@@ -403,16 +403,17 @@ setClass("AutomorphismList",
 setGeneric("as.AutomorphismList",
     function(
             x,
-            grs,
+            grs = GRanges(),
             ...)
         standardGeneric("as.AutomorphismList"))
 
 
+setClassUnion("GRanges_OR_NULL", c("GRanges","NULL", "missing"))
 #' @rdname Automorphism
 #' @aliases as.AutomorphismList
 #' @export
 setMethod("as.AutomorphismList", 
-        signature(x = "GRangesList"),
+        signature(x = "GRangesList", grs = "GRanges_OR_NULL"),
     function(
         x,
         grs = GRanges(),
@@ -439,17 +440,37 @@ setMethod("as.AutomorphismList",
     }
 )
 
-
 #' @rdname Automorphism
 #' @aliases as.AutomorphismList
 #' @importFrom GenomicRanges GRanges
+#' @importFrom S4Vectors mcols
 #' @export
 setMethod("as.AutomorphismList", 
-        signature(x = "list", grs = "GRanges"),
+        signature(x = "list", grs = "GRanges_OR_NULL"),
     function(
             x,
-            grs,
+            grs = GRanges(),
             ...) {
+        
+        if (length(grs) == 0) {
+            if (inherits(x[[1]], "GRanges"))
+                grs <- x[[1]]
+            else {
+                if (inherits(x[[1]], c("DataFrame", "data.frame"))) {
+                    pos = seq(1, nrow(x[[1]]), 1)
+                    grs <- GRanges(seqnames = 1, 
+                                ranges = IRanges(start = pos, end = pos),
+                                strand = "+")
+                }
+                else 
+                    stop("*** The argument of 'x' must be a list of ",
+                        "objects from any of the classes: 'GRanges', ",
+                        "'DataFrame', or 'data.frame'.")
+            }
+        }
+
+        if (!is.null(mcols(grs))) 
+            mcols(grs) <- NULL
         
         if (all(sapply(x, function(y) inherits(y, "GRanges")))) {
             if (length(grs) == length(x)) {
@@ -475,8 +496,8 @@ setMethod("as.AutomorphismList",
         
         if (all(sapply(x, function(y) inherits(y, "DataFrame")))) {
             x <- new("AutomorphismList", 
-                     DataList = x,
-                     SeqRanges = grs
+                    DataList = x,
+                    SeqRanges = grs
             )
         }
         return(x)
@@ -532,7 +553,7 @@ setMethod("unlist", signature = "AutomorphismList",
 
 ## ====================== Validity AutomorphismList ================== #
 
-#' @rdname Automorphism
+#' @rdname valid.AutomorphismList
 #' @title Valid AutomorphismList mcols
 #' @param x A 'AutomorphismList object'
 #' @importFrom S4Vectors mcols
@@ -594,10 +615,11 @@ setMethod(
         cat(paste0("names(", l, "):"), nams, "\n")
         cat("------- \n")
         gr <- object@SeqRanges
-        if (length(gr) > 0)
-            mcols(gr) <- object@DataList[[1]]
+        if (length(gr) > 0 && inherits(object@DataList[[1]], "DataFrame"))
+                mcols(gr) <- object@DataList[[1]]
         else
             gr <- object@DataList[[1]]
+        
         print(as(gr, "Automorphism"))
         cat("...\n")
         cat("<", l - 1, " more ",
@@ -635,7 +657,7 @@ setClass("AutomorphismByCoef",
 )
 
 # ======================== Validity AutomorphismByCoef ================== #
-#' @rdname Automorphism
+#' @rdname valid.AutomorphismByCoef
 #' @title Valid AutomorphismByCoef mcols
 #' @param x A 'AutomorphismByCoef object'
 #' @importFrom S4Vectors mcols
@@ -689,7 +711,7 @@ setMethod("unlist", signature = "AutomorphismByCoefList",
 )
 
 # ===================== Validity AutomorphismByCoefList ================== #
-#' @rdname Automorphism
+#' @rdname valid.AutomorphismByCoef
 #' @title Valid AutomorphismByCoefList mcols
 #' @param x A 'AutomorphismByCoefList object'
 #' @importFrom S4Vectors mcols
@@ -724,7 +746,7 @@ setClass("ConservedRegion",
 )
 
 # ======================== Validity ConservedRegion ================== #
-#' @rdname Automorphism
+#' @rdname valid.ConservedRegion
 #' @title Valid ConservedRegion mcols
 #' @param x A 'ConservedRegion object'
 #' @importFrom S4Vectors mcols
@@ -769,7 +791,7 @@ setAs("list", "ConservedRegionList", function(from) {
 })
 
 # ===================== Validity ConservedRegionList ================== #
-#' @rdname Automorphism
+#' @rdname valid.ConservedRegion
 #' @title Valid ConservedRegionList mcols
 #' @param x A 'ConservedRegionList object'
 #' @importFrom S4Vectors mcols

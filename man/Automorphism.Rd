@@ -6,56 +6,39 @@
 \alias{Automorphism}
 \alias{AutomorphismList}
 \alias{DataFrame_OR_data.frame-class}
-\alias{valid.Automorphism.mcols}
 \alias{AutomorphismList-class}
 \alias{as.AutomorphismList}
-\alias{as.AutomorphismList,GRangesList,ANY-method}
-\alias{as.AutomorphismList,list,GRanges-method}
+\alias{as.AutomorphismList,GRangesList,GRanges_OR_NULL-method}
+\alias{as.AutomorphismList,list,GRanges_OR_NULL-method}
 \alias{names,AutomorphismList-method}
 \alias{names<-,AutomorphismList-method}
 \alias{as.list,AutomorphismList-method}
-\alias{valid.AutomorphismList}
 \alias{AutomorphismByCoef-class}
 \alias{AutomorphismByCoef}
-\alias{valid.AutomorphismByCoef}
 \alias{AutomorphismByCoefList-class}
 \alias{AutomorphismByCoefList}
-\alias{valid.AutomorphismByCoefList}
 \alias{ConservedRegion-class}
 \alias{ConservedRegion}
-\alias{valid.ConservedRegion}
 \alias{ConservedRegionList-class}
 \alias{ConservedRegionList}
-\alias{valid.ConservedRegionList}
 \title{A class definition to store codon automorphisms in given in the
 Abelian group representation.}
 \usage{
-valid.Automorphism.mcols(x)
+as.AutomorphismList(x, grs = GRanges(), ...)
 
-as.AutomorphismList(x, grs, ...)
+\S4method{as.AutomorphismList}{GRangesList,GRanges_OR_NULL}(x, grs = GRanges(), ...)
 
-\S4method{as.AutomorphismList}{GRangesList,ANY}(x, grs = GRanges(), ...)
-
-\S4method{as.AutomorphismList}{list,GRanges}(x, grs, ...)
+\S4method{as.AutomorphismList}{list,GRanges_OR_NULL}(x, grs = GRanges(), ...)
 
 \S4method{names}{AutomorphismList}(x)
 
 \S4method{names}{AutomorphismList}(x) <- value
 
 \S4method{as.list}{AutomorphismList}(x)
-
-valid.AutomorphismList(x)
-
-valid.AutomorphismByCoef(x)
-
-valid.AutomorphismByCoefList(x)
-
-valid.ConservedRegion(x)
-
-valid.ConservedRegionList(x)
 }
 \arguments{
-\item{x}{A 'ConservedRegionList object'}
+\item{x}{A \code{\link[S4Vectors]{DataFrame}} or a
+\code{\link{automorphisms}} class object.}
 
 \item{gr}{A \code{\link[GenomicRanges]{GRanges}}}
 }
