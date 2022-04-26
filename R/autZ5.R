@@ -66,7 +66,7 @@
 #'  Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math. 
 #'  Comput. Chem. 79 (2018) 527-560. [PDF](https://bit.ly/2Z9mjM7).
 #' }
-#' @seealso \code{\link{automorphism}}
+#' @seealso \code{\link{automorphisms}}
 #' @examples 
 #' ## Load a pairwise alignment
 #' data(aln, package = "GenomAutomorphism")

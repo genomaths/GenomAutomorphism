@@ -20,6 +20,6 @@ Abelian group representation.
 Valid CodonGroup mcols
 }
 \seealso{
-\code{\link{automorphism}}
+\code{\link{automorphisms}}
 }
 \keyword{internal}

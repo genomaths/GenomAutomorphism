@@ -28,21 +28,21 @@
 #' @importFrom S4Vectors mcols
 #' @export
 #' @examples 
-#' ## Load dataset
+#' ## Load a dataset
 #' data(autm, package = "GenomAutomorphism")
+#' aut <- autm@elementMetadata
+#' aut ## This a DataFrame object
 #' 
-#' x1 <- autm[1:2]
-#' x1
+#' ## The natural ranges for the sequence (from 1 to length(aut)) are added
+#' getAutomorphisms(aut)
 #' 
-#' ## A list of DataFrame objects
-#' as.list(x1)  
+#' ## A list of automorphisms
+#' aut <- list(aut, aut)
+#' getAutomorphisms(aut)
 #' 
-#' ## Get automorphism on GRanges objects
-#' x1 <- getAutomorphisms(autm[1:2])
-#' x1
-#' 
-#' ## A list of GRanges objects
-#' as.list(x1)
+#' ## Automorphism-class inherits from 'GRanges-class' 
+#' aut <- as(autm, "GRanges")
+#' as(aut, "Automorphism")
 #' 
 setGeneric("getAutomorphisms",
     function(

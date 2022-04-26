@@ -25,6 +25,6 @@ Valid BaseGroup mcols
 Valid 'BaseGroup' inheritance from 'GRanges' class
 }
 \seealso{
-\code{\link{automorphism}}
+\code{\link{automorphisms}}
 }
 \keyword{internal}

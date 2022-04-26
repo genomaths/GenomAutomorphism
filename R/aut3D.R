@@ -33,6 +33,9 @@
 #' cubes, as given in references (2-3). That is, the base pairs from the given 
 #' cubes must be complementary each other. Such a cube pair are call dual cubes 
 #' and, as shown in reference (3), each pair integrates group.
+#' @param field  A character string denoting the Galois field where the 3D 
+#' automorphisms are estimated. This can be 'GF(4)' or 'GF(5)', but only
+#' 'GF(5)' is implemented so far.
 #' @param start,end,chr,strand Optional parameters required to build a 
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default 
 #' values given for the function definition will be used.
@@ -80,6 +83,7 @@ aut3D <- function(
     filepath = NULL,
     cube = c("ACGT", "TGCA"),
     cube_alt = c("CATG", "GTAC"),
+    field = "GF5",
     start = NA,
     end = NA,
     chr = 1L,
@@ -107,6 +111,7 @@ aut3D <- function(
                             end = end,
                             chr = chr,
                             strand = strand,
+                            field = field,
                             num.cores = num.cores,
                             tasks = tasks,
                             verbose = verbose)
@@ -121,6 +126,7 @@ aut3D <- function(
                                 end = end,
                                 chr = chr,
                                 strand = strand,
+                                field = field,
                                 num.cores = num.cores,
                                 tasks = tasks,
                                 verbose = verbose)
@@ -149,6 +155,7 @@ automorfismos_3D <- function(
     end = NA,
     chr = 1L,
     strand = "+",
+    field,
     num.cores,
     tasks,
     verbose) {
@@ -198,7 +205,7 @@ automorfismos_3D <- function(
             
             if (any(s == -1) || inherits(s, "try-error")) {
                 s <- try(mapply(modeq, (5 - c1), (5 - c2), 5),
-                         silent = TRUE)
+                        silent = TRUE)
                 if (!(any(s == -1) || inherits(s, "try-error")))
                     s <- c(paste0(s, collapse = ","), cube[ 2 ])
             } 

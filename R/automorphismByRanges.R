@@ -21,7 +21,7 @@
 #' \code{\link[GenomicRanges]{GRanges-class}}.
 #' 
 #' @param x An Automorphism-class object returned by function 
-#' \code{\link{automorphism}}.
+#' \code{\link{automorphisms}}.
 #' @return A  \code{\link[GenomicRanges]{GRanges-class}} or a 
 #' \code{\link[GenomicRanges]{GRangesList-class}}. Each 
 #' \code{\link[GenomicRanges]{GRanges-class}} object with a column
@@ -88,7 +88,7 @@ setMethod("automorphismByRanges",
 #' @aliases automorphismByRanges
 #' @rdname automorphismByRanges
 #' @param x An AutomorphismList-class object returned by function 
-#' \code{\link{automorphism}}.
+#' \code{\link{automorphisms}}.
 #' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the 
 #' number of cores to use, i.e. at most how many child processes will be run
 #' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from

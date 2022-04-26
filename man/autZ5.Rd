@@ -91,5 +91,5 @@ Comput. Chem. 79 (2018) 527-560. \href{https://bit.ly/2Z9mjM7}{PDF}.
 }
 }
 \seealso{
-\code{\link{automorphism}}
+\code{\link{automorphisms}}
 }

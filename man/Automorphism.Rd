@@ -9,8 +9,8 @@
 \alias{valid.Automorphism.mcols}
 \alias{AutomorphismList-class}
 \alias{as.AutomorphismList}
-\alias{as.AutomorphismList,GRangesList-method}
-\alias{as.AutomorphismList,list-method}
+\alias{as.AutomorphismList,GRangesList,ANY-method}
+\alias{as.AutomorphismList,list,GRanges-method}
 \alias{names,AutomorphismList-method}
 \alias{names<-,AutomorphismList-method}
 \alias{as.list,AutomorphismList-method}
@@ -32,11 +32,11 @@ Abelian group representation.}
 \usage{
 valid.Automorphism.mcols(x)
 
-as.AutomorphismList(x, ...)
+as.AutomorphismList(x, grs, ...)
 
-\S4method{as.AutomorphismList}{GRangesList}(x, ...)
+\S4method{as.AutomorphismList}{GRangesList,ANY}(x, grs = GRanges(), ...)
 
-\S4method{as.AutomorphismList}{list}(x, grs = GRanges(), ...)
+\S4method{as.AutomorphismList}{list,GRanges}(x, grs, ...)
 
 \S4method{names}{AutomorphismList}(x)
 
@@ -69,7 +69,7 @@ derived from the pairwise automorphism estimation from pairwise
 alignments.
 
 The function build a AutomorphismList-class object from a
-list of \code{\link[S4Vectors]{DataFrame}} or a \code{\link{Automorphism}}
+list of \code{\link[S4Vectors]{DataFrame}} or a \code{\link{automorphisms}}
 class object.
 }
 \details{
@@ -81,7 +81,7 @@ Permits the transformation of a \code{\link[base]{data.frame}} or a
 \emph{\strong{Automorphism-class}} object the proper columns are provided. An
 \emph{\strong{Automorphism-class}} object has six columns: "seq1", "seq2",
 "coord1", "coord2", "autm", and "cube". See the examples for function
-\code{\link{automorphism}}. Observe that as the
+\code{\link{automorphisms}}. Observe that as the
 \emph{\strong{Automorphism-class}} inherits from
 \code{\link[GenomicRanges]{GRanges-class}} the transformation starting from a
 \code{\link[GenomicRanges]{GRanges-class}} object into an
@@ -107,6 +107,6 @@ objects into a \emph{\strong{AutomorphismList-class}} object.
 }
 }
 \seealso{
-\code{\link{automorphism}}
+\code{\link{automorphisms}}
 }
 \keyword{internal}

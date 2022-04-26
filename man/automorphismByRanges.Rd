@@ -20,7 +20,7 @@ automorphismByRanges(x, ...)
 }
 \arguments{
 \item{x}{An AutomorphismList-class object returned by function
-\code{\link{automorphism}}.}
+\code{\link{automorphisms}}.}
 
 \item{num.cores, tasks}{Integers. Argument \emph{num.cores} denotes the
 number of cores to use, i.e. at most how many child processes will be run

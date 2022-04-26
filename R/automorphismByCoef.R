@@ -20,7 +20,7 @@
 #' grouped.
 #' @param x An \code{\link{Automorphism-class}} or an 
 #' \code{\link{AutomorphismList-class}} object returned by function 
-#' \code{\link{automorphism}}.
+#' \code{\link{automorphisms}}.
 #' @param mut.type Logical. Whether to include the mutation type as given by 
 #' function \code{\link{mut_type}}.
 #' @return An \code{\link{AutomorphismByCoef}} class object. A coefficient with
@@ -42,7 +42,7 @@ setGeneric("automorphismByCoef",
 #' @aliases automorphismByCoef
 #' @rdname automorphismByCoef
 #' @param x An automorphism-class object returned by function 
-#' \code{\link{automorphism}}.
+#' \code{\link{automorphisms}}.
 #' @importFrom data.table data.table
 #' @export
 setMethod("automorphismByCoef", signature(x = "Automorphism"),

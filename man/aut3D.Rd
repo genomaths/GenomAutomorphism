@@ -10,6 +10,7 @@ aut3D(
   filepath = NULL,
   cube = c("ACGT", "TGCA"),
   cube_alt = c("CATG", "GTAC"),
+  field = "GF5",
   start = NA,
   end = NA,
   chr = 1L,
@@ -34,6 +35,10 @@ must correspond to codon sequences.}
 cubes, as given in references (2-3). That is, the base pairs from the given
 cubes must be complementary each other. Such a cube pair are call dual cubes
 and, as shown in reference (3), each pair integrates group.}
+
+\item{field}{A character string denoting the Galois field where the 3D
+automorphisms are estimated. This can be 'GF(4)' or 'GF(5)', but only
+'GF(5)' is implemented so far.}
 
 \item{start, end, chr, strand}{Optional parameters required to build a
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default

@@ -106,16 +106,22 @@ setGeneric("matrices",
 #' @aliases matrices
 #' @rdname matrices
 #' @export
-setMethod("matrices", signature(x = "CodonSeq_OR_MatrixList"),
+setMethod("matrices", signature(x = "MatrixList"),
     function(x) {
-        if (inherits(x, "CodonSeq")) 
-            x <- x@CoordList
-        else
-            x <- x@matrices
+        x <- x@matrices
         return(x)
     }
 )
 
+#' @aliases matrices
+#' @rdname matrices
+#' @export
+setMethod("matrices", signature(x = "CodonSeq"),
+    function(x) {
+        x <- x@CoordList
+        return(x)
+    }
+)
 
 #' @aliases matrices
 #' @rdname matrices

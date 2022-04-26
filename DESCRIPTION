@@ -22,11 +22,13 @@ Imports:
     S4Vectors
 RoxygenNote: 7.1.2
 Suggests:
-  spelling, 
-  rmarkdown,
-  knitr,
-  BiocStyle
+    spelling,
+    rmarkdown,
+    knitr,
+    BiocStyle,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Language: en-US
 BugReports: https://github.com/genomaths/GenomAutomorphism/issues
+Config/testthat/edition: 3

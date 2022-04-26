@@ -19,7 +19,7 @@
 #' @title A class definition to store codon automorphisms in given in the 
 #' Abelian group representation.
 #' @importClassesFrom S4Vectors DataFrame
-#' @seealso \code{\link{automorphism}}
+#' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @export
 setClass("BaseGroup",
@@ -115,7 +115,7 @@ S4Vectors:::setValidity2("BaseGroup", valid.BaseGroup)
 #' Abelian group representation.
 #' @importClassesFrom S4Vectors DataFrame
 #' @importClassesFrom GenomicRanges GRanges
-#' @seealso \code{\link{automorphism}}
+#' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @export
 setClass("CodonGroup",
@@ -228,8 +228,6 @@ setClass("MatrixList",
         )
 )
 
-setClassUnion("CodonSeq_OR_MatrixList", c("CodonSeq", "MatrixList"))
-
 #' @importFrom S4Vectors setValidity2
 #' @importClassesFrom Biostrings DNAMultipleAlignment DNAMultipleAlignment
 #' @rdname allClasses
@@ -255,7 +253,7 @@ setClassUnion("DNAStringSet_OR_NULL",
 #' \emph{\strong{Automorphism-class}} object the proper columns are provided. An
 #' \emph{\strong{Automorphism-class}} object has six columns: "seq1", "seq2",
 #' "coord1", "coord2", "autm", and "cube". See the examples for function
-#' \code{\link{automorphism}}. Observe that as the
+#' \code{\link{automorphisms}}. Observe that as the
 #' \emph{\strong{Automorphism-class}} inherits from
 #' \code{\link[GenomicRanges]{GRanges-class}} the transformation starting from a
 #' \code{\link[GenomicRanges]{GRanges-class}} object into an
@@ -275,7 +273,7 @@ setClassUnion("DNAStringSet_OR_NULL",
 #' \code{\link[base]{data.frame}} or a \code{\link[S4Vectors]{DataFrame-class}}
 #' objects into a \emph{\strong{AutomorphismList-class}} object.
 #' 
-#' @seealso \code{\link{automorphism}}
+#' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @importClassesFrom S4Vectors DataFrame
 #' @importClassesFrom GenomicRanges GRanges
@@ -390,10 +388,10 @@ setClass("AutomorphismList",
 #' @rdname Automorphism
 #' @title AutomorphismList-class object constructor from a list.
 #' @description The function build a AutomorphismList-class object from a
-#' list of \code{\link[S4Vectors]{DataFrame}} or a \code{\link{Automorphism}}
+#' list of \code{\link[S4Vectors]{DataFrame}} or a \code{\link{automorphisms}}
 #' class object.
 #' @param x A \code{\link[S4Vectors]{DataFrame}} or a 
-#' \code{\link{Automorphism}} class object.
+#' \code{\link{automorphisms}} class object.
 #' @param gr A \code{\link[GenomicRanges]{GRanges}}
 #' @importFrom GenomicRanges GRanges GRangesList
 #' @importFrom S4Vectors mcols DataFrame
@@ -405,6 +403,7 @@ setClass("AutomorphismList",
 setGeneric("as.AutomorphismList",
     function(
             x,
+            grs,
             ...)
         standardGeneric("as.AutomorphismList"))
 
@@ -416,9 +415,11 @@ setMethod("as.AutomorphismList",
         signature(x = "GRangesList"),
     function(
         x,
+        grs = GRanges(),
         ...) {
               
-        grs <- x[[1]]
+        if (length(grs) == 0)
+            grs <- x[[1]]
         mcols(grs) <- NULL
         
         x <- lapply(x, function(y) {
@@ -444,10 +445,10 @@ setMethod("as.AutomorphismList",
 #' @importFrom GenomicRanges GRanges
 #' @export
 setMethod("as.AutomorphismList", 
-        signature(x = "list"),
+        signature(x = "list", grs = "GRanges"),
     function(
             x,
-            grs = GRanges(),
+            grs,
             ...) {
         
         if (all(sapply(x, function(y) inherits(y, "GRanges")))) {
@@ -456,9 +457,14 @@ setMethod("as.AutomorphismList",
                 mcols(grs) <- NULL
             }
             
+            if (length(grs) == 0) {
+                grs <- x[[1]]
+                mcols(grs) <- NULL
+            }
+            
             x <- lapply(x, function(y) {
-                    x <- as(x, "Automorphism")
-                    return(mcols(x))
+                    y <- as(y, "Automorphism")
+                    return(mcols(y))
                 })
             
             x <- new("AutomorphismList", 
@@ -888,5 +894,4 @@ setMethod(
     }
     return(r)
 }
-
 

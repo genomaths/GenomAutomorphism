@@ -21,7 +21,7 @@ automorphismByCoef(x, ...)
 }
 \arguments{
 \item{x}{An automorphism-class object returned by function
-\code{\link{automorphism}}.}
+\code{\link{automorphisms}}.}
 
 \item{mut.type}{Logical. Whether to include the mutation type as given by
 function \code{\link{mut_type}}.}

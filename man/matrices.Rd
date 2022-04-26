@@ -2,14 +2,17 @@
 % Please edit documentation in R/matrices.R
 \name{matrices}
 \alias{matrices}
-\alias{matrices,CodonSeq_OR_MatrixList-method}
+\alias{matrices,MatrixList-method}
+\alias{matrices,CodonSeq-method}
 \alias{matrices,DNAStringSet_OR_NULL-method}
 \title{Get the Coordinate Representation from DNA Sequences on Specified
 Abelian Group}
 \usage{
 matrices(x, ...)
 
-\S4method{matrices}{CodonSeq_OR_MatrixList}(x)
+\S4method{matrices}{MatrixList}(x)
+
+\S4method{matrices}{CodonSeq}(x)
 
 \S4method{matrices}{DNAStringSet_OR_NULL}(
   x,
