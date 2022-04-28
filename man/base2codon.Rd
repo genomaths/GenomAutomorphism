@@ -19,6 +19,8 @@ base2codon(x, ...)
 \item{x}{A character string, \code{\link[Biostrings]{DNAStringSet-class}} or
 \code{\link[Biostrings]{DNAMultipleAlignment-class}} object carrying the a
 DNA sequence.}
+
+\item{...}{Not in use.}
 }
 \value{
 If the argument of 'x' is character string, then a character vector

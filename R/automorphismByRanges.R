@@ -22,6 +22,7 @@
 #' 
 #' @param x An Automorphism-class object returned by function 
 #' \code{\link{automorphisms}}.
+#' @param ... Not in use.
 #' @return A  \code{\link[GenomicRanges]{GRanges-class}} or a 
 #' \code{\link[GenomicRanges]{GRangesList-class}}. Each 
 #' \code{\link[GenomicRanges]{GRanges-class}} object with a column
@@ -89,6 +90,7 @@ setMethod("automorphismByRanges",
 #' @rdname automorphismByRanges
 #' @param x An AutomorphismList-class object returned by function 
 #' \code{\link{automorphisms}}.
+#' @param min.len Minimum length of a range to be reported.
 #' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the 
 #' number of cores to use, i.e. at most how many child processes will be run
 #' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
@@ -99,6 +101,7 @@ setMethod("automorphismByRanges",
 #' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
 #' as possible over the number of workers (see
 #' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
+#' @param verbose logic(1). If TRUE, enable progress bar.
 #' @importFrom GenomicRanges GRangesList
 #' @importFrom parallel detectCores
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam
@@ -138,7 +141,8 @@ setMethod("automorphismByRanges", signature(x = "AutomorphismList"),
                     })
         }
         
-        idx <- which(sapply(x, function(x) length(x) > min.len))
+        idx <- which(sapply(x, function(x) 
+                        length(x) > min.len))
         x <- x[ idx ]
         
         return(as(x, "GRangesList"))

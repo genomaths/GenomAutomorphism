@@ -36,8 +36,6 @@
 #' @param start,end,chr,strand Optional parameters required to build a 
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default 
 #' values given for the function definition will be used.
-#' @param group A character string denoting the group representation for the 
-#' given base or codon as shown in reference (1).
 #' @param num.cores,tasks Parameters for parallel computation using package
 #' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to use,
 #' i.e. at most how many child processes will be run simultaneously (see

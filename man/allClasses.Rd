@@ -5,7 +5,6 @@
 \alias{MatrixList-class}
 \alias{MatrixList}
 \alias{DNAStringSet_OR_NULL-class}
-\alias{show,AutomorphismList-method}
 \alias{show-AutomorphismList}
 \alias{show,CodonSeq-method}
 \alias{show-CodonSeq}

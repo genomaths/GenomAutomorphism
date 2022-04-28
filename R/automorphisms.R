@@ -45,7 +45,7 @@
 #' Arguments \emph{\strong{cube}} and \emph{\strong{cube_alt}} must be
 #' pairs of' dual cubes (see section 2.4 from reference 4).
 #' 
-#' @param seq An object from a \code{\link[Biostrings]{DNAStringSet}} or 
+#' @param seqs An object from a \code{\link[Biostrings]{DNAStringSet}} or 
 #' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
 #' pairwise alignment of two sequences. The pairwise alignment provided in
 #' argument \emph{\strong{seq}} or the 'fasta' file \emph{\strong{filepath}}
@@ -72,6 +72,7 @@
 #' \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
 #' for Linux OS).
 #' @param verbose If TRUE, prints the progress bar.
+#' @param ... Not in use.
 #' @return This function returns a \code{\link{Automorphism-class}} object  
 #' with four columns on its metacolumn named: \emph{seq1}, \emph{seq2},
 #' \emph{autm}, and \emph{cube}.
@@ -121,18 +122,18 @@
 #' aln
 #' 
 #' ## Automorphism on "Z5^3"
-#' autms <- automorphisms(seq = aln, group = "Z5^3", verbose = FALSE)
+#' autms <- automorphisms(seqs = aln, group = "Z5^3", verbose = FALSE)
 #' autms
 #' 
 #' ## Automorphism on "Z64"
-#' autms <- automorphisms(seq = aln, group = "Z64", verbose = FALSE)
+#' autms <- automorphisms(seqs = aln, group = "Z64", verbose = FALSE)
 #' autms
 #' 
 #' ## Grouping into ranges the automorphisms by cubes 
-#' automorphismByRanges(autms, verbose = FALSE)
+#' automorphismByRanges(autms)
 #' 
 #' ## Automorphism on "Z64" from position 1 to 33
-#' autms <- automorphisms(seq = aln,
+#' autms <- automorphisms(seqs = aln,
 #'                       group = "Z64",
 #'                       start = 1,
 #'                       end = 33, 

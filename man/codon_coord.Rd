@@ -38,6 +38,8 @@ function \code{\link{base_coord}}), \code{\link[Biostrings]{DNAStringSet}} or
 from \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
 pairwise alignment of two sequences.}
 
+\item{...}{Not in use.}
+
 \item{group}{A character string denoting the group representation for the
 given base or codon as shown in reference (2-3).}
 
@@ -94,7 +96,7 @@ bs_cor <- codon_coord(
 bs_cor
 
 ## Giving a matrix of codons
-codon_coords(base2codon(x = aln))
+codon_coord(base2codon(x = aln))
 
 }
 \references{

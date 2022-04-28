@@ -4,9 +4,9 @@
 \name{Automorphism-class}
 \alias{Automorphism-class}
 \alias{Automorphism}
-\alias{AutomorphismList}
 \alias{DataFrame_OR_data.frame-class}
 \alias{AutomorphismList-class}
+\alias{AutomorphismList}
 \alias{as.AutomorphismList}
 \alias{as.AutomorphismList,GRangesList,GRanges_OR_NULL-method}
 \alias{as.AutomorphismList,list,GRanges_OR_NULL-method}
@@ -56,7 +56,7 @@ list of \code{\link[S4Vectors]{DataFrame}} or a \code{\link{automorphisms}}
 class object.
 }
 \details{
-\emph{\strong{Automorphism-class}} has the method.
+\emph{\strong{Automorphism}} has the method.
 \subsection{as(from, "Automorphism")}{
 
 Permits the transformation of a \code{\link[base]{data.frame}} or a

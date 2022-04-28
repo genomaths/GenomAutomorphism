@@ -35,6 +35,8 @@ as given in references (2 2 3).}
 \item{group}{A character string denoting the group representation for the
 given base or codon as shown in reference (1).}
 
+\item{...}{Not in use.}
+
 \item{start, end, chr, strand}{Optional parameters required to build a
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}

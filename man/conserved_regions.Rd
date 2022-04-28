@@ -38,12 +38,17 @@ conserved_regions(x, ...)
 )
 }
 \arguments{
-\item{x}{A \code{\link{Automorphism}}, a \code{\link{AutomorphismList}},
+\item{x}{A \code{\link{Automorphism-class}}, a
+\code{\link{AutomorphismList-class}},
 a \code{\link{AutomorphismByCoef}} or a \code{\link{AutomorphismByCoefList}}
 class object.}
 
+\item{...}{Not in use.}
+
 \item{conserved}{Logical, Whether to return the \emph{conserved} or the
 \emph{non-conserved regions}.}
+
+\item{output}{A character string. Type of output.}
 
 \item{num.cores, tasks}{Integers. Argument \emph{num.cores} denotes the
 number of cores to use, i.e. at most how many child processes will be run
@@ -55,6 +60,8 @@ defined as a single call to a function, such as
 argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
 as possible over the number of workers (see
 \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).}
+
+\item{verbose}{logic(1). If TRUE, enable progress bar.}
 }
 \value{
 A \code{\link{AutomorphismByCoef}} class object containing the

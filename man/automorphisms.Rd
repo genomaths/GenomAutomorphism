@@ -25,12 +25,20 @@ automorphisms(seqs = NULL, filepath = NULL, group = "Z4", ...)
 )
 }
 \arguments{
+\item{seqs}{An object from a \code{\link[Biostrings]{DNAStringSet}} or
+\code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
+pairwise alignment of two sequences. The pairwise alignment provided in
+argument \emph{\strong{seq}} or the 'fasta' file \emph{\strong{filepath}}
+must correspond to codon sequences.}
+
 \item{filepath}{A character vector containing the path to a file in
 \emph{\strong{fasta}} format to be read. This argument must be given if
 \emph{codon & base} arguments are not provided.}
 
 \item{group}{A character string denoting the group representation for the
 given base or codon as shown in reference (1).}
+
+\item{...}{Not in use.}
 
 \item{cube, cube_alt}{A character string denoting pairs of the 24 Genetic-code
 cubes, as given in references (2-3). That is, the base pairs from the given
@@ -53,12 +61,6 @@ i.e. at most how many child processes will be run simultaneously (see
 for Linux OS).}
 
 \item{verbose}{If TRUE, prints the progress bar.}
-
-\item{seq}{An object from a \code{\link[Biostrings]{DNAStringSet}} or
-\code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
-pairwise alignment of two sequences. The pairwise alignment provided in
-argument \emph{\strong{seq}} or the 'fasta' file \emph{\strong{filepath}}
-must correspond to codon sequences.}
 }
 \value{
 This function returns a \code{\link{Automorphism-class}} object
@@ -132,18 +134,18 @@ data(aln)
 aln
 
 ## Automorphism on "Z5^3"
-autms <- automorphisms(seq = aln, group = "Z5^3", verbose = FALSE)
+autms <- automorphisms(seqs = aln, group = "Z5^3", verbose = FALSE)
 autms
 
 ## Automorphism on "Z64"
-autms <- automorphisms(seq = aln, group = "Z64", verbose = FALSE)
+autms <- automorphisms(seqs = aln, group = "Z64", verbose = FALSE)
 autms
 
 ## Grouping into ranges the automorphisms by cubes 
-automorphismByRanges(autms, verbose = FALSE)
+automorphismByRanges(autms)
 
 ## Automorphism on "Z64" from position 1 to 33
-autms <- automorphisms(seq = aln,
+autms <- automorphisms(seqs = aln,
                       group = "Z64",
                       start = 1,
                       end = 33, 

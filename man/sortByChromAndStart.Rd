@@ -7,7 +7,7 @@
 \usage{
 sortByChromAndStart(x)
 
-sortByChromAndEnd(gr)
+sortByChromAndEnd(x)
 }
 \arguments{
 \item{x}{GRanges object}

@@ -23,8 +23,12 @@ automorphismByCoef(x, ...)
 \item{x}{An automorphism-class object returned by function
 \code{\link{automorphisms}}.}
 
+\item{...}{Not in use.}
+
 \item{mut.type}{Logical. Whether to include the mutation type as given by
 function \code{\link{mut_type}}.}
+
+\item{min.len}{Minimum length of a range to be reported.}
 
 \item{num.cores, tasks}{Integers. Argument \emph{num.cores} denotes the
 number of cores to use, i.e. at most how many child processes will be run
@@ -36,6 +40,8 @@ defined as a single call to a function, such as
 argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
 as possible over the number of workers (see
 \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).}
+
+\item{verbose}{logic(1). If TRUE, enable progress bar.}
 }
 \value{
 An \code{\link{AutomorphismByCoef}} class object. A coefficient with

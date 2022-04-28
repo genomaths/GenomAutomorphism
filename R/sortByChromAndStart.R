@@ -39,7 +39,7 @@ sortByChromAndStart <- function(x) {
 #' @rdname sortByChromAndStart
 #' @aliases sortByChromAndEnd
 #' @export
-sortByChromAndEnd <- function(gr) {
-    seqlevels(gr) <- sort(seqlevels(gr))
-    return(gr[order(as.factor(seqnames(gr)), end(gr)),])
+sortByChromAndEnd <- function(x) {
+    seqlevels(x) <- sort(seqlevels(x))
+    return(x[order(as.factor(seqnames(x)), end(x)),])
 }

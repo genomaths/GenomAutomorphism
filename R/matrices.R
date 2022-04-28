@@ -33,6 +33,7 @@
 #' values given for the function definition will be used.
 #' @param group A character string denoting the group representation for the 
 #' given base or codon as shown in reference (1).
+#' @param ... Not in use.
 #' @details 
 #' These are alternative ways to get the list of matrices of base/codon
 #' coordinate and the information on the codon sequence from

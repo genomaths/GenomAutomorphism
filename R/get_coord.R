@@ -42,6 +42,7 @@
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default 
 #' values given for the function definition will be used.
 #' @param output  See [Value](@return) section.
+#' @param ... Not in use.
 #' @details Symbols "-" and "N" usually found in DNA sequence alignments to 
 #' denote gaps and missing/unknown bases are represented by the number: '-1' on
 #' Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons 

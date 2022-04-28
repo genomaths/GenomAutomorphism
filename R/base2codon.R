@@ -20,6 +20,7 @@
 #' @param x A character string, \code{\link[Biostrings]{DNAStringSet-class}} or 
 #' \code{\link[Biostrings]{DNAMultipleAlignment-class}} object carrying the a
 #' DNA sequence.
+#' @param ... Not in use.
 #' @return If the argument of 'x' is character string, then a character vector 
 #' of codons will returned. If the argument of 'x' is
 #' \code{\link[Biostrings]{DNAStringSet-class}} or

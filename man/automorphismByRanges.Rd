@@ -22,6 +22,10 @@ automorphismByRanges(x, ...)
 \item{x}{An AutomorphismList-class object returned by function
 \code{\link{automorphisms}}.}
 
+\item{...}{Not in use.}
+
+\item{min.len}{Minimum length of a range to be reported.}
+
 \item{num.cores, tasks}{Integers. Argument \emph{num.cores} denotes the
 number of cores to use, i.e. at most how many child processes will be run
 simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
@@ -32,6 +36,8 @@ defined as a single call to a function, such as
 argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
 as possible over the number of workers (see
 \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).}
+
+\item{verbose}{logic(1). If TRUE, enable progress bar.}
 }
 \value{
 A  \code{\link[GenomicRanges]{GRanges-class}} or a

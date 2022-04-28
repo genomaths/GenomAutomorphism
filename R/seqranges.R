@@ -29,13 +29,10 @@
 #' @param filepath A character vector containing the path to a file in 
 #' \emph{\strong{fasta}} format to be read. This argument must be given if 
 #' \emph{codon & base} arguments are not provided.
-#' @param cube A character string denoting one of the 24 Genetic-code cubes,
-#' as given in references (2-3).
 #' @param start,end,chr,strand Optional parameters required to build a 
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default 
 #' values given for the function definition will be used.
-#' @param group A character string denoting the group representation for the 
-#' given base or codon as shown in reference (1).
+#' @param ... Not in use.
 #' @details This function provide an alternative way to get the codon coordinate 
 #' and the information on the codon sequence from a \code{\link{CodonSeq}} class
 #' objects. The function can either take the output from functions

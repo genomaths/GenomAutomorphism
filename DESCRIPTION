@@ -18,8 +18,17 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     Biostrings,
+    BiocGenerics,
+    BiocParallel,
+    GenomeInfoDb,
     GenomicRanges,
-    S4Vectors
+    IRanges,
+    data.table,
+    doParallel,
+    foreach,
+    methods,
+    S4Vectors,
+    numbers
 RoxygenNote: 7.1.2
 Suggests:
     spelling,

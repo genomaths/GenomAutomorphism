@@ -27,6 +27,8 @@ seqranges(x, ...)
 \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
 pairwise alignment of two sequences.}
 
+\item{...}{Not in use.}
+
 \item{granges}{Logical. Whether to return a
 \code{\link[GenomicRanges]{GRanges-class}} object or a
 \code{\link[S4Vectors]{DataFrame}}.}
@@ -42,12 +44,6 @@ number of the DNA bases in the given sequences must be multiple of 3.}
 \item{start, end, chr, strand}{Optional parameters required to build a
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
-
-\item{cube}{A character string denoting one of the 24 Genetic-code cubes,
-as given in references (2-3).}
-
-\item{group}{A character string denoting the group representation for the
-given base or codon as shown in reference (1).}
 }
 \description{
 Extract the gene ranges and coordinates from a pairwise

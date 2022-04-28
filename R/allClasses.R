@@ -238,15 +238,14 @@ setClassUnion("DNAStringSet_OR_NULL",
 
 ## ========================== Automorphism ============================= 
 
-#' @aliases Automorphism
-#' @aliases AutomorphismList
 #' @rdname Automorphism
+#' @aliases Automorphism
 #' @title A class definition to store codon automorphisms in given in the 
 #' Abelian group representation.
 #' @description Two classes are involved in to storing codon automorphisms:
 #' \emph{\strong{Automorphism-class}} and 
 #' \emph{\strong{AutomorphismList-class}}.
-#' @details \emph{\strong{Automorphism-class}} has the method.
+#' @details \emph{\strong{Automorphism}} has the method.
 #' ## as(from, "Automorphism")
 #' Permits the transformation of a \code{\link[base]{data.frame}} or a
 #' \code{\link[S4Vectors]{DataFrame-class}} object into
@@ -386,6 +385,7 @@ setClass("AutomorphismList",
 )
 
 #' @rdname Automorphism
+#' @aliases as.AutomorphismList
 #' @title AutomorphismList-class object constructor from a list.
 #' @description The function build a AutomorphismList-class object from a
 #' list of \code{\link[S4Vectors]{DataFrame}} or a \code{\link{automorphisms}}
@@ -395,8 +395,6 @@ setClass("AutomorphismList",
 #' @param gr A \code{\link[GenomicRanges]{GRanges}}
 #' @importFrom GenomicRanges GRanges GRangesList
 #' @importFrom S4Vectors mcols DataFrame
-
-#' @aliases as.AutomorphismList
 #' @importFrom GenomicRanges GRanges GRangesList
 #' @importFrom S4Vectors mcols
 #' @export
@@ -493,12 +491,13 @@ setMethod("as.AutomorphismList",
                         SeqRanges = grs
                     )
         }
-        
-        if (all(sapply(x, function(y) inherits(y, "DataFrame")))) {
-            x <- new("AutomorphismList", 
-                    DataList = x,
-                    SeqRanges = grs
-            )
+        if (!inherits(x, "AutomorphismList")) {
+            if (all(sapply(x, function(y) inherits(y, "DataFrame")))) {
+                x <- new("AutomorphismList", 
+                        DataList = x,
+                        SeqRanges = grs
+                )
+            }
         }
         return(x)
     }
@@ -551,6 +550,7 @@ setMethod("unlist", signature = "AutomorphismList",
     }
 )
 
+
 ## ====================== Validity AutomorphismList ================== #
 
 #' @rdname valid.AutomorphismList
@@ -584,7 +584,6 @@ valid.AutomorphismList <- function(x) {
     }
     if (m1)
         return("*** This is not a valid AutomorphismList class object.")
-
     NULL
 }
 
@@ -593,7 +592,9 @@ S4Vectors:::setValidity2("AutomorphismList", valid.AutomorphismList)
 ## ======================== Show AutomorphismList ==================== #
 
 #' @rdname allClasses
-#' @aliases show-AutomorphismList
+#' @docType methods
+#' @name show-AutomorphismList
+#' @aliases show-AutomorphismList 
 #' @title Show method for 'AutomorphismList' class object
 #' @param object An object from 'AutomorphismList' class
 #' @importFrom methods show
@@ -632,17 +633,6 @@ setMethod(
 )
 
 
-setMethod("names", signature = "AutomorphismList",
-          function(x) names(x@DataList)
-)
-
-
-setReplaceMethod("names", "AutomorphismList",
-    function(x, value) {
-        names(x@DataList) <- value
-        return(x)
-    }
-)
 
 ## ========================== AutomorphismByCoef =========================== 
 
@@ -682,6 +672,7 @@ S4Vectors:::setValidity2("AutomorphismByCoef", valid.AutomorphismByCoef)
 #' @title A class definition for a list of AutomorphismByCoef class objects. 
 #' @keywords internal
 #' @importClassesFrom S4Vectors DataFrame
+#' @importFrom methods as
 #' @export
 setClass(
     "AutomorphismByCoefList",
@@ -697,7 +688,7 @@ as_list_of_AutomorphismByCoef <- function(from)
 
 setAs("list", "AutomorphismByCoefList", function(from) {
     from <- as_list_of_AutomorphismByCoef(from)
-    from <- S4Vectors:::new_SimpleList_from_list(Class = "SimpleGRangesList",
+    from <- new_SimpleList_from_list(Class = "SimpleGRangesList",
                                                 x = from)
     new("AutomorphismByCoefList", from)
 })
@@ -785,7 +776,7 @@ as_list_of_ConservedRegion <- function(from)
 
 setAs("list", "ConservedRegionList", function(from) {
     from <- as_list_of_ConservedRegion(from)
-    from <- S4Vectors:::new_SimpleList_from_list(Class = "SimpleGRangesList",
+    from <- new_SimpleList_from_list(Class = "SimpleGRangesList",
                                                 x = from)
     new("ConservedRegionList", from)
 })
@@ -917,3 +908,38 @@ setMethod(
     return(r)
 }
 
+## =========================== Auxiliary function ======================
+
+make_zero_col_DataFrame <- function(nrow = 0L) {
+    stopifnot(isSingleNumber(nrow))
+    if (!is.integer(nrow)) 
+        nrow <- as.integer(nrow)
+    stopifnot(nrow >= 0L)
+    new2("DFrame", nrows = nrow, check = FALSE)
+}
+
+#' @importFrom methods extends is
+new_SimpleList_from_list <- function(Class, x, type, ..., mcols) {
+    if (!extends(Class, "SimpleList"))
+        stop("class ", Class, " must extend SimpleList")
+    if (!is.list(x))
+        stop("'x' must be a list")
+    if (is.array(x)) {
+        tmp_names <- names(x)
+        dim(x) <- NULL
+        names(x) <- tmp_names
+    }
+    class(x) <- "list"
+    proto <- new(Class)
+    if (missing(type)) ans_elementType <- elementType(proto)
+    else
+        ans_elementType <- type
+    if (is(S4Vectors::mcols(proto, use.names = FALSE), "DataFrame"))
+        mcols <- make_zero_col_DataFrame(length(x))
+    if (!all(sapply(x, function(xi) extends(class(xi), ans_elementType))))
+        stop("all elements in 'x' must be ", ans_elementType,
+             " objects")
+    if (missing(mcols))
+        return(new2(Class, listData = x, ..., check = FALSE))
+    new2(Class, listData = x, ..., elementMetadata = mcols, check = FALSE)
+}

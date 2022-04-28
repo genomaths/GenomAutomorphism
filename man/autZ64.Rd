@@ -46,9 +46,6 @@ i.e. at most how many child processes will be run simultaneously (see
 for Linux OS).}
 
 \item{verbose}{If TRUE, prints the progress bar.}
-
-\item{group}{A character string denoting the group representation for the
-given base or codon as shown in reference (1).}
 }
 \value{
 An object \code{\link{Automorphism-class}} with four columns on its

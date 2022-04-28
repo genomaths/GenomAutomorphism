@@ -31,6 +31,8 @@ matrices(x, ...)
 \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
 pairwise alignment of two sequences.}
 
+\item{...}{Not in use.}
+
 \item{base_seq}{Logical. Whether to return the base or codon coordinates on
 the selected Abelian group. If codon coordinates are requested, then the
 number of the DNA bases in the given sequences must be multiple of 3.}

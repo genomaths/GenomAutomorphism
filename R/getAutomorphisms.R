@@ -15,13 +15,15 @@
 #' @rdname getAutomorphisms
 #' @aliases getAutomorphisms
 #' @title Get Automorphisms
-#' @description This function returns an \code{\link{AutomorphismList}}-class 
-#' object as a list of \code{\link{Automorphism}}-class objects, which inherits 
+#' @param x An \code{\link{AutomorphismList-class}}.
+#' @param ... Not in use.
+#' @description This function returns an \code{\link{AutomorphismList-class}} 
+#' object as a list of \code{\link{Automorphism-class}} objects, which inherits 
 #' from \code{\link[GenomicRanges]{GRanges-class}} objects. 
-#' @details For the sake of saving memory, each \code{\link{Automorphism}}-class 
-#' objects is stored in an \code{\link{AutomorphismList}}-class, which  does 
+#' @details For the sake of saving memory, each \code{\link{Automorphism-class}}
+#' objects is stored in an \code{\link{AutomorphismList-class}}, which  does 
 #' not inherits from a \code{\link[GenomicRanges]{GRanges-class}}. This
-#' function just transform each \code{\link{Automorphism}}-class object into
+#' function just transform each \code{\link{Automorphism-class}} object into
 #' an object from the same class but now inheriting from a 
 #' \code{\link[GenomicRanges]{GRanges-class}}. 
 #' 
@@ -113,32 +115,6 @@ setMethod("getAutomorphisms", signature = "list",
 setMethod("getAutomorphisms", signature = "DataFrame_OR_data.frame",
     function(x) {
         as(x, "Automorphism")       
-    }
-)
-
-setMethod("[", "AutomorphismList", 
-    function(x, i, ...) {
-        x@DataList <- x@DataList[ i ]
-        return(x)
-    }
-)
-
-setMethod("[[", "AutomorphismList", 
-    function(x, i, ...) {
-        x <- x[ i ]
-        x <- getAutomorphisms(x)
-        x <- as(x, "GRangesList")
-        return(x[[1]])
-    }
-)
-
-
-setMethod("$", "AutomorphismList", 
-    function(x, name) {
-        x@DataList <- x@DataList[ match(name, names(x)) ]
-        x <- getAutomorphisms(x)
-        x <- as(x, "GRangesList")
-        return(x[[1]])    
     }
 )
 

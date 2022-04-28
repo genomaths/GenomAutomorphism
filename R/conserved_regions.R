@@ -16,11 +16,14 @@
 #' @aliases conserved_regions
 #' @title Conserved and Non-conserved Regions from a MSA
 #' @description Returns the Conserved or the Non-conserved Regions from a MSA.
-#' @param x A \code{\link{Automorphism}}, a \code{\link{AutomorphismList}}, 
+#' @param x A \code{\link{Automorphism-class}}, a 
+#' \code{\link{AutomorphismList-class}}, 
 #' a \code{\link{AutomorphismByCoef}} or a \code{\link{AutomorphismByCoefList}} 
 #' class object.
-#' @param conserved Logical, Whether to return the *conserved* or the 
-#' *non-conserved regions*.
+#' @param conserved Logical, Whether to return the \emph{conserved} or the 
+#' \emph{non-conserved regions}.
+#' @param output A character string. Type of output.
+#' @param ... Not in use.
 #' @return A \code{\link{AutomorphismByCoef}} class object containing the 
 #' requested regions.
 #' @importFrom S4Vectors mcols
@@ -30,24 +33,14 @@
 #' data(autm, package = "GenomAutomorphism")
 #' conserved_regions(autm[1:3])
 setGeneric("conserved_regions",
-           function(
-               x,
-               ...)
-               standardGeneric("conserved_regions"))
+    function(
+            x,
+            ...)
+        standardGeneric("conserved_regions"))
 
 
 #' @rdname conserved_regions
 #' @aliases conserved_regions
-#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the 
-#' number of cores to use, i.e. at most how many child processes will be run
-#' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
-#' BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
-#' job. value must be a scalar integer >= 0L. In this documentation a job is
-#' defined as a single call to a function, such as
-#' \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
-#' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
-#' as possible over the number of workers (see
-#' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
 #' @importFrom GenomicRanges GRanges
 #' @export
 setMethod("conserved_regions", signature = "Automorphism",
@@ -71,6 +64,27 @@ setMethod("conserved_regions", signature = "Automorphism",
 #' @rdname conserved_regions
 #' @aliases conserved_regions
 #' @importFrom GenomicRanges GRanges
+#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the 
+#' number of cores to use, i.e. at most how many child processes will be run
+#' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
+#' BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
+#' job. value must be a scalar integer >= 0L. In this documentation a job is
+#' defined as a single call to a function, such as
+#' \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
+#' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
+#' as possible over the number of workers (see
+#' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
+#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the 
+#' number of cores to use, i.e. at most how many child processes will be run
+#' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
+#' BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
+#' job. value must be a scalar integer >= 0L. In this documentation a job is
+#' defined as a single call to a function, such as
+#' \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
+#' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
+#' as possible over the number of workers (see
+#' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
+#' @param verbose logic(1). If TRUE, enable progress bar.
 #' @export
 setMethod("conserved_regions", signature = "AutomorphismList",
     function(

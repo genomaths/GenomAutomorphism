@@ -15,16 +15,21 @@ getAutomorphisms(x, ...)
 
 \S4method{getAutomorphisms}{DataFrame_OR_data.frame}(x)
 }
+\arguments{
+\item{x}{An \code{\link{AutomorphismList-class}}.}
+
+\item{...}{Not in use.}
+}
 \description{
-This function returns an \code{\link{AutomorphismList}}-class
-object as a list of \code{\link{Automorphism}}-class objects, which inherits
+This function returns an \code{\link{AutomorphismList-class}}
+object as a list of \code{\link{Automorphism-class}} objects, which inherits
 from \code{\link[GenomicRanges]{GRanges-class}} objects.
 }
 \details{
-For the sake of saving memory, each \code{\link{Automorphism}}-class
-objects is stored in an \code{\link{AutomorphismList}}-class, which  does
+For the sake of saving memory, each \code{\link{Automorphism-class}}
+objects is stored in an \code{\link{AutomorphismList-class}}, which  does
 not inherits from a \code{\link[GenomicRanges]{GRanges-class}}. This
-function just transform each \code{\link{Automorphism}}-class object into
+function just transform each \code{\link{Automorphism-class}} object into
 an object from the same class but now inheriting from a
 \code{\link[GenomicRanges]{GRanges-class}}.
 }

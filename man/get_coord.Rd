@@ -34,6 +34,8 @@ pairwise alignment of two sequences. Objects from
 generated with functions: \code{\link{base_coord}} and
 \code{\link{codon_coord}}, respectively.}
 
+\item{...}{Not in use.}
+
 \item{output}{See \href{@return}{Value} section.}
 
 \item{base_seq}{Logical. Whether to return the base or codon coordinates on

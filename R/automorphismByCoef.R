@@ -23,6 +23,7 @@
 #' \code{\link{automorphisms}}.
 #' @param mut.type Logical. Whether to include the mutation type as given by 
 #' function \code{\link{mut_type}}.
+#' @param ... Not in use.
 #' @return An \code{\link{AutomorphismByCoef}} class object. A coefficient with
 #' 0 value is assigned to mutational events that are not automorphisms, e.g., 
 #' indel mutations.
@@ -108,6 +109,7 @@ setMethod("automorphismByCoef", signature(x = "Automorphism"),
 
 #' @aliases automorphismByCoef
 #' @rdname automorphismByCoef
+#' @param min.len Minimum length of a range to be reported.
 #' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the 
 #' number of cores to use, i.e. at most how many child processes will be run
 #' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
@@ -118,6 +120,7 @@ setMethod("automorphismByCoef", signature(x = "Automorphism"),
 #' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
 #' as possible over the number of workers (see
 #' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
+#' @param verbose logic(1). If TRUE, enable progress bar.
 #' @importFrom GenomicRanges GRangesList
 #' @importFrom parallel detectCores
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam
