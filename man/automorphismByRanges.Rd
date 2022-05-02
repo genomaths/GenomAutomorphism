@@ -55,6 +55,6 @@ can be grouped by ranges which inherits from
 ## Load dataset
 data(autm, package = "GenomAutomorphism")
 
-automorphismByRanges(x = autm[c(1,4)])
+automorphismByRanges(x = autm[c(1, 4)])
 
 }

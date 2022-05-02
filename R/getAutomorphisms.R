@@ -17,66 +17,70 @@
 #' @title Get Automorphisms
 #' @param x An \code{\link{AutomorphismList-class}}.
 #' @param ... Not in use.
-#' @description This function returns an \code{\link{AutomorphismList-class}} 
-#' object as a list of \code{\link{Automorphism-class}} objects, which inherits 
-#' from \code{\link[GenomicRanges]{GRanges-class}} objects. 
+#' @description This function returns an \code{\link{AutomorphismList-class}}
+#' object as a list of \code{\link{Automorphism-class}} objects, which inherits
+#' from \code{\link[GenomicRanges]{GRanges-class}} objects.
 #' @details For the sake of saving memory, each \code{\link{Automorphism-class}}
-#' objects is stored in an \code{\link{AutomorphismList-class}}, which  does 
+#' objects is stored in an \code{\link{AutomorphismList-class}}, which  does
 #' not inherits from a \code{\link[GenomicRanges]{GRanges-class}}. This
 #' function just transform each \code{\link{Automorphism-class}} object into
-#' an object from the same class but now inheriting from a 
-#' \code{\link[GenomicRanges]{GRanges-class}}. 
-#' 
+#' an object from the same class but now inheriting from a
+#' \code{\link[GenomicRanges]{GRanges-class}}.
+#'
 #' @importFrom S4Vectors mcols
 #' @export
-#' @examples 
+#' @examples
 #' ## Load a dataset
 #' data(autm, package = "GenomAutomorphism")
 #' aut <- autm@elementMetadata
 #' aut ## This a DataFrame object
-#' 
+#'
 #' ## The natural ranges for the sequence (from 1 to length(aut)) are added
 #' getAutomorphisms(aut)
-#' 
+#'
 #' ## A list of automorphisms
 #' aut <- list(aut, aut)
 #' getAutomorphisms(aut)
-#' 
-#' ## Automorphism-class inherits from 'GRanges-class' 
+#'
+#' ## Automorphism-class inherits from 'GRanges-class'
 #' aut <- as(autm, "GRanges")
 #' as(aut, "Automorphism")
-#' 
-setGeneric("getAutomorphisms",
-    function(
-        x,
-        ...)
-    standardGeneric("getAutomorphisms"))
+#'
+setGeneric(
+    "getAutomorphisms",
+    function(x,
+    ...) {
+        standardGeneric("getAutomorphisms")
+    }
+)
 
 
 #' @rdname getAutomorphisms
 #' @aliases getAutomorphisms
 #' @importFrom GenomicRanges GRanges
 #' @export
-setMethod("getAutomorphisms", signature = "AutomorphismList",
+setMethod("getAutomorphisms",
+    signature = "AutomorphismList",
     function(x) {
         nams <- names(x)
         gr <- x@SeqRanges
-        x <- x@DataList  
+        x <- x@DataList
         if (length(gr) > 0) {
             x <- lapply(x, function(y) {
-                    if (inherits(y, c("DataFrame", "data.frame"))) {
-                        mcols(gr) <- y
-                        y <- as(gr, "Automorphism")
-                    }
-                    return(y)
+                if (inherits(y, c("DataFrame", "data.frame"))) {
+                    mcols(gr) <- y
+                    y <- as(gr, "Automorphism")
+                }
+                return(y)
             })
-        } 
-        else {
-            pos = seq(1, length(x[[1]]), 1)
-            gr <- GRanges(seqnames = 1, 
-                        ranges = IRanges(start = pos, end = pos),
-                        strand = "+")
-            
+        } else {
+            pos <- seq(1, length(x[[1]]), 1)
+            gr <- GRanges(
+                seqnames = 1,
+                ranges = IRanges(start = pos, end = pos),
+                strand = "+"
+            )
+
             x <- lapply(x, function(y) {
                 if (inherits(y, c("DataFrame", "data.frame"))) {
                     mcols(gr) <- y
@@ -85,9 +89,9 @@ setMethod("getAutomorphisms", signature = "AutomorphismList",
                 return(y)
             })
         }
-        x <- new("AutomorphismList", 
-                 DataList = x,
-                 SeqRanges = gr
+        x <- new("AutomorphismList",
+            DataList = x,
+            SeqRanges = gr
         )
         names(x) <- nams
         return(x)
@@ -99,7 +103,8 @@ setMethod("getAutomorphisms", signature = "AutomorphismList",
 #' @aliases getAutomorphisms
 #' @importFrom GenomicRanges GRanges
 #' @export
-setMethod("getAutomorphisms", signature = "list",
+setMethod("getAutomorphisms",
+    signature = "list",
     function(x) {
         x <- as.AutomorphismList(x)
         x <- getAutomorphisms(x)
@@ -112,9 +117,9 @@ setMethod("getAutomorphisms", signature = "list",
 #' @aliases getAutomorphisms
 #' @importFrom GenomicRanges GRanges
 #' @export
-setMethod("getAutomorphisms", signature = "DataFrame_OR_data.frame",
+setMethod("getAutomorphisms",
+    signature = "DataFrame_OR_data.frame",
     function(x) {
-        as(x, "Automorphism")       
+        as(x, "Automorphism")
     }
 )
-

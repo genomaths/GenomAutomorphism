@@ -16,55 +16,57 @@
 #' @aliases conserved_regions
 #' @title Conserved and Non-conserved Regions from a MSA
 #' @description Returns the Conserved or the Non-conserved Regions from a MSA.
-#' @param x A \code{\link{Automorphism-class}}, a 
-#' \code{\link{AutomorphismList-class}}, 
-#' a \code{\link{AutomorphismByCoef}} or a \code{\link{AutomorphismByCoefList}} 
+#' @param x A \code{\link{Automorphism-class}}, a
+#' \code{\link{AutomorphismList-class}},
+#' a \code{\link{AutomorphismByCoef}} or a \code{\link{AutomorphismByCoefList}}
 #' class object.
-#' @param conserved Logical, Whether to return the \emph{conserved} or the 
+#' @param conserved Logical, Whether to return the \emph{conserved} or the
 #' \emph{non-conserved regions}.
 #' @param output A character string. Type of output.
 #' @param ... Not in use.
-#' @return A \code{\link{AutomorphismByCoef}} class object containing the 
+#' @return A \code{\link{AutomorphismByCoef}} class object containing the
 #' requested regions.
 #' @importFrom S4Vectors mcols
 #' @export
-#' @examples 
+#' @examples
 #' ## Load dataset
 #' data(autm, package = "GenomAutomorphism")
 #' conserved_regions(autm[1:3])
-setGeneric("conserved_regions",
-    function(
-            x,
-            ...)
-        standardGeneric("conserved_regions"))
-
-
-#' @rdname conserved_regions
-#' @aliases conserved_regions
-#' @importFrom GenomicRanges GRanges
-#' @export
-setMethod("conserved_regions", signature = "Automorphism",
-    function(
-            x, 
-            conserved = TRUE,
-            output = c("all_pairs", "unique_pairs", "unique")) {
-        
-        output <- match.arg(output)
-        
-        x <- automorphismByCoef(x)
-        x <- conserved_regions(
-                                x, 
-                                conserved = conserved, 
-                                output = output)
-        return(x)
-    }    
+setGeneric(
+    "conserved_regions",
+    function(x,
+    ...) {
+        standardGeneric("conserved_regions")
+    }
 )
 
 
 #' @rdname conserved_regions
 #' @aliases conserved_regions
 #' @importFrom GenomicRanges GRanges
-#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the 
+#' @export
+setMethod("conserved_regions",
+    signature = "Automorphism",
+    function(x,
+    conserved = TRUE,
+    output = c("all_pairs", "unique_pairs", "unique")) {
+        output <- match.arg(output)
+
+        x <- automorphismByCoef(x)
+        x <- conserved_regions(
+            x,
+            conserved = conserved,
+            output = output
+        )
+        return(x)
+    }
+)
+
+
+#' @rdname conserved_regions
+#' @aliases conserved_regions
+#' @importFrom GenomicRanges GRanges
+#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the
 #' number of cores to use, i.e. at most how many child processes will be run
 #' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
 #' BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
@@ -74,7 +76,7 @@ setMethod("conserved_regions", signature = "Automorphism",
 #' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
 #' as possible over the number of workers (see
 #' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
-#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the 
+#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the
 #' number of cores to use, i.e. at most how many child processes will be run
 #' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
 #' BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
@@ -86,87 +88,91 @@ setMethod("conserved_regions", signature = "Automorphism",
 #' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
 #' @param verbose logic(1). If TRUE, enable progress bar.
 #' @export
-setMethod("conserved_regions", signature = "AutomorphismList",
-    function(
-            x, 
-            conserved = TRUE,
-            output = c("all_pairs", "unique_pairs", "unique"),
-            num.cores = detectCores() - 1,
-            tasks = 0L,
-            verbose = FALSE) {
-        
+setMethod("conserved_regions",
+    signature = "AutomorphismList",
+    function(x,
+    conserved = TRUE,
+    output = c("all_pairs", "unique_pairs", "unique"),
+    num.cores = detectCores() - 1,
+    tasks = 0L,
+    verbose = FALSE) {
         output <- match.arg(output)
-        
-        x <- automorphismByCoef(x, 
-                                num.cores = num.cores,
-                                tasks = tasks,
-                                verbose = verbose)
-        x <-  unlist(x)
-        x <- conserved_regions(
-                                x, 
-                                conserved = conserved, 
-                                output = output)
-        return(x)
-    }    
-)
 
-#' @rdname conserved_regions
-#' @aliases conserved_regions
-#' @importFrom GenomicRanges GRanges
-#' @export
-setMethod("conserved_regions", signature = "AutomorphismByCoef",
-    function(
-            x, 
-            conserved = TRUE,
-            output = c("all_pairs", "unique_pairs", "unique")) {
-        
-        output <- match.arg(output)
-        
-        if (conserved)
-            x <- x[ x$autm == 1 ]
-        else 
-            x <- x[ x$autm != 1 ]
-        x <- sortByChromAndEnd(x)
-        
-        x <- switch (output,
-                all_pairs = x,
-                unique_pairs = unique(x),
-                unique = {
-                    x <- unique(x)
-                    x <- data.table(data.frame(x))
-                    x <- x[, list(seqnames = unique(seqnames), 
-                                  end = min(end), 
-                                  strand = unique(strand), 
-                                  autm = unique(autm)), 
-                           by = c("start", "cube") ]
-                    x <-makeGRangesFromDataFrame(x, 
-                                                keep.extra.columns = TRUE)
-                    x <- x[, c("autm", "cube")]
-                }
+        x <- automorphismByCoef(x,
+            num.cores = num.cores,
+            tasks = tasks,
+            verbose = verbose
+        )
+        x <- unlist(x)
+        x <- conserved_regions(
+            x,
+            conserved = conserved,
+            output = output
         )
         return(x)
-    }    
+    }
 )
 
 #' @rdname conserved_regions
 #' @aliases conserved_regions
 #' @importFrom GenomicRanges GRanges
 #' @export
-setMethod("conserved_regions", signature = "AutomorphismByCoefList",
-    function(
-            x, 
-            conserved = TRUE,
-            output = c("all_pairs", "unique_pairs", "unique")) {
-        
+setMethod("conserved_regions",
+    signature = "AutomorphismByCoef",
+    function(x,
+    conserved = TRUE,
+    output = c("all_pairs", "unique_pairs", "unique")) {
+        autm <- NULL
         output <- match.arg(output)
-        
-        x <-  unlist(x)
-        x <- conserved_regions(
-                                x, 
-                                conserved = conserved, 
-                                output = output)
+
+        if (conserved) {
+            x <- x[x$autm == 1]
+        } else {
+            x <- x[x$autm != 1]
+        }
+        x <- sortByChromAndEnd(x)
+
+        x <- switch(output,
+            all_pairs = x,
+            unique_pairs = unique(x),
+            unique = {
+                x <- unique(x)
+                x <- data.table(data.frame(x))
+                x <- x[, list(
+                    seqnames = unique(seqnames),
+                    end = min(end),
+                    strand = unique(strand),
+                    autm = unique(autm)
+                ),
+                by = c("start", "cube")
+                ]
+                x <- makeGRangesFromDataFrame(x,
+                    keep.extra.columns = TRUE
+                )
+                x <- x[, c("autm", "cube")]
+            }
+        )
         return(x)
-    }    
+    }
 )
 
+#' @rdname conserved_regions
+#' @aliases conserved_regions
+#' @importFrom GenomicRanges GRanges
+#' @export
+setMethod("conserved_regions",
+    signature = "AutomorphismByCoefList",
+    function(x,
+    conserved = TRUE,
+    output = c("all_pairs", "unique_pairs", "unique")) {
+        output <- match.arg(output)
 
+        x <- unlist(x)
+        x <- conserved_regions(
+            x,
+            conserved = conserved,
+            output = output
+        )
+        return(x)
+    }
+)

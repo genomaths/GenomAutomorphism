@@ -58,13 +58,13 @@ values given for the function definition will be used.}
 }
 \value{
 An object from \code{\link{CodonGroup-class}} class is returned when
-\emph{output = "all"}. This has two slots, the first one carrying a list of
+\emph{output = 'all'}. This has two slots, the first one carrying a list of
 matrices and the second one carrying the codon/base sequence information.
 That is, if \emph{x} is an object from \code{\link{CodonGroup-class}} class,
 then a list of matrices of codon coordinate can be retrieved as x@CoordList
 and the information on the codon sequence as x@SeqRanges.
 
-if \emph{output = "matrix.list"}, then an object from
+if \emph{output = 'matrix.list'}, then an object from
 \code{\link{MatrixList}} class is returned.
 }
 \description{
@@ -75,10 +75,10 @@ DNA base/codon sequence and coordinates represented on the given Abelian
 group.
 }
 \details{
-Symbols "-" and "N" usually found in DNA sequence alignments to
+Symbols '-' and 'N' usually found in DNA sequence alignments to
 denote gaps and missing/unknown bases are represented by the number: '-1' on
 Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons
-including symbols "-" and "N".
+including symbols '-' and 'N'.
 
 Although the \code{\link{CodonGroup-class}} object returned by
 functions \code{\link{codon_coord}} and \code{\link{base_coord}} are useful
@@ -88,15 +88,16 @@ to get the coordinates in a numeric object in object from and still to
 preserve the base/codon sequence information.
 }
 \examples{
-## Load a pairwise alignment 
+## Load a pairwise alignment
 data(aln)
 aln
 
 ## DNA base representation in the Abelian group Z5
 coord <- get_coord(
-    x = aln, 
+    x = aln,
     cube = "ACGT",
-    group = "Z5")
+    group = "Z5"
+)
 coord ## A list of vectors
 
 ## Extract the coordinate list
@@ -107,10 +108,11 @@ coord@SeqRanges
 
 ## DNA codon representation in the Abelian group Z64
 coord <- get_coord(
-            x = aln, 
-            base_seq = FALSE,
-            cube = "ACGT",
-            group = "Z64")
+    x = aln,
+    base_seq = FALSE,
+    cube = "ACGT",
+    group = "Z64"
+)
 coord
 
 ## Extract the coordinate list

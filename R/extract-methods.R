@@ -11,21 +11,22 @@
 ## more details.  You should have received a copy of the GNU
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
-## 
+##
 #' An S4 class to extract elements from AutomorphismList-class object.
 #' @rdname extract-methods
 #' @aliases [
 #' @aliases AutomorphismList-methods
 #' @param x An \code{\link{AutomorphismList-class}} object.
-#' @param i,j indices specifying elements to extract.
+#' @param i,j,...,drop As in \code{\link[base]{Extract}}.
 #' @description First and second level subsetting of 'x'. Extraction using names
 #' can be done as x$name.
 #' @return An element of x, an \code{\link{AutomorphismList-class}} object.
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
-setMethod("[", signature(x = "AutomorphismList", i = "integer"), 
-    function(x, i, ...) {
-        x@DataList <- x@DataList[ i ]
+setMethod(
+    "[", signature(x = "AutomorphismList", i = "integer"),
+    function(x, i, ..., drop = TRUE) {
+        x@DataList <- x@DataList[i]
         return(x)
     }
 )
@@ -34,14 +35,14 @@ setMethod("[", signature(x = "AutomorphismList", i = "integer"),
 #' @aliases [[
 #' @aliases AutomorphismList-methods
 #' @param x An \code{\link{AutomorphismList-class}} object.
-#' @param i An integer to subsetting 'x'.
 #' @description Second level subsetting of 'x'.
 #' @return An element of x, an \code{\link{Automorphism-class}} object.
 #' @exportMethod "[["
 #' @export
-setMethod("[[", signature(x = "AutomorphismList", i = "ANY"), 
+setMethod(
+    "[[", signature(x = "AutomorphismList", i = "ANY"),
     function(x, i, ...) {
-        x <- x[ i ]
+        x <- x[i]
         x <- getAutomorphisms(x)
         x <- as(x, "GRangesList")
         return(x[[1]])
@@ -58,11 +59,12 @@ setMethod("[[", signature(x = "AutomorphismList", i = "ANY"),
 #' @return An element of x, an \code{\link{Automorphism-class}} object.
 #' @exportMethod "$"
 #' @export
-setMethod("$", signature(x = "AutomorphismList"), 
+setMethod(
+    "$", signature(x = "AutomorphismList"),
     function(x, name) {
-        x@DataList <- x@DataList[ match(name, names(x)) ]
+        x@DataList <- x@DataList[match(name, names(x))]
         x <- getAutomorphisms(x)
         x <- as(x, "GRangesList")
-        return(x[[1]])    
+        return(x[[1]])
     }
 )

@@ -13,7 +13,7 @@
 ## <http://www.gnu.org/licenses/>.
 
 #' Classification of DNA base mutations
-#' @description Each DNA/RNA base can be classified into three main classes 
+#' @description Each DNA/RNA base can be classified into three main classes
 #' according to three criteria (1): number of hydrogen bonds (strong-weak),
 #' chemical type (purine-pyrimidine), and chemical groups (amino versus keto).
 #' Each criterion produces a partition of the set of bases: 1) According to the
@@ -27,34 +27,34 @@
 #' @param x,y Character strings denoting DNA bases
 #' @return A charqacter string of same length of 'x' and 'y'.
 #' @export
-#' @references 
+#' @references
 #' \enumerate{
 #'      \item A. Cornish-Bowden, Nomenclature for incompletely specified bases
-#'            in nucleic acid sequences: recommendations 1984, Nucleic Acids 
+#'            in nucleic acid sequences: recommendations 1984, Nucleic Acids
 #'            Res. 13 (1985) 3021–3030.
-#'      \item MA.A. Jiménez-Montaño, C.R. de la Mora-Basánez, T. Pöschel, The 
-#'            hypercube structure of the genetic code explains conservative and 
+#'      \item MA.A. Jiménez-Montaño, C.R. de la Mora-Basánez, T. Pöschel, The
+#'            hypercube structure of the genetic code explains conservative and
 #'            non-conservative aminoacid substitutions in vivo and in vitro,
 #'            Biosystems. 39 (1996) 117–125.
 #' }
-#' 
-mut_type <- function(x,y) {
-    if (nchar(x) != nchar(y)) 
+#'
+mut_type <- function(x, y) {
+    if (nchar(x) != nchar(y)) {
         stop("*** Arguments 'x' & 'y' must have the same length.")
+    }
     res <- mapply(function(b1, b2) {
         if (b1 != b2) {
             bp <- paste0(b1, b2)
             idx <- match(bp, mut_type1)
             if (is.na(idx)) {
                 idx <- match(bp, mut_type2)
-                res <- names(mut_type2[ idx ])
+                res <- names(mut_type2[idx])
+            } else {
+                res <- names(mut_type1[idx])
             }
-            else {
-                res <- names(mut_type1[ idx ])
-            }
-        }
-        else
+        } else {
             res <- "H"
+        }
         return(res)
     }, str2ch(x), str2ch(y))
     res <- paste(res, collapse = "")
@@ -77,7 +77,8 @@ mut_type1 <- c(
     S = paste0("C", "G"),
     W = paste0("A", "T"),
     M = paste0("A", "C"),
-    K = paste0("G", "T"))
+    K = paste0("G", "T")
+)
 
 mut_type2 <- c(
     R = paste0("G", "A"),
@@ -85,9 +86,5 @@ mut_type2 <- c(
     S = paste0("G", "C"),
     W = paste0("T", "A"),
     M = paste0("C", "A"),
-    K = paste0("T", "G"))
-
-
-
-
-
+    K = paste0("T", "G")
+)

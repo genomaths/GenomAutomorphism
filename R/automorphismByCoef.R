@@ -16,92 +16,104 @@
 #' @aliases automorphismByCoef
 #' @rdname automorphismByCoef
 #' @title Autmorphism Grouping by Coefficient
-#' @description Automorphisms with the same automorphism's coefficients are 
+#' @description Automorphisms with the same automorphism's coefficients are
 #' grouped.
-#' @param x An \code{\link{Automorphism-class}} or an 
-#' \code{\link{AutomorphismList-class}} object returned by function 
+#' @param x An \code{\link{Automorphism-class}} or an
+#' \code{\link{AutomorphismList-class}} object returned by function
 #' \code{\link{automorphisms}}.
-#' @param mut.type Logical. Whether to include the mutation type as given by 
+#' @param mut.type Logical. Whether to include the mutation type as given by
 #' function \code{\link{mut_type}}.
 #' @param ... Not in use.
 #' @return An \code{\link{AutomorphismByCoef}} class object. A coefficient with
-#' 0 value is assigned to mutational events that are not automorphisms, e.g., 
+#' 0 value is assigned to mutational events that are not automorphisms, e.g.,
 #' indel mutations.
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @export
-#' @examples 
+#' @examples
 #' ## Load dataset
 #' data(autm, package = "GenomAutomorphism")
-#' 
+#'
 #' automorphismByCoef(x = autm[1:2])
-setGeneric("automorphismByCoef",
-    function(
-            x,
-            ...)
-            standardGeneric("automorphismByCoef"))
+setGeneric(
+    "automorphismByCoef",
+    function(x,
+    ...) {
+        standardGeneric("automorphismByCoef")
+    }
+)
 
 #' @aliases automorphismByCoef
 #' @rdname automorphismByCoef
-#' @param x An automorphism-class object returned by function 
+#' @param x An automorphism-class object returned by function
 #' \code{\link{automorphisms}}.
 #' @importFrom data.table data.table
 #' @export
-setMethod("automorphismByCoef", signature(x = "Automorphism"),
+setMethod(
+    "automorphismByCoef", signature(x = "Automorphism"),
     function(x, mut.type = TRUE) {
+        seq1 <- seq2 <- autm <- cube <- row_names <- NULL
+
         nams <- names(x)
-        if (!is.null(nams)) 
+        if (!is.null(nams)) {
             x$row_names <- nams
-        
-        x$autm[ which(is.na(x$autm)) ] <- 0
+        }
+
+        x$autm[which(is.na(x$autm))] <- 0
         i <- 1
         l <- length(x)
         idx <- vector(mode = "numeric", length = length(x))
         coefs <- x$autm[1]
         for (k in seq_len(l)) {
-            if ( x$autm[k] != coefs ) {
+            if (x$autm[k] != coefs) {
                 i <- i + 1
-                coefs <- x$autm[ k ]
-            } 
-            idx[ k ] <- i
+                coefs <- x$autm[k]
+            }
+            idx[k] <- i
         }
-        
+
         if (mut.type) {
-            x$mut_type <- sapply(seq_along(x), 
-                        function(k) mut_type(x$seq1[k], x$seq2[k]))
+            x$mut_type <- sapply(
+                seq_along(x),
+                function(k) mut_type(x$seq1[k], x$seq2[k])
+            )
         }
-        
+
         x$idx <- as.factor(idx)
         x <- data.table(data.frame(x))
         if (!is.null(nams)) {
             x <- x[, list(
-                seqnames = unique(seqnames), 
+                seqnames = unique(seqnames),
                 start = min(start),
-                end = max(end), 
-                strand = unique(strand), 
+                end = max(end),
+                strand = unique(strand),
                 seq1 = unique(seq1),
                 seq2 = unique(seq2),
                 autm = unique(autm),
                 cube = unique(cube),
-                row_names = unique(row_names)), 
-                by = c("idx", "mut_type") ]
+                row_names = unique(row_names)
+            ),
+            by = c("idx", "mut_type")
+            ]
             x <- makeGRangesFromDataFrame(x, keep.extra.columns = TRUE)
-            names(x) <- x$row_names}
-        else{
+            names(x) <- x$row_names
+        } else {
             x <- x[, list(
-                seqnames = unique(seqnames), 
+                seqnames = unique(seqnames),
                 start = min(start),
-                end = max(end), 
-                strand = unique(strand), 
+                end = max(end),
+                strand = unique(strand),
                 seq1 = unique(seq1),
                 seq2 = unique(seq2),
                 autm = unique(autm),
-                cube = unique(cube)),
-                by = c("idx", "mut_type") ]
+                cube = unique(cube)
+            ),
+            by = c("idx", "mut_type")
+            ]
             x <- makeGRangesFromDataFrame(x, keep.extra.columns = TRUE)
         }
-        x <- x[, c( "seq1", "seq2", "autm", "mut_type", "cube") ]
+        x <- x[, c("seq1", "seq2", "autm", "mut_type", "cube")]
         x <- sortByChromAndStart(x)
-        return(as(x, "AutomorphismByCoef")) 
+        return(as(x, "AutomorphismByCoef"))
     }
 )
 
@@ -110,7 +122,7 @@ setMethod("automorphismByCoef", signature(x = "Automorphism"),
 #' @aliases automorphismByCoef
 #' @rdname automorphismByCoef
 #' @param min.len Minimum length of a range to be reported.
-#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the 
+#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the
 #' number of cores to use, i.e. at most how many child processes will be run
 #' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
 #' BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
@@ -126,68 +138,66 @@ setMethod("automorphismByCoef", signature(x = "Automorphism"),
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam
 #' @importFrom data.table data.table
 #' @export
-setMethod("automorphismByCoef", signature(x = "AutomorphismList"),
-    function(
-            x,
-            min.len = 1L,
-            mut.type = TRUE,
-            num.cores = detectCores() - 1,
-            tasks = 0L,
-            verbose = TRUE) {
-              
+setMethod(
+    "automorphismByCoef", signature(x = "AutomorphismList"),
+    function(x,
+    min.len = 1L,
+    mut.type = TRUE,
+    num.cores = detectCores() - 1,
+    tasks = 0L,
+    verbose = TRUE) {
         gr <- try(x@SeqRanges, silent = TRUE)
-        if (!inherits(gr, "try-error"))  
+        if (!inherits(gr, "try-error")) {
             x <- getAutomorphisms(x)
-        
+        }
+
         ## ---------------- Setting parallel distribution --------- ##
-        
-        progressbar = FALSE
-        if (verbose) progressbar = TRUE
-        if (Sys.info()["sysname"] == "Linux")
-            bpparam <- MulticoreParam(workers = num.cores, tasks = tasks,
-                                      progressbar = progressbar)
-        else bpparam <- SnowParam(workers = num.cores, type = "SOCK",
-                                  progressbar = progressbar)
-        
+
+        progressbar <- FALSE
+        if (verbose) progressbar <- TRUE
+        if (Sys.info()["sysname"] == "Linux") {
+            bpparam <- MulticoreParam(
+                workers = num.cores, tasks = tasks,
+                progressbar = progressbar
+            )
+        } else {
+            bpparam <- SnowParam(
+                workers = num.cores, type = "SOCK",
+                progressbar = progressbar
+            )
+        }
+
         ## ------------------------------------------------------- ##
-        
+
         if (length(gr) > 0) {
             nams <- names(x)
             x <- as.list(x)
             names(x) <- nams
             x0 <- try(bplapply(
-                        x,
-                        automorphismByCoef,
-                        mut.type = mut.type,
-                        BPPARAM = bpparam),
-                    silent = TRUE)
-            
+                x,
+                automorphismByCoef,
+                mut.type = mut.type,
+                BPPARAM = bpparam
+            ),
+            silent = TRUE
+            )
+
             if (inherits(x0, "try-error")) {
                 x <- lapply(
-                    x, 
-                    automorphismByCoef, 
-                    mut.type = mut.type)
-            } 
-            else {
+                    x,
+                    automorphismByCoef,
+                    mut.type = mut.type
+                )
+            } else {
                 x <- x0
                 rm(x0)
             }
         }
-        
+
         idx <- which(sapply(x, function(x) length(x) > min.len))
-        x <- x[ idx ]
-        
+        x <- x[idx]
+
         return(as(x, "AutomorphismByCoefList"))
         return(x)
     }
 )
-
-## ------------------ Auxiliary function ------------------------
-
-add_bases <- function(x, y) {
-    
-}
-
-
-
-

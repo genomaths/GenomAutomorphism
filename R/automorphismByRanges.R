@@ -16,30 +16,32 @@
 #' @rdname automorphismByRanges
 #' @title Get the automorphisms by ranges.
 #' @description Automorphisms estimated on a pairwise or a MSA alignment
-#' can be grouped by ranges which inherits from 
-#' \code{\link[GenomicRanges]{GRanges-class}} or a 
+#' can be grouped by ranges which inherits from
+#' \code{\link[GenomicRanges]{GRanges-class}} or a
 #' \code{\link[GenomicRanges]{GRanges-class}}.
-#' 
-#' @param x An Automorphism-class object returned by function 
+#'
+#' @param x An Automorphism-class object returned by function
 #' \code{\link{automorphisms}}.
 #' @param ... Not in use.
-#' @return A  \code{\link[GenomicRanges]{GRanges-class}} or a 
-#' \code{\link[GenomicRanges]{GRangesList-class}}. Each 
+#' @return A  \code{\link[GenomicRanges]{GRanges-class}} or a
+#' \code{\link[GenomicRanges]{GRangesList-class}}. Each
 #' \code{\link[GenomicRanges]{GRanges-class}} object with a column
-#' named *cube*, which carries the type of _cube_ automorphims. 
-#' 
+#' named *cube*, which carries the type of _cube_ automorphims.
+#'
 #' @export
-#' @examples 
+#' @examples
 #' ## Load dataset
 #' data(autm, package = "GenomAutomorphism")
-#' 
-#' automorphismByRanges(x = autm[c(1,4)])
-#' 
-setGeneric("automorphismByRanges",
-    function(
-            x,
-            ...)
-    standardGeneric("automorphismByRanges"))
+#'
+#' automorphismByRanges(x = autm[c(1, 4)])
+#'
+setGeneric(
+    "automorphismByRanges",
+    function(x,
+    ...) {
+        standardGeneric("automorphismByRanges")
+    }
+)
 
 
 #' @aliases automorphismByRanges
@@ -47,37 +49,40 @@ setGeneric("automorphismByRanges",
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @importFrom data.table data.table
 #' @export
-setMethod("automorphismByRanges", 
-        signature(x = "Automorphism"),
+setMethod(
+    "automorphismByRanges",
+    signature(x = "Automorphism"),
     function(x) {
         i <- 1
         l <- length(x)
-        
+
         if (!inherits(x, "GRanges")) {
             gr <- try(x@SeqRanges, silent = TRUE)
-            if (!inherits(gr, "try-error")) { 
+            if (!inherits(gr, "try-error")) {
                 x <- getAutomorphisms(x)
                 x <- x@DataList[[1]]
             }
-        } 
+        }
 
         idx <- vector(mode = "numeric", length = length(x))
         cube <- x$cube[1]
         for (k in seq_len(l)) {
-            if ( x$cube[k] != cube ) {
+            if (x$cube[k] != cube) {
                 i <- i + 1
                 cube <- x$cube[k]
-            } 
-            idx[ k ] <- i
+            }
+            idx[k] <- i
         }
-        
+
         x$idx <- factor(idx)
-        x <- data.table(data.frame(x)) 
+        x <- data.table(data.frame(x))
         x <- x[, list(
             seqnames = unique(seqnames), start = min(start),
-            end = max(end), strand = unique(strand), 
-            cube = unique(cube)), 
-            by = idx ]
+            end = max(end), strand = unique(strand),
+            cube = unique(cube)
+        ),
+        by = idx
+        ]
         x <- x[, c("seqnames", "start", "end", "strand", "cube")]
         x <- makeGRangesFromDataFrame(x, keep.extra.columns = TRUE)
         x <- sortByChromAndStart(x)
@@ -88,10 +93,10 @@ setMethod("automorphismByRanges",
 
 #' @aliases automorphismByRanges
 #' @rdname automorphismByRanges
-#' @param x An AutomorphismList-class object returned by function 
+#' @param x An AutomorphismList-class object returned by function
 #' \code{\link{automorphisms}}.
 #' @param min.len Minimum length of a range to be reported.
-#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the 
+#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the
 #' number of cores to use, i.e. at most how many child processes will be run
 #' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
 #' BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
@@ -107,46 +112,51 @@ setMethod("automorphismByRanges",
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam
 #' @importFrom data.table data.table
 #' @export
-setMethod("automorphismByRanges", signature(x = "AutomorphismList"),
-    function(
-            x,
-            min.len = 0L,
-            num.cores = detectCores() - 1,
-            tasks = 0L,
-            verbose = TRUE) {
-        
+setMethod(
+    "automorphismByRanges", signature(x = "AutomorphismList"),
+    function(x,
+    min.len = 0L,
+    num.cores = detectCores() - 1,
+    tasks = 0L,
+    verbose = TRUE) {
         gr <- try(x@SeqRanges, silent = TRUE)
-        if (!inherits(gr, "try-error"))  
+        if (!inherits(gr, "try-error")) {
             x <- getAutomorphisms(x)
-        
+        }
+
         x <- x@DataList
-        
+
         ## ---------------- Setting parallel distribution --------------- ##
-        
-        progressbar = FALSE
-        if (verbose) progressbar = TRUE
-        if (Sys.info()["sysname"] == "Linux")
-            bpparam <- MulticoreParam(workers = num.cores, tasks = tasks,
-                                    progressbar = progressbar)
-        else bpparam <- SnowParam(workers = num.cores, type = "SOCK",
-                                progressbar = progressbar)
-        
+
+        progressbar <- FALSE
+        if (verbose) progressbar <- TRUE
+        if (Sys.info()["sysname"] == "Linux") {
+            bpparam <- MulticoreParam(
+                workers = num.cores, tasks = tasks,
+                progressbar = progressbar
+            )
+        } else {
+            bpparam <- SnowParam(
+                workers = num.cores, type = "SOCK",
+                progressbar = progressbar
+            )
+        }
+
         ## -------------------------------------------------------------- ##
-        
+
         if (length(gr) > 0) {
             x <- lapply(x, function(x) {
-                        mcols(gr) <- x
-                        x <- automorphismByRanges(x)
-                        return(x)
-                    })
+                mcols(gr) <- x
+                x <- automorphismByRanges(x)
+                return(x)
+            })
         }
-        
-        idx <- which(sapply(x, function(x) 
-                        length(x) > min.len))
-        x <- x[ idx ]
-        
+
+        idx <- which(sapply(x, function(x) {
+            length(x) > min.len
+        }))
+        x <- x[idx]
+
         return(as(x, "GRangesList"))
     }
 )
-
-

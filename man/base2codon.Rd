@@ -49,6 +49,7 @@ base2codon(x = seq)
 ## Load a DNAStringSet. A matrix of codons is returned
 data(aln)
 base2codon(x = aln)
+
 }
 \author{
 Robersy Sanchez \url{https://genomaths.com}. 01/15/2022

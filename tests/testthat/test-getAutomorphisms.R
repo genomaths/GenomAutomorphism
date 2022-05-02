@@ -3,5 +3,5 @@ test_that("getAutomorphisms function test", {
     aut <- autm@elementMetadata
     test1 <- length(ranges(getAutomorphisms(aut))) == 7100
     test2 <- inherits(getAutomorphisms(x = list(aut, aut)), "AutomorphismList")
-    expect_true(all(test1,test2))
+    expect_true(all(test1, test2))
 })

@@ -14,28 +14,28 @@
 
 #' @rdname base_coord
 #' @title Base coordinates on a given a given Abelian group representation.
-#' @description Given a string denoting a codon or base from the DNA (or RNA) 
+#' @description Given a string denoting a codon or base from the DNA (or RNA)
 #' alphabet and a genetic-code Abelian group as given in reference (1).
-#' @param base An object from a \code{\link[Biostrings]{DNAStringSet}} or 
+#' @param base An object from a \code{\link[Biostrings]{DNAStringSet}} or
 #' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
-#' pairwise alignment of two sequences. 
-#' @param filepath A character vector containing the path to a file in 
-#' \emph{\strong{fasta}} format to be read. This argument must be given if 
+#' pairwise alignment of two sequences.
+#' @param filepath A character vector containing the path to a file in
+#' \emph{\strong{fasta}} format to be read. This argument must be given if
 #' \emph{codon & base} arguments are not provided.
 #' @param cube A character string denoting one of the 24 Genetic-code cubes,
 #' as given in references (2 2 3).
-#' @param group A character string denoting the group representation for the 
+#' @param group A character string denoting the group representation for the
 #' given base or codon as shown in reference (1).
-#' @param start,end,chr,strand Optional parameters required to build a 
-#' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default 
+#' @param start,end,chr,strand Optional parameters required to build a
+#' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 #' values given for the function definition will be used.
 #' @param ... Not in use.
-#' @details Symbols "-" and "N" usually found in DNA sequence alignments to 
+#' @details Symbols "-" and "N" usually found in DNA sequence alignments to
 #' denote gaps and missing/unknown bases are represented by the number: '-1' on
-#' Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons 
+#' Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons
 #' including symbols "-" and "N".
-#' 
-#' This function returns a \code{\link{BaseGroup}} object 
+#'
+#' This function returns a \code{\link{BaseGroup}} object
 #' carrying the DNA sequence(s) and their respective coordinates in the
 #' requested Abelian group of base representation (one-dimension, "Z4" or "Z5").
 #' Observe that to get coordinates in the set of of integer numbers ("Z") is
@@ -50,128 +50,146 @@
 #' @importFrom methods new
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
-#' @references 
+#' @references
 #' \enumerate{
-#'  \item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite 
+#'  \item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
 #'   Groups.
 #'  [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543).
-#'  \item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible 
-#'  algebraic representations of the standard genetic code in six or in three 
-#'  dimensions, Adv. Stud. Biol. 4 (2012) 119–152.[PDF](https://is.gd/na9eap). 
-#'  \item R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the 
-#'  Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math. 
+#'  \item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
+#'  algebraic representations of the standard genetic code in six or in three
+#'  dimensions, Adv. Stud. Biol. 4 (2012) 119–152.[PDF](https://is.gd/na9eap).
+#'  \item R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the
+#'  Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math.
 #'  Comput. Chem. 79 (2018) 527-560.
 #' }
 #' @seealso \code{\link{codon_coord}}
-#' @examples 
-#' ## Load a pairwise alignment 
+#' @examples
+#' ## Load a pairwise alignment
 #' data(aln)
 #' aln
-#' 
+#'
 #' ## DNA base representation in the Abelian group Z4
 #' bs_cor <- base_coord(
-#'     base = aln, 
-#'     cube = "ACGT")
+#'     base = aln,
+#'     cube = "ACGT"
+#' )
 #' bs_cor
-#' 
+#'
 #' ## DNA base representation in the Abelian group Z5
 #' bs_cor <- base_coord(
-#'     base = aln, 
+#'     base = aln,
 #'     cube = "ACGT",
-#'     group = "Z5")
+#'     group = "Z5"
+#' )
 #' bs_cor
-#'     
+#'
 #' @aliases base_coord
 #' @export
-setGeneric("base_coord",
-    function(
-            base = NULL,
-            filepath = NULL,
-            cube = "ACGT",
-            group = "Z4",
-            ...)
-        standardGeneric("base_coord"))
+setGeneric(
+    "base_coord",
+    function(base = NULL,
+    filepath = NULL,
+    cube = "ACGT",
+    group = "Z4",
+    ...) {
+        standardGeneric("base_coord")
+    }
+)
 
 
 #' @aliases base_coord
 #' @rdname base_coord
-#' @import Biostrings 
+#' @import Biostrings
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @importFrom methods new
 #' @export
-setMethod("base_coord", signature(base = "DNAStringSet_OR_NULL"),
-    function(
-        base = NULL, 
-        filepath = NULL,
-        cube = c(
-            "ACGT","AGCT","TCGA","TGCA","CATG",
-            "GTAC","CTAG","GATC","ACTG","ATCG",
-            "GTCA","GCTA","CAGT","TAGC","TGAC",
-            "CGAT","AGTC","ATGC","CGTA","CTGA",
-            "GACT","GCAT","TACG","TCAG"), 
-        group = c("Z4","Z5"),
-        start = NA,
-        end = NA,
-        chr = 1L,
-        strand = "+") {
-        
+setMethod(
+    "base_coord", signature(base = "DNAStringSet_OR_NULL"),
+    function(base = NULL,
+    filepath = NULL,
+    cube = c(
+        "ACGT", "AGCT", "TCGA", "TGCA", "CATG",
+        "GTAC", "CTAG", "GATC", "ACTG", "ATCG",
+        "GTCA", "GCTA", "CAGT", "TAGC", "TGAC",
+        "CGAT", "AGTC", "ATGC", "CGTA", "CTGA",
+        "GACT", "GCAT", "TACG", "TCAG"
+    ),
+    group = c("Z4", "Z5"),
+    start = NA,
+    end = NA,
+    chr = 1L,
+    strand = "+") {
         cube <- match.arg(cube)
         group <- match.arg(group)
         cube <- toupper(cube)
 
-        if (is.null(base) && is.null(filepath)) 
-            stop("*** Arguments 'base' & 'filepath' cannot be",
-                " simultaneously NULL.")
-        
-        if (!is.null(filepath) && is.character(filepath)) 
+        if (is.null(base) && is.null(filepath)) {
+            stop(
+                "*** Arguments 'base' & 'filepath' cannot be",
+                " simultaneously NULL."
+            )
+        }
+
+        if (!is.null(filepath) && is.character(filepath)) {
             base <- readDNAMultipleAlignment(filepath = filepath)
-        
-        if (inherits(base, "DNAMultipleAlignment"))
+        }
+
+        if (inherits(base, "DNAMultipleAlignment")) {
             base <- base@unmasked
+        }
 
         len <- min(width(base))
         if (!is.na(start) || !is.na(end)) {
-            if (!is.na(start) && start > len)
-                stop("*** The 'start' argument is greater than",
-                     " the 'base' length")
-            if (!is.na(end) && end > len)
-                stop("*** The 'end' argument is greater than",
-                     "   the 'base' length")
+            if (!is.na(start) && start > len) {
+                stop(
+                    "*** The 'start' argument is greater than",
+                    " the 'base' length"
+                )
+            }
+            if (!is.na(end) && end > len) {
+                stop(
+                    "*** The 'end' argument is greater than",
+                    "   the 'base' length"
+                )
+            }
             base <- DNAStringSet(
-                                base,
-                                start = start,
-                                end = end)
+                base,
+                start = start,
+                end = end
+            )
         }
-        
+
         if (length(base) > 1) {
             base <- t(as.matrix(base))
             colnames(base) <- NULL
             base <- data.frame(base)
-        }
-        else {
+        } else {
             base <- as.character(base)
             base <- strsplit(base, "")[[1]]
             base <- data.frame(base)
         }
         seq <- base
         base <- base_repl(base = base, cube = cube, group = group)
-        if (is.na(start)) 
+        if (is.na(start)) {
             start <- 1L
-        if (is.na(end)) 
+        }
+        if (is.na(end)) {
             end <- len
-        
+        }
+
         pos <- seq(start, end, 1L)
         if (!is.null(dim(base))) {
             colnames(base) <- paste0("coord", seq_len(ncol(base)))
             colnames(seq) <- paste0("seq", seq_len(ncol(base)))
         }
         base <- data.frame(
-            seqnames = chr, 
-            start = pos, 
+            seqnames = chr,
+            start = pos,
             end = pos,
-            strand = strand, 
+            strand = strand,
             seq,
-            base)
+            base
+        )
 
         base <- makeGRangesFromDataFrame(base, keep.extra.columns = TRUE)
         base <- new(
@@ -183,7 +201,8 @@ setMethod("base_coord", signature(base = "DNAStringSet_OR_NULL"),
             seqinfo = base@seqinfo,
             colnames = colnames(base @elementMetadata),
             group = group,
-            cube = cube)
+            cube = cube
+        )
         return(base)
     }
 )
@@ -192,36 +211,39 @@ setMethod("base_coord", signature(base = "DNAStringSet_OR_NULL"),
 
 base_repl <- function(base, cube, group) {
     alf <- strsplit(cube, "")[[1]]
-    
+
     if (group == "Z4") {
-        base[ base == "U" ] <- "T"
-        base[ base == alf[1] ] <- 0
-        base[ base == alf[2] ] <- 1
-        base[ base == alf[3] ] <- 2
-        base[ base == alf[4] ] <- 3
-        base[ base == "-" ] <- NA
-        base[ base == "N" ] <- NA
+        base[base == "U"] <- "T"
+        base[base == alf[1]] <- 0
+        base[base == alf[2]] <- 1
+        base[base == alf[3]] <- 2
+        base[base == alf[4]] <- 3
+        base[base == "-"] <- NA
+        base[base == "N"] <- NA
     }
-    
+
     if (group == "Z5") {
-        base[ base == "U" ] <- "T"
-        base[ base == alf[1] ] <- 1
-        base[ base == alf[2] ] <- 2
-        base[ base == alf[3] ] <- 3
-        base[ base == alf[4] ] <- 4
-        base[ base == "-" ] <- 0
-        base[ base == "N" ] <- 0
+        base[base == "U"] <- "T"
+        base[base == alf[1]] <- 1
+        base[base == alf[2]] <- 2
+        base[base == alf[3]] <- 3
+        base[base == alf[4]] <- 4
+        base[base == "-"] <- 0
+        base[base == "N"] <- 0
     }
-    
-    if (is.data.frame(base)) 
+
+    if (is.data.frame(base)) {
         base <- apply(base, 2, as.numeric)
-    else 
+    } else {
         base <- as.numeric(base)
+    }
     return(base)
 }
 
 is.url <- function(x) {
-    heads <- c("//", "http://", "https://", "ftp://", "ftps://",
-               "file://")
-    any(sapply(heads, function(p) grepl(pattern = p, x) ))
+    heads <- c(
+        "//", "http://", "https://", "ftp://", "ftps://",
+        "file://"
+    )
+    any(sapply(heads, function(p) grepl(pattern = p, x)))
 }

@@ -76,23 +76,25 @@ Notice that the coordinates can be 3D or just one-dimension ("Z64" or
 \emph{\strong{codon}} must correspond to codon sequences.
 }
 \examples{
-## Load a pairwise alignment 
+## Load a pairwise alignment
 data(aln)
 aln
 
 ## DNA base representation in the Abelian group Z5
 bs_cor <- codon_coord(
-    codon = aln, 
+    codon = aln,
     cube = "ACGT",
-    group = "Z5")
+    group = "Z5"
+)
 bs_cor ## 3-D coordinates
 
 
 ## DNA base representation in the Abelian group Z64
 bs_cor <- codon_coord(
-            codon = aln, 
-            cube = "ACGT",
-            group = "Z64")
+    codon = aln,
+    cube = "ACGT",
+    group = "Z64"
+)
 bs_cor
 
 ## Giving a matrix of codons

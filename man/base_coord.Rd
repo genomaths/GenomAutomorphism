@@ -59,23 +59,25 @@ also possible but they are not defined to integrate a Abelian group. These
 are just used for the further insertion the codon set in the 3D space (R^3).
 }
 \examples{
-## Load a pairwise alignment 
+## Load a pairwise alignment
 data(aln)
 aln
 
 ## DNA base representation in the Abelian group Z4
 bs_cor <- base_coord(
-    base = aln, 
-    cube = "ACGT")
+    base = aln,
+    cube = "ACGT"
+)
 bs_cor
 
 ## DNA base representation in the Abelian group Z5
 bs_cor <- base_coord(
-    base = aln, 
+    base = aln,
     cube = "ACGT",
-    group = "Z5")
+    group = "Z5"
+)
 bs_cor
-    
+
 }
 \references{
 \enumerate{

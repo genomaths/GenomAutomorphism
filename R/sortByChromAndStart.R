@@ -17,13 +17,13 @@
 #' @title Sorting \code{\link[GenomicRanges]{GRanges-class}} objects
 #' @description Sorts a \code{\link[GenomicRanges]{GRanges-class}} objects
 #' by seqname (chromosome), start, and position.
-#' @details Objects that inherits from a 
+#' @details Objects that inherits from a
 #' \code{\link[GenomicRanges]{GRanges-class}} can be sorted as well.
-#'@param x GRanges object
-#' @return \code{\link[GenomicRanges]{GRanges-class}} object or from the 
+#' @param x GRanges object
+#' @return \code{\link[GenomicRanges]{GRanges-class}} object or from the
 #' original object class.
 #' @examples
-#' GR <- as(c('chr2:1-1', 'chr1:1-1'), 'GRanges')
+#' GR <- as(c("chr2:1-1", "chr1:1-1"), "GRanges")
 #' GR <- sortByChromAndStart(GR)
 #'
 #' @importFrom BiocGenerics sort start
@@ -33,7 +33,7 @@
 #' @export
 sortByChromAndStart <- function(x) {
     seqlevels(x) <- sort(seqlevels(x))
-    return(x[order(as.factor(seqnames(x)), start(x)),])
+    return(x[order(as.factor(seqnames(x)), start(x)), ])
 }
 
 #' @rdname sortByChromAndStart
@@ -41,5 +41,5 @@ sortByChromAndStart <- function(x) {
 #' @export
 sortByChromAndEnd <- function(x) {
     seqlevels(x) <- sort(seqlevels(x))
-    return(x[order(as.factor(seqnames(x)), end(x)),])
+    return(x[order(as.factor(seqnames(x)), end(x)), ])
 }

@@ -46,7 +46,7 @@ getAutomorphisms(aut)
 aut <- list(aut, aut)
 getAutomorphisms(aut)
 
-## Automorphism-class inherits from 'GRanges-class' 
+## Automorphism-class inherits from 'GRanges-class'
 aut <- as(autm, "GRanges")
 as(aut, "Automorphism")
 

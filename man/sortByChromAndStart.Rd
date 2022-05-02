@@ -25,7 +25,7 @@ Objects that inherits from a
 \code{\link[GenomicRanges]{GRanges-class}} can be sorted as well.
 }
 \examples{
-GR <- as(c('chr2:1-1', 'chr1:1-1'), 'GRanges')
+GR <- as(c("chr2:1-1", "chr1:1-1"), "GRanges")
 GR <- sortByChromAndStart(GR)
 
 }

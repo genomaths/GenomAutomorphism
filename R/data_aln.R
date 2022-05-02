@@ -1,6 +1,6 @@
 ## Copyright (C) 2021 Robersy Sanchez <https://genomaths.com/>
 ## Author: Robersy Sanchez This file is part of the R package
-## 'GenomAutomorphism'.  'GenomAutomorphism' is a free 
+## 'GenomAutomorphism'.  'GenomAutomorphism' is a free
 ## software: you can redistribute it and/or modify it under the
 ## terms of the GNU General Public License as published by the Free
 ## Software Foundation, either version 3 of the License, or (at
@@ -14,9 +14,9 @@
 
 #' Simulated \code{\link[Biostrings]{DNAStringSet}} class object
 #'
-#' This is a \code{\link[Biostrings]{DNAStringSet}} carrying a small pairwise 
-#' DNA sequence alignment to be used in the examples provided for the 
-#' package functions. 
+#' This is a \code{\link[Biostrings]{DNAStringSet}} carrying a small pairwise
+#' DNA sequence alignment to be used in the examples provided for the
+#' package functions.
 #'
 #' @format \code{\link[Biostrings]{DNAStringSet}} class object.
 "aln"

@@ -19,11 +19,9 @@
 \arguments{
 \item{x}{An \code{\link{AutomorphismList-class}} object}
 
-\item{i, j}{indices specifying elements to extract.}
+\item{i, j, ..., drop}{As in \code{\link[base]{Extract}}.}
 
 \item{name}{A literal character string naming an element from 'x'.}
-
-\item{i}{An integer to subsetting 'x'.}
 }
 \value{
 An element of x, an \code{\link{AutomorphismList-class}} object.

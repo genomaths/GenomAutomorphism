@@ -75,7 +75,7 @@ seqranges(
     base_seq = FALSE,
     filepath = NULL,
 )
-        
+
 }
 \references{
 \enumerate{
