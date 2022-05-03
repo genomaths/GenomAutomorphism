@@ -66,35 +66,6 @@ for Linux OS).}
 This function returns a \code{\link{Automorphism-class}} object
 with four columns on its metacolumn named: \emph{seq1}, \emph{seq2},
 \emph{autm}, and \emph{cube}.
-\subsection{Methods}{
-\subsection{\code{\link{automorphismByRanges}}:}{
-
-This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
-Consecutive mutational events (on the codon sequence) described by
-automorphisms on a same cube are grouped in a range.
-}
-
-\subsection{\code{\link{automorphismByCoef}}}{
-
-This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
-Consecutive mutational events (on the codon sequence) described by
-the same automorphisms coefficients are grouped in a range.
-}
-
-\subsection{\code{\link{getAutomorphisms}}}{
-
-This function returns an AutomorphismList-class object as a list of
-Automorphism-class objects, which inherits from
-\code{\link[GenomicRanges]{GRanges-class}} objects.
-}
-
-\subsection{\code{\link{conserved_regions}}}{
-
-Returns a \code{\link{AutomorphismByCoef}} class object containing the
-requested regions.
-}
-
-}
 }
 \description{
 Given two codon sequences represented in a given Abelian group,
@@ -128,6 +99,36 @@ where A is diagonal matrix.
 Arguments \emph{\strong{cube}} and \emph{\strong{cube_alt}} must be
 pairs of' dual cubes (see section 2.4 from reference 4).
 }
+\section{Methods}{
+
+\subsection{\code{\link{automorphismByRanges}}:}{
+
+This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
+Consecutive mutational events (on the codon sequence) described by
+automorphisms on a same cube are grouped in a range.
+}
+
+\subsection{\code{\link{automorphismByCoef}}}{
+
+This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
+Consecutive mutational events (on the codon sequence) described by
+the same automorphisms coefficients are grouped in a range.
+}
+
+\subsection{\code{\link{getAutomorphisms}}}{
+
+This function returns an AutomorphismList-class object as a list of
+Automorphism-class objects, which inherits from
+\code{\link[GenomicRanges]{GRanges-class}} objects.
+}
+
+\subsection{\code{\link{conserved_regions}}}{
+
+Returns a \code{\link{AutomorphismByCoef}} class object containing the
+requested regions.
+}
+}
+
 \examples{
 ## Load a pairwise alignment
 data(aln)
@@ -177,4 +178,7 @@ Comput. Chem. 79 (2018) 527-560. \href{https://bit.ly/2Z9mjM7}{PDF}
 }
 \seealso{
 \code{\link{autZ64}}.
+}
+\author{
+Robersy Sanchez (\url{https://genomaths.com}).
 }

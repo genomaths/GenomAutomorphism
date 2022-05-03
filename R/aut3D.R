@@ -51,6 +51,7 @@
 #' @import GenomicRanges
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam
 #' @export
+#' @author Robersy Sanchez (\url{https://genomaths.com}).
 #' @references
 #' \enumerate{
 #'  \item Sanchez R, Morgado E, Grau R. Gene algebra from a genetic code

@@ -36,7 +36,7 @@ an object from the same class but now inheriting from a
 \examples{
 ## Load a dataset
 data(autm, package = "GenomAutomorphism")
-aut <- autm@elementMetadata
+aut <- mcols(autm)
 aut ## This a DataFrame object
 
 ## The natural ranges for the sequence (from 1 to length(aut)) are added

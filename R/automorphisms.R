@@ -77,7 +77,7 @@
 #' with four columns on its metacolumn named: \emph{seq1}, \emph{seq2},
 #' \emph{autm}, and \emph{cube}.
 #'
-#' ## Methods
+#' @section Methods:
 #' ### \code{\link{automorphismByRanges}}:
 #' This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
 #' Consecutive mutational events (on the codon sequence) described by
@@ -100,6 +100,7 @@
 #' @seealso \code{\link{autZ64}}.
 #' @importFrom numbers modlin
 #' @export
+#' @author Robersy Sanchez (\url{https://genomaths.com}).
 #' @references
 #' \enumerate{
 #'  \item Sanchez R, Morgado E, Grau R. Gene algebra from a genetic code
@@ -292,7 +293,6 @@ setMethod(
                 seqs <- as.AutomorphismList(seqs, grs = gr)
             }
         }
-
         return(seqs)
     }
 )

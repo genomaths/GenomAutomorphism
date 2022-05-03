@@ -124,7 +124,7 @@ setMethod(
         idx_coord <- grep("coord", colnames(codon))
 
         sq <- data.frame(codon[, idx_seq])
-        f <- factor(as.vector(sapply(seq_len(nrow(sq) / 3), rep, 3)))
+        f <- factor(as.vector(slapply(seq_len(nrow(sq) / 3), rep, 3)))
         sq <- split(sq, f)
 
         crd <- data.frame(codon[, idx_coord])
@@ -277,7 +277,7 @@ setMethod(
             base_grp <- "Z5"
         }
 
-        crd <- sapply(seq_len(nrow(codon)), function(k) {
+        crd <- slapply(seq_len(nrow(codon)), function(k) {
             c1 <- base_repl(
                 base = str2ch(crd[k, 1]),
                 cube = cube,

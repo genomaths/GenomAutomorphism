@@ -41,6 +41,13 @@ given base or codon as shown in reference (1).}
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
 }
+\value{
+A BaseGroup-class object.
+
+A BaseGroup-class object.
+
+A BaseGroup-class object.
+}
 \description{
 Given a string denoting a codon or base from the DNA (or RNA)
 alphabet and a genetic-code Abelian group as given in reference (1).
@@ -77,7 +84,6 @@ bs_cor <- base_coord(
     group = "Z5"
 )
 bs_cor
-
 }
 \references{
 \enumerate{

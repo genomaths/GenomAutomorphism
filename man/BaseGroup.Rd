@@ -16,6 +16,9 @@ valid.GRanges(x)
 \arguments{
 \item{x}{A 'BaseGroup object'}
 }
+\value{
+Given the slot values define a BaseGroup-class.
+}
 \description{
 A class definition to store codon automorphisms in given in the
 Abelian group representation.

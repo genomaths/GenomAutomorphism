@@ -21,11 +21,11 @@
 #' preserved in the returned list. Default is FALSE.
 #' @param class Name of the class to which the returned list belongs to.
 #' Default is NULL.
-#' @param simplify,USE.NAMES The same as described in 
+#' @param simplify,USE.NAMES The same as described in
 #' \code{\link[base]{sapply}}.
-#' @description This function apply a function over a list-like object 
+#' @description This function apply a function over a list-like object
 #' preserving its attributes and simplify (if requested) the list as
-#' \code{\link[base]{sapply}} function does. \strong{slapply} returns a 
+#' \code{\link[base]{sapply}} function does. \strong{slapply} returns a
 #' list of the same length as 'x', each element of which is the result of
 #' applying FUN to the corresponding element of 'x'.
 #' @return Same as in ?base::\code{\link[base]{slapply}} if keep.attr = FALSE.
@@ -35,67 +35,71 @@
 #' @export
 #' @examples
 #' ## Create a list
-#' x <- list(a = 1:10, beta = exp(-3:3), logic = c(TRUE,FALSE,FALSE,TRUE))
-#' class(x) <- 'nice'
-#' 
+#' x <- list(a = 1:10, beta = exp(-3:3), logic = c(TRUE, FALSE, FALSE, TRUE))
+#' class(x) <- "nice"
+#'
 #' ## To compute the list mean for each list element using 'base::lapply'
-#' class(slapply(x, mean))
-#' 
-#' ## To preserve attributes
-#' class(slapply(x, mean, keep.attr = TRUE))
-#' 
+#' class(slapply(x, mean, simplify = FALSE))
+#'
+#' ## Simply 'base::lapply' preserving attributes
+#' slapply(x, mean, keep.attr = TRUE, simplify = FALSE)
+#'
 #' ## To preserve attributes and simplify
-#' x <- slapply(x, mean, keep.attr = TRUE, simplify = TRUE)
-#' x
+#' slapply(x, mean, keep.attr = TRUE, simplify = TRUE)
 #'
 #' @author Robersy Sanchez (\url{https://genomaths.com}).
 #' @export
 #' @export
-slapply <- function(
-        x, 
-        FUN, 
-        keep.attr = FALSE, 
-        class = NULL, 
-        simplify = TRUE,
-        USE.NAMES = TRUE,
-        ...) {
-        
+slapply <- function(x,
+    FUN,
+    keep.attr = FALSE,
+    class = NULL,
+    simplify = TRUE,
+    USE.NAMES = TRUE,
+    ...) {
     if (keep.attr) {
         s4 <- typeof(x) == "S4"
         nm <- names(x)
-        if (is.null(class))
+        if (is.null(class)) {
             cl <- class(x)
+        }
         x <- lapply(x, FUN, ...)
-        
+
         if (simplify) {
             x <- unlist(x)
         }
-        if (!USE.NAMES)
+        if (!USE.NAMES) {
             x <- unname(x)
-        
+        }
+
         if (s4) {
             names(x) <- nm
-            if (!is.null(class))
+            if (!is.null(class)) {
                 x <- as(x, class)
-            else {
+            } else {
                 y <- try(as(x, cl))
                 if (!inherits(x, "try-error")) {
                     x <- y
                 }
             }
-        }
-        else {
-            if (!is.null(class))
+        } else {
+            if (!is.null(class)) {
                 x <- structure(x, class = class, names = nm)
-            else {
+            } else {
                 y <- try(structure(x, class = cl, names = nm))
-                if (!inherits(y, "try-error"))
+                if (!inherits(y, "try-error")) {
                     x <- y
+                }
             }
         }
-    } 
-    else {
+    } else {
         x <- lapply(x, FUN, ...)
+        if (simplify) {
+            x <- unlist(x)
+        }
+        if (!USE.NAMES) {
+            x <- unname(x)
+        }
     }
     return(x)
 }

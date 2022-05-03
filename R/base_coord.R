@@ -82,9 +82,9 @@
 #'     group = "Z5"
 #' )
 #' bs_cor
-#'
 #' @aliases base_coord
 #' @export
+#' @return A BaseGroup-class object.
 setGeneric(
     "base_coord",
     function(base = NULL,
@@ -102,7 +102,9 @@ setGeneric(
 #' @import Biostrings
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @importFrom methods new
+#' @return A BaseGroup-class object.
 #' @export
+#' @return A BaseGroup-class object.
 setMethod(
     "base_coord", signature(base = "DNAStringSet_OR_NULL"),
     function(base = NULL,
@@ -209,6 +211,10 @@ setMethod(
 
 ## --------------------------- Auxiliary functions --------------------------
 
+#' Replace bases with integers
+#' @details Internal use only.
+#' @keywords internal
+#' @return A numerical vector.
 base_repl <- function(base, cube, group) {
     alf <- strsplit(cube, "")[[1]]
 
@@ -240,10 +246,14 @@ base_repl <- function(base, cube, group) {
     return(base)
 }
 
+#' Check URLs
+#' @details Internal use only.
+#' @keywords internal
+#' @return Logical values
 is.url <- function(x) {
     heads <- c(
         "//", "http://", "https://", "ftp://", "ftps://",
         "file://"
     )
-    any(sapply(heads, function(p) grepl(pattern = p, x)))
+    any(slapply(heads, function(p) grepl(pattern = p, x)))
 }

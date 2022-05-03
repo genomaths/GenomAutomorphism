@@ -41,18 +41,17 @@ applying FUN to the corresponding element of 'x'.
 }
 \examples{
 ## Create a list
-x <- list(a = 1:10, beta = exp(-3:3), logic = c(TRUE,FALSE,FALSE,TRUE))
-class(x) <- 'nice'
+x <- list(a = 1:10, beta = exp(-3:3), logic = c(TRUE, FALSE, FALSE, TRUE))
+class(x) <- "nice"
 
 ## To compute the list mean for each list element using 'base::lapply'
-class(slapply(x, mean))
+class(slapply(x, mean, simplify = FALSE))
 
-## To preserve attributes
-class(slapply(x, mean, keep.attr = TRUE))
+## Simply 'base::lapply' preserving attributes
+slapply(x, mean, keep.attr = TRUE, simplify = FALSE)
 
 ## To preserve attributes and simplify
-x <- slapply(x, mean, keep.attr = TRUE, simplify = TRUE)
-x
+slapply(x, mean, keep.attr = TRUE, simplify = TRUE)
 
 }
 \seealso{

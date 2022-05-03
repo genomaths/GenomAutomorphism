@@ -22,6 +22,7 @@
 #' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @export
+#' @return Given the slot values define a BaseGroup-class.
 setClass("BaseGroup",
     slots = c(
         seqnames = "Rle",
@@ -133,6 +134,7 @@ S4Vectors:::setValidity2("BaseGroup", valid.BaseGroup)
 #' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @export
+#' @return Given the slot values define a CodonGroup-class.
 setClass("CodonGroup",
     slots = c(
         seqnames = "Rle",
@@ -240,6 +242,7 @@ setClassUnion("BaseGroup_OR_CodonGroup", c("BaseGroup", "CodonGroup"))
 #' @keywords internal
 #' @aliases CodonSeq
 #' @export
+#' @return Given the slot values define a CodonSeq-class.
 setClass("CodonSeq",
     slots = c(
         CoordList = "list",
@@ -247,10 +250,51 @@ setClass("CodonSeq",
     )
 )
 
+#' @aliases coordList
+#' @rdname CodonSeq
+#' @title Method to extract 'CoordList' slot from a
+#' \code{\link{CodonSeq-class}}
+#' @param x An object from \code{\link{CodonSeq-class}}.
+setGeneric(
+    "coordList",
+    function(x) standardGeneric("coordList")
+)
+
+#' @aliases coordList
+#' @rdname CodonSeq
+#' @export
+setMethod(
+    "coordList", signature(x = "CodonSeq"),
+    function(x) x@CoordList
+)
+
+#' @aliases seqRanges
+#' @rdname CodonSeq
+#' @title Method to extract 'SeqRanges' slot from a
+#' \code{\link{CodonSeq-class}}
+#' @param x An object from \code{\link{CodonSeq-class}}.
+setGeneric(
+    "seqRanges",
+    function(x) standardGeneric("seqRanges")
+)
+
+#' @aliases seqRanges
+#' @rdname CodonSeq
+#' @export
+setMethod(
+    "seqRanges", signature(x = "CodonSeq"),
+    function(x) x@SeqRanges
+)
+
+## ========================== MatrixList class =============================
+
 #' @aliases MatrixList
-#' @rdname allClasses
+#' @rdname MatrixList
+#' @title Definition of MatrixList-class
+#' @description  A class denoting a list of matrices.
 #' @keywords internal
 #' @export
+#' @return Given the slot values, it defines a MatrixList-class.
 setClass("MatrixList",
     slots = c(
         matrices = "list",
@@ -258,9 +302,25 @@ setClass("MatrixList",
     )
 )
 
+## ======================== Validity MatrixList ======================= #
+#' @rdname valid.MatrixList
+#' @title Valid MatrixList
+#' @param x A 'MatrixList object'
+#' @keywords internal
+valid.MatrixList <- function(x) {
+    if (!all(slapply(x, function(y) inherits(y, "matrix")))) {
+        return(
+            "*** Not all the elements of the MatrixList object",
+            " are from 'matrix' class."
+        )
+    }
+    NULL
+}
+
+
 #' @importFrom S4Vectors setValidity2
 #' @importClassesFrom Biostrings DNAMultipleAlignment DNAMultipleAlignment
-#' @rdname allClasses
+#' @rdname valid.MatrixList
 #' @keywords internal
 #' @export
 setClassUnion(
@@ -272,12 +332,15 @@ setClassUnion(
 
 #' @rdname Automorphism
 #' @aliases Automorphism
-#' @title A class definition to store codon automorphisms in given in the
+#' @title A class definition to store codon automorphisms in given as an
 #' Abelian group representation.
 #' @description Two classes are involved in to storing codon automorphisms:
 #' \emph{\strong{Automorphism-class}} and
 #' \emph{\strong{AutomorphismList-class}}.
-#' @details \emph{\strong{Automorphism}} has the method.
+#' @details \emph{\strong{Automorphism-class}} inherits from a
+#' \code{\link[GenomicRanges]{GRanges}}.
+#'
+#' @section Methods:
 #' ## as(from, "Automorphism")
 #' Permits the transformation of a \code{\link[base]{data.frame}} or a
 #' \code{\link[S4Vectors]{DataFrame-class}} object into
@@ -296,8 +359,8 @@ setClassUnion(
 #' start/end = 1:nrow(x), length = nrow(x). These details must be keep in mind
 #' to prevent fundamental errors in the downstream analyses.
 #'
-#' ## \emph{\strong{AutomorphismList-class}} has the methods
-#' ### as.AutomorphismList
+#' ## \emph{\strong{AutomorphismList-class}} has the method
+#' ### as.AutomorphismList(x)
 #' \emph{\strong{as.AutomorphismList}} function transform a list of
 #' \code{\link[GenomicRanges]{GRanges-class}}, a
 #' \code{\link[GenomicRanges]{GRangesList-class}}, a list of
@@ -309,6 +372,7 @@ setClassUnion(
 #' @importClassesFrom S4Vectors DataFrame
 #' @importClassesFrom GenomicRanges GRanges
 #' @export
+#' @return Given the slot values, it defines an Automorphism-class object.
 setClass("Automorphism",
     slots = c(
         seqnames = "Rle",
@@ -361,7 +425,7 @@ setAs(
 
 
 # ======================== Validity Automorphism ======================= #
-#' @rdname valid.Automorphism
+#' @rdname Automorphism
 #' @title Valid Automorphism mcols
 #' @param x A 'Automorphism object'
 #' @keywords internal
@@ -399,7 +463,7 @@ valid.Automorphism.mcols <- function(x) {
     NULL
 }
 
-#' @rdname valid.Automorphism
+#' @rdname Automorphism
 #' @title Valid Automorphism
 #' @param x A 'Automorphism object'
 #' @keywords internal
@@ -438,7 +502,7 @@ setClass("AutomorphismList",
 #' class object.
 #' @param x A \code{\link[S4Vectors]{DataFrame}} or a
 #' \code{\link{automorphisms}} class object.
-#' @param gr A \code{\link[GenomicRanges]{GRanges}}
+#' @param gr A \code{\link[GenomicRanges]{GRanges-class}} object.
 #' @importFrom GenomicRanges GRanges GRangesList
 #' @importFrom S4Vectors mcols DataFrame
 #' @importFrom GenomicRanges GRanges GRangesList
@@ -455,6 +519,8 @@ setGeneric(
 
 
 setClassUnion("GRanges_OR_NULL", c("GRanges", "NULL", "missing"))
+
+
 #' @rdname Automorphism
 #' @aliases as.AutomorphismList
 #' @export
@@ -523,7 +589,7 @@ setMethod(
             mcols(grs) <- NULL
         }
 
-        if (all(sapply(x, function(y) inherits(y, "GRanges")))) {
+        if (all(slapply(x, function(y) inherits(y, "GRanges")))) {
             if (length(grs) == length(x)) {
                 grs <- x
                 mcols(grs) <- NULL
@@ -545,7 +611,7 @@ setMethod(
             )
         }
         if (!inherits(x, "AutomorphismList")) {
-            if (all(sapply(x, function(y) inherits(y, "DataFrame")))) {
+            if (all(slapply(x, function(y) inherits(y, "DataFrame")))) {
                 x <- new("AutomorphismList",
                     DataList = x,
                     SeqRanges = grs
@@ -610,7 +676,7 @@ setMethod("unlist",
 
 ## ====================== Validity AutomorphismList ================== #
 
-#' @rdname valid.AutomorphismList
+#' @rdname Automorphism
 #' @title Valid AutomorphismList mcols
 #' @param x A 'AutomorphismList object'
 #' @importFrom S4Vectors mcols
@@ -624,7 +690,7 @@ valid.AutomorphismList <- function(x) {
     }
 
     if (inherits(x@DataList[[1]], "Automorphism")) {
-        if (any(!sapply(
+        if (any(!slapply(
             x@DataList,
             function(y) {
                 return(inherits(y, "Automorphism") && validObject(y))
@@ -635,7 +701,7 @@ valid.AutomorphismList <- function(x) {
     }
 
     if (inherits(x@DataList[[1]], "DataFrame")) {
-        if (any(!sapply(
+        if (any(!slapply(
             x@DataList,
             function(y) {
                 return(inherits(y, "DataFrame") && validObject(y))
@@ -657,7 +723,7 @@ S4Vectors:::setValidity2("AutomorphismList", valid.AutomorphismList)
 
 ## ======================== Show AutomorphismList ==================== #
 
-#' @rdname allClasses
+#' @rdname Automorphism
 #' @aliases show-AutomorphismList
 #' @title Show method for \code{\link{AutomorphismList-class}} object
 #' @param object An object from \code{\link{AutomorphismList-class}}.
@@ -671,7 +737,7 @@ setMethod(
         nams <- names(object@DataList)
         l <- length(nams)
         if (l > 10) {
-            nams <- nams[c(1:4, l - 2, l - 1, l)]
+            nams <- nams[c(seq(4), l - 2, l - 1, l)]
             nams[4] <- "..."
         }
         cat(class(object), " object of length: ",
@@ -709,17 +775,18 @@ setMethod(
 #' in a MSA.
 #' @keywords internal
 #' @export
+#' @return AutomorphismByCoef-class definition.
 setClass("AutomorphismByCoef",
     contains = "GRanges"
 )
 
 # ======================== Validity AutomorphismByCoef ================== #
-#' @rdname valid.AutomorphismByCoef
+#' @rdname AutomorphismByCoef
+#' @aliases valid.AutomorphismByCoef
 #' @title Valid AutomorphismByCoef mcols
 #' @param x A 'AutomorphismByCoef object'
 #' @importFrom S4Vectors mcols
 #' @keywords internal
-
 valid.AutomorphismByCoef <- function(x) {
     coln <- colnames(mcols(x))
     if (!inherits(x, "GRanges") ||
@@ -736,12 +803,19 @@ S4Vectors:::setValidity2("AutomorphismByCoef", valid.AutomorphismByCoef)
 ## ========================= AutomorphismByCoefList ======================
 
 #' @aliases AutomorphismByCoefList
-#' @rdname Automorphism
+#' @rdname AutomorphismByCoef
 #' @title A class definition for a list of AutomorphismByCoef class objects.
 #' @keywords internal
 #' @importClassesFrom S4Vectors DataFrame
 #' @importFrom methods as
+#' @details \strong{AutomorphismByCoefList-class} has the following methods:
+#' ## as('from', "AutomorphismByCoefList")
+#' Where 'from' is a list of \strong{AutomorphismByCoef-class}.
+#'
+#' ## unlist(x)
+#' Where 'x' is a an \strong{AutomorphismByCoefList-class} object.
 #' @export
+#' @return AutomorphismByCoefList-class definition.
 setClass(
     "AutomorphismByCoefList",
     slots = c(
@@ -776,14 +850,14 @@ setMethod("unlist",
 )
 
 # ===================== Validity AutomorphismByCoefList ================== #
-#' @rdname valid.AutomorphismByCoef
+#' @rdname AutomorphismByCoef
+#' @aliases valid.AutomorphismByCoefList
 #' @title Valid AutomorphismByCoefList mcols
 #' @param x A 'AutomorphismByCoefList object'
 #' @importFrom S4Vectors mcols
 #' @keywords internal
-
 valid.AutomorphismByCoefList <- function(x) {
-    if (any(!sapply(x, validObject)) || any(sapply(x, function(y) {
+    if (any(!slapply(x, validObject)) || any(slapply(x, function(y) {
         coln <- colnames(mcols(y))
         !is.element(c("autm", "cube"), coln)
     }))) {
@@ -804,17 +878,19 @@ S4Vectors:::setValidity2(
 ## ========================== ConservedRegion ===========================
 
 #' @aliases ConservedRegion
-#' @rdname Automorphism
+#' @rdname ConservedRegion
 #' @title A class definition to store conserved gene/genomic regions found
 #' in a MSA.
 #' @keywords internal
 #' @export
+#' @return Definition of the \strong{ConservedRegion-class}.
 setClass("ConservedRegion",
     contains = "GRanges"
 )
 
 # ======================== Validity ConservedRegion ================== #
-#' @rdname valid.ConservedRegion
+#' @aliases valid.ConservedRegion
+#' @rdname ConservedRegion
 #' @title Valid ConservedRegion mcols
 #' @param x A 'ConservedRegion object'
 #' @importFrom S4Vectors mcols
@@ -836,8 +912,12 @@ S4Vectors:::setValidity2("ConservedRegion", valid.ConservedRegion)
 ## ========================= ConservedRegionList ======================
 
 #' @aliases ConservedRegionList
-#' @rdname Automorphism
+#' @rdname ConservedRegion
 #' @title A class definition for a list of ConservedRegion class objects.
+#' @details \strong{ConservedRegionList-class} has the following method:
+#' ## as('from', "ConservedRegionList")
+#' Where 'from' is a list of \strong{ConservedRegion-class}.
+#'
 #' @keywords internal
 #' @export
 setClass(
@@ -865,7 +945,8 @@ setAs("list", "ConservedRegionList", function(from) {
 })
 
 # ===================== Validity ConservedRegionList ================== #
-#' @rdname valid.ConservedRegion
+#' @rdname ConservedRegion
+#' @aliases valid.ConservedRegion
 #' @title Valid ConservedRegionList mcols
 #' @param x A 'ConservedRegionList object'
 #' @importFrom S4Vectors mcols
@@ -873,7 +954,7 @@ setAs("list", "ConservedRegionList", function(from) {
 
 valid.ConservedRegionList <- function(x) {
     coln <- colnames(mcols(x))
-    if (any(!sapply(x, validObject)) || any(sapply(x, function(y) {
+    if (any(!slapply(x, validObject)) || any(slapply(x, function(y) {
         coln != "autm"
     }))) {
         return("*** This is not a valid ConservedRegionList
@@ -886,28 +967,13 @@ valid.ConservedRegionList <- function(x) {
 S4Vectors:::setValidity2("ConservedRegionList", valid.ConservedRegionList)
 
 
-
-# ============================= MatrixList =============================
-
-
-#' @aliases MatrixList
-#' @rdname allClasses
-#' @keywords internal
-#' @export
-setClass("MatrixList",
-    slots = c(
-        matrices = "list",
-        names = "character"
-    )
-)
-
 ## ======================= Show methods =================================
 
 
-#' @rdname allClasses
+#' @rdname CodonSeq
 #' @aliases show-CodonSeq
 #' @title Show method for 'CodonSeq' class object
-#' @param object An object from 'CodonSeq' or 'MatrixList' class
+#' @param object An object from 'CodonSeq'.
 #' @importFrom methods show
 #' @keywords internal
 #' @export
@@ -937,13 +1003,14 @@ setMethod(
 
 ## ========================= Show MatrixList ============================= #
 
-#' @rdname allClasses
+#' @rdname MatrixList
 #' @aliases show-MatrixList
 #' @title Show method for 'MatrixList' class object
 #' @param object An object from 'MatrixList' class
 #' @importFrom methods show
 #' @keywords internal
 #' @export
+#' @return Print/show of a MatrixList-class object.
 setMethod(
     "show",
     signature = "MatrixList",
@@ -974,23 +1041,23 @@ setMethod(
         cat("Matrix with", d[1], "rows and", d[2], "columns:\n")
         if (d[1] > 10) {
             r <- c()
-            for (k in c(1:5, (d[1] - 5):d[1])) {
+            for (k in c(seq(5), seq(d[1] - 5, d[1]))) {
                 r <- rbind(r, x[k, ])
             }
             r[6, ] <- "..."
         }
         r <- data.frame(r)
-        rown <- paste0(c(1:5, (d[1] - 5):d[1]), ":")
+        rown <- paste0(c(seq(5), seq(d[1] - 5, d[1])), ":")
         rown[6] <- "..."
         rownames(r) <- rown
     } else {
         l <- length(x)
         cat("Vector of length:", l, "\n")
         if (l > 10) {
-            r <- x[c(1:5, (l - 5):l)]
+            r <- x[c(seq(5), seq(l - 5, l))]
             r[6] <- "..."
             r <- data.frame(matrix(r, ncol = length(r)))
-            nms <- paste0(c(1:5, (l - 5):l), ":")
+            nms <- paste0(c(seq(5), seq(l - 5, l)), ":")
             nms[6] <- r[6]
             colnames(r) <- nms
         }
@@ -1032,7 +1099,7 @@ new_SimpleList_from_list <- function(Class, x, type, ..., mcols) {
     if (is(S4Vectors::mcols(proto, use.names = FALSE), "DataFrame")) {
         mcols <- make_zero_col_DataFrame(length(x))
     }
-    if (!all(sapply(x, function(xi) extends(class(xi), ans_elementType)))) {
+    if (!all(slapply(x, function(xi) extends(class(xi), ans_elementType)))) {
         stop(
             "all elements in 'x' must be ", ans_elementType,
             " objects"

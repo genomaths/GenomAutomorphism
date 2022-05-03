@@ -88,6 +88,12 @@ setMethod("conserved_regions",
 #' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
 #' @param verbose logic(1). If TRUE, enable progress bar.
 #' @export
+#' @examples 
+#' ## Load automorphism found COVID datatset
+#' data(covid_autm)
+#' ## Conserved regions in the first 100 codons
+#' conserv <- conserved_regions(covid_autm[ 1:100 ], output="unique")
+#' conserv
 setMethod("conserved_regions",
     signature = "AutomorphismList",
     function(x,

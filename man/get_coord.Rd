@@ -101,10 +101,10 @@ coord <- get_coord(
 coord ## A list of vectors
 
 ## Extract the coordinate list
-coord@CoordList
+coordList(coord)
 
 ## Extract the sequence list
-coord@SeqRanges
+seqRanges(coord)
 
 ## DNA codon representation in the Abelian group Z64
 coord <- get_coord(
@@ -116,9 +116,9 @@ coord <- get_coord(
 coord
 
 ## Extract the coordinate list
-coord@CoordList
+coordList(coord)
 
 ## Extract the sequence list
-coord@SeqRanges
+seqRanges(coord)
 
 }

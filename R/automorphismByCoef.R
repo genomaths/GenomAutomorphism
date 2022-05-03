@@ -72,7 +72,7 @@ setMethod(
         }
 
         if (mut.type) {
-            x$mut_type <- sapply(
+            x$mut_type <- slapply(
                 seq_along(x),
                 function(k) mut_type(x$seq1[k], x$seq2[k])
             )
@@ -194,7 +194,7 @@ setMethod(
             }
         }
 
-        idx <- which(sapply(x, function(x) length(x) > min.len))
+        idx <- which(slapply(x, function(x) length(x) > min.len))
         x <- x[idx]
 
         return(as(x, "AutomorphismByCoefList"))

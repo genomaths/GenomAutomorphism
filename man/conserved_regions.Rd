@@ -74,4 +74,9 @@ Returns the Conserved or the Non-conserved Regions from a MSA.
 ## Load dataset
 data(autm, package = "GenomAutomorphism")
 conserved_regions(autm[1:3])
+## Load automorphism found COVID datatset
+data(covid_autm)
+## Conserved regions in the first 100 codons
+conserv <- conserved_regions(covid_autm[ 1:100 ], output="unique")
+conserv
 }

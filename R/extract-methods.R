@@ -24,7 +24,7 @@
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
 setMethod(
-    "[", signature(x = "AutomorphismList", i = "integer"),
+    "[", signature(x = "AutomorphismList"),
     function(x, i, ..., drop = TRUE) {
         x@DataList <- x@DataList[i]
         return(x)
@@ -39,8 +39,21 @@ setMethod(
 #' @return An element of x, an \code{\link{Automorphism-class}} object.
 #' @exportMethod "[["
 #' @export
+#' @author Robersy Sanchez (\url{https://genomaths.com}).
+#' @examples 
+#' #' ## Load automorphisms found BRCA1 primate genes
+#' data(brca1_autm)
+#' 
+#' ## Extract AutomorphismList object with only one element
+#' brca1_autm[ 1 ]
+#' 
+#' ## Extract Automorphism object with only one element
+#' brca1_autm[[ 3 ]]
+#' 
+#' ## Extract Automorphism object using element name.
+#' brca1_autm[[ "human_1.gorilla_1" ]]
 setMethod(
-    "[[", signature(x = "AutomorphismList", i = "ANY"),
+    "[[", signature(x = "AutomorphismList"),
     function(x, i, ...) {
         x <- x[i]
         x <- getAutomorphisms(x)

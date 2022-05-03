@@ -5,6 +5,8 @@
 \alias{Automorphism-class}
 \alias{Automorphism}
 \alias{DataFrame_OR_data.frame-class}
+\alias{valid.Automorphism.mcols}
+\alias{valid.Automorphism}
 \alias{AutomorphismList-class}
 \alias{AutomorphismList}
 \alias{as.AutomorphismList}
@@ -13,17 +15,18 @@
 \alias{names,AutomorphismList-method}
 \alias{names<-,AutomorphismList-method}
 \alias{as.list,AutomorphismList-method}
+\alias{valid.AutomorphismList}
+\alias{show,AutomorphismList-method}
+\alias{show-AutomorphismList}
 \alias{AutomorphismByCoef-class}
 \alias{AutomorphismByCoef}
-\alias{AutomorphismByCoefList-class}
-\alias{AutomorphismByCoefList}
-\alias{ConservedRegion-class}
-\alias{ConservedRegion}
-\alias{ConservedRegionList-class}
-\alias{ConservedRegionList}
-\title{A class definition to store codon automorphisms in given in the
+\title{A class definition to store codon automorphisms in given as an
 Abelian group representation.}
 \usage{
+valid.Automorphism.mcols(x)
+
+valid.Automorphism(x)
+
 as.AutomorphismList(x, grs = GRanges(), ...)
 
 \S4method{as.AutomorphismList}{GRangesList,GRanges_OR_NULL}(x, grs = GRanges(), ...)
@@ -35,12 +38,22 @@ as.AutomorphismList(x, grs = GRanges(), ...)
 \S4method{names}{AutomorphismList}(x) <- value
 
 \S4method{as.list}{AutomorphismList}(x)
+
+valid.AutomorphismList(x)
+
+\S4method{show}{AutomorphismList}(object)
 }
 \arguments{
-\item{x}{A \code{\link[S4Vectors]{DataFrame}} or a
-\code{\link{automorphisms}} class object.}
+\item{x}{A 'AutomorphismList object'}
 
-\item{gr}{A \code{\link[GenomicRanges]{GRanges}}}
+\item{object}{An object from \code{\link{AutomorphismList-class}}.}
+
+\item{gr}{A \code{\link[GenomicRanges]{GRanges-class}} object.}
+}
+\value{
+Given the slot values, it defines an Automorphism-class object.
+
+AutomorphismByCoef-class definition.
 }
 \description{
 Two classes are involved in to storing codon automorphisms:
@@ -56,7 +69,11 @@ list of \code{\link[S4Vectors]{DataFrame}} or a \code{\link{automorphisms}}
 class object.
 }
 \details{
-\emph{\strong{Automorphism}} has the method.
+\emph{\strong{Automorphism-class}} inherits from a
+\code{\link[GenomicRanges]{GRanges}}.
+}
+\section{Methods}{
+
 \subsection{as(from, "Automorphism")}{
 
 Permits the transformation of a \code{\link[base]{data.frame}} or a
@@ -77,8 +94,8 @@ start/end = 1:nrow(x), length = nrow(x). These details must be keep in mind
 to prevent fundamental errors in the downstream analyses.
 }
 
-\subsection{\emph{\strong{AutomorphismList-class}} has the methods}{
-\subsection{as.AutomorphismList}{
+\subsection{\emph{\strong{AutomorphismList-class}} has the method}{
+\subsection{as.AutomorphismList(x)}{
 
 \emph{\strong{as.AutomorphismList}} function transform a list of
 \code{\link[GenomicRanges]{GRanges-class}}, a
@@ -89,6 +106,7 @@ objects into a \emph{\strong{AutomorphismList-class}} object.
 
 }
 }
+
 \seealso{
 \code{\link{automorphisms}}
 }

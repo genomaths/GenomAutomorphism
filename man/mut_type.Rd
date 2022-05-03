@@ -10,7 +10,7 @@ mut_type(x, y)
 \item{x, y}{Character strings denoting DNA bases}
 }
 \value{
-A charqacter string of same length of 'x' and 'y'.
+A character string of same length of 'x' and 'y'.
 }
 \description{
 Each DNA/RNA base can be classified into three main classes
@@ -23,6 +23,19 @@ chemical type: purines R={A, G} and pyrimidines Y={C,U}. 3). According to the
 presence of amino or keto groups on the base rings: amino M={C,A} and keto
 K={G,U}. So, each mutational event can be classified as according to the type
 of involved in it (2).
+}
+\examples{
+## Mutation type 'R'
+mut_type("A", "G")
+
+## Mutation type 'M'
+mut_type("A", "C")
+
+## Mutation type 'W'
+mut_type("A", "T")
+
+## Mutation type 'S'
+mut_type("G", "C")
 }
 \references{
 \enumerate{

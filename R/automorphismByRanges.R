@@ -152,7 +152,7 @@ setMethod(
             })
         }
 
-        idx <- which(sapply(x, function(x) {
+        idx <- which(slapply(x, function(x) {
             length(x) > min.len
         }))
         x <- x[idx]

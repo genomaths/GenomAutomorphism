@@ -183,7 +183,6 @@ automorfismos_Z125 <- function(seq,
     gr$coord2 <- sq@CoordList$coord2
     gr$autm <- 1
     gr$cube <- cube[1]
-    strands <- as.character(strand(gr))
 
     idx <- sq@CoordList$coord1 != sq@CoordList$coord2
     idx <- sort(c(which(idx), which(is.na(idx))))

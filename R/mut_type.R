@@ -25,8 +25,20 @@
 #' of involved in it (2).
 
 #' @param x,y Character strings denoting DNA bases
-#' @return A charqacter string of same length of 'x' and 'y'.
+#' @return A character string of same length of 'x' and 'y'.
 #' @export
+#' @examples 
+#' ## Mutation type 'R'
+#' mut_type("A", "G")
+#' 
+#' ## Mutation type 'M'
+#' mut_type("A", "C")
+#' 
+#' ## Mutation type 'W'
+#' mut_type("A", "T")
+#' 
+#' ## Mutation type 'S'
+#' mut_type("G", "C")
 #' @references
 #' \enumerate{
 #'      \item A. Cornish-Bowden, Nomenclature for incompletely specified bases

@@ -13,6 +13,9 @@ valid.CodonGroup.mcols(x)
 \arguments{
 \item{x}{A 'CodonGroup' object}
 }
+\value{
+Given the slot values define a CodonGroup-class.
+}
 \description{
 A class definition to store codon automorphisms in given in the
 Abelian group representation.
