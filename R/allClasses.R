@@ -344,9 +344,9 @@ setClassUnion(
 #' ## as(from, "Automorphism")
 #' Permits the transformation of a \code{\link[base]{data.frame}} or a
 #' \code{\link[S4Vectors]{DataFrame-class}} object into
-#' \emph{\strong{Automorphism-class}} object the proper columns are provided. An
-#' \emph{\strong{Automorphism-class}} object has six columns: "seq1", "seq2",
-#' "coord1", "coord2", "autm", and "cube". See the examples for function
+#' \emph{\strong{Automorphism-class}} object the proper columns are provided. 
+#' An \emph{\strong{Automorphism-class}} object has six columns: "seq1", 
+#' "seq2","coord1", "coord2", "autm", and "cube". See the examples for function
 #' \code{\link{automorphisms}}. Observe that as the
 #' \emph{\strong{Automorphism-class}} inherits from
 #' \code{\link[GenomicRanges]{GRanges-class}} the transformation starting from a

@@ -52,7 +52,7 @@ setMethod("conserved_regions",
     output = c("all_pairs", "unique_pairs", "unique")) {
         output <- match.arg(output)
 
-        x <- automorphismByCoef(x)
+        x <- automorphism_bycoef(x)
         x <- conserved_regions(
             x,
             conserved = conserved,
@@ -104,7 +104,7 @@ setMethod("conserved_regions",
     verbose = FALSE) {
         output <- match.arg(output)
 
-        x <- automorphismByCoef(x,
+        x <- automorphism_bycoef(x,
             num.cores = num.cores,
             tasks = tasks,
             verbose = verbose

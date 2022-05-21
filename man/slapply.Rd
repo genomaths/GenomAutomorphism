@@ -29,7 +29,7 @@ Default is NULL.}
 \code{\link[base]{sapply}}.}
 }
 \value{
-Same as in ?base::\code{\link[base]{slapply}} if keep.attr = FALSE.
+Same as in ?base::\code{\link[base]{lapply}} if keep.attr = FALSE.
 Otherwise same values preserving original attributes from 'x'.
 }
 \description{

@@ -18,7 +18,7 @@
 #' automorphisms between the DNA sequences from the MSA of primate somatic
 #' cytochrome C grouped by automorphism's coefficients. The grouping derives
 #' from the dataset \code{\link{brca1_autm}} after applying function
-#' \code{\link{automorphismByCoef}}.
+#' \code{\link{automorphism_bycoef}}.
 #'
 #' @format \code{\link{AutomorphismByCoefList}} class object.
 "autby_coef"

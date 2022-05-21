@@ -22,12 +22,13 @@ Description:
             prime-power order.
 Depends: 
     R (>= 4.2)
-License: GPL-3
+License: file LICENSE
 Encoding: UTF-8
 biocViews: 
     MathematicalBiology,
     ComparativeGenomics,
-    FunctionalGenomics
+    FunctionalGenomics,
+    MultipleSequenceAlignment
 Imports:
     Biostrings,
     BiocGenerics,

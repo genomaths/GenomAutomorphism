@@ -1,16 +1,9 @@
-## Copyright (C) 2021 Robersy Sanchez <https://genomaths.com/>
-## Author: Robersy Sanchez This file is part of the R package
-## 'GenomAutomorphism'.  'GenomAutomorphism' is a free
-## software: you can redistribute it and/or modify it under the
-## terms of the GNU General Public License as published by the Free
-## Software Foundation, either version 3 of the License, or (at
-## your option) any later version.  This program is distributed in
-## the hope that it will be useful, but WITHOUT ANY WARRANTY;
-## without even the implied warranty of MERCHANTABILITY or FITNESS
-## FOR A PARTICULAR PURPOSE. See the GNU General Public License for
-## more details.  You should have received a copy of the GNU
-## General Public License along with this program; if not, see
-## <http://www.gnu.org/licenses/>.
+## Copyright (C) 2021 Robersy Sanchez <https://genomaths.com/> Author: Robersy Sanchez This file is part of the R package
+## 'GenomAutomorphism'.  'GenomAutomorphism' is a free software: you can redistribute it and/or modify it under the terms of the GNU
+## General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later
+## version.  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+## of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.  You should have received
+## a copy of the GNU General Public License along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #' @rdname autZ125
 #' @aliases autZ125
@@ -74,17 +67,8 @@
 #' autms <- autZ125(seq = aln)
 #' autms
 #'
-autZ125 <- function(seq = NULL,
-    filepath = NULL,
-    cube = c("ACGT", "TGCA"),
-    cube_alt = c("CATG", "GTAC"),
-    start = NA,
-    end = NA,
-    chr = 1L,
-    strand = "+",
-    num.cores = detectCores() - 1,
-    tasks = 0L,
-    verbose = TRUE) {
+autZ125 <- function(seq = NULL, filepath = NULL, cube = c("ACGT", "TGCA"), cube_alt = c("CATG", "GTAC"), start = NA, end = NA, chr = 1L, strand = "+",
+    num.cores = detectCores() - 1, tasks = 0L, verbose = TRUE) {
     if (is.null(filepath) && is.null(seq)) {
         stop("*** One of the arguments 'seq' or 'filepath' must be given.")
     }
@@ -95,58 +79,25 @@ autZ125 <- function(seq = NULL,
 
     if (!is.null(seq)) {
         if (!inherits(seq, c("DNAStringSet", "DNAMultipleAlignment"))) {
-            stop(
-                "*** Agument 'seq' must belong to 'DNAStringSet'",
-                " DNAMultipleAlignment class."
-            )
+            stop("*** Agument 'seq' must belong to 'DNAStringSet'", " DNAMultipleAlignment class.")
         }
-        if (any(nchar(seq) %% 3 != 0)) {
-            stop(
-                "*** The argument of 'seq' must be a pairwise alignment",
-                " of codon sequences."
-            )
+        if (any(nchar(seq)%%3 != 0)) {
+            stop("*** The argument of 'seq' must be a pairwise alignment", " of codon sequences.")
         }
     }
 
-    autm1 <- automorfismos_Z125(
-        seq = seq,
-        filepath = NULL,
-        cube = cube,
-        start = start,
-        end = end,
-        chr = chr,
-        strand = strand,
-        num.cores = num.cores,
-        tasks = tasks,
-        verbose = verbose
-    )
+    autm1 <- automorfismos_Z125(seq = seq, filepath = NULL, cube = cube, start = start, end = end, chr = chr, strand = strand, num.cores = num.cores,
+        tasks = tasks, verbose = verbose)
 
     idx <- which(is.na(autm1$autm))
 
     if (length(idx) > 0) {
-        autm2 <- automorfismos_Z125(
-            seq = seq,
-            filepath = NULL,
-            cube = cube_alt,
-            start = start,
-            end = end,
-            chr = chr,
-            strand = strand,
-            num.cores = num.cores,
-            tasks = tasks,
-            verbose = verbose
-        )
+        autm2 <- automorfismos_Z125(seq = seq, filepath = NULL, cube = cube_alt, start = start, end = end, chr = chr, strand = strand, num.cores = num.cores,
+            tasks = tasks, verbose = verbose)
         autm1[idx, ] <- autm2[idx, ]
     }
-    autm1 <- new(
-        "Automorphism",
-        seqnames = seqnames(autm1),
-        ranges = ranges(autm1),
-        strand = strand(autm1),
-        elementMetadata = autm1@elementMetadata,
-        seqinfo = autm1@seqinfo,
-        colnames = colnames(autm1@elementMetadata)
-    )
+    autm1 <- new("Automorphism", seqnames = seqnames(autm1), ranges = ranges(autm1), strand = strand(autm1), elementMetadata = autm1@elementMetadata,
+        seqinfo = autm1@seqinfo, colnames = colnames(autm1@elementMetadata))
     return(autm1)
 }
 
@@ -154,29 +105,9 @@ autZ125 <- function(seq = NULL,
 
 ## ===================== Auxiliary function ===========================
 
-automorfismos_Z125 <- function(seq,
-    filepath,
-    cube,
-    output,
-    start = NA,
-    end = NA,
-    chr = 1L,
-    strand = "+",
-    num.cores,
-    tasks,
-    verbose) {
-    sq <- get_coord(
-        x = seq,
-        output = "all",
-        base_seq = FALSE,
-        filepath = filepath,
-        cube = cube[1],
-        group = "Z125",
-        start = start,
-        end = end,
-        chr = chr,
-        strand = strand
-    )
+automorfismos_Z125 <- function(seq, filepath, cube, output, start = NA, end = NA, chr = 1L, strand = "+", num.cores, tasks, verbose) {
+    sq <- get_coord(x = seq, output = "all", base_seq = FALSE, filepath = filepath, cube = cube[1], group = "Z125", start = start, end = end,
+        chr = chr, strand = strand)
 
     gr <- sq@SeqRanges
     gr$coord1 <- sq@CoordList$coord1
@@ -194,15 +125,9 @@ automorfismos_Z125 <- function(seq,
         progressbar <- TRUE
     }
     if (Sys.info()["sysname"] == "Linux") {
-        bpparam <- MulticoreParam(
-            workers = num.cores, tasks = tasks,
-            progressbar = progressbar
-        )
+        bpparam <- MulticoreParam(workers = num.cores, tasks = tasks, progressbar = progressbar)
     } else {
-        bpparam <- SnowParam(
-            workers = num.cores, type = "SOCK",
-            progressbar = progressbar
-        )
+        bpparam <- SnowParam(workers = num.cores, type = "SOCK", progressbar = progressbar)
     }
 
     # ## -------------------------------------------------------------- #
@@ -214,33 +139,19 @@ automorfismos_Z125 <- function(seq,
             c1 <- sq@CoordList$coord1[k]
             c2 <- sq@CoordList$coord2[k]
 
-            s <- try(modeq(c1, c2, 125)[1],
-                silent = TRUE
-            )
+            s <- try(modeq(c1, c2, 125)[1], silent = TRUE)
 
             if (any(s == -1) || inherits(s, "try-error")) {
-                sq <- get_coord(
-                    x = seq,
-                    output = "all",
-                    base_seq = FALSE,
-                    filepath = filepath,
-                    cube = cube[2],
-                    group = "Z125",
-                    start = start,
-                    end = end,
-                    chr = chr,
-                    strand = strand
-                )
+                sq <- get_coord(x = seq, output = "all", base_seq = FALSE, filepath = filepath, cube = cube[2], group = "Z125", start = start,
+                  end = end, chr = chr, strand = strand)
 
                 c1 <- sq@CoordList$coord1[k]
                 c2 <- sq@CoordList$coord2[k]
 
-                s <- try(modeq(c1, c2, 125)[1],
-                    silent = TRUE
-                )
+                s <- try(modeq(c1, c2, 125)[1], silent = TRUE)
 
                 if (s != -1 && !inherits(s, "try-error")) {
-                    s <- c(s, cube[2])
+                  s <- c(s, cube[2])
                 }
             } else {
                 s <- c(s, cube[1])
