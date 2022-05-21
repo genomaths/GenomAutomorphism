@@ -28,7 +28,7 @@
 #' \code{\link[base]{sapply}} function does. \strong{slapply} returns a
 #' list of the same length as 'x', each element of which is the result of
 #' applying FUN to the corresponding element of 'x'.
-#' @return Same as in ?base::\code{\link[base]{slapply}} if keep.attr = FALSE.
+#' @return Same as in ?base::\code{\link[base]{lapply}} if keep.attr = FALSE.
 #' Otherwise same values preserving original attributes from 'x'.
 #' @seealso \code{\link[base]{lapply}} and \code{\link[base]{sapply}}
 #' @keywords internal

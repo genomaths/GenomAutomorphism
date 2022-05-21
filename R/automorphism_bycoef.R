@@ -13,8 +13,8 @@
 ## <http://www.gnu.org/licenses/>.
 
 
-#' @aliases automorphismByCoef
-#' @rdname automorphismByCoef
+#' @aliases automorphism_bycoef
+#' @rdname automorphism_bycoef
 #' @title Autmorphism Grouping by Coefficient
 #' @description Automorphisms with the same automorphism's coefficients are
 #' grouped.
@@ -33,23 +33,23 @@
 #' ## Load dataset
 #' data(autm, package = "GenomAutomorphism")
 #'
-#' automorphismByCoef(x = autm[1:2])
+#' automorphism_bycoef(x = autm[1:2])
 setGeneric(
-    "automorphismByCoef",
+    "automorphism_bycoef",
     function(x,
     ...) {
-        standardGeneric("automorphismByCoef")
+        standardGeneric("automorphism_bycoef")
     }
 )
 
-#' @aliases automorphismByCoef
-#' @rdname automorphismByCoef
+#' @aliases automorphism_bycoef
+#' @rdname automorphism_bycoef
 #' @param x An automorphism-class object returned by function
 #' \code{\link{automorphisms}}.
 #' @importFrom data.table data.table
 #' @export
 setMethod(
-    "automorphismByCoef", signature(x = "Automorphism"),
+    "automorphism_bycoef", signature(x = "Automorphism"),
     function(x, mut.type = TRUE) {
         seq1 <- seq2 <- autm <- cube <- row_names <- NULL
 
@@ -119,8 +119,8 @@ setMethod(
 
 
 
-#' @aliases automorphismByCoef
-#' @rdname automorphismByCoef
+#' @aliases automorphism_bycoef
+#' @rdname automorphism_bycoef
 #' @param min.len Minimum length of a range to be reported.
 #' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the
 #' number of cores to use, i.e. at most how many child processes will be run
@@ -139,7 +139,7 @@ setMethod(
 #' @importFrom data.table data.table
 #' @export
 setMethod(
-    "automorphismByCoef", signature(x = "AutomorphismList"),
+    "automorphism_bycoef", signature(x = "AutomorphismList"),
     function(x,
     min.len = 1L,
     mut.type = TRUE,
@@ -175,7 +175,7 @@ setMethod(
             names(x) <- nams
             x0 <- try(bplapply(
                 x,
-                automorphismByCoef,
+                automorphism_bycoef,
                 mut.type = mut.type,
                 BPPARAM = bpparam
             ),
@@ -185,7 +185,7 @@ setMethod(
             if (inherits(x0, "try-error")) {
                 x <- lapply(
                     x,
-                    automorphismByCoef,
+                    automorphism_bycoef,
                     mut.type = mut.type
                 )
             } else {

@@ -199,7 +199,7 @@ mcgoftest(
 ## Grouping automorphism by automorphism's coefficients. Types of mutations
 
 ```{r autby3}
-autby_coef2 <- automorphismByCoef(covid_aut)
+autby_coef2 <- automorphism_bycoef(covid_aut)
 autby_coef2 <- autby_coef2[ autby_coef2$autm != 1 & autby_coef2$autm != -1  ]
 ```
 
@@ -289,7 +289,7 @@ mcgoftest(
 ## Grouping automorphism by automorphism's coefficients
 
 ```{r autby2}
-autby_coef <- automorphismByCoef(covid_autm)
+autby_coef <- automorphism_bycoef(covid_autm)
 autby_coef <- c(autby_coef, autby_coef2)
 autby_coef <- autby_coef[ autby_coef$autm != 1 & autby_coef$autm != -1  ]
 ```

@@ -305,7 +305,7 @@ mtext(side = 1,line = -1.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
 ## Grouping automorphism by automorphism's coefficients. Types of mutations
 
 ```{r autby}
-autby_coef <- automorphismByCoef(covid_autm)
+autby_coef <- automorphism_bycoef(covid_autm)
 autby_coef <- autby_coef[ autby_coef$autm != 1 & autby_coef$autm != -1  ]
 ```
 

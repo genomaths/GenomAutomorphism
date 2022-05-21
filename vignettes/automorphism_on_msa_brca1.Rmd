@@ -294,7 +294,7 @@ mtext(side = 1,line = -6, at = c(0.7, 1.9, 3.1, 4.3),
 Automorphisms with the same automorphism's coefficients can be grouped.
 
 ```{r autby, eval=FALSE}
-autby_coef <- automorphismByCoef(brca1_autm, 
+autby_coef <- automorphism_bycoef(brca1_autm, 
                                  verbose = FALSE)
 ```
 

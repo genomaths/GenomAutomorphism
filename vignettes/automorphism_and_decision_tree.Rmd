@@ -248,12 +248,12 @@ brca1_autm
 
 ## Grouping automorphisms by automorphism's coefficients
 Automorphisms with the same automorphism's coefficients can be grouped. This
-task can be accomplished with function [automorphismByCoef](https://genomaths.github.io/genomautomorphism/reference/automorphismByCoef.html). 
+task can be accomplished with function [automorphism_bycoef](https://genomaths.github.io/genomautomorphism/reference/automorphism_bycoef.html). 
 However, for the sake of time, its output is included in the package
 
 ```{r autby, eval = FALSE}
 ## Not need to run it here
-autby_coef <- automorphismByCoef(x = brca1_autm,
+autby_coef <- automorphism_bycoef(x = brca1_autm,
                                  verbose = FALSE)
 ```
 
@@ -286,7 +286,7 @@ enough to use data from a single species as reference, e.g., humans.
 
 First the data must be reordered into a \code{\link[base]{data.frame}} object:
 ```{r dat1}
-h_autby_coef <- automorphismByCoef(x = h_brca1_autm)
+h_autby_coef <- automorphism_bycoef(x = h_brca1_autm)
 h_autby_coef
 ```
 
