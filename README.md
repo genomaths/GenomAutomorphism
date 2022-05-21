@@ -46,7 +46,14 @@ updates.
 There are several tutorials on how to use the package at
 [GenomAutomorphism](https://genomaths.github.io/genomautomorphism)
 website
-[<img src="man/figures/logo.png" align="middle" width="32" height="32" />](https://genomaths.github.io/genomautomorphism)
+[<img src="man/figures/logo.png" align="middle" width="32" height="32" />](https://genomaths.github.io/genomautomorphism):
+
+* [Get started-with GenomAutomorphism](https://genomaths.github.io/genomautomorphism/articles/GenomAutomorphism.html)
+* [Analysis of Automorphisms on a DNA Multiple Sequence Alignment](https://genomaths.github.io/genomautomorphism/articles/automorphism_on_msa.html)
+* [Analysis of Automorphisms on a MSA of Primate BRCA1 Gene](https://genomaths.github.io/genomautomorphism/articles/automorphism_on_msa_brca1.html)
+* [A Short Introduction to Algebraic Taxonomy on Genes Regions](https://genomaths.github.io/genomautomorphism/articles/automorphism_and_decision_tree.html)
+* [Automorphism analysis on COVID-19 data](https://genomaths.github.io/genomautomorphism/articles/covid_19.html)
+
 
 ## Dependences
 
