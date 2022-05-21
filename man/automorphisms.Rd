@@ -108,7 +108,7 @@ Consecutive mutational events (on the codon sequence) described by
 automorphisms on a same cube are grouped in a range.
 }
 
-\subsection{\code{\link{automorphismByCoef}}}{
+\subsection{\code{\link{automorphism_bycoef}}}{
 
 This function returns a \code{\link[GenomicRanges]{GRanges-class}} object.
 Consecutive mutational events (on the codon sequence) described by

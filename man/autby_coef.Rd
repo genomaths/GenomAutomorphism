@@ -15,6 +15,6 @@ This is a \code{\link{AutomorphismList}} object carrying a list of pairwise
 automorphisms between the DNA sequences from the MSA of primate somatic
 cytochrome C grouped by automorphism's coefficients. The grouping derives
 from the dataset \code{\link{brca1_autm}} after applying function
-\code{\link{automorphismByCoef}}.
+\code{\link{automorphism_bycoef}}.
 }
 \keyword{datasets}

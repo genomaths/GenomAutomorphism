@@ -59,8 +59,7 @@
 #'  doi: 10.1007/s00285-005-0332-8. Epub 2005 Jul 13. PMID: 16012800. (
 #'  [PDF](https://arxiv.org/pdf/q-bio/0412033.pdf)).
 #'  \item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
-#'   Groups.
-#'  [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543).
+#'   Groups. \url{https://doi.org/10.1101/2021.06.01.446543}.
 #'  \item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
 #'  algebraic representations of the standard genetic code in six or in three
 #'  dimensions, Adv. Stud. Biol. 4 (2012) 119–152.[PDF](https://is.gd/na9eap).
