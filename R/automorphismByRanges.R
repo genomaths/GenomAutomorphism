@@ -53,6 +53,7 @@ setMethod(
     "automorphismByRanges",
     signature(x = "Automorphism"),
     function(x) {
+        end <- NULL
         i <- 1
         l <- length(x)
 
@@ -111,6 +112,7 @@ setMethod(
 #' @importFrom parallel detectCores
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam
 #' @importFrom data.table data.table
+#' @importFrom S4Vectors mcols mcols<-
 #' @export
 setMethod(
     "automorphismByRanges", signature(x = "AutomorphismList"),

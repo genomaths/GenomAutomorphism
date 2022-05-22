@@ -158,6 +158,7 @@ autZ64 <- function(seq = NULL,
 
 ## ===================== Auxiliary functions ===========================
 
+#' @importFrom BiocGenerics strand<-
 automorfismos <- function(seq,
     filepath,
     cube,

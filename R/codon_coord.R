@@ -105,6 +105,7 @@ setGeneric(
 #' @importFrom BiocGenerics strand
 #' @importFrom GenomeInfoDb seqnames
 #' @importFrom IRanges ranges
+#' @importFrom S4Vectors new2 mcols 
 setMethod(
     "codon_coord", signature(codon = "BaseGroup"),
     function(codon,

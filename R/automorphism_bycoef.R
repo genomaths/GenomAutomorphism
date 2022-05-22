@@ -53,7 +53,7 @@ setMethod(
     "automorphism_bycoef", signature(x = "Automorphism"),
     function(x, mut.type = TRUE) {
         seq1 <- seq2 <- autm <- cube <- row_names <- NULL
-        starts <- lagged <- NULL
+        starts <- lagged <- end <- NULL
         
         idx <- which(x$cube != "Trnl")
         x <- x[ idx ]

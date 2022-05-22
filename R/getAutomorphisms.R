@@ -59,6 +59,7 @@ setGeneric(
 #' @importFrom GenomicRanges GRanges
 #' @importFrom IRanges IRanges
 #' @importFrom methods new
+#' @importFrom S4Vectors mcols mcols<-
 #' @export
 setMethod("getAutomorphisms",
     signature = "AutomorphismList",

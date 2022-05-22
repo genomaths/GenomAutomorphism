@@ -165,6 +165,7 @@ setGeneric(
 #' @importFrom parallel detectCores makeCluster stopCluster
 #' @importFrom BiocGenerics width
 #' @importFrom Biostrings readDNAMultipleAlignment
+#' @importFrom S4Vectors mcols mcols<-
 #' @export
 setMethod(
     "automorphisms", signature(seqs = "DNAStringSet_OR_NULL"),

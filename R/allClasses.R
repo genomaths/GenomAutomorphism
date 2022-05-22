@@ -221,7 +221,8 @@ valid.CodonGroup <- function(x) {
     c(valid.GRanges(x), valid.CodonGroup.mcols(x))
 }
 
-S4Vectors:::setValidity2("CodonGroup", valid.CodonGroup)
+#' @importFrom S4Vectors setValidity2
+setValidity2("CodonGroup", valid.CodonGroup)
 
 
 setClassUnion("BaseGroup_OR_CodonGroup", c("BaseGroup", "CodonGroup"))
@@ -395,11 +396,14 @@ setClassUnion(
 )
 
 #' @importFrom GenomicRanges GRanges
-#' @importFrom S4Vectors mcols
-#' @importFrom GenomeInfoDb Seqinfo
+#' @importFrom S4Vectors mcols mcols<-
+#' @importFrom GenomeInfoDb Seqinfo seqnames
 #' @importClassesFrom S4Vectors DataFrame
 #' @importClassesFrom GenomicRanges GRanges
-#' @importFrom IRanges IRanges
+#' @importFrom IRanges IRanges ranges
+#' @importFrom methods new
+#' @importFrom Biostrings seqinfo
+#' @importFrom BiocGenerics strand
 setAs(
     "DataFrame_OR_data.frame", "Automorphism",
     function(from) {
@@ -504,8 +508,8 @@ setClass("AutomorphismList",
 #' @importFrom GenomicRanges GRanges GRangesList
 #' @importFrom S4Vectors mcols DataFrame
 #' @importFrom GenomicRanges GRanges GRangesList
-#' @importFrom S4Vectors mcols
-#' @importFrom methods setGeneric
+#' @importFrom S4Vectors mcols mcols<-
+#' @importFrom methods setGeneric new
 #' @export
 setGeneric(
     "as.AutomorphismList",
@@ -522,6 +526,8 @@ setClassUnion("GRanges_OR_NULL", c("GRanges", "NULL", "missing"))
 
 #' @rdname Automorphism
 #' @aliases as.AutomorphismList
+#' @importFrom S4Vectors mcols mcols<-
+#' @importFrom methods new
 #' @export
 setMethod(
     "as.AutomorphismList",
@@ -555,7 +561,8 @@ setMethod(
 #' @rdname Automorphism
 #' @aliases as.AutomorphismList
 #' @importFrom GenomicRanges GRanges
-#' @importFrom S4Vectors mcols
+#' @importFrom S4Vectors mcols mcols<-
+#' @importFrom methods new
 #' @export
 setMethod(
     "as.AutomorphismList",
@@ -727,6 +734,7 @@ S4Vectors:::setValidity2("AutomorphismList", valid.AutomorphismList)
 #' @title Show method for \code{\link{AutomorphismList-class}} object
 #' @param object An object from \code{\link{AutomorphismList-class}}.
 #' @importFrom methods show
+#' @importFrom S4Vectors mcols mcols<-
 #' @keywords internal
 #' @export
 setMethod(
@@ -1066,6 +1074,7 @@ setMethod(
 
 ## =========================== Auxiliary function ======================
 
+#' @importFrom S4Vectors isSingleNumber new2
 make_zero_col_DataFrame <- function(nrow = 0L) {
     stopifnot(isSingleNumber(nrow))
     if (!is.integer(nrow)) {
@@ -1076,6 +1085,7 @@ make_zero_col_DataFrame <- function(nrow = 0L) {
 }
 
 #' @importFrom methods extends is
+#' @importFrom S4Vectors elementType new2
 new_SimpleList_from_list <- function(Class, x, type, ..., mcols) {
     if (!extends(Class, "SimpleList")) {
         stop("class ", Class, " must extend SimpleList")

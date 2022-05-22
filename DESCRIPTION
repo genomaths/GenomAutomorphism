@@ -36,6 +36,7 @@ Imports:
     GenomeInfoDb,
     GenomicRanges,
     IRanges,
+    dplyr,
     data.table,
     parallel,
     doParallel,

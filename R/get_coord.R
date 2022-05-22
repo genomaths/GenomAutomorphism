@@ -53,7 +53,6 @@
 #' to get the coordinates in a numeric object in object from and still to
 #' preserve the base/codon sequence information.
 #'
-#' @importFrom GenomicRanges makeGRangesFromDataFrame GRanges GRangesList
 #' @importFrom S4Vectors mcols DataFrame
 #' @importFrom Biostrings DNAStringSet
 #' @importFrom methods new
@@ -106,12 +105,20 @@ setGeneric("get_coord", function(x, ...) standardGeneric("get_coord"))
 
 #' @aliases get_coord
 #' @rdname get_coord
+#' @importFrom S4Vectors mcols DataFrame
+#' @importFrom GenomicRanges makeGRangesFromDataFrame GRanges GRangesList
 #' @export
 setMethod(
     "get_coord", signature(x = "BaseGroup_OR_CodonGroup"),
     function(x, output = c("all", "matrix.list")) {
         output <- match.arg(output)
 
+        if (inherits(x, "CodonGroup")) {
+            Zn <- FALSE
+            if (x@group == "Z64" || x@group == "Z125")
+                Zn <- TRUE
+        }
+        
         gr <- x
         x <- mcols(x)
         nms <- colnames(x)
@@ -125,7 +132,7 @@ setMethod(
             )
         }
 
-        if (nchar(x[1, idx[1]]) >= 5) {
+        if (!Zn) {
             m <- lapply(idx, function(k) {
                 m <- do.call(rbind, strsplit(x[, k], ","))
                 m <- apply(m, 2, as.numeric)

@@ -128,7 +128,7 @@ setMethod("conserved_regions",
     function(x,
     conserved = TRUE,
     output = c("all_pairs", "unique_pairs", "unique")) {
-        autm <- NULL
+        autm <- end <- NULL
         output <- match.arg(output)
 
         if (conserved) {
