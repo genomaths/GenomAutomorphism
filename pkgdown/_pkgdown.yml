@@ -85,7 +85,7 @@ reference:
 - title: Automorphisms methods
   contents:
   - '`automorphismByRanges`'
-  - '`automorphismByCoef`'
+  - '`automorphism_bycoef`'
   - '`getAutomorphisms`'
   - '`conserved_regions`'
   - '`mut_type`'
@@ -93,6 +93,7 @@ reference:
   contents:
   - '`base2codon`'
   - '`sortByChromAndStart`'
+  - '`slapply`'
 - title: Data sets
   contents:
   - '`aln`'

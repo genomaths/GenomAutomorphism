@@ -51,10 +51,7 @@
 #'
 #' @seealso [Symmetric Group of the Genetic-Code Cubes.](
 #' https://github.com/genomaths/GenomeAlgebra_SymmetricGroup)
-#' @import Biostrings
-#' @import GenomicRanges
 #' @importFrom S4Vectors mcols DataFrame
-#' @importFrom Biostrings DNAStringSet
 #' @importFrom methods new
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>

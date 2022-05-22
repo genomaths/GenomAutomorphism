@@ -40,10 +40,7 @@
 #' \code{\link[Biostrings]{DNAStringSet}} or to retrieve the a DNA sequence
 #' alignment from a file.
 #'
-#' @import Biostrings
-#' @import GenomicRanges
 #' @importFrom S4Vectors mcols DataFrame
-#' @importFrom Biostrings DNAStringSet
 #' @importFrom methods new
 #' @export
 #' @seealso \code{\link{matrices}}, \code{\link{codon_coord}}, and
@@ -91,6 +88,7 @@ setGeneric(
 
 #' @aliases seqranges
 #' @rdname seqranges
+#' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @export
 setMethod(
     "seqranges", signature(x = "CodonSeq"),

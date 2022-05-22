@@ -47,9 +47,9 @@
 #' @param verbose If TRUE, prints the progress bar.
 #' @return An object \code{\link{Automorphism-class}} with four columns on its
 #' metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and \emph{cube}.
-#' @importFrom numbers modlin
-#' @import GenomicRanges
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam
+#' @importFrom methods new
+#' @importFrom Biostrings nchar
 #' @export
 #' @author Robersy Sanchez (\url{https://genomaths.com}).
 #' @references

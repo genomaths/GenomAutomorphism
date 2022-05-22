@@ -236,7 +236,6 @@ setClassUnion("BaseGroup_OR_CodonGroup", c("BaseGroup", "CodonGroup"))
 #' each sequence in a list of 3D-vectors or a list of vectors located in the
 #' slot named 'CoordList'. The original codon sequence (if provided) will be
 #' stored in the slot named 'SeqRanges'.
-#' @import GenomicRanges
 #' @importFrom S4Vectors setValidity2
 #' @importFrom methods validObject
 #' @keywords internal
@@ -322,6 +321,7 @@ valid.MatrixList <- function(x) {
 #' @importClassesFrom Biostrings DNAMultipleAlignment DNAMultipleAlignment
 #' @rdname valid.MatrixList
 #' @keywords internal
+#' @importClassesFrom Biostrings DNAMultipleAlignment DNAStringSet
 #' @export
 setClassUnion(
     "DNAStringSet_OR_NULL",
@@ -481,9 +481,7 @@ S4Vectors:::setValidity2("Automorphism", valid.Automorphism)
 #' @description A class definition to store list of Automorphism class objects
 #' derived from the pairwise automorphism estimation from pairwise
 #' alignments.
-#' @import GenomicRanges
-#' @import S4Vectors
-#' @importFrom methods validObject
+#' @importFrom methods validObject setClass
 #' @keywords internal
 #' @export
 #' @aliases AutomorphismList
@@ -507,6 +505,7 @@ setClass("AutomorphismList",
 #' @importFrom S4Vectors mcols DataFrame
 #' @importFrom GenomicRanges GRanges GRangesList
 #' @importFrom S4Vectors mcols
+#' @importFrom methods setGeneric
 #' @export
 setGeneric(
     "as.AutomorphismList",

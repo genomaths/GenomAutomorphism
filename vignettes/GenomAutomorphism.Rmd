@@ -90,7 +90,9 @@ direct sum of Abelian group of _prime-power order_:
 
 
 $$
-\qquad G = (\mathbb{Z}_{p^{\alpha_{1}}_1})^{n_1} \oplus (\mathbb{Z}_{p^{\alpha_{2}}_1})^{n_2} \oplus \dots \oplus (\mathbb{Z}_{p^{\alpha_{k}}_k})^{n_k} 
+\qquad G = (\mathbb{Z}_{p^{\alpha_{1}}_1})^{n_1} \oplus 
+(\mathbb{Z}_{p^{\alpha_{2}}_1})^{n_2} \oplus \dots \oplus 
+(\mathbb{Z}_{p^{\alpha_{k}}_k})^{n_k} 
 $$
 
 Where, the $p_i$'s are prime numbers, $\alpha_i \in \mathbb{N}$ and 
@@ -172,7 +174,8 @@ Automorphisms can be computed starting directly from the _FASTA_ file.
 Notice that we can work only with genomic regions of our interest by giving 
 the _start_ and _end_ alignment coordinates. In Z64 automorphisms are described 
 as functions $f(x) = k\,x \quad mod\,64$, where $k$ and $x$ are elements from 
-the set of integers modulo 64. Below, in function [automorphism](https://genomaths.github.io/genomautomorphism/reference/automorphism.html) three important
+the set of integers modulo 64. Below, in function 
+[automorphism](https://is.gd/WMxUKz) three important
 arguments are given values: _group = "Z64"_, _cube = c("ACGT", "TGCA")_, and
 _cube_alt = c("CATG", "GTAC")_. Setting for group specifies on which group the
 automorphisms will be computed. These groups can be: "Z5", "Z64", "Z125", and
