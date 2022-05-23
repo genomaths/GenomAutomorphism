@@ -40,8 +40,8 @@ conserved_regions(x, ...)
 \arguments{
 \item{x}{A \code{\link{Automorphism-class}}, a
 \code{\link{AutomorphismList-class}},
-a \code{\link{AutomorphismByCoef}} or a \code{\link{AutomorphismByCoefList}}
-class object.}
+a \code{\link{AutomorphismByCoef}} or a
+\code{\link{AutomorphismByCoefList}} class object.}
 
 \item{...}{Not in use.}
 

@@ -48,11 +48,16 @@ There are several tutorials on how to use the package at
 website
 [<img src="man/figures/logo.png" align="middle" width="32" height="32" />](https://genomaths.github.io/genomautomorphism):
 
-* <a href="https://genomaths.github.io/genomautomorphism/articles/GenomAutomorphism.html" target="_blank">Get started-with GenomAutomorphism</a>
-* [Analysis of Automorphisms on a DNA Multiple Sequence Alignment](https://genomaths.github.io/genomautomorphism/articles/automorphism_on_msa.html)
-* [Analysis of Automorphisms on a MSA of Primate BRCA1 Gene](https://genomaths.github.io/genomautomorphism/articles/automorphism_on_msa_brca1.html)
-* [A Short Introduction to Algebraic Taxonomy on Genes Regions](https://genomaths.github.io/genomautomorphism/articles/automorphism_and_decision_tree.html)
-* [Automorphism analysis on COVID-19 data](https://genomaths.github.io/genomautomorphism/articles/covid_19.html)
+* <a href="https://is.gd/zwRaUw" target="_blank">Get started-with 
+    GenomAutomorphism</a>
+* <a href="https://is.gd/A03Fkl" target="_blank">Analysis of Automorphisms on 
+    a DNA Multiple Sequence Alignment</a>
+* <a href="https://is.gd/gsZcuj" target="_blank">Analysis of Automorphisms on
+    a MSA of Primate BRCA1 Gene</a>
+* <a href="https://is.gd/87wlbL" target="_blank">A Short Introduction to 
+    Algebraic Taxonomy on Genes Regions</a>
+* <a href="https://is.gd/836uas" target="_blank">Automorphism analysis on 
+    COVID-19 data</a>
 
 
 ## Dependences
@@ -77,7 +82,7 @@ This package depends, so far, from: *Biostrings*, *GenomicRanges*,
 
 ## You can install **GenomAutomorphism** package from GitHub
 
-       devtools::install_git("https://github.com/genomaths/GenomAutomorphism.git")
+    devtools::install_git("https://github.com/genomaths/GenomAutomorphism.git")
 
 ------------------------------------------------------------------------
 

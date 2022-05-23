@@ -383,17 +383,18 @@ setClassUnion(
 #' \emph{\strong{Automorphism-class}} is straightforward. However, the
 #' transformation starting from a \code{\link[base]{data.frame}} or a
 #' \code{\link[S4Vectors]{DataFrame-class}} object \eqn{"x"} requires for the
-#' creation of an additional \code{\link[GenomicRanges]{GRanges-class}} object,
-#' which by default will have the argument seqnames = "1", strand = "+"
-#' start/end = 1:nrow(x), length = nrow(x). These details must be keep in mind
-#' to prevent fundamental errors in the downstream analyses.
+#' creation of an additional \code{\link[GenomicRanges]{GRanges-class}} 
+#' object, which by default will have the argument seqnames = "1", 
+#' strand = "+" start/end = 1:nrow(x), length = nrow(x). These details must be
+#' keep in mind to prevent fundamental errors in the downstream analyses.
 #'
 #' ## \emph{\strong{AutomorphismList-class}} has the method
 #' ### as.AutomorphismList(x)
 #' \emph{\strong{as.AutomorphismList}} function transform a list of
 #' \code{\link[GenomicRanges]{GRanges-class}}, a
 #' \code{\link[GenomicRanges]{GRangesList-class}}, a list of
-#' \code{\link[base]{data.frame}} or a \code{\link[S4Vectors]{DataFrame-class}}
+#' \code{\link[base]{data.frame}} or a 
+#' \code{\link[S4Vectors]{DataFrame-class}}
 #' objects into a \emph{\strong{AutomorphismList-class}} object.
 #'
 #' @seealso \code{\link{automorphisms}}
@@ -482,7 +483,8 @@ valid.Automorphism.mcols <- function(x) {
             m2 <- TRUE
         }
         if (m2) {
-            if (all(is.element(x$seq1, alf)) && all(is.element(x$seq1, alf))) {
+            if (all(is.element(x$seq1, alf)) && 
+                    all(is.element(x$seq1, alf))) {
                 m2 <- FALSE
             }
         }

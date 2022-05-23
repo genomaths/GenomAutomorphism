@@ -18,8 +18,8 @@
 #' @description Returns the Conserved or the Non-conserved Regions from a MSA.
 #' @param x A \code{\link{Automorphism-class}}, a
 #' \code{\link{AutomorphismList-class}},
-#' a \code{\link{AutomorphismByCoef}} or a \code{\link{AutomorphismByCoefList}}
-#' class object.
+#' a \code{\link{AutomorphismByCoef}} or a 
+#' \code{\link{AutomorphismByCoefList}} class object.
 #' @param conserved Logical, Whether to return the \emph{conserved} or the
 #' \emph{non-conserved regions}.
 #' @param output A character string. Type of output.

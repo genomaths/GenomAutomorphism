@@ -20,8 +20,8 @@
 #' group, this function computes the automorphisms describing codon mutational
 #' events.
 #' @details Automorphisms in Z125 are described as functions 
-#' \eqn{f(x) = k x mod 64}, where k and x are elements from the set of integers
-#' modulo 64. As noticed in reference (1)
+#' \eqn{f(x) = k x mod 64}, where k and x are elements from the set of 
+#' integers modulo 64. As noticed in reference (1)
 #' @param seq An object from a \code{\link[Biostrings]{DNAStringSet}} or
 #' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
 #' pairwise alignment of two sequences. The pairwise alignment provided in
@@ -58,7 +58,7 @@
 #'  [PDF](https://arxiv.org/pdf/q-bio/0412033.pdf)).
 #'  \item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
 #'   Groups.
-#'  [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
+#'  [doi:10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
 #'  \item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
 #'  algebraic representations of the standard genetic code in six or in three
 #'  dimensions, Adv. Stud. Biol. 4 (2012) 119–152.[PDF](https://is.gd/na9eap).
