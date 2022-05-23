@@ -83,8 +83,8 @@ An \emph{\strong{Automorphism-class}} object has six columns: "seq1",
 "seq2","coord1", "coord2", "autm", and "cube". See the examples for function
 \code{\link{automorphisms}}. Observe that as the
 \emph{\strong{Automorphism-class}} inherits from
-\code{\link[GenomicRanges]{GRanges-class}} the transformation starting from a
-\code{\link[GenomicRanges]{GRanges-class}} object into an
+\code{\link[GenomicRanges]{GRanges-class}} the transformation starting from
+a \code{\link[GenomicRanges]{GRanges-class}} object into an
 \emph{\strong{Automorphism-class}} is straightforward. However, the
 transformation starting from a \code{\link[base]{data.frame}} or a
 \code{\link[S4Vectors]{DataFrame-class}} object \eqn{"x"} requires for the

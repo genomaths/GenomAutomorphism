@@ -295,7 +295,7 @@ barplot(counts, main="Automorphism distribution",
         xlab="Genetic-code cube representation",
         ylab="Fixed mutational events",
         col=c("darkblue","red", "darkgreen"), 
-        border = NA, axes = FALSE, #ylim = c(0, 2000), 
+        border = NA, axes = FALSE, 
         cex.lab = 2, cex.main = 1.5, cex.names = 2)
 axis(2, at = c(0, 200, 400, 600, 800), cex.axis = 1.5)
 mtext(side = 1,line = -1.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
@@ -455,7 +455,7 @@ barplot(counts, main="Automorphism distribution",
         ylab="Fixed mutational events",
         col=c("darkblue","red"), 
         ylim = c(0, 1100),
-        border = NA, axes = T)
+        border = NA, axes = TRUE)
 mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1),
       text = paste0( counts ), cex = 1.4,
       col = c("white","red"))
@@ -481,3 +481,11 @@ mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1),
  Effect of the Genetic–Code Architecture on the Evolutionary Process MATCH
  Commun. Math. Comput. Chem. 79 (2018) 527-560. [PDF](https://bit.ly/2Z9mjM7).
 
+# Session info {.unnumbered}
+
+Here is the output of `sessionInfo()` on the system on which this document was
+compiled:
+
+```{r sessionInfo, echo=FALSE}
+sessionInfo()
+```

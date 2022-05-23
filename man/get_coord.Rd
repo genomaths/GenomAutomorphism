@@ -4,8 +4,8 @@
 \alias{get_coord}
 \alias{get_coord,BaseGroup_OR_CodonGroup-method}
 \alias{get_coord,DNAStringSet_OR_NULL-method}
-\title{DNA base/codon sequence and coordinates represented on a given Abelian
-group.}
+\title{DNA base/codon sequence and coordinates represented on a given
+Abelian group.}
 \usage{
 get_coord(x, ...)
 
@@ -82,9 +82,9 @@ including symbols '-' and 'N'.
 
 Although the \code{\link{CodonGroup-class}} object returned by
 functions \code{\link{codon_coord}} and \code{\link{base_coord}} are useful
-to store genomic information, the base and codon coordinates are not given on
-them as numeric magnitudes. Function \code{\link{get_coord}} provides the way
-to get the coordinates in a numeric object in object from and still to
+to store genomic information, the base and codon coordinates are not given
+on them as numeric magnitudes. Function \code{\link{get_coord}} provides the
+way to get the coordinates in a numeric object in object from and still to
 preserve the base/codon sequence information.
 }
 \examples{

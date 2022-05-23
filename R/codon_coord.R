@@ -17,9 +17,9 @@
 #' @description Given a string denoting a codon or base from the DNA (or RNA)
 #' alphabet and a genetic-code Abelian group as given in reference (1).
 #' @param codon An object from \code{\link{BaseGroup-class}} (generated with
-#' function \code{\link{base_coord}}), \code{\link[Biostrings]{DNAStringSet}} or
-#' from \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
-#' pairwise alignment of two sequences.
+#' function \code{\link{base_coord}}), \code{\link[Biostrings]{DNAStringSet}} 
+#' or from \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the 
+#' DNA pairwise alignment of two sequences.
 #' @param filepath A character vector containing the path to a file in
 #' \emph{\strong{fasta}} format to be read. This argument must be given if
 #' \emph{codon & base} arguments are not provided.
@@ -57,7 +57,7 @@
 #' \enumerate{
 #'  \item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
 #'   Groups.
-#'  [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543).
+#'  [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
 #'  \item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
 #'  algebraic representations of the standard genetic code in six or in three
 #'  dimensions, Adv. Stud. Biol. 4 (2012) 119–152.[PDF](https://is.gd/na9eap).
@@ -105,7 +105,7 @@ setGeneric(
 #' @importFrom BiocGenerics strand
 #' @importFrom GenomeInfoDb seqnames
 #' @importFrom IRanges ranges
-#' @importFrom S4Vectors new2 mcols 
+#' @importFrom S4Vectors new2 mcols
 setMethod(
     "codon_coord", signature(codon = "BaseGroup"),
     function(codon,

@@ -19,15 +19,15 @@
 #' Each criterion produces a partition of the set of bases: 1) According to the
 #' number of hydrogen bonds (on DNA/RNA double helix): strong S={C,G} (three
 #' hydrogen bonds) and weak W={A,U} (two hydrogen bonds). According to the
-#' chemical type: purines R={A, G} and pyrimidines Y={C,U}. 3). According to the
-#' presence of amino or keto groups on the base rings: amino M={C,A} and keto
-#' K={G,U}. So, each mutational event can be classified as according to the type
-#' of involved in it (2).
+#' chemical type: purines R={A, G} and pyrimidines Y={C,U}. 3). According to
+#' the presence of amino or keto groups on the base rings: amino M={C,A} and
+#' keto K={G,U}. So, each mutational event can be classified as according to
+#' the type of involved in it (2).
 
 #' @param x,y Character strings denoting DNA bases
 #' @return A character string of same length of 'x' and 'y'.
 #' @export
-#' @examples 
+#' @examples
 #' ## Mutation type 'R'
 #' mut_type("A", "G")
 #' ## Mutation type 'M'

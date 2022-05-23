@@ -29,16 +29,16 @@
 #' @param filepath A character vector containing the path to a file in
 #' \emph{\strong{fasta}} format to be read. This argument must be given if
 #' \emph{codon & base} arguments are not provided.
-#' @param cube,cube_alt A character string denoting pairs of the 24 Genetic-code
-#' cubes, as given in references (2-3). That is, the base pairs from the given
-#' cubes must be complementary each other. Such a cube pair are call dual cubes
-#' and, as shown in reference (3), each pair integrates group.
+#' @param cube,cube_alt A character string denoting pairs of the 24 
+#' Genetic-code cubes, as given in references (2-3). That is, the base pairs
+#' from the given cubes must be complementary each other. Such a cube pair are
+#' call dual cubes and, as shown in reference (3), each pair integrates group.
 #' @param start,end,chr,strand Optional parameters required to build a
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 #' values given for the function definition will be used.
 #' @param num.cores,tasks Parameters for parallel computation using package
-#' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to use,
-#' i.e. at most how many child processes will be run simultaneously (see
+#' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to 
+#' use, i.e. at most how many child processes will be run simultaneously (see
 #' \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
 #' for Linux OS).
 #' @param verbose If TRUE, prints the progress bar.
@@ -55,7 +55,7 @@
 #'  [PDF](https://arxiv.org/pdf/q-bio/0412033.pdf)).
 #'  \item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
 #'   Groups.
-#'  [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543).
+#'  [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
 #'  \item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
 #'  algebraic representations of the standard genetic code in six or in three
 #'  dimensions, Adv. Stud. Biol. 4 (2012) 119–152.[PDF](https://is.gd/na9eap).
@@ -223,7 +223,7 @@ automorfismos_Z5 <- function(seq,
         seq <- do.call(rbind, seq)
         seq <- data.frame(seq)
         colnames(seq) <- c("autm", "cube")
-        seq$autm <- suppressWarnings(as.numeric(seq$autm))
+        seq$autm <- as.numeric(seq$autm)
         gr$autm[idx] <- seq$autm
         gr$cube[idx] <- seq$cube
     }

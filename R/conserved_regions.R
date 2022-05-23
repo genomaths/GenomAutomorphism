@@ -73,26 +73,16 @@ setMethod("conserved_regions",
 #' job. value must be a scalar integer >= 0L. In this documentation a job is
 #' defined as a single call to a function, such as
 #' \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
-#' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
-#' as possible over the number of workers (see
-#' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
-#' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the
-#' number of cores to use, i.e. at most how many child processes will be run
-#' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
-#' BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
-#' job. value must be a scalar integer >= 0L. In this documentation a job is
-#' defined as a single call to a function, such as
-#' \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
-#' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
-#' as possible over the number of workers (see
+#' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as
+#' evenly as possible over the number of workers (see
 #' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
 #' @param verbose logic(1). If TRUE, enable progress bar.
 #' @export
-#' @examples 
+#' @examples
 #' ## Load automorphism found COVID datatset
 #' data(covid_autm)
 #' ## Conserved regions in the first 100 codons
-#' conserv <- conserved_regions(covid_autm[ 1:100 ], output="unique")
+#' conserv <- conserved_regions(covid_autm[1:100], output = "unique")
 #' conserv
 setMethod("conserved_regions",
     signature = "AutomorphismList",
@@ -150,7 +140,8 @@ setMethod("conserved_regions",
                     strand = unique(strand),
                     autm = unique(autm)
                 ),
-                by = c("start", "cube") ]
+                by = c("start", "cube")
+                ]
                 x <- makeGRangesFromDataFrame(x,
                     keep.extra.columns = TRUE
                 )

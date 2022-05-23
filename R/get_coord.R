@@ -1,18 +1,20 @@
-## Copyright (C) 2021 Robersy Sanchez <https://genomaths.com/> Author: Robersy
-## Sanchez This file is part of the R package 'GenomAutomorphism'.
-## 'GenomAutomorphism' is a free software: you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by the Free
-## Software Foundation, either version 3 of the License, or (at your option) any
-## later version.  This program is distributed in the hope that it will be
-## useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
-## Public License for more details.  You should have received a copy of the GNU
+## Copyright (C) 2021 Robersy Sanchez <https://genomaths.com/>
+## Author: Robersy Sanchez This file is part of the R package
+## 'GenomAutomorphism'.  'GenomAutomorphism' is a free
+## software: you can redistribute it and/or modify it under the
+## terms of the GNU General Public License as published by the Free
+## Software Foundation, either version 3 of the License, or (at
+## your option) any later version.  This program is distributed in
+## the hope that it will be useful, but WITHOUT ANY WARRANTY;
+## without even the implied warranty of MERCHANTABILITY or FITNESS
+## FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+## more details.  You should have received a copy of the GNU
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
 #' @rdname get_coord
-#' @title DNA base/codon sequence and coordinates represented on a given Abelian
-#' group.
+#' @title DNA base/codon sequence and coordinates represented on a given 
+#' Abelian group.
 #' @description Given a string denoting a codon or base from the DNA (or RNA)
 #' alphabet and a genetic-code Abelian group as given in reference (1), this
 #' function returns an object from \code{\link{CodonGroup-class}} carrying the
@@ -48,9 +50,9 @@
 #'
 #' Although the \code{\link{CodonGroup-class}} object returned by
 #' functions \code{\link{codon_coord}} and \code{\link{base_coord}} are useful
-#' to store genomic information, the base and codon coordinates are not given on
-#' them as numeric magnitudes. Function \code{\link{get_coord}} provides the way
-#' to get the coordinates in a numeric object in object from and still to
+#' to store genomic information, the base and codon coordinates are not given
+#' on them as numeric magnitudes. Function \code{\link{get_coord}} provides the
+#' way to get the coordinates in a numeric object in object from and still to
 #' preserve the base/codon sequence information.
 #'
 #' @importFrom S4Vectors mcols DataFrame
@@ -113,12 +115,7 @@ setMethod(
     function(x, output = c("all", "matrix.list")) {
         output <- match.arg(output)
 
-        if (inherits(x, "CodonGroup")) {
-            Zn <- FALSE
-            if (x@group == "Z64" || x@group == "Z125")
-                Zn <- TRUE
-        }
-        
+        grp <- x@group
         gr <- x
         x <- mcols(x)
         nms <- colnames(x)
@@ -132,7 +129,7 @@ setMethod(
             )
         }
 
-        if (!Zn) {
+        if (grp == "Z5^3") {
             m <- lapply(idx, function(k) {
                 m <- do.call(rbind, strsplit(x[, k], ","))
                 m <- apply(m, 2, as.numeric)

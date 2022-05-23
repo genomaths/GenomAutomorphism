@@ -14,11 +14,19 @@
 
 ## ========================== BaseGroup =============================
 
+#' @rdname GRanges_OR_NULL
+#' @title A definition for the union of 'GRanges' and 'NULL' class.
+#' @importClassesFrom GenomicRanges GRanges
+#' @keywords internal
+#' @export
+setClassUnion("GRanges_OR_NULL", c("GRanges", "NULL", "missing"))
+
 #' @aliases BaseGroup
 #' @rdname BaseGroup
 #' @title A class definition to store codon automorphisms in given in the
 #' Abelian group representation.
 #' @importClassesFrom S4Vectors DataFrame
+#' @importClassesFrom GenomicRanges GRanges
 #' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @export
@@ -39,11 +47,12 @@ setClass("BaseGroup",
 
 # ====================  Validity BaseGroup ======================== #
 
-
-#' @rdname BaseGroup
+#' @rdname valid.BaseGroup
+#' @aliases valid.BaseGroup.elem
 #' @title Valid BaseGroup mcols
 #' @param x A 'BaseGroup' object
 #' @keywords internal
+#' @return If valid return NULL
 valid.BaseGroup.elem <- function(x) {
     m1 <- paste0(
         "*** This is not a valid  BaseGroup-class object.",
@@ -99,10 +108,12 @@ valid.BaseGroup.elem <- function(x) {
     NULL
 }
 
-#' @rdname BaseGroup
+#' @rdname valid.BaseGroup
+#' @aliases valid.GRanges
 #' @title Valid 'BaseGroup' inheritance from 'GRanges' class
 #' @param x A 'BaseGroup object'
 #' @keywords internal
+#' @return If valid return NULL
 valid.GRanges <- function(x) {
     if (length(x) > 0) {
         if (!inherits(x, "GRanges")) {
@@ -113,14 +124,17 @@ valid.GRanges <- function(x) {
 }
 
 #' @rdname valid.BaseGroup
+#' @aliases valid.BaseGroup
 #' @title Valid BaseGroup
 #' @param x A 'BaseGroup object'
 #' @keywords internal
+#' @return If valid return NULL
 valid.BaseGroup <- function(x) {
     c(valid.GRanges(x), valid.BaseGroup.elem(x))
 }
 
-S4Vectors:::setValidity2("BaseGroup", valid.BaseGroup)
+#' @importFrom S4Vectors setValidity2
+setValidity2("BaseGroup", valid.BaseGroup)
 
 
 ## ========================== CodonGroup =============================
@@ -149,13 +163,24 @@ setClass("CodonGroup",
     contains = "GRanges"
 )
 
+#' @rdname BaseGroup_OR_CodonGroup
+#' @aliases BaseGroup_OR_CodonGroup
+#' @title A definition for the union of classes 'BaseGroup' and  'CodonGroup'
+#' @keywords internal
+#' @seealso \code{\link{BaseGroup}} and \code{\link{CodonGroup}}.
+#' @export
+setClassUnion("BaseGroup_OR_CodonGroup", c("BaseGroup", "CodonGroup"))
+
+
 # ====================  Validity CodonGroup ======================== #
 
 
-#' @rdname CodonGroup
+#' @rdname valid.CodonGroup
+#' @aliases valid.CodonGroup.mcols
 #' @title Valid CodonGroup mcols
 #' @param x A 'CodonGroup' object
 #' @keywords internal
+#' @return If valid return NULL
 valid.CodonGroup.mcols <- function(x) {
     if (length(x) > 0) {
         coln <- x@colnames
@@ -214,9 +239,11 @@ valid.CodonGroup.mcols <- function(x) {
 }
 
 #' @rdname valid.CodonGroup
+#' @aliases valid.CodonGroup
 #' @title Valid CodonGroup
 #' @param x A 'CodonGroup object'
 #' @keywords internal
+#' @return If valid return NULL
 valid.CodonGroup <- function(x) {
     c(valid.GRanges(x), valid.CodonGroup.mcols(x))
 }
@@ -225,11 +252,10 @@ valid.CodonGroup <- function(x) {
 setValidity2("CodonGroup", valid.CodonGroup)
 
 
-setClassUnion("BaseGroup_OR_CodonGroup", c("BaseGroup", "CodonGroup"))
-
 ## ========================== CodonSeq =============================
 
 #' @rdname CodonSeq
+#' @aliases CodonSeq
 #' @title A class definition to store codon coordinates given in the Abelian
 #' group and the codon sequence.
 #' @description An objects from 'CodonSeq' or 'MatrixList' class is returned by
@@ -239,8 +265,8 @@ setClassUnion("BaseGroup_OR_CodonGroup", c("BaseGroup", "CodonGroup"))
 #' stored in the slot named 'SeqRanges'.
 #' @importFrom S4Vectors setValidity2
 #' @importFrom methods validObject
+#' @importClassesFrom GenomicRanges GenomicRanges_OR_missing
 #' @keywords internal
-#' @aliases CodonSeq
 #' @export
 #' @return Given the slot values define a CodonSeq-class.
 setClass("CodonSeq",
@@ -307,6 +333,7 @@ setClass("MatrixList",
 #' @title Valid MatrixList
 #' @param x A 'MatrixList object'
 #' @keywords internal
+#' @return If valid return NULL
 valid.MatrixList <- function(x) {
     if (!all(slapply(x, function(y) inherits(y, "matrix")))) {
         return(
@@ -324,6 +351,7 @@ valid.MatrixList <- function(x) {
 #' @keywords internal
 #' @importClassesFrom Biostrings DNAMultipleAlignment DNAStringSet
 #' @export
+#' @return Only used to specify signature in the S4 setMethod.
 setClassUnion(
     "DNAStringSet_OR_NULL",
     c("DNAStringSet", "DNAMultipleAlignment", "NULL", "missing")
@@ -345,13 +373,13 @@ setClassUnion(
 #' ## as(from, "Automorphism")
 #' Permits the transformation of a \code{\link[base]{data.frame}} or a
 #' \code{\link[S4Vectors]{DataFrame-class}} object into
-#' \emph{\strong{Automorphism-class}} object the proper columns are provided. 
-#' An \emph{\strong{Automorphism-class}} object has six columns: "seq1", 
+#' \emph{\strong{Automorphism-class}} object the proper columns are provided.
+#' An \emph{\strong{Automorphism-class}} object has six columns: "seq1",
 #' "seq2","coord1", "coord2", "autm", and "cube". See the examples for function
 #' \code{\link{automorphisms}}. Observe that as the
 #' \emph{\strong{Automorphism-class}} inherits from
-#' \code{\link[GenomicRanges]{GRanges-class}} the transformation starting from a
-#' \code{\link[GenomicRanges]{GRanges-class}} object into an
+#' \code{\link[GenomicRanges]{GRanges-class}} the transformation starting from
+#' a \code{\link[GenomicRanges]{GRanges-class}} object into an
 #' \emph{\strong{Automorphism-class}} is straightforward. However, the
 #' transformation starting from a \code{\link[base]{data.frame}} or a
 #' \code{\link[S4Vectors]{DataFrame-class}} object \eqn{"x"} requires for the
@@ -395,7 +423,6 @@ setClassUnion(
     c("DataFrame", "data.frame")
 )
 
-#' @importFrom GenomicRanges GRanges
 #' @importFrom S4Vectors mcols mcols<-
 #' @importFrom GenomeInfoDb Seqinfo seqnames
 #' @importClassesFrom S4Vectors DataFrame
@@ -475,7 +502,8 @@ valid.Automorphism <- function(x) {
     c(valid.GRanges(x), valid.Automorphism.mcols(x))
 }
 
-S4Vectors:::setValidity2("Automorphism", valid.Automorphism)
+#' @importFrom S4Vectors setValidity2
+setValidity2("Automorphism", valid.Automorphism)
 
 
 ## ========================== AutomorphismList =============================
@@ -507,7 +535,6 @@ setClass("AutomorphismList",
 #' @param gr A \code{\link[GenomicRanges]{GRanges-class}} object.
 #' @importFrom GenomicRanges GRanges GRangesList
 #' @importFrom S4Vectors mcols DataFrame
-#' @importFrom GenomicRanges GRanges GRangesList
 #' @importFrom S4Vectors mcols mcols<-
 #' @importFrom methods setGeneric new
 #' @export
@@ -519,10 +546,6 @@ setGeneric(
         standardGeneric("as.AutomorphismList")
     }
 )
-
-
-setClassUnion("GRanges_OR_NULL", c("GRanges", "NULL", "missing"))
-
 
 #' @rdname Automorphism
 #' @aliases as.AutomorphismList
@@ -725,7 +748,8 @@ valid.AutomorphismList <- function(x) {
     NULL
 }
 
-S4Vectors:::setValidity2("AutomorphismList", valid.AutomorphismList)
+#' @importFrom S4Vectors setValidity2
+setValidity2("AutomorphismList", valid.AutomorphismList)
 
 ## ======================== Show AutomorphismList ==================== #
 
@@ -805,7 +829,8 @@ valid.AutomorphismByCoef <- function(x) {
     }
 }
 
-S4Vectors:::setValidity2("AutomorphismByCoef", valid.AutomorphismByCoef)
+#' @importFrom S4Vectors setValidity2
+setValidity2("AutomorphismByCoef", valid.AutomorphismByCoef)
 
 ## ========================= AutomorphismByCoefList ======================
 
@@ -875,7 +900,8 @@ valid.AutomorphismByCoefList <- function(x) {
     }
 }
 
-S4Vectors:::setValidity2(
+#' @importFrom S4Vectors setValidity2
+setValidity2(
     "AutomorphismByCoefList",
     valid.AutomorphismByCoefList
 )
@@ -914,7 +940,9 @@ valid.ConservedRegion <- function(x) {
     }
 }
 
-S4Vectors:::setValidity2("ConservedRegion", valid.ConservedRegion)
+
+#' @importFrom S4Vectors setValidity2
+setValidity2("ConservedRegion", valid.ConservedRegion)
 
 ## ========================= ConservedRegionList ======================
 
@@ -971,7 +999,8 @@ valid.ConservedRegionList <- function(x) {
     }
 }
 
-S4Vectors:::setValidity2("ConservedRegionList", valid.ConservedRegionList)
+#' @importFrom S4Vectors setValidity2
+setValidity2("ConservedRegionList", valid.ConservedRegionList)
 
 
 ## ======================= Show methods =================================

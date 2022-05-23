@@ -104,8 +104,8 @@ setMethod(
 #' job. value must be a scalar integer >= 0L. In this documentation a job is
 #' defined as a single call to a function, such as
 #' \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
-#' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
-#' as possible over the number of workers (see
+#' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as
+#' evenly as possible over the number of workers (see
 #' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
 #' @param verbose logic(1). If TRUE, enable progress bar.
 #' @importFrom GenomicRanges GRangesList

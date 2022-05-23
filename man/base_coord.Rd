@@ -54,16 +54,17 @@ alphabet and a genetic-code Abelian group as given in reference (1).
 }
 \details{
 Symbols "-" and "N" usually found in DNA sequence alignments to
-denote gaps and missing/unknown bases are represented by the number: '-1' on
-Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons
+denote gaps and missing/unknown bases are represented by the number: '-1'
+on Z4 and '0' on Z5. In Z64 the symbol 'NA' will be returned for codons
 including symbols "-" and "N".
 
 This function returns a \code{\link{BaseGroup}} object
 carrying the DNA sequence(s) and their respective coordinates in the
-requested Abelian group of base representation (one-dimension, "Z4" or "Z5").
-Observe that to get coordinates in the set of of integer numbers ("Z") is
-also possible but they are not defined to integrate a Abelian group. These
-are just used for the further insertion the codon set in the 3D space (R^3).
+requested Abelian group of base representation (one-dimension, "Z4" or
+"Z5"). Observe that to get coordinates in the set of of integer numbers
+("Z") is also possible but they are not defined to integrate a Abelian
+group. These are just used for the further insertion the codon set in the
+3D space (R^3).
 }
 \examples{
 ## Load a pairwise alignment
@@ -89,7 +90,7 @@ bs_cor
 \enumerate{
 \item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
 Groups.
-\href{https://doi.org/10.1101/2021.06.01.446543}{doi: 10.1101/2021.06.01.446543}.
+\href{https://doi.org/10.1101/2021.06.01.446543}{doi: 10.1101/2021.06.01.446543}
 \item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
 algebraic representations of the standard genetic code in six or in three
 dimensions, Adv. Stud. Biol. 4 (2012) 119–152.\href{https://is.gd/na9eap}{PDF}.

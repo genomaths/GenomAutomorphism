@@ -31,10 +31,10 @@ must correspond to codon sequences.}
 \emph{\strong{fasta}} format to be read. This argument must be given if
 \emph{codon & base} arguments are not provided.}
 
-\item{cube, cube_alt}{A character string denoting pairs of the 24 Genetic-code
-cubes, as given in references (2-3). That is, the base pairs from the given
-cubes must be complementary each other. Such a cube pair are call dual cubes
-and, as shown in reference (3), each pair integrates group.}
+\item{cube, cube_alt}{A character string denoting pairs of the 24
+Genetic-code cubes, as given in references (2-3). That is, the base pairs
+from the given cubes must be complementary each other. Such a cube pair are
+call dual cubes and, as shown in reference (3), each pair integrates group.}
 
 \item{field}{A character string denoting the Galois field where the 3D
 automorphisms are estimated. This can be 'GF(4)' or 'GF(5)', but only
@@ -45,8 +45,8 @@ automorphisms are estimated. This can be 'GF(4)' or 'GF(5)', but only
 values given for the function definition will be used.}
 
 \item{num.cores, tasks}{Parameters for parallel computation using package
-\code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to use,
-i.e. at most how many child processes will be run simultaneously (see
+\code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
+use, i.e. at most how many child processes will be run simultaneously (see
 \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
 for Linux OS).}
 
@@ -57,8 +57,9 @@ An object \code{\link{Automorphism-class}} with four columns on its
 metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and \emph{cube}.
 }
 \description{
-Given two codon sequences represented in the Z5^3 Abelian group,
-this function computes the automorphisms describing codon mutational events.
+Given two codon sequences represented in the Z5^3 Abelian
+group, this function computes the automorphisms describing codon mutational
+events.
 }
 \details{
 Automorphisms in Z5^3' are described as functions

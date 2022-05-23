@@ -16,10 +16,11 @@
 #' @aliases aut3D
 #' @title Compute the Automorphisms of Mutational Events Between two Codon
 #' Sequences Represented in Z5^3.
-#' @description Given two codon sequences represented in the Z5^3 Abelian group,
-#' this function computes the automorphisms describing codon mutational events.
-#' @details Automorphisms in Z5^3' are described as functions
-#' \eqn{f(x) = A x mod Z5}, where A is diagonal matrix, as noticed in
+#' @description Given two codon sequences represented in the Z5^3 Abelian 
+#' group, this function computes the automorphisms describing codon mutational
+#' events.
+#' @details Automorphisms in Z5^3' are described as functions 
+#' \eqn{f(x) = A x mod Z5}, where A is diagonal matrix, as noticed in 
 #' reference (4).
 #' @param seq An object from a \code{\link[Biostrings]{DNAStringSet}} or
 #' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
@@ -29,10 +30,10 @@
 #' @param filepath A character vector containing the path to a file in
 #' \emph{\strong{fasta}} format to be read. This argument must be given if
 #' \emph{codon & base} arguments are not provided.
-#' @param cube,cube_alt A character string denoting pairs of the 24 Genetic-code
-#' cubes, as given in references (2-3). That is, the base pairs from the given
-#' cubes must be complementary each other. Such a cube pair are call dual cubes
-#' and, as shown in reference (3), each pair integrates group.
+#' @param cube,cube_alt A character string denoting pairs of the 24 
+#' Genetic-code cubes, as given in references (2-3). That is, the base pairs
+#' from the given cubes must be complementary each other. Such a cube pair are
+#' call dual cubes and, as shown in reference (3), each pair integrates group.
 #' @param field  A character string denoting the Galois field where the 3D
 #' automorphisms are estimated. This can be 'GF(4)' or 'GF(5)', but only
 #' 'GF(5)' is implemented so far.
@@ -40,8 +41,8 @@
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 #' values given for the function definition will be used.
 #' @param num.cores,tasks Parameters for parallel computation using package
-#' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to use,
-#' i.e. at most how many child processes will be run simultaneously (see
+#' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
+#' use, i.e. at most how many child processes will be run simultaneously (see
 #' \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
 #' for Linux OS).
 #' @param verbose If TRUE, prints the progress bar.
