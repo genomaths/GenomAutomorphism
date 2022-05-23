@@ -1,4 +1,4 @@
-# GenomAutomorphism 0.1
+# GenomAutomorphism 0.1.0
 
 * Available at https://github.com/genomaths/GenomAutomorphism
 * Release:

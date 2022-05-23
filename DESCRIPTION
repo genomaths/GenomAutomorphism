@@ -1,5 +1,5 @@
 Package: GenomAutomorphism
-Title: What the Package Does (One Line, Title Case)
+Title: Compute the automorphisms between DNA's Abelian group representations 
 Version: 0.1.0
 Authors@R: 
     person( given = "Robersy",

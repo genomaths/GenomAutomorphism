@@ -78,14 +78,14 @@ autms
 algebraic structure. J Math Biol. 2005 Oct;51(4):431-57.
 doi: 10.1007/s00285-005-0332-8. Epub 2005 Jul 13. PMID: 16012800. (
 \href{https://arxiv.org/pdf/q-bio/0412033.pdf}{PDF}).
-\item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
+\item Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian Finite
 Groups.
 \href{https://doi.org/10.1101/2021.06.01.446543}{doi:10.1101/2021.06.01.446543}
-\item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
+\item M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24 possible
 algebraic representations of the standard genetic code in six or in three
-dimensions, Adv. Stud. Biol. 4 (2012) 119–152.\href{https://is.gd/na9eap}{PDF}.
-\item R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the
-Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math.
-Comput. Chem. 79 (2018) 527-560. \href{https://bit.ly/2Z9mjM7}{PDF}.
+dimensions, Adv. Stud. Biol. 4 (2012) 110-152.\href{https://is.gd/na9eap}{PDF}.
+\item R. Sanchez. Symmetric Group of the Genetic-Code Cubes. Effect of the
+Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
+Comput. Chem. 79 (2018) 527-560. \href{https://bit.ly/2Z9mjM7}{PDF}
 }
 }

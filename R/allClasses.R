@@ -424,6 +424,7 @@ setClassUnion(
     c("DataFrame", "data.frame")
 )
 
+
 #' @importFrom S4Vectors mcols mcols<-
 #' @importFrom GenomeInfoDb Seqinfo seqnames
 #' @importClassesFrom S4Vectors DataFrame
@@ -539,7 +540,20 @@ setClass("AutomorphismList",
 #' @importFrom S4Vectors mcols DataFrame
 #' @importFrom S4Vectors mcols mcols<-
 #' @importFrom methods setGeneric new
+#' @return A \code{\link{AutomorphismList-class}} object.
 #' @export
+#' @examples 
+#' ## Load dataset
+#' data(autm)
+#' 
+#' ## Transforming a list of Automorphisms into an AutomorphismList object
+#' lista <- list(a1 = autm, a2 = autm, a3 = autm, a4 = autm)
+#' as.AutomorphismList(lista)
+#' 
+#' ## Transforming a GRangesList of Automorphisms into an AutomorphismList
+#' ## object
+#' lista <- as(lista, "GRangesList")
+#' as.AutomorphismList(lista)
 setGeneric(
     "as.AutomorphismList",
     function(x,
@@ -566,14 +580,14 @@ setMethod(
         mcols(grs) <- NULL
 
         x <- lapply(x, function(y) {
-            x <- as(x, "Automorphism")
-            gr <- x
-            mcols(gr) <- NULL
-            if (gr != grs) {
-                stop("*** The ranges from the GRanges-class objects
-                    must equals.")
-            }
-            return(mcols(x))
+                y <- as(y, "Automorphism")
+                gr <- y
+                mcols(gr) <- NULL
+                if (any(gr != grs)) {
+                    stop("*** The ranges from the GRanges-class objects
+                        must equals.")
+                }
+                return(mcols(y))
         })
 
         new("AutomorphismList",
@@ -632,8 +646,8 @@ setMethod(
             }
 
             x <- lapply(x, function(y) {
-                y <- as(y, "Automorphism")
-                return(mcols(y))
+                    y <- as(y, "Automorphism")
+                    return(mcols(y))
             })
 
             x <- new("AutomorphismList",

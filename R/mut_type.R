@@ -39,12 +39,12 @@
 #' @references
 #' \enumerate{
 #'      \item A. Cornish-Bowden, Nomenclature for incompletely specified bases
-#'            in nucleic acid sequences: recommendations 1984, Nucleic Acids
-#'            Res. 13 (1985) 3021–3030.
-#'      \item MA.A. Jiménez-Montaño, C.R. de la Mora-Basánez, T. Pöschel, The
-#'            hypercube structure of the genetic code explains conservative and
-#'            non-conservative aminoacid substitutions in vivo and in vitro,
-#'            Biosystems. 39 (1996) 117–125.
+#'          in nucleic acid sequences: recommendations 1984, Nucleic Acids
+#'          Res. 13 (1985) 3021-3030.
+#'      \item MA.A. Jimenez-Montano, C.R. de la Mora-Basanez, T. Poschel, The
+#'          hypercube structure of the genetic code explains conservative and
+#'          non-conservative aminoacid substitutions in vivo and in vitro,
+#'          Biosystems. 39 (1996) 117-125.
 #' }
 #'
 mut_type <- function(x, y) {

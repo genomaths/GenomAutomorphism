@@ -53,6 +53,8 @@ valid.AutomorphismList(x)
 \value{
 Given the slot values, it defines an Automorphism-class object.
 
+A \code{\link{AutomorphismList-class}} object.
+
 AutomorphismByCoef-class definition.
 }
 \description{
@@ -108,6 +110,19 @@ objects into a \emph{\strong{AutomorphismList-class}} object.
 }
 }
 
+\examples{
+## Load dataset
+data(autm)
+
+## Transforming a list of Automorphisms into an AutomorphismList object
+lista <- list(a1 = autm, a2 = autm, a3 = autm, a4 = autm)
+as.AutomorphismList(lista)
+
+## Transforming a GRangesList of Automorphisms into an AutomorphismList
+## object
+lista <- as(lista, "GRangesList")
+as.AutomorphismList(lista)
+}
 \seealso{
 \code{\link{automorphisms}}
 }
