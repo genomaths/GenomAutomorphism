@@ -223,6 +223,7 @@ setMethod(
                 verbose = verbose
             )
         } else {
+            ## just to get the ranges
             gr <- seqs@unmasked[c(1, 1)]
             gr <- selectAutomorphism(
                 seq = gr,

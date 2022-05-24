@@ -214,12 +214,14 @@ automorfismos_3D <- function(seq,
             c1 <- seq@CoordList$coord1[k, ]
             c2 <- seq@CoordList$coord2[k, ]
 
-            s <- try(mapply(modeq, c1, c2, 5),
+            s <- try(mapply(modeq, a = c1, b = c2, 
+                            MoreArgs = list(n = 5L)),
                 silent = TRUE
             )
 
             if (any(s == -1) || inherits(s, "try-error")) {
-                s <- try(mapply(modeq, (5 - c1), (5 - c2), 5),
+                s <- try(mapply(modeq, a = (5 - c1), b = (5 - c2), 
+                                MoreArgs = list(n = 5L)),
                     silent = TRUE
                 )
                 if (!(any(s == -1) || inherits(s, "try-error"))) {
