@@ -13,7 +13,6 @@
 /*.Rcheck/
 # RStudio files
 .Rproj.user/
-GenomAutomorphism.Rproj
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
@@ -36,3 +35,4 @@ vignettes/*.pdf
 inst/doc
 docs
 _pkgdown.yml
+GenomAutomorphism.Rproj
