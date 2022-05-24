@@ -36,4 +36,4 @@ inst/doc
 docs
 _pkgdown.yml
 GenomAutomorphism.Rproj
-GenomAutomorphism.rproj
+data-raw/**
