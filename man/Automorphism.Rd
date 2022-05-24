@@ -5,8 +5,6 @@
 \alias{Automorphism-class}
 \alias{Automorphism}
 \alias{DataFrame_OR_data.frame-class}
-\alias{valid.Automorphism.mcols}
-\alias{valid.Automorphism}
 \alias{AutomorphismList-class}
 \alias{AutomorphismList}
 \alias{as.AutomorphismList}
@@ -23,10 +21,6 @@
 \title{A class definition to store codon automorphisms in given as an
 Abelian group representation.}
 \usage{
-valid.Automorphism.mcols(x)
-
-valid.Automorphism(x)
-
 as.AutomorphismList(x, grs = GRanges(), ...)
 
 \S4method{as.AutomorphismList}{GRangesList,GRanges_OR_NULL}(x, grs = GRanges(), ...)

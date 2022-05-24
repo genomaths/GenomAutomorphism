@@ -458,10 +458,11 @@ setAs(
 
 
 # ======================== Validity Automorphism ======================= #
-#' @rdname Automorphism
+#' @rdname valid.Automorphism
 #' @title Valid Automorphism mcols
 #' @param x A 'Automorphism object'
 #' @keywords internal
+#' @return An Error if the metacolumn does not have a valid format
 valid.Automorphism.mcols <- function(x) {
     alf <- c("A", "C", "G", "T", "-")
     if (length(x) > 0) {
@@ -497,10 +498,11 @@ valid.Automorphism.mcols <- function(x) {
     NULL
 }
 
-#' @rdname Automorphism
+#' @rdname valid.Automorphism
 #' @title Valid Automorphism
 #' @param x A 'Automorphism object'
 #' @keywords internal
+#' @return An Error if the Automorphism-class object is not valid.
 valid.Automorphism <- function(x) {
     c(valid.GRanges(x), valid.Automorphism.mcols(x))
 }
