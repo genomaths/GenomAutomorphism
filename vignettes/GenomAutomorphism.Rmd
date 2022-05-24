@@ -2,9 +2,9 @@
 title: "Get started-with GenomAutomorphism"
 author: 
     - name: Robersy Sanchez
-        affiliation:  Department of Biology.
-                    Pennsylvania State University, University Park, PA 16802
-        email: rus547@psu.edu
+      affiliation: Department of Biology.
+                   Pennsylvania State University, University Park, PA 16802
+      email: rus547@psu.edu
 date: "`r format(Sys.time(), '%d %B %Y')`"
 fontsize: 11pt
 fontfamily: "serif"
@@ -126,7 +126,6 @@ Wolfram Player, freely available (for Windows and Linux OS) at,
 ```{r lib}
 library(Biostrings)
 library(GenomAutomorphism)
-library(usefr)
 ```
 
 
@@ -228,7 +227,7 @@ on genetic-code cubes.
 
 Searching for automorphisms on $\mathbb{Z}_{64}$ permits us a quantitative
 differentiation between mutational events at different codon positions from a
-given DNA protein-encoding region. As shown in reference ([4](#4))) a set of
+given DNA protein-encoding region. As shown in reference ([4](#4)) a set of
 different cubes can be applied to describe the best evolutionary aminoacid 
 scale highly correlated with aminoacid physicochemical properties describing 
 the observed evolutionary process in a given protein.
@@ -315,7 +314,7 @@ autby_coef <- automorphism_bycoef(covid_autm)
 autby_coef <- autby_coef[ autby_coef$autm != 1 & autby_coef$autm != -1  ]
 ```
 
-Barplot of  frequency of mutation types greater than 2
+Barplot of  frequency of mutation types greater than 2.
 ```{r barplot_2, fig.height = 12, fig.width = 14}
 counts <- table(autby_coef$mut_type)
 counts <- sort(counts, decreasing = TRUE)
@@ -331,9 +330,28 @@ axis(side = 2,  cex.axis = 2, line = -1.8 )
 ```
 
 
+Every single base mutational event across the MSA was classified according 
+IUPAC nomenclature: 1) According to the number of hydrogen bonds (on DNA/RNA
+double helix): strong S={C, G} (three hydrogen bonds) and weak W={A, U} (two
+hydrogen bonds). According to the chemical type: purines R={A, G} and
+pyrimidines Y={C, U}. 3). According to the presence of amino or keto groups on
+the base rings: amino M={C, A} and keto K={G, T}.  Constant (hold) base
+positions were labeled with letter H. So, codon positions labeled as HKH means
+that the first and third bases remains constant and mutational events between
+bases G and T were found in the MSA.
+
+
 ```{r ct}
 counts
 ```
+
+The analysis of the frequency of mutational events (automorphisms, COVID: 
+human vs bat 610 strains) by mutation types is shown in Fig 8a. Results are
+consistent with the well-known observation highlighted by Crick: the 
+highest mutational rate is found in the third base of the codon (HHY: 425, 
+HHR: 189, HHW: 88), followed by YHH: 34 in the first base, and the lowest 
+rate is found in the second one ([5](#5)).
+
 
 ## Conserved and non-conserved regions
 ### Conserved regions
@@ -349,78 +367,10 @@ conserv
 ```
 
 
-Every single base mutational event across the MSA was classified according 
-IUPAC nomenclature: 1) According to the number of hydrogen bonds (on DNA/RNA
-double helix): strong S={C, G} (three hydrogen bonds) and weak W={A, U} (two
-hydrogen bonds). According to the chemical type: purines R={A, G} and
-pyrimidines Y={C, U}. 3). According to the presence of amino or keto groups on
-the base rings: amino M={C, A} and keto K={G, T}.  Constant (hold) base
-positions were labeled with letter H. So, codon positions labeled as HKH means
-that the first and third bases remains constant and mutational events between
-bases G and T were found in the MSA.
-
 Several regions are similar for more than one comparison.
 ```{r uniq}
 conserv_unique <- conserved_regions(covid_autm, output = "unique")
 conserv_unique
-```
-
-
-### The best fitted CDF model for the sizes of conserved regions
-
-Next, function [fitCDF](https://rdrr.io/github/genomaths/usefr/man/fitCDF.html)
-is applied to find the best fitted probability function to the the sizes of
-conserved regions. 
-```{r dist, fig.height= 8, fig.width=12}
-widths <- width(conserv)
-dist <- fitCDF(widths, distNames = c(2, 3, 7, 10, 11, 19, 20), plot = TRUE, 
-                loss.fun = "cauchy")
-dist
-```
-
-
-
-```{r hist, fig.height = 4, fig.width = 6}
-par(lwd = 0.5)
-hist(widths, 14, freq = FALSE, las = 1, family = "serif",
-family = "serif", col = "cyan1", cex.main = 0.9,
-main = "Histogram and best fitted CDF model for conserved region sizes",
-xlab = "Conserved region size")
-x1 <- seq(1, 150, by = 1)
-lines(x1, dggamma(x1,
-                alpha = coef(dist$bestfit)[1],
-                scale = coef(dist$bestfit)[2],
-                psi = coef(dist$bestfit)[3]
-                ),
-    col = "red", lwd = 1)
-```
-
-After apply Bootstrap test for Goodness of fit,  tt seems to be that we have 
-no reasons to reject the hypothesis that the sizes of conserved regions 
-follows Generalized Gamma distribution.
-```{r gof}
-mcgoftest( 
-        varobj = widths, 
-        model = dist,
-        stat = "ks")
-
-## =========================== ##
-mcgoftest(
-        varobj = widths,
-        model = dist,
-        stat = "rmse",
-        breaks = 12)
-```
-
-
-Nevertheless, the data comes from only one pairwise DNA sequence alignment and
-the distribution would differ when consider a large DNA multiple sequence 
-alignment. 
-
-Short summary for the other CDFs analyzed are shown typing:
-
-```{r othersD}
-dist$fit
 ```
 
 
@@ -448,7 +398,7 @@ aut_range_2
 
 
 The whole genome can be described by automorphisms on $\mathbb{Z}_{125}$.
-```{r barplot_3, fig.height = 5, fig.width = 4}
+```{r barplot_3, fig.height = 5, fig.width = 3}
 counts <- table(covid_autm_2$cube[ covid_autm_2$autm != 1 ])
 
 par(family = "serif", cex = 1, font = 2)
@@ -456,11 +406,64 @@ barplot(counts, main="Automorphism distribution",
         xlab="Genetic-code cube representation",
         ylab="Fixed mutational events",
         col=c("darkblue","red"), 
-        ylim = c(0, 1100),
+        ylim = c(0, 1300),
         border = NA, axes = TRUE)
 mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1),
     text = paste0( counts ), cex = 1.4,
     col = c("white","red"))
+```
+
+# Automorphisms on the Genetic-code Cube Representation
+
+The Genetic-code Cube Representations on the Galois Field GF(5) were studied in
+([4](#4)). Each codon is represented by each coordinate in the 3D space.
+
+Automorphisms are represented by diagonal matrices, with elements $x$ in 
+$x \in \mathbb{Z}_5$.
+
+```{r aut_3}
+covid_autm_3 <- automorphisms(
+                    seq = covid_aln, 
+                    group = "Z5^3", 
+                    cube = c("ACGT", "TGCA"),
+                    cube_alt = c("CATG", "GTAC"),
+                    verbose = FALSE)
+covid_autm_3
+```
+
+## Grouping automorphism by automorphism's coefficients
+
+Automorphisms that preserved codons (DNA base-triplets) are represented by the
+identity matrix, i.e., the matrix with diagonal elements "1,1,1".
+```{r autby_3}
+autby_coef_3 <- automorphism_bycoef(covid_autm_3)
+autby_coef_3 <- autby_coef_3[ autby_coef_3$autm != "1,1,1" ]
+autby_coef_3
+```
+
+
+Conserved regions from pairwise comparisons are obtain with function 
+conserved_regions:
+```{r conserved_regions_3}
+conserv <- conserved_regions(covid_autm_3)
+conserv
+```
+
+The whole genome mutational events represented as automorphisms on the 3D space 
+$\mathbb{Z}_{5}^3$, specifically on the cube ACGT (see [4](#4)).
+```{r barplot_4, fig.height = 5, fig.width = 3}
+counts <- table(autby_coef_3$cube[ autby_coef_3$autm != "1,1,1"])
+
+par(family = "serif", cex = 1, font = 2, cex.main = 1)
+barplot(counts, main="Automorphism distribution",
+        xlab="Genetic-code cube representation",
+        ylab="Fixed mutational events",
+        col=c("darkblue","red"), 
+        ylim = c(0, 1300), 
+        border = NA, axes = TRUE)
+mtext(side = 1,line = -2, at = c(0.7, 1.9),
+    text = paste0( counts ), cex = 1.4,
+    col = c("white"))
 ```
 
 
@@ -483,6 +486,9 @@ mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1),
     Effect of the Genetic-Code Architecture on the Evolutionary Process MATCH
     Commun. Math. Comput. Chem. 79 (2018) 527-560. 
     [PDF](https://bit.ly/2Z9mjM7).
+    
+    5.<a name="5"></a>  Crick FHC. The Origin of the Genetic Code. J Mol Biol.
+    1968;38: 367–379.
 
 # Session info {.unnumbered}
 

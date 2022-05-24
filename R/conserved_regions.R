@@ -120,12 +120,22 @@ setMethod("conserved_regions",
     output = c("all_pairs", "unique_pairs", "unique")) {
         autm <- end <- NULL
         output <- match.arg(output)
-
-        if (conserved) {
-            x <- x[x$autm == 1]
-        } else {
-            x <- x[x$autm != 1]
+        
+        if (inherits(x$autm, "numeric")) {
+            if (conserved) {
+                x <- x[x$autm == 1]
+            } else {
+                x <- x[x$autm != 1]
+            }
         }
+        else {
+            if (conserved) {
+                x <- x[x$autm == "1,1,1"]
+            } else {
+                x <- x[x$autm != "1,1,1"]
+            }
+        }
+
         x <- sortByChromAndEnd(x)
 
         x <- switch(output,
