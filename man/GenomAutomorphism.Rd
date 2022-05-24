@@ -3,7 +3,7 @@
 \docType{package}
 \name{GenomAutomorphism}
 \alias{GenomAutomorphism}
-\title{GenomAutomorphism: An R package to compute the autimorphisms between
+\title{GenomAutomorphism: An R package to compute the automorphisms between
 DNA sequences represented as elements from an Abelian group.}
 \description{
 This is a R package to compute the autimorphisms between

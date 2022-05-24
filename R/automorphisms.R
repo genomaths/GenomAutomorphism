@@ -15,12 +15,12 @@
 #' @rdname automorphisms
 #' @title Compute the Automorphisms of Mutational Events Between two Codon
 #' Sequences Represented in a Given Abelian group.
-#' @description Given two codon sequences represented in a given Abelian group,
-#' this function computes the automorphisms describing codon mutational events.
-#' Basically, this function is a wrapping to call the corresponding function
-#' for a specified Abelian group.
+#' @description Given two codon sequences represented in a given Abelian
+#' group, this function computes the automorphisms describing codon mutational
+#' events. Basically, this function is a wrapping to call the corresponding
+#' function for a specified Abelian group.
 #'
-#' @details Herein, automorphisms are algebraic descriptions of mutational 
+#' @details Herein, automorphisms are algebraic descriptions of mutational
 #' event observed in codon sequences represented on different Abelian groups.
 #' In particular, as described in references (3-4), for each representation of
 #' the codon set on a defined Abelian group there are 24 possible isomorphic
@@ -32,10 +32,10 @@
 #' sub-regions based on the mutational events observed on it and on the
 #' genetic-code cubes that describe them.
 #'
-#' Automorphisms in Z5, Z64 and Z125 are described as functions 
-#' \eqn{f(x) = k x mod 64} and \eqn{f(x) = k x mod 125}, where k and x are 
+#' Automorphisms in Z5, Z64 and Z125 are described as functions
+#' \eqn{f(x) = k x mod 64} and \eqn{f(x) = k x mod 125}, where k and x are
 #' elements from the set of integers modulo 64 or modulo 125, respectively. If
-#' an automorphisms cannot be found on any of the cubes provided in the 
+#' an automorphisms cannot be found on any of the cubes provided in the
 #' argument \eqn{cube}, then function \code{\link{automorphisms}} will search
 #' for automorphisms in the cubes provided in the argument \eqn{cube_alt}.
 #'
@@ -53,12 +53,12 @@
 #' @param filepath A character vector containing the path to a file in
 #' \emph{\strong{fasta}} format to be read. This argument must be given if
 #' \emph{codon & base} arguments are not provided.
-#' @param cube,cube_alt A character string denoting pairs of the 24 
+#' @param cube,cube_alt A character string denoting pairs of the 24
 #' Genetic-code cubes, as given in references (2-3). That is, the base pairs
 #' from the given cubes must be complementary each other. Such a cube pair are
 #' call \eqn{dual cubes} and, as shown in reference (3), each pair integrates
 #' group.
-#' @param nms Optional. Only used if the DNA sequence alignment provided 
+#' @param nms Optional. Only used if the DNA sequence alignment provided
 #' carries more than two sequences. A character string giving short names for
 #' the alignments to be compared. If not given then the automorphisms between
 #' pairwise alignment are named as: 'aln_1', 'aln_2', and so on.
@@ -287,7 +287,7 @@ setMethod(
             if (inherits(seqs, "try-error")) {
                 stopCluster(cl)
                 stop("*** Automorphism cannot be computed from
-                     the MSA.")
+                    the MSA.")
             } else {
                 stopCluster(cl)
                 seqs <- unlist(seqs, recursive = FALSE)

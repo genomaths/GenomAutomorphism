@@ -2,9 +2,9 @@
 title: "Get started-with GenomAutomorphism"
 author: 
     - name: Robersy Sanchez
-      affiliation:  Department of Biology.
+        affiliation:  Department of Biology.
                     Pennsylvania State University, University Park, PA 16802
-      email: rus547@psu.edu
+        email: rus547@psu.edu
 date: "`r format(Sys.time(), '%d %B %Y')`"
 fontsize: 11pt
 fontfamily: "serif"
@@ -12,7 +12,7 @@ output:
     BiocStyle::html_document:
         toc: true
         toc_depth: 4
-        toc_float: 
+        toc_float:
                 collapsed: false
                 smooth_scroll: true
         number_sections: true
@@ -30,7 +30,7 @@ vignette: >
     %\VignetteEncoding{UTF-8}
     %\VignetteEngine{knitr::knitr}
 ---
-    
+
 <style type="text/css">
 
 .watch-out {
@@ -424,7 +424,6 @@ dist$fit
 ```
 
 
-
 # Automorphisms on $\mathbb{Z}_{125}$
 
 Alternatively, we can use the algebraic representation on on 
@@ -466,23 +465,24 @@ mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1),
 
 
 # References
- 1.<a name="1"></a> Sanchez R, Morgado E, Grau R. Gene algebra from a genetic
- code algebraic structure. J Math Biol. 2005 Oct;51(4):431-57. doi:
- 10.1007/s00285-005-0332-8. Epub 2005 Jul 13. PMID: 16012800. (
- [PDF](https://arxiv.org/pdf/q-bio/0412033.pdf)).
- 
- 2.<a name="2"></a> Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian 
- Finite Groups.
- [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543).
- 
- 3.<a name="3"></a> M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24
- possible algebraic representations of the standard genetic code in six or in
- three dimensions, Adv. Stud. Biol. 4 (2012)
- 119-152.[PDF](https://is.gd/na9eap).
- 
- 4.<a name="4"></a> R. Sanchez. Symmetric Group of the Genetic-Code Cubes.
- Effect of the Genetic-Code Architecture on the Evolutionary Process MATCH
- Commun. Math. Comput. Chem. 79 (2018) 527-560. [PDF](https://bit.ly/2Z9mjM7).
+    1.<a name="1"></a> Sanchez R, Morgado E, Grau R. Gene algebra from a 
+    genetic code algebraic structure. J Math Biol. 2005 Oct;51(4):431-57. 
+    doi:10.1007/s00285-005-0332-8. Epub 2005 Jul 13. PMID: 16012800.
+    ([PDF](https://arxiv.org/pdf/q-bio/0412033.pdf)).
+
+    2.<a name="2"></a> Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian
+    Finite Groups. 
+    [doi:10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
+
+    3.<a name="3"></a> M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The
+    24 possible algebraic representations of the standard genetic code in six
+    or in three dimensions, Adv. Stud. Biol. 4 (2012) 119-152.
+    [PDF](https://is.gd/na9eap).
+
+    4.<a name="4"></a> R. Sanchez. Symmetric Group of the Genetic-Code Cubes.
+    Effect of the Genetic-Code Architecture on the Evolutionary Process MATCH
+    Commun. Math. Comput. Chem. 79 (2018) 527-560. 
+    [PDF](https://bit.ly/2Z9mjM7).
 
 # Session info {.unnumbered}
 

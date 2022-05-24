@@ -17,8 +17,8 @@
 #' @description Given a string denoting a codon or base from the DNA (or RNA)
 #' alphabet and a genetic-code Abelian group as given in reference (1).
 #' @param codon An object from \code{\link{BaseGroup-class}} (generated with
-#' function \code{\link{base_coord}}), \code{\link[Biostrings]{DNAStringSet}} 
-#' or from \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the 
+#' function \code{\link{base_coord}}), \code{\link[Biostrings]{DNAStringSet}}
+#' or from \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the
 #' DNA pairwise alignment of two sequences.
 #' @param filepath A character vector containing the path to a file in
 #' \emph{\strong{fasta}} format to be read. This argument must be given if

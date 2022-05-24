@@ -33,7 +33,7 @@
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 #' values given for the function definition will be used.
 #' @param ... Not in use.
-#' @details This function provide an alternative way to get the codon 
+#' @details This function provide an alternative way to get the codon
 #' coordinate and the information on the codon sequence from a
 #' \code{\link{CodonSeq}} class objects. The function can either take the
 #' output from functions \code{\link{codon_coord}} or to operate directly on a
@@ -49,7 +49,7 @@
 #' \enumerate{
 #'  \item Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian Finite
 #'   Groups.
-#'  [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
+#'  [doi:10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
 #'  \item M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24 possible
 #'  algebraic representations of the standard genetic code in six or in three
 #'  dimensions, Adv. Stud. Biol. 4 (2012) 119-152.[PDF](https://is.gd/na9eap).

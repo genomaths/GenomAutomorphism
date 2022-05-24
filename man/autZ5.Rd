@@ -51,14 +51,15 @@ metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and \emph{cube}.
 }
 \description{
 Given two codon sequences represented in the Z5 Abelian group,
-this function computes the automorphisms describing codon mutational events.
+this function computes the automorphisms describing codon mutational
+events.
 }
 \details{
 Automorphisms in Z5 are described as functions
-\eqn{f(x) = k x mod 64}, where k and x are elements from the set of integers
-modulo 64. As noticed in reference (1).
-The pairwise alignment provided in argument \emph{\strong{seq}} or the
-'fasta' file \emph{\strong{filepath}} must correspond to DNA base sequences.
+\eqn{f(x) = k x mod 64}, where k and x are elements from the set of
+integers modulo 64. As noticed in reference (1). The pairwise alignment
+provided in argument \emph{\strong{seq}} or the 'fasta' file
+\emph{\strong{filepath}} must correspond to DNA base sequences.
 }
 \examples{
 ## Load a pairwise alignment

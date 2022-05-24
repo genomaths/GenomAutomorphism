@@ -38,9 +38,9 @@
 #' This function returns a \code{\link{BaseGroup}} object
 #' carrying the DNA sequence(s) and their respective coordinates in the
 #' requested Abelian group of base representation (one-dimension, "Z4" or
-#' "Z5"). Observe that to get coordinates in the set of of integer numbers 
-#' ("Z") is also possible but they are not defined to integrate a Abelian 
-#' group. These are just used for the further insertion the codon set in the 
+#' "Z5"). Observe that to get coordinates in the set of of integer numbers
+#' ("Z") is also possible but they are not defined to integrate a Abelian
+#' group. These are just used for the further insertion the codon set in the
 #' 3D space (R^3).
 #' @seealso [Symmetric Group of the Genetic-Code Cubes.](
 #' https://github.com/genomaths/GenomeAlgebra_SymmetricGroup)
@@ -101,9 +101,7 @@ setGeneric(
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @importFrom methods new
 #' @importFrom Biostrings DNAStringSet
-#' @return A BaseGroup-class object.
 #' @export
-#' @return A BaseGroup-class object.
 setMethod(
     "base_coord", signature(base = "DNAStringSet_OR_NULL"),
     function(base = NULL,

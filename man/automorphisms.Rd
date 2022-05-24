@@ -69,10 +69,10 @@ with four columns on its metacolumn named: \emph{seq1}, \emph{seq2},
 \emph{autm}, and \emph{cube}.
 }
 \description{
-Given two codon sequences represented in a given Abelian group,
-this function computes the automorphisms describing codon mutational events.
-Basically, this function is a wrapping to call the corresponding function
-for a specified Abelian group.
+Given two codon sequences represented in a given Abelian
+group, this function computes the automorphisms describing codon mutational
+events. Basically, this function is a wrapping to call the corresponding
+function for a specified Abelian group.
 }
 \details{
 Herein, automorphisms are algebraic descriptions of mutational

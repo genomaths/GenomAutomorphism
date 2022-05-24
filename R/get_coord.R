@@ -13,7 +13,7 @@
 ## <http://www.gnu.org/licenses/>.
 
 #' @rdname get_coord
-#' @title DNA base/codon sequence and coordinates represented on a given 
+#' @title DNA base/codon sequence and coordinates represented on a given
 #' Abelian group.
 #' @description Given a string denoting a codon or base from the DNA (or RNA)
 #' alphabet and a genetic-code Abelian group as given in reference (1), this
@@ -44,26 +44,27 @@
 #' @param output  See [Value](@return) section.
 #' @param ... Not in use.
 #' @details Symbols '-' and 'N' usually found in DNA sequence alignments to
-#' denote gaps and missing/unknown bases are represented by the number: '-1' on
-#' Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons
+#' denote gaps and missing/unknown bases are represented by the number: '-1'
+#' on Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons
 #' including symbols '-' and 'N'.
 #'
 #' Although the \code{\link{CodonGroup-class}} object returned by
 #' functions \code{\link{codon_coord}} and \code{\link{base_coord}} are useful
 #' to store genomic information, the base and codon coordinates are not given
-#' on them as numeric magnitudes. Function \code{\link{get_coord}} provides the
-#' way to get the coordinates in a numeric object in object from and still to
-#' preserve the base/codon sequence information.
+#' on them as numeric magnitudes. Function \code{\link{get_coord}} provides
+#' the way to get the coordinates in a numeric object in object from and still
+#' to preserve the base/codon sequence information.
 #'
 #' @importFrom S4Vectors mcols DataFrame
 #' @importFrom Biostrings DNAStringSet
 #' @importFrom methods new
-#' @return An object from \code{\link{CodonGroup-class}} class is returned when
-#' \emph{output = 'all'}. This has two slots, the first one carrying a list of
-#' matrices and the second one carrying the codon/base sequence information.
-#' That is, if \emph{x} is an object from \code{\link{CodonGroup-class}} class,
-#' then a list of matrices of codon coordinate can be retrieved as x@CoordList
-#' and the information on the codon sequence as x@SeqRanges.
+#' @return An object from \code{\link{CodonGroup-class}} class is returned
+#' when \emph{output = 'all'}. This has two slots, the first one carrying a
+#' list of matrices and the second one carrying the codon/base sequence
+#' information. That is, if \emph{x} is an object from
+#' \code{\link{CodonGroup-class}} class, then a list of matrices of codon
+#' coordinate can be retrieved as x@CoordList and the information on the
+#' codon sequence as x@SeqRanges.
 #'
 #' if \emph{output = 'matrix.list'}, then an object from
 #' \code{\link{MatrixList}} class is returned.

@@ -375,16 +375,16 @@ setClassUnion(
 #' \code{\link[S4Vectors]{DataFrame-class}} object into
 #' \emph{\strong{Automorphism-class}} object the proper columns are provided.
 #' An \emph{\strong{Automorphism-class}} object has six columns: "seq1",
-#' "seq2","coord1", "coord2", "autm", and "cube". See the examples for function
-#' \code{\link{automorphisms}}. Observe that as the
+#' "seq2","coord1", "coord2", "autm", and "cube". See the examples for
+#' function \code{\link{automorphisms}}. Observe that as the
 #' \emph{\strong{Automorphism-class}} inherits from
-#' \code{\link[GenomicRanges]{GRanges-class}} the transformation starting from
-#' a \code{\link[GenomicRanges]{GRanges-class}} object into an
+#' \code{\link[GenomicRanges]{GRanges-class}} the transformation starting
+#' from a \code{\link[GenomicRanges]{GRanges-class}} object into an
 #' \emph{\strong{Automorphism-class}} is straightforward. However, the
 #' transformation starting from a \code{\link[base]{data.frame}} or a
 #' \code{\link[S4Vectors]{DataFrame-class}} object \eqn{"x"} requires for the
-#' creation of an additional \code{\link[GenomicRanges]{GRanges-class}} 
-#' object, which by default will have the argument seqnames = "1", 
+#' creation of an additional \code{\link[GenomicRanges]{GRanges-class}}
+#' object, which by default will have the argument seqnames = "1",
 #' strand = "+" start/end = 1:nrow(x), length = nrow(x). These details must be
 #' keep in mind to prevent fundamental errors in the downstream analyses.
 #'
@@ -393,7 +393,7 @@ setClassUnion(
 #' \emph{\strong{as.AutomorphismList}} function transform a list of
 #' \code{\link[GenomicRanges]{GRanges-class}}, a
 #' \code{\link[GenomicRanges]{GRangesList-class}}, a list of
-#' \code{\link[base]{data.frame}} or a 
+#' \code{\link[base]{data.frame}} or a
 #' \code{\link[S4Vectors]{DataFrame-class}}
 #' objects into a \emph{\strong{AutomorphismList-class}} object.
 #'
@@ -484,8 +484,8 @@ valid.Automorphism.mcols <- function(x) {
             m2 <- TRUE
         }
         if (m2) {
-            if (all(is.element(x$seq1, alf)) && 
-                    all(is.element(x$seq1, alf))) {
+            if (all(is.element(x$seq1, alf)) &&
+                all(is.element(x$seq1, alf))) {
                 m2 <- FALSE
             }
         }
@@ -542,14 +542,14 @@ setClass("AutomorphismList",
 #' @importFrom methods setGeneric new
 #' @return A \code{\link{AutomorphismList-class}} object.
 #' @export
-#' @examples 
+#' @examples
 #' ## Load dataset
 #' data(autm)
-#' 
+#'
 #' ## Transforming a list of Automorphisms into an AutomorphismList object
 #' lista <- list(a1 = autm, a2 = autm, a3 = autm, a4 = autm)
 #' as.AutomorphismList(lista)
-#' 
+#'
 #' ## Transforming a GRangesList of Automorphisms into an AutomorphismList
 #' ## object
 #' lista <- as(lista, "GRangesList")
@@ -580,14 +580,14 @@ setMethod(
         mcols(grs) <- NULL
 
         x <- lapply(x, function(y) {
-                y <- as(y, "Automorphism")
-                gr <- y
-                mcols(gr) <- NULL
-                if (any(gr != grs)) {
-                    stop("*** The ranges from the GRanges-class objects
+            y <- as(y, "Automorphism")
+            gr <- y
+            mcols(gr) <- NULL
+            if (any(gr != grs)) {
+                stop("*** The ranges from the GRanges-class objects
                         must equals.")
-                }
-                return(mcols(y))
+            }
+            return(mcols(y))
         })
 
         new("AutomorphismList",
@@ -646,8 +646,8 @@ setMethod(
             }
 
             x <- lapply(x, function(y) {
-                    y <- as(y, "Automorphism")
-                    return(mcols(y))
+                y <- as(y, "Automorphism")
+                return(mcols(y))
             })
 
             x <- new("AutomorphismList",

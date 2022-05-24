@@ -43,10 +43,6 @@ values given for the function definition will be used.}
 }
 \value{
 A BaseGroup-class object.
-
-A BaseGroup-class object.
-
-A BaseGroup-class object.
 }
 \description{
 Given a string denoting a codon or base from the DNA (or RNA)

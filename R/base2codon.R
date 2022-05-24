@@ -17,7 +17,7 @@
 #' @description This function split a DNA sequence into a codon sequence.
 #' @details It is expected that the provided DNA sequence is multiple of
 #' 3, otherwise gaps are added to the end of the sequence.
-#' @param x A character string, \code{\link[Biostrings]{DNAStringSet-class}} 
+#' @param x A character string, \code{\link[Biostrings]{DNAStringSet-class}}
 #' or \code{\link[Biostrings]{DNAMultipleAlignment-class}} object carrying the
 #' a DNA sequence.
 #' @param ... Not in use.
