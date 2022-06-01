@@ -21,7 +21,7 @@ Description:
             created by the direct sum of homocyclic Abelian group of 
             prime-power order.
 Depends: 
-    R (>= 4.2)
+    R (>= 4.2),
 License: Artistic-2.0
 Encoding: UTF-8
 biocViews: 
@@ -44,16 +44,16 @@ Imports:
     methods,
     S4Vectors,
     stats,
-    numbers
+    numbers,
 RoxygenNote: 7.1.2
 Suggests:
     spelling,
     rmarkdown,
-    knitr,
     BiocStyle,
-    testthat (>= 3.0.0)
-VignetteBuilder: knitr
+    testthat (>= 3.0.0),
+    knitr
 Roxygen: list(markdown = TRUE)
 Language: en-US
 LazyData: true
 Config/testthat/edition: 3
+VignetteBuilder: knitr

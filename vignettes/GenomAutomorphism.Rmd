@@ -26,9 +26,9 @@ abstract: |
     by means of automorphisms between two DNA sequences algebraically 
     represented as Abelian finite group.
 vignette: >
-    %\VignetteIndexEntry{Get started-with Methyl-IT}
-    %\VignetteEncoding{UTF-8}
-    %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Get started-with GenomAutomorphism}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 <style type="text/css">
@@ -66,7 +66,6 @@ code.r{
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-    class.source = "watch-out",
     collapse = TRUE,
     comment = "#>"
 )
@@ -131,29 +130,20 @@ library(GenomAutomorphism)
 
 # Read the alignment _FASTA_  and encode the sequences
 
-The FASTA file carries the pairwise sequence alignment of protein coding 
-regions SARS coronavirus GZ02 (GenBank: AY390556.1) and Bat SARS-like
-coronavirus isolate Rs7327 (GenBank: KY417151.1).
-
-
+A pairwise sequence alignment of protein coding regions SARS coronavirus GZ02
+(GenBank: AY390556.1) and Bat SARS-like coronavirus isolate Rs7327 (GenBank:
+KY417151.1) is provided with the package.
 ```{r fasta, message=FALSE}
-URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/", 
-        "COVID-19/AY390556.1_and_KY417151.1_aligned_protein-coding.fas")
-
-covid_aln <- readDNAMultipleAlignment(filepath = URL)
+data(covid_aln, package = "GenomAutomorphism")
 covid_aln
 ```
 
-
-The DNA sequence is read and the corresponding codon sequences are represented
-in the Abelian group $\mathbb{Z}_{64}$ (i.e., the set of integers remainder
-modulo 64). The codon coordinates are requested on the cube ACGT. Following
-reference ([4](#4))), cubes are labeled based on the order of DNA bases used to
-define the sum operation.
-
-
+After the DNA sequence is read, the corresponding codon sequences can be
+represented in the Abelian group $\mathbb{Z}_{64}$ (i.e., the set of integers
+remainder modulo 64). The codon coordinates are requested on the cube ACGT.
+Following reference ([4](#4))), cubes are labeled based on the order of DNA
+bases used to define the sum operation.
 ```{r url, message=FALSE}
-data(covid_aln, package = "GenomAutomorphism")
 codons <- codon_coord(
                     codon = covid_aln, 
                     cube = "ACGT", 
