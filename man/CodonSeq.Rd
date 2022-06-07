@@ -32,10 +32,10 @@ seqRanges(x)
 Given the slot values define a CodonSeq-class.
 }
 \description{
-An objects from 'CodonSeq' or 'MatrixList' class is returned by
-function \code{\link{get_coord}}. This object will store the coordinate of
-each sequence in a list of 3D-vectors or a list of vectors located in the
-slot named 'CoordList'. The original codon sequence (if provided) will be
-stored in the slot named 'SeqRanges'.
+An objects from 'CodonSeq' or 'MatrixList' class is returned
+by function \code{\link{get_coord}}. This object will store the coordinate
+of each sequence in a list of 3D-vectors or a list of vectors located in
+the slot named 'CoordList'. The original codon sequence (if provided) will
+be stored in the slot named 'SeqRanges'.
 }
 \keyword{internal}

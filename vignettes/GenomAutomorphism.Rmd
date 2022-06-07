@@ -267,8 +267,8 @@ idx = which(aut_range$cube == "Trnl")
 aut_range[ idx ]
 ```
 
-Only one indel mutation was found in the region where the spike glycoprotein is
-located: 7076 - 8331.
+Only one indel mutation was found in the region where the spike glycoprotein
+is located: 7076 - 8331.
 
 That is, the pairwise alignment of SARS coronavirus GZ02 and Bat SARS-like
 coronavirus (bat-SL-CoVZC45) reveals four single _indel_ mutational events and
@@ -369,27 +369,32 @@ conserv_unique
 Alternatively, we can use the algebraic representation on on 
 $\mathbb{Z}_{125}$.
 
-```{r aut_2}
-covid_autm_2 <- automorphisms(
+```{r aut_2, eval=FALSE}
+autm_z125 <- automorphisms(
                     seq = covid_aln, 
                     group = "Z125", 
                     cube = c("ACGT", "TGCA"),
                     cube_alt = c("CATG", "GTAC"),
                     verbose = FALSE)
-covid_autm_2
 ```
 
+For the sake of reducing computational time in this example, 'autm_z125'
+is available with the package.
+```{r autm_z125}
+data(autm_z125, "GenomAutomorphism")
+autm_z125
+```
 
 And the summary by range
 ```{r range_4}
-aut_range_2 <- automorphismByRanges(covid_autm_2)
+aut_range_2 <- automorphismByRanges(autm_z125)
 aut_range_2
 ```
 
 
 The whole genome can be described by automorphisms on $\mathbb{Z}_{125}$.
 ```{r barplot_3, fig.height = 5, fig.width = 3}
-counts <- table(covid_autm_2$cube[ covid_autm_2$autm != 1 ])
+counts <- table(autm_z125$cube[ autm_z125$autm != 1 ])
 
 par(family = "serif", cex = 1, font = 2)
 barplot(counts, main="Automorphism distribution",
@@ -411,14 +416,19 @@ The Genetic-code Cube Representations on the Galois Field GF(5) were studied in
 Automorphisms are represented by diagonal matrices, with elements $x$ in 
 $x \in \mathbb{Z}_5$.
 
-```{r aut_3}
-covid_autm_3 <- automorphisms(
+```{r aut_3, eval=FALSE}
+autm_3d <- automorphisms(
                     seq = covid_aln, 
                     group = "Z5^3", 
                     cube = c("ACGT", "TGCA"),
                     cube_alt = c("CATG", "GTAC"),
                     verbose = FALSE)
-covid_autm_3
+```
+
+The result is available with package
+```{r autm_3d}
+data(autm_3d, "GenomAutomorphism")
+autm_3d
 ```
 
 ## Grouping automorphism by automorphism's coefficients
@@ -426,23 +436,23 @@ covid_autm_3
 Automorphisms that preserved codons (DNA base-triplets) are represented by the
 identity matrix, i.e., the matrix with diagonal elements "1,1,1".
 ```{r autby_3}
-autby_coef_3 <- automorphism_bycoef(covid_autm_3)
-autby_coef_3 <- autby_coef_3[ autby_coef_3$autm != "1,1,1" ]
-autby_coef_3
+autby_coef_3d <- automorphism_bycoef(autm_3d)
+autby_coef_3d <- autby_coef_3d[ autby_coef_3d$autm != "1,1,1" ]
+autby_coef_3d
 ```
 
 
 Conserved regions from pairwise comparisons are obtain with function 
 conserved_regions:
 ```{r conserved_regions_3}
-conserv <- conserved_regions(covid_autm_3)
+conserv <- conserved_regions(autm_3d)
 conserv
 ```
 
 The whole genome mutational events represented as automorphisms on the 3D space 
 $\mathbb{Z}_{5}^3$, specifically on the cube ACGT (see [4](#4)).
 ```{r barplot_4, fig.height = 5, fig.width = 3}
-counts <- table(autby_coef_3$cube[ autby_coef_3$autm != "1,1,1"])
+counts <- table(autby_coef_3d$cube[ autby_coef_3d$autm != "1,1,1"])
 
 par(family = "serif", cex = 1, font = 2, cex.main = 1)
 barplot(counts, main="Automorphism distribution",

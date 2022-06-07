@@ -130,9 +130,6 @@
 #' autms <- automorphisms(seqs = aln, group = "Z64", verbose = FALSE)
 #' autms
 #'
-#' ## Grouping into ranges the automorphisms by cubes
-#' automorphismByRanges(autms)
-#'
 #' ## Automorphism on "Z64" from position 1 to 33
 #' autms <- automorphisms(
 #'     seqs = aln,
@@ -142,9 +139,6 @@
 #'     verbose = FALSE
 #' )
 #' autms
-#'
-#' ## Grouping into ranges the automorphisms by cubes
-#' automorphismByRanges(autms)
 #'
 #' @aliases automorphisms
 #' @export
