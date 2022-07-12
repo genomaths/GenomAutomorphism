@@ -5,7 +5,7 @@
 \alias{as.AutomorphismList,GRangesList,GRanges_OR_NULL-method}
 \alias{as.AutomorphismList,list,GRanges_OR_NULL-method}
 \alias{names,AutomorphismList-method}
-\alias{names<-,AutomorphismList-method}
+\alias{names<-,AutomorphismList,ANY-method}
 \alias{as.list,AutomorphismList-method}
 \alias{show,AutomorphismList-method}
 \alias{show-AutomorphismList}
@@ -19,7 +19,7 @@ as.AutomorphismList(x, grs = GRanges(), ...)
 
 \S4method{names}{AutomorphismList}(x)
 
-\S4method{names}{AutomorphismList}(x) <- value
+\S4method{names}{AutomorphismList,ANY}(x) <- value
 
 \S4method{as.list}{AutomorphismList}(x)
 

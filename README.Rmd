@@ -82,13 +82,10 @@ _numbers_, and _S4Vectors_.
 
 ```install
     if (!requireNamespace("BiocManager")) install.packages("BiocManager")
-    BiocManager::install()
-    
+
     BiocManager::install(c("Biostrings", "GenomicRanges", "S4Vectors",
-    "BiocParallel", "GenomeInfoDb", "BiocGenerics"))
-    install.packages(c("numbers", "devtools", "doParallel", "data.table",
-    "foreach","parallel"), 
-    dependencies=TRUE)
+    "BiocParallel", "GenomeInfoDb", "BiocGenerics", "numbers", "devtools",
+    "doParallel", "data.table", "foreach","parallel"), dependencies = TRUE)
 ```
 
 ------------
@@ -96,7 +93,7 @@ _numbers_, and _S4Vectors_.
 ## You can install _*GenomAutomorphism*_ package from GitHub
 
 ```install.p
-   devtools::install_git("https://github.com/genomaths/GenomAutomorphism.git")
+   BiocManager::install('genomaths/GenomAutomorphism')
 
 ```
 

@@ -16,7 +16,7 @@
 
 #' @rdname GRanges_OR_NULL
 #' @title A definition for the union of 'GRanges' and 'NULL' class.
-#' @importClassesFrom GenomicRanges GRanges
+#' @import GenomicRanges
 #' @keywords internal
 #' @export
 setClassUnion("GRanges_OR_NULL", c("GRanges", "NULL", "missing"))
@@ -25,8 +25,8 @@ setClassUnion("GRanges_OR_NULL", c("GRanges", "NULL", "missing"))
 #' @rdname BaseGroup
 #' @title A class definition to store codon automorphisms in given in the
 #' Abelian group representation.
-#' @importClassesFrom S4Vectors DataFrame
-#' @importClassesFrom GenomicRanges GRanges
+#' @import S4Vectors
+#' @import GenomicRanges
 #' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @export
@@ -142,8 +142,8 @@ setValidity2("BaseGroup", valid.BaseGroup)
 #' @rdname CodonGroup
 #' @title A class definition to store codon automorphisms in given in the
 #' Abelian group representation.
-#' @importClassesFrom S4Vectors DataFrame
-#' @importClassesFrom GenomicRanges GRanges
+#' @import S4Vectors
+#' @import GenomicRanges
 #' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @export
@@ -262,7 +262,7 @@ setValidity2("CodonGroup", valid.CodonGroup)
 #' the slot named 'CoordList'. The original codon sequence (if provided) will
 #' be stored in the slot named 'SeqRanges'.
 #' @importFrom methods validObject
-#' @importClassesFrom GenomicRanges GenomicRanges_OR_missing
+#' @import GenomicRanges
 #' @keywords internal
 #' @export
 #' @return Given the slot values define a CodonSeq-class.
@@ -342,10 +342,9 @@ valid.MatrixList <- function(x) {
 }
 
 
-#' @importClassesFrom Biostrings DNAMultipleAlignment DNAMultipleAlignment
 #' @rdname valid.MatrixList
 #' @keywords internal
-#' @importClassesFrom Biostrings DNAMultipleAlignment DNAStringSet
+#' @import Biostrings
 #' @export
 #' @return Only used to specify signature in the S4 setMethod.
 setClassUnion(
@@ -377,8 +376,8 @@ setClassUnion(
 #' "+", start/end = 1:nrow(x), length = nrow(x). These details must be keep in
 #' mind to prevent fundamental errors in the downstream analyses.
 #' @keywords internal
-#' @importClassesFrom S4Vectors DataFrame
-#' @importClassesFrom GenomicRanges GRanges
+#' @import S4Vectors
+#' @import GenomicRanges
 #' @export
 #' @return Given the slot values, it defines an Automorphism-class object.
 setClass("Automorphism",
@@ -394,7 +393,7 @@ setClass("Automorphism",
 )
 
 #' @rdname Automorphism
-#' @importFrom S4Vectors DataFrame
+#' @import S4Vectors
 #' @keywords internal
 #' @export
 setClassUnion(
@@ -403,14 +402,13 @@ setClassUnion(
 )
 
 
-#' @importFrom S4Vectors mcols mcols<-
 #' @importFrom GenomeInfoDb Seqinfo seqnames
-#' @importClassesFrom S4Vectors DataFrame
-#' @importClassesFrom GenomicRanges GRanges
+#' @import S4Vectors
+#' @import GenomicRanges
+#' @import Biostrings
+#' @importFrom BiocGenerics strand
 #' @importFrom IRanges IRanges ranges
 #' @importFrom methods new setAs
-#' @importFrom Biostrings seqinfo
-#' @importFrom BiocGenerics strand
 setAs(
     "DataFrame_OR_data.frame", "Automorphism",
     function(from) {
@@ -512,7 +510,7 @@ setClass("AutomorphismList",
 #' @rdname Automorphism
 #' @title Valid AutomorphismList mcols
 #' @param x A 'AutomorphismList object'
-#' @importFrom S4Vectors mcols
+#' @import S4Vectors
 #' @keywords internal
 
 valid.AutomorphismList <- function(x) {
@@ -563,6 +561,7 @@ setValidity2("AutomorphismList", valid.AutomorphismList)
 #' @title A class definition to store conserved gene/genomic regions found
 #' in a MSA.
 #' @keywords internal
+#' @import GenomicRanges
 #' @export
 #' @return AutomorphismByCoef-class definition.
 setClass("AutomorphismByCoef",
@@ -574,7 +573,7 @@ setClass("AutomorphismByCoef",
 #' @aliases valid.AutomorphismByCoef
 #' @title Valid AutomorphismByCoef mcols
 #' @param x A 'AutomorphismByCoef object'
-#' @importFrom S4Vectors mcols
+#' @import S4Vectors
 #' @keywords internal
 valid.AutomorphismByCoef <- function(x) {
     coln <- colnames(mcols(x))
@@ -595,7 +594,7 @@ setValidity2("AutomorphismByCoef", valid.AutomorphismByCoef)
 #' @rdname Automorphism
 #' @title A class definition for a list of AutomorphismByCoef class objects.
 #' @keywords internal
-#' @importClassesFrom S4Vectors DataFrame
+#' @import S4Vectors
 #' @importFrom methods as
 #' @details \strong{AutomorphismByCoefList-class} has the following methods:
 #' ## as('from', "AutomorphismByCoefList")
@@ -621,7 +620,7 @@ setClass(
 #' @aliases valid.AutomorphismByCoefList
 #' @title Valid AutomorphismByCoefList mcols
 #' @param x A 'AutomorphismByCoefList object'
-#' @importFrom S4Vectors mcols
+#' @import S4Vectors
 #' @keywords internal
 valid.AutomorphismByCoefList <- function(x) {
     if (any(!slapply(x, validObject)) || any(slapply(x, function(y) {
@@ -700,9 +699,8 @@ setValidity2(
 #' @return The returned value depends on (and it is understood) from the 
 #' method called.
 #' @aliases as.AutomorphismList
-#' @importFrom GenomicRanges GRanges GRangesList
-#' @importFrom S4Vectors mcols DataFrame
-#' @importFrom S4Vectors mcols mcols<-
+#' @import GenomicRanges
+#' @import S4Vectors
 #' @importFrom methods setGeneric new
 #' @export
 #' @seealso \code{\link{automorphism_bycoef}}, \code{\link{automorphisms}}
@@ -769,7 +767,7 @@ setGeneric(
 
 #' @rdname Automorphism-methods
 #' @aliases as.AutomorphismList
-#' @importFrom S4Vectors mcols mcols<-
+#' @import S4Vectors
 #' @importFrom methods new
 #' @export
 setMethod(
@@ -803,8 +801,8 @@ setMethod(
 
 #' @rdname Automorphism-methods
 #' @aliases as.AutomorphismList
-#' @importFrom GenomicRanges GRanges
-#' @importFrom S4Vectors mcols mcols<-
+#' @import GenomicRanges
+#' @import S4Vectors
 #' @importFrom methods new
 #' @export
 setMethod(
@@ -915,7 +913,7 @@ setAs("AutomorphismList", "GRangesList", function(from) {
 })
 
 
-#' @importClassesFrom GenomicRanges GRangesList
+#' @import GenomicRanges
 setMethod("unlist",
     signature = "AutomorphismList",
     function(x) {
@@ -953,7 +951,7 @@ setMethod("unlist",
 #' @title Show method for \code{\link{AutomorphismList-class}} object
 #' @param object An object from \code{\link{AutomorphismList-class}}.
 #' @importFrom methods show
-#' @importFrom S4Vectors mcols mcols<-
+#' @import S4Vectors
 #' @keywords internal
 setMethod(
     "show",
@@ -1010,7 +1008,7 @@ setClass("ConservedRegion",
 #' @rdname ConservedRegion
 #' @title Valid ConservedRegion mcols
 #' @param x A 'ConservedRegion object'
-#' @importFrom S4Vectors mcols
+#' @import S4Vectors
 #' @keywords internal
 
 valid.ConservedRegion <- function(x) {
@@ -1067,7 +1065,7 @@ setAs("list", "ConservedRegionList", function(from) {
 #' @aliases valid.ConservedRegion
 #' @title Valid ConservedRegionList mcols
 #' @param x A 'ConservedRegionList object'
-#' @importFrom S4Vectors mcols
+#' @import S4Vectors
 #' @keywords internal
 
 valid.ConservedRegionList <- function(x) {
@@ -1185,7 +1183,7 @@ setMethod(
 
 ## =========================== Auxiliary function ======================
 
-#' @importFrom S4Vectors isSingleNumber new2
+#' @import S4Vectors
 make_zero_col_DataFrame <- function(nrow = 0L) {
     stopifnot(isSingleNumber(nrow))
     if (!is.integer(nrow)) {
@@ -1196,7 +1194,7 @@ make_zero_col_DataFrame <- function(nrow = 0L) {
 }
 
 #' @importFrom methods extends is
-#' @importFrom S4Vectors elementType new2
+#' @import S4Vectors
 new_SimpleList_from_list <- function(Class, x, type, ..., mcols) {
     if (!extends(Class, "SimpleList")) {
         stop("class ", Class, " must extend SimpleList")

@@ -26,7 +26,7 @@
 #' @param ... Not in use.
 #' @return A \code{\link{AutomorphismByCoef}} class object containing the
 #' requested regions.
-#' @importFrom S4Vectors mcols
+#' @import S4Vectors
 #' @export
 #' @examples
 #' ## Load dataset
@@ -43,7 +43,7 @@ setGeneric(
 
 #' @rdname conserved_regions
 #' @aliases conserved_regions
-#' @importFrom GenomicRanges GRanges
+#' @import GenomicRanges
 #' @export
 setMethod("conserved_regions",
     signature = "Automorphism",
@@ -65,7 +65,7 @@ setMethod("conserved_regions",
 
 #' @rdname conserved_regions
 #' @aliases conserved_regions
-#' @importFrom GenomicRanges GRanges
+#' @import GenomicRanges
 #' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the
 #' number of cores to use, i.e. at most how many child processes will be run
 #' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
@@ -111,7 +111,7 @@ setMethod("conserved_regions",
 
 #' @rdname conserved_regions
 #' @aliases conserved_regions
-#' @importFrom GenomicRanges GRanges
+#' @import GenomicRanges
 #' @export
 setMethod("conserved_regions",
     signature = "AutomorphismByCoef",
@@ -164,7 +164,7 @@ setMethod("conserved_regions",
 
 #' @rdname conserved_regions
 #' @aliases conserved_regions
-#' @importFrom GenomicRanges GRanges
+#' @import GenomicRanges
 #' @export
 setMethod("conserved_regions",
     signature = "AutomorphismByCoefList",

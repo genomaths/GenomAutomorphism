@@ -44,8 +44,8 @@
 #' 3D space (R^3).
 #' @seealso [Symmetric Group of the Genetic-Code Cubes.](
 #' https://github.com/genomaths/GenomeAlgebra_SymmetricGroup)
-#' @importFrom S4Vectors mcols DataFrame
-#' @importFrom Biostrings DNAStringSet readDNAMultipleAlignment
+#' @import S4Vectors
+#' @import Biostrings
 #' @importFrom methods new
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
@@ -98,9 +98,9 @@ setGeneric(
 
 #' @aliases base_coord
 #' @rdname base_coord
-#' @importFrom GenomicRanges makeGRangesFromDataFrame
+#' @import GenomicRanges
 #' @importFrom methods new
-#' @importFrom Biostrings DNAStringSet
+#' @import Biostrings
 #' @export
 setMethod(
     "base_coord", signature(base = "DNAStringSet_OR_NULL"),
