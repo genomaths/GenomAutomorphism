@@ -48,6 +48,17 @@ There are several tutorials on how to use the package at
 website
 [<img src="man/figures/logo.png" align="middle" width="32" height="32" />](https://genomaths.github.io/genomautomorphism)
 
+-   <a href="https://is.gd/zwRaUw" target="_blank">Get started-with
+    GenomAutomorphism</a>
+-   <a href="https://is.gd/A03Fkl" target="_blank">Analysis of
+    Automorphisms on a DNA Multiple Sequence Alignment</a>
+-   <a href="https://is.gd/gsZcuj" target="_blank">Analysis of
+    Automorphisms on a MSA of Primate BRCA1 Gene</a>
+-   <a href="https://is.gd/87wlbL" target="_blank">A Short Introduction
+    to Algebraic Taxonomy on Genes Regions</a>
+-   <a href="https://is.gd/836uas" target="_blank">Automorphism analysis
+    on COVID-19 data</a>
+
 ## Dependences
 
 This package depends, so far, from: *Biostrings*, *GenomicRanges*,
