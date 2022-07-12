@@ -72,7 +72,7 @@
 #' }
 #' @examples
 #' ## Load a pairwise alignment
-#' data(aln)
+#' data(aln, package = "GenomAutomorphism")
 #' aln
 #'
 #' ## Coordinate representation of the aligned sequences on "Z4".

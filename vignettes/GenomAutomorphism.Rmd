@@ -381,7 +381,7 @@ autm_z125 <- automorphisms(
 For the sake of reducing computational time in this example, 'autm_z125'
 is available with the package.
 ```{r autm_z125}
-data(autm_z125, "GenomAutomorphism")
+data(autm_z125, package = "GenomAutomorphism")
 autm_z125
 ```
 
@@ -427,7 +427,7 @@ autm_3d <- automorphisms(
 
 The result is available with package
 ```{r autm_3d}
-data(autm_3d, "GenomAutomorphism")
+data(autm_3d, package = "GenomAutomorphism")
 autm_3d
 ```
 

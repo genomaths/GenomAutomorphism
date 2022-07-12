@@ -59,7 +59,7 @@
 #' }
 #' @examples
 #' ## Load a pairwise alignment
-#' data(aln)
+#' data(aln, package = "GenomAutomorphism")
 #' aln
 #'
 #' ## A GRanges object carrying the aligned DNA sequence.
