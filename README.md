@@ -46,19 +46,7 @@ updates.
 There are several tutorials on how to use the package at
 [GenomAutomorphism](https://genomaths.github.io/genomautomorphism)
 website
-[<img src="man/figures/logo.png" align="middle" width="32" height="32" />](https://genomaths.github.io/genomautomorphism):
-
-* <a href="https://is.gd/zwRaUw" target="_blank">Get started-with 
-    GenomAutomorphism</a>
-* <a href="https://is.gd/A03Fkl" target="_blank">Analysis of Automorphisms on 
-    a DNA Multiple Sequence Alignment</a>
-* <a href="https://is.gd/gsZcuj" target="_blank">Analysis of Automorphisms on
-    a MSA of Primate BRCA1 Gene</a>
-* <a href="https://is.gd/87wlbL" target="_blank">A Short Introduction to 
-    Algebraic Taxonomy on Genes Regions</a>
-* <a href="https://is.gd/836uas" target="_blank">Automorphism analysis on 
-    COVID-19 data</a>
-
+[<img src="man/figures/logo.png" align="middle" width="32" height="32" />](https://genomaths.github.io/genomautomorphism)
 
 ## Dependences
 
@@ -70,19 +58,16 @@ This package depends, so far, from: *Biostrings*, *GenomicRanges*,
 ## Installation of R dependencies:
 
         if (!requireNamespace("BiocManager")) install.packages("BiocManager")
-        BiocManager::install()
-        
+
         BiocManager::install(c("Biostrings", "GenomicRanges", "S4Vectors",
-        "BiocParallel", "GenomeInfoDb", "BiocGenerics"))
-        install.packages(c("numbers", "devtools", "doParallel", "data.table",
-        "foreach","parallel"), 
-        dependencies=TRUE)
+        "BiocParallel", "GenomeInfoDb", "BiocGenerics", "numbers", "devtools",
+        "doParallel", "data.table", "foreach","parallel"), dependencies = TRUE)
 
 ------------------------------------------------------------------------
 
 ## You can install **GenomAutomorphism** package from GitHub
 
-    devtools::install_git("https://github.com/genomaths/GenomAutomorphism.git")
+       BiocManager::install('genomaths/GenomAutomorphism')
 
 ------------------------------------------------------------------------
 
