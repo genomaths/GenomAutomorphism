@@ -164,6 +164,12 @@ names(aut)
 ## Let's assign new names
 names(aut) <- c("human_1", "gorilla_1")
 names(aut)
+## Load a DNA sequence alignment
+data("brca1_autm", package = "GenomAutomorphism")
+
+## The list of the first three elements
+autm_list <- as.list(brca1_autm[1:3])
+autm_list
 }
 \seealso{
 \code{\link{automorphism_bycoef}}, \code{\link{automorphisms}}

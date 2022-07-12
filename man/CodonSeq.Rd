@@ -38,4 +38,27 @@ of each sequence in a list of 3D-vectors or a list of vectors located in
 the slot named 'CoordList'. The original codon sequence (if provided) will
 be stored in the slot named 'SeqRanges'.
 }
+\examples{
+## Load a DNA sequence alignment 
+data(aln, package = "GenomAutomorphism")
+
+## Get base coordinates on 'Z5'
+coord <- get_coord(
+    x = aln,
+    cube = "ACGT",
+    group = "Z5"
+)
+coordList(coord)
+## Load a DNA sequence alignment
+data(aln, package = "GenomAutomorphism")
+
+## Get base coordinates on 'Z5'
+coord <- get_coord(
+    x = aln,
+    cube = "ACGT",
+    group = "Z5"
+)
+
+seqRanges(coord)
+}
 \keyword{internal}

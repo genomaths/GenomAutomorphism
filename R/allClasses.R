@@ -286,6 +286,17 @@ setGeneric(
 #' @aliases coordList
 #' @rdname CodonSeq
 #' @export
+#' @examples 
+#' ## Load a DNA sequence alignment 
+#' data(aln, package = "GenomAutomorphism")
+#' 
+#' ## Get base coordinates on 'Z5'
+#' coord <- get_coord(
+#'     x = aln,
+#'     cube = "ACGT",
+#'     group = "Z5"
+#' )
+#' coordList(coord)
 setMethod(
     "coordList", signature(x = "CodonSeq"),
     function(x) x@CoordList
@@ -304,6 +315,18 @@ setGeneric(
 #' @aliases seqRanges
 #' @rdname CodonSeq
 #' @export
+#' @examples 
+#' ## Load a DNA sequence alignment
+#' data(aln, package = "GenomAutomorphism")
+#' 
+#' ## Get base coordinates on 'Z5'
+#' coord <- get_coord(
+#'     x = aln,
+#'     cube = "ACGT",
+#'     group = "Z5"
+#' )
+#' 
+#' seqRanges(coord)
 setMethod(
     "seqRanges", signature(x = "CodonSeq"),
     function(x) x@SeqRanges
@@ -889,6 +912,13 @@ setReplaceMethod(
 
 #' @rdname Automorphism-methods
 #' @export
+#' @examples 
+#' ## Load a DNA sequence alignment
+#' data("brca1_autm", package = "GenomAutomorphism")
+#' 
+#' ## The list of the first three elements
+#' autm_list <- as.list(brca1_autm[1:3])
+#' autm_list
 setMethod("as.list",
     signature = "AutomorphismList",
         function(x) {
