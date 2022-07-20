@@ -10,7 +10,7 @@ Authors@R:
 URL: https://github.com/genomaths/GenomAutomorphism
 BugReports: https://github.com/genomaths/GenomAutomorphism/issues
 Description: 
-            This is a R package to compute the autimorphisms between pairwise 
+            This is a R package to compute the automorphisms between pairwise 
             aligned DNA sequences represented as elements from a Genomic 
             Abelian group. In a general scenario, from genomic regions till 
             the whole genomes from a given population (from any species or 

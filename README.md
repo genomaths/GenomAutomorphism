@@ -11,7 +11,7 @@ orcid.org/0000-0002-5246-1453](https://orcid.org/0000-0002-5246-1453)
 
 ## Overview
 
-This is a R package to compute the autimorphisms between pairwise
+This is a R package to compute the automorphisms between pairwise
 aligned DNA sequences represented as elements from a Genomic Abelian
 group as described in the paper [Genomic Abelian Finite
 Groups](https://www.biorxiv.org/content/10.1101/2021.06.01.446543v2). In
@@ -48,16 +48,16 @@ There are several tutorials on how to use the package at
 website
 [<img src="man/figures/logo.png" align="middle" width="32" height="32" />](https://genomaths.github.io/genomautomorphism)
 
--   <a href="https://is.gd/zwRaUw" target="_blank">Get started-with
-    GenomAutomorphism</a>
--   <a href="https://is.gd/A03Fkl" target="_blank">Analysis of
-    Automorphisms on a DNA Multiple Sequence Alignment</a>
--   <a href="https://is.gd/gsZcuj" target="_blank">Analysis of
-    Automorphisms on a MSA of Primate BRCA1 Gene</a>
--   <a href="https://is.gd/87wlbL" target="_blank">A Short Introduction
-    to Algebraic Taxonomy on Genes Regions</a>
--   <a href="https://is.gd/836uas" target="_blank">Automorphism analysis
-    on COVID-19 data</a>
+-   <a href="https://is.gd/zwRaUw" target="_blank" rel="noopener">Get
+    started-with GenomAutomorphism</a>
+-   <a href="https://is.gd/A03Fkl" target="_blank" rel="noopener">Analysis
+    of Automorphisms on a DNA Multiple Sequence Alignment</a>
+-   <a href="https://is.gd/gsZcuj" target="_blank" rel="noopener">Analysis
+    of Automorphisms on a MSA of Primate BRCA1 Gene</a>
+-   <a href="https://is.gd/87wlbL" target="_blank" rel="noopener">A
+    Short Introduction to Algebraic Taxonomy on Genes Regions</a>
+-   <a href="https://is.gd/836uas" target="_blank" rel="noopener">Automorphism
+    analysis on COVID-19 data</a>
 
 ## Dependences
 

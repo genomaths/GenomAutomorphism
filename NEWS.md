@@ -1,6 +1,6 @@
 # GenomAutomorphism 0.99.3
 
- v* Documentation improvement.
+* Documentation improvement.      
 * Package accepted on Bioconductor (07/18/22)
 
 # GenomAutomorphism 0.99.2
