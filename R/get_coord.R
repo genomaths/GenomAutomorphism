@@ -148,6 +148,7 @@ setMethod(
                 matrices = m, names = nms
             )
         )
+        return(res)
     }
 )
 

@@ -1207,6 +1207,7 @@ setMethod(
             nms[6] <- r[6]
             colnames(r) <- nms
         }
+        r <- x
     }
     return(r)
 }

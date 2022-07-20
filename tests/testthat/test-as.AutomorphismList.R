@@ -4,5 +4,5 @@ test_that("as.AutomorphismList works", {
     test1 <- inherits(as.AutomorphismList(lista), "AutomorphismList")
     lista <- as(lista, "GRangesList")
     test2 <- inherits(as.AutomorphismList(lista), "AutomorphismList")
-    expect_true(test1, test2)
+    expect_true(test1,test2)
 })

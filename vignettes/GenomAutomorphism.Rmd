@@ -122,7 +122,7 @@ Wolfram Player, freely available (for Windows and Linux OS) at,
 
 ## Load the R libraries
 
-```{r lib}
+```{r lib,warning=FALSE,message=FALSE}
 library(Biostrings)
 library(GenomAutomorphism)
 ```
@@ -138,6 +138,7 @@ data(covid_aln, package = "GenomAutomorphism")
 covid_aln
 ```
 
+# Group representations
 After the DNA sequence is read, the corresponding codon sequences can be
 represented in the Abelian group $\mathbb{Z}_{64}$ (i.e., the set of integers
 remainder modulo 64). The codon coordinates are requested on the cube ACGT.
@@ -155,32 +156,105 @@ codons <- codon_coord(
 codons
 ```
 
+
 The codon sequences (_seq1_ and _seq2_) with their corresponding coordinates
 (left) are returned, as well as the coordinated representation on
-$\mathbb{Z}_{64}$ (_coord1_ and _coord2_).
+$\mathbb{Z}_{64}$ (_coord1_ and _coord2_). 
+
+## _"Dual"_ genetic-code cubes
+
+The particular interest are the coordinate representation on _"dual"_
+genetic-code cubes. These are cubes where codons with complementary base pairs
+have the same coordinates in the corresponding cubes, as shown in reference
+([4](#4))). Each pair of _"dual"_ cubes integrates a group.
+
+For example, let's consider the complementary codons "ACG"
+and "TGC", with complementary base pairs: A::T, C:::G, and G:::C, where symbol
+":" denotes the hydrogen bonds between the bases.
+```{r bp}
+x0 <- c("ACG", "TGC")
+x1 <- DNAStringSet(x0)
+x1
+```
+
+Their representations on the dual cubes "ACGT" and "TGCA" on $\mathbb{Z}_{4}$
+are:
+```{r bp_coord}
+x2 <- base_coord(x1, cube = "ACGT")
+x2
+
+x2. <- base_coord(x1, cube = "TGCA")
+x2.
+```
+
+The sum of base coordinates modulo $\mathbb{Z}_{4}$ is 3.
+```{r bp_sum.}
+## cube "ACGT"
+(x2$coord1 + x2$coord2) %% 4   
+
+## cube "TGCA"
+(x2.$coord1 + x2.$coord2) %% 4   
+```
+
+The same result for the same codon on different cubes
+```{r bp_sum}
+## Codon ACG
+(x2$coord1 + x2.$coord1) %% 4 
+
+## Codon TGC
+(x2$coord2 + x2.$coord2) %% 4 
+```
+
+Their codon representation on $\mathbb{Z}_{64}$ are:
+```{r codons}
+## cube ACGT
+x3 <- codon_coord(codon = x2, group = "Z64") 
+x3
+
+## cube TGCA
+x3. <- codon_coord(codon = x2., group = "Z64") 
+x3.
+```
+
+The sum of base coordinates modulo $\mathbb{Z}_{64}$ is 63.
+```{r bp_sum2}
+## cube "ACGT"
+(as.numeric(x3$coord1) + as.numeric(x3$coord2)) %% 64  
+
+## cube "TGCA"
+(as.numeric(x3.$coord1) + as.numeric(x3.$coord2)) %% 64   
+```
+
+The same result for the same codon on different cubes
+```{r bp_sum3}
+## Codon ACG
+(as.numeric(x3$coord1) + as.numeric(x3.$coord1)) %% 64 
+
+## Codon TGC
+(as.numeric(x3$coord2) + as.numeric(x3.$coord2)) %% 64 
+```
+
 
 # Automorphisms on $\mathbb{Z}_{64}$
 
-Automorphisms can be computed starting directly from the _FASTA_ file.
-Notice that we can work only with genomic regions of our interest by giving 
-the _start_ and _end_ alignment coordinates. In Z64 automorphisms are 
-described as functions $f(x) = k\,x \quad mod\,64$, where $k$ and $x$ are
+Automorphisms can be computed starting directly from the _FASTA_ file. Notice
+that we can work only with genomic regions of our interest by giving the
+_start_ and _end_ alignment coordinates. In $\mathbb{Z}_{64}$ automorphisms 
+are described as functions $f(x) = k\,x\quad mod\,64$, where $k$ and $x$ are
 elements from the set of integers modulo 64. Below, in function
-[automorphism](https://is.gd/WMxUKz) three important
-arguments are given values: _group = "Z64"_, _cube = c("ACGT", "TGCA")_, and
-_cube_alt = c("CATG", "GTAC")_. Setting for group specifies on which group the
-automorphisms will be computed. These groups can be: "Z5", "Z64", "Z125", and
-"Z5^3". 
+[automorphism](https://is.gd/WMxUKz) three important arguments are given
+values: _group = "Z64"_, _cube = c("ACGT", "TGCA")_, and _cube_alt = c("CATG",
+"GTAC")_. 
 
 In groups "Z64" and "Z125" not all the mutational events can be described as
-automorphisms from a given cube. So, a character string denoting pairs of 
-"dual" the genetic-code cubes, as given in references ([1-4](#2))), is given 
-as argument for _cube_. That is, the base pairs from the given cubes must be
-complementary each other. Such a cube pair are call dual cubes and, as shown 
-in reference ([4](#4))), each pair integrates group. If automorphisms are not
-found in first set of dual cubes, then the algorithm search for automorphism 
-in a alternative set of dual cubes.
+automorphisms from a given cube. The analysis of automorphisms is then 
+accomplished in the set of _dual_ genetic-code cubes. A character string 
+denoting pairs of _dual_ genetic-code cubes, is given as argument for _cube_. 
+Setting for group specifies on which group the automorphisms will be
+computed. These groups can be: "Z5", "Z64", "Z125", and "Z5^3".
 
+If automorphisms are not found in first set of dual cubes, then the algorithm 
+search for automorphisms in a alternative set of dual cubes.
 
 ```{r aut}
 autm <- automorphisms(
@@ -267,13 +341,21 @@ idx = which(aut_range$cube == "Trnl")
 aut_range[ idx ]
 ```
 
-Only one indel mutation was found in the region where the spike glycoprotein
-is located: 7076 - 8331.
+Only one indel mutation was found in the region where the spike glycoprotein is
+located: 7076 - 8331. That is, the pairwise alignment of SARS coronavirus GZ02
+and Bat SARS-like coronavirus (bat-SL-CoVZC45) reveals 8 single _indel_
+mutational events, four regions with two _indel_ mutations and one region with
+3 _indel_ mutations.
 
-That is, the pairwise alignment of SARS coronavirus GZ02 and Bat SARS-like
-coronavirus (bat-SL-CoVZC45) reveals four single _indel_ mutational events and
-four regions with multiple _indel_ mutations. In general, _indel_ mutational 
-event can be modeled as translations on $\mathbb{Z}_{64}$. 
+```{r indels}
+data.frame(aut_range[idx])
+
+## region width
+width(aut_range[ idx ])
+```
+
+In general, _indel_ mutational event can be modeled as translations on
+$\mathbb{Z}_{64}$.
 
 ## Bar plot automorphism distribution by cubes
 The automorphism distribution by cubes can be summarized in the bar-plot 
@@ -336,11 +418,12 @@ counts
 ```
 
 The analysis of the frequency of mutational events (automorphisms, COVID: 
-human vs bat 610 strains) by mutation types is shown in Fig 8a. Results are
-consistent with the well-known observation highlighted by Crick: the 
-highest mutational rate is found in the third base of the codon (HHY: 425, 
-HHR: 189, HHW: 88), followed by YHH: 34 in the first base, and the lowest 
-rate is found in the second one ([5](#5)).
+human SARS coronavirus GZ02 vs Bat SARS-like coronavirus isolate 
+at-SL-CoVZC45) by mutation types is shown in the last figure. Results are
+consistent with the well-known observation highlighted by Crick: the highest
+mutational rate is found in the third base of the codon (HHY: 425, HHR: 189,
+HHW: 88), followed by YHH: 34 in the first base, and the lowest rate is found
+in the second one ([5](#5)).
 
 
 ## Conserved and non-conserved regions
@@ -408,7 +491,7 @@ mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1),
     col = c("white","red"))
 ```
 
-# Automorphisms on the Genetic-code Cube Representation
+# Automorphisms on the Genetic-code Cube Representation on GF(5)
 
 The Genetic-code Cube Representations on the Galois Field GF(5) were studied in
 ([4](#4)). Each codon is represented by each coordinate in the 3D space.
@@ -468,26 +551,26 @@ mtext(side = 1,line = -2, at = c(0.7, 1.9),
 
 
 # References
-    1.<a name="1"></a> Sanchez R, Morgado E, Grau R. Gene algebra from a 
+    1. Sanchez R, Morgado E, Grau R. Gene algebra from a 
     genetic code algebraic structure. J Math Biol. 2005 Oct;51(4):431-57. 
     doi:10.1007/s00285-005-0332-8. Epub 2005 Jul 13. PMID: 16012800.
     ([PDF](https://arxiv.org/pdf/q-bio/0412033.pdf)).
 
-    2.<a name="2"></a> Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian
+    2. Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian
     Finite Groups. 
     [doi:10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
 
-    3.<a name="3"></a> M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The
-    24 possible algebraic representations of the standard genetic code in six
-    or in three dimensions, Adv. Stud. Biol. 4 (2012) 119-152.
+    3. M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky,
+    The 24 possible algebraic representations of the standard genetic code in
+    six or in three dimensions, Adv. Stud. Biol. 4 (2012) 119-152.
     [PDF](https://is.gd/na9eap).
 
-    4.<a name="4"></a> R. Sanchez. Symmetric Group of the Genetic-Code Cubes.
+    4. R. Sanchez. Symmetric Group of the Genetic-Code Cubes.
     Effect of the Genetic-Code Architecture on the Evolutionary Process MATCH
     Commun. Math. Comput. Chem. 79 (2018) 527-560. 
     [PDF](https://bit.ly/2Z9mjM7).
     
-    5.<a name="5"></a>  Crick FHC. The Origin of the Genetic Code. J Mol Biol.
+    5. Crick FHC. The Origin of the Genetic Code. J Mol Biol.
     1968;38: 367–379.
 
 # Session info {.unnumbered}

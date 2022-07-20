@@ -147,11 +147,11 @@ setMethod(
         ## -------------------------------------------------------------- ##
 
         if (length(gr) > 0) {
-            x <- lapply(x, function(x) {
+            x <- bplapply(x, function(x) {
                 mcols(gr) <- x
                 x <- automorphismByRanges(x)
                 return(x)
-            })
+            }, BPPARAM = bpparam)
         }
 
         idx <- which(slapply(x, function(x) {

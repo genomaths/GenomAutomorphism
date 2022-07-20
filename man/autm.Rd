@@ -19,4 +19,19 @@ pairwise DNA sequence alignment is available in the dataset named
 \code{\link{covid_aln}} and the automorphisms were estimated with function
 \code{\link{autZ64}}.
 }
+\examples{
+\dontrun{
+ ## The alignment of these DNA sequences is available at:
+ URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/", 
+ "COVID-19/AY390556.1_265-13398_13398-21485_RNA-POL_SARS_COVI_GZ02.fas")
+ 
+ ## Automorphisms can be directly computed with function 'automorphism'
+ autm <- automorphism(
+ filepath = URL,
+ group = "Z64",
+ cube = c("ACGT", "TGCA"),
+ cube_alt = c("CATG", "GTAC"))
+}
+
+}
 \keyword{datasets}
