@@ -901,6 +901,8 @@ setMethod("names",
 )
 
 #' @rdname Automorphism-methods
+#' @title Replace names for AutomorphismList-class object
+#' @description Replace the element names in AutomorphismList-class object
 #' @export
 setReplaceMethod(
     "names", "AutomorphismList",

@@ -36,8 +36,10 @@ For the purpose of automorphism between two aligned DNA sequences,
 
 ## Status
 
-This application is under development. Watch this repo or check for
-updates.
+This application has been submitted to Bioconductor. Watch this repo or
+check for updates. Follow the reviewing process at
+<a href=https://github.com/Bioconductor/Contributions/issues/2678 
+target="_blank" rel="noopener">Bioconductor/Contributions</a>.
 
 ------------------------------------------------------------------------
 
