@@ -17,16 +17,17 @@
 #' @aliases [
 #' @aliases AutomorphismList-methods
 #' @param x An \code{\link{AutomorphismList-class}} object.
-#' @param i,j,...,drop As in \code{\link[base]{Extract}}.
+#' @param i,... As in \code{\link[base]{Extract}}.
 #' @description First and second level subsetting of 'x'. Extraction using
 #' names can be done as x$name.
 #' @return An element of x, an \code{\link{AutomorphismList-class}} object.
 #' @keywords internal
+#' @exportMethod "["
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
 setMethod(
     "[", signature(x = "AutomorphismList"),
-    function(x, i, ..., drop = TRUE) {
+    function(x, i, ...) {
         x@DataList <- x@DataList[i]
         return(x)
     }

@@ -379,8 +379,8 @@ setClassUnion(
 
 #' @rdname Automorphism
 #' @aliases Automorphism
-#' @title A class definition to store codon automorphisms in given as an
-#' Abelian group representation.
+#' @title A class definition to store codon automorphisms in a given Abelian
+#' group representation.
 #' @description Two classes are involved in to storing codon automorphisms:
 #' \emph{\strong{Automorphism-class}} and
 #' \emph{\strong{AutomorphismList-class}}.
@@ -398,9 +398,20 @@ setClassUnion(
 #' object, which by default will have the argument seqnames = "1", strand =
 #' "+", start/end = 1:nrow(x), length = nrow(x). These details must be keep in
 #' mind to prevent fundamental errors in the downstream analyses.
+#' @section Automorphism-class methods:
+#' ## as(from, "Automorphism"):
+#' Permits the transformation of a \code{\link[base]{data.frame}} or a
+#' \code{\link[S4Vectors]{DataFrame-class}} object into
+#' \emph{\strong{Automorphism-class}} object if the proper columns are 
+#' provided. 
+#' 
+#' Methods from \code{\link[GenomicRanges]{GRanges-class}} can also be 
+#' applied.
 #' @keywords internal
 #' @import S4Vectors
 #' @import GenomicRanges
+#' @seealso \code{\link{AutomorphismByCoef-class}} and
+#' \code{\link{AutomorphismList-class}}
 #' @export
 #' @return Given the slot values, it defines an Automorphism-class object.
 setClass("Automorphism",
@@ -410,7 +421,8 @@ setClass("Automorphism",
         strand = "Rle",
         elementMetadata = "DataFrame",
         seqinfo = "Seqinfo",
-        colnames = "character"
+        colnames = "character",
+        autm_info = "list"
     ),
     contains = "GRanges"
 )
@@ -511,15 +523,78 @@ setValidity2("Automorphism", valid.Automorphism)
 
 ## ========================== AutomorphismList =============================
 
-#' @rdname Automorphism
+#' @rdname AutomorphismList
 #' @title A class definition to store list of Automorphism class objects.
 #' @description A class definition to store list of Automorphism class objects
 #' derived from the pairwise automorphism estimation from pairwise
-#' alignments.
+#' alignments. Objects from this class are created by function 
+#' \code{\link{automorphisms}} and \code{\link{as.AutomorphismList}}.
 #' @importFrom methods validObject setClass
 #' @keywords internal
+#' @return An object from AutomorphismList-class 
 #' @export
 #' @aliases AutomorphismList
+#' @section AutomorphismList-class methods:
+#' ## as.AutomorphismList(x):
+#' \emph{\strong{as.AutomorphismList}} function transform a list of
+#' \code{\link[GenomicRanges]{GRanges-class}}, a
+#' \code{\link[GenomicRanges]{GRangesList-class}}, a list of
+#' \code{\link[base]{data.frame}} or a
+#' \code{\link[S4Vectors]{DataFrame-class}}
+#' objects into a \emph{\strong{AutomorphismList-class}} object.
+#' 
+#' ## unlist(x)
+#' It transforms a AutomorphismList-class object into an Automorphism-class
+#' object. 
+#'
+#' ## as.list(x)
+#' It transforms a list of Automorphism-class objects into an 
+#' AutomorphismList-class object.
+#' 
+#' ## as(x, "GRangesList")
+#' It transforms a \code{\link[GenomicRanges]{GRangesList}} of 
+#' \code{\link{Automorphism-class}} objects into an 
+#' 'AutomorphismList-class' object.
+#
+#' ## names(x)
+#' To get the element's names from an 'AutomorphismList-class' object.
+#'
+#' ## names(x) <- value
+#' To assign names to the element from an 'AutomorphismList-class' 
+#' object.
+#' @examples
+#' ## Load datasets
+#' data(autm, brca1_autm)
+#' 
+#' ## Transforming a list of Automorphisms into an AutomorphismList object
+#' lista <- list(human = brca1_autm[[1]], gorilla = brca1_autm[[2]])
+#' as.AutomorphismList(lista)
+#' 
+#' ## Alternatively we can set
+#' aut <- as.list(brca1_autm[1:2])
+#' class(aut)
+#' 
+#' ## And reverse it
+#' aut <- as.AutomorphismList(aut)
+#' aut
+#' 
+#' ## Let's get the element names from object 'aut'
+#' names(aut)
+#' 
+#' ## Let's assign new names
+#' names(aut) <- c("human_1", "gorilla_1")
+#' names(aut)
+#' 
+#' ## Transforming a GRangesList of Automorphisms into an AutomorphismList
+#' ## object
+#' lista <- as(lista, "GRangesList")
+#' as.AutomorphismList(lista)
+#'
+#' ## Transform a AutomorphismList-class object into an Automorphism-class
+#' ## object 
+#' unlist(brca1_autm[1:2])
+#' @seealso \code{\link{Automorphism-class}} and 
+#' \code{\link{AutomorphismByCoefList-class}}.
 setClass("AutomorphismList",
     slots = c(
         DataList = "list",
@@ -527,12 +602,12 @@ setClass("AutomorphismList",
     )
 )
 
-
 ## ====================== Validity AutomorphismList ================== #
 
-#' @rdname Automorphism
+#' @rdname valid.AutomorphismList
 #' @title Valid AutomorphismList mcols
 #' @param x A 'AutomorphismList object'
+#' @return An error if 'x' is not a valid AutomorphismList class object.
 #' @import S4Vectors
 #' @keywords internal
 
@@ -575,141 +650,93 @@ valid.AutomorphismList <- function(x) {
 
 setValidity2("AutomorphismList", valid.AutomorphismList)
 
+#' @rdname AutomorphismList
+#' @aliases names
+#' @param x An \code{\link{AutomorphismList}} object.
+#' @exportMethod names
+#' @export
+#' @examples 
+#' ## Load a DNA sequence alignment
+#' data("brca1_autm", package = "GenomAutomorphism")
+#' names(brca1_autm)
+setMethod("names",
+          signature = "AutomorphismList",
+          function(x) names(x@DataList)
+)
 
+## ================= AutomorphismList-methods ========================
+
+#' @rdname AutomorphismList
+#' @export
+#' @examples 
+#' ## Load a DNA sequence alignment
+#' data("brca1_autm", package = "GenomAutomorphism")
+#' x1 <- brca1_autm[1:2]
+#' names(x1)
+#' 
+#' ## Let's assign a new names
+#' names(x1) <- c("human_1.human_2.0", "human_1.gorilla_0")
+#' names(x1) 
+setReplaceMethod(
+    "names", "AutomorphismList",
+    function(x, value) {
+        names(x@DataList) <- value
+        return(x)
+    }
+)
+
+#' @rdname AutomorphismList
+#' @export
+#' @examples 
+#' ## Load a DNA sequence alignment
+#' data("brca1_autm", package = "GenomAutomorphism")
+#' 
+#' ## The list of the first three elements
+#' autm_list <- as.list(brca1_autm[1:3])
+#' autm_list
+setMethod("as.list",
+    signature = "AutomorphismList",
+    function(x) {
+        x <- getAutomorphisms(x)
+        return(x@DataList)
+    }
+)
+
+
+#' @importFrom methods setAs coerce
+setAs(from = "AutomorphismList", to = "list", function(from) {
+    from <- getAutomorphisms(from)
+    return(from@DataList)
+})
+
+#' @importFrom methods setAs
+setAs("AutomorphismList", "GRangesList", function(from) {
+    from <- getAutomorphisms(from)
+    from <- as.list(from)
+    return(as(from, "GRangesList"))
+})
+
+
+#' @import GenomicRanges
+setMethod("unlist",
+    signature = "AutomorphismList",
+    function(x) {
+        x <- as(x, "GRangesList")
+        return(unlist(x))
+    }
+)
 
 ## ========================== AutomorphismByCoef ===========================
 
 #' @aliases AutomorphismByCoef
 #' @rdname AutomorphismByCoef
 #' @title A class definition to store conserved gene/genomic regions found
-#' in a MSA.
+#' in a MSA. 
+#' @description Objects from this class are generated by function 
+#' \code{\link{automorphism_bycoef}}.
+#' @seealso \code{\link{automorphism_bycoef}}
 #' @keywords internal
 #' @import GenomicRanges
-#' @export
-#' @return AutomorphismByCoef-class definition.
-setClass("AutomorphismByCoef",
-    contains = "GRanges"
-)
-
-# ======================== Validity AutomorphismByCoef ================== #
-#' @rdname AutomorphismByCoef
-#' @aliases valid.AutomorphismByCoef
-#' @title Valid AutomorphismByCoef mcols
-#' @param x A 'AutomorphismByCoef object'
-#' @import S4Vectors
-#' @keywords internal
-valid.AutomorphismByCoef <- function(x) {
-    coln <- colnames(mcols(x))
-    if (!inherits(x, "GRanges") ||
-        any(!is.element(c("autm", "cube"), coln))) {
-        return("*** This is not a valid AutomorphismByCoef
-                class object.")
-    } else {
-        NULL
-    }
-}
-
-setValidity2("AutomorphismByCoef", valid.AutomorphismByCoef)
-
-## ========================= AutomorphismByCoefList ======================
-
-#' @aliases AutomorphismByCoefList
-#' @rdname Automorphism
-#' @title A class definition for a list of AutomorphismByCoef class objects.
-#' @keywords internal
-#' @import S4Vectors
-#' @importFrom methods as
-#' @details \strong{AutomorphismByCoefList-class} has the following methods:
-#' ## as('from', "AutomorphismByCoefList")
-#' Where 'from' is a list of \strong{AutomorphismByCoef-class}.
-#'
-#' ## unlist(x)
-#' Where 'x' is a an \strong{AutomorphismByCoefList-class} object.
-#' @export
-#' @return AutomorphismByCoefList-class definition.
-setClass(
-    "AutomorphismByCoefList",
-    slots = c(
-        elementMetadata = "DataFrame",
-        elementType = "character",
-        metadata = "list",
-        listData = "list"
-    ),
-    contains = "SimpleGRangesList"
-)
-
-# ===================== Validity AutomorphismByCoefList ================== #
-#' @rdname AutomorphismByCoef
-#' @aliases valid.AutomorphismByCoefList
-#' @title Valid AutomorphismByCoefList mcols
-#' @param x A 'AutomorphismByCoefList object'
-#' @import S4Vectors
-#' @keywords internal
-valid.AutomorphismByCoefList <- function(x) {
-    if (any(!slapply(x, validObject)) || any(slapply(x, function(y) {
-        coln <- colnames(mcols(y))
-        !is.element(c("autm", "cube"), coln)
-    }))) {
-        return("*** This is not a valid AutomorphismByCoefList
-                class object.")
-    } else {
-        NULL
-    }
-}
-
-setValidity2(
-    "AutomorphismByCoefList",
-    valid.AutomorphismByCoefList
-)
-
-## ========================= Automorphism-methods ==========================
-
-#' @rdname Automorphism-methods
-#' @title Methods for Automorphism-class and AutomorphismList-class Objects
-#' @description Several methods are available to be applied on 
-#' \code{\link{Automorphism-class}} and \code{\link{AutomorphismList-class}} 
-#' objects.
-#' @param x A \code{\link[S4Vectors]{DataFrame}} or a
-#' \code{\link{automorphisms}} class object.
-#' @param gr A \code{\link[GenomicRanges]{GRanges-class}} object.
-#' @section Automorphism-class methods:
-#' ## as(from, "Automorphism"):
-#' Permits the transformation of a \code{\link[base]{data.frame}} or a
-#' \code{\link[S4Vectors]{DataFrame-class}} object into
-#' \emph{\strong{Automorphism-class}} object if the proper columns are 
-#' provided. 
-#' 
-#' Methods from \code{\link[GenomicRanges]{GRanges-class}} can also be 
-#' applied
-#' 
-#' @section AutomorphismList-class methods:
-#' ## as.AutomorphismList(x):
-#' \emph{\strong{as.AutomorphismList}} function transform a list of
-#' \code{\link[GenomicRanges]{GRanges-class}}, a
-#' \code{\link[GenomicRanges]{GRangesList-class}}, a list of
-#' \code{\link[base]{data.frame}} or a
-#' \code{\link[S4Vectors]{DataFrame-class}}
-#' objects into a \emph{\strong{AutomorphismList-class}} object.
-#' 
-#' ## unlist(x)
-#' It transforms a AutomorphismList-class object into an Automorphism-class
-#' object. 
-#'
-#' ## as.list(x)
-#' It transforms a list of Automorphism-class objects into an 
-#' AutomorphismList-class object.
-#' 
-#' ## as(x, "GRangesList")
-#' It transforms a 'GRangesList' of Automorphism-class objects into an 
-#' AutomorphismList-class object.
-#
-#' ## names(x)
-#' To get the element's names from an AutomorphismList-class object.
-#'
-#' ## names(x) <- value
-#' To assign names to the element from an AutomorphismList-class 
-#' object.
-#'
 #' @section AutomorphismByCoefList-class methods:
 #' ## unlist(x):
 #' It transforms a AutomorphismByCoefList-class object into an 
@@ -718,47 +745,8 @@ setValidity2(
 #' ## as(x, "AutomorphismByCoefList")
 #' It transforms a 'list' of AutomorphismByCoef-class object into an 
 #' AutomorphismByCoefList-class object.
-#' 
-#' @return The returned value depends on (and it is understood) from the 
-#' method called.
-#' @aliases as.AutomorphismList
-#' @import GenomicRanges
-#' @import S4Vectors
-#' @importFrom methods setGeneric new
 #' @export
-#' @seealso \code{\link{automorphism_bycoef}}, \code{\link{automorphisms}}
-#' @examples
-#' ## Load datasets
-#' data(autm, brca1_autm)
-#' 
-#' ## Transforming a list of Automorphisms into an AutomorphismList object
-#' lista <- list(human = brca1_autm[[1]], gorilla = brca1_autm[[2]])
-#' as.AutomorphismList(lista)
-#' 
-#' ## Alternatively we can set
-#' aut <- as.list(brca1_autm[1:2])
-#' class(aut)
-#' 
-#' ## And reverse it
-#' aut <- as.AutomorphismList(aut)
-#' aut
-#' 
-#' ## Let's get the element names from object 'aut'
-#' names(aut)
-#' 
-#' ## Let's assign new names
-#' names(aut) <- c("human_1", "gorilla_1")
-#' names(aut)
-#' 
-#' ## Transforming a GRangesList of Automorphisms into an AutomorphismList
-#' ## object
-#' lista <- as(lista, "GRangesList")
-#' as.AutomorphismList(lista)
-#'
-#' ## Transform a AutomorphismList-class object into an Automorphism-class
-#' ## object 
-#' unlist(brca1_autm[1:2])
-#' 
+#' @examples 
 #' ## Let's transform a AutomorphismByCoefList-class object into an 
 #' ## AutomorphismByCoef-class object
 #' data("autby_coef")
@@ -778,181 +766,97 @@ setValidity2(
 #' ## Let's assign new names
 #' names(aut) <- c("human_1", "gorilla_1")
 #' names(aut)
-setGeneric(
-    "as.AutomorphismList",
-    function(x,
-            grs = GRanges(),
-            ...) {
-        standardGeneric("as.AutomorphismList")
-    }
+#' @seealso \code{\link{AutomorphismByCoefList-class}} and 
+#' \code{\link{Automorphism-class}}
+#' @return AutomorphismByCoef-class definition.
+setClass("AutomorphismByCoef",
+    slots = c(
+        seqnames = "Rle",
+        ranges = "IRanges_OR_IPos",
+        strand = "Rle",
+        elementMetadata = "DataFrame",
+        seqinfo = "Seqinfo",
+        colnames = "character",
+        autm_info = "list"),
+    contains = "GRanges"
 )
 
-
-#' @rdname Automorphism-methods
-#' @aliases as.AutomorphismList
+# ======================== Validity AutomorphismByCoef ================== #
+#' @rdname valid.AutomorphismByCoef
+#' @aliases valid.AutomorphismByCoef
+#' @title Valid AutomorphismByCoef mcols
+#' @param x A 'AutomorphismByCoef object'
 #' @import S4Vectors
-#' @importFrom methods new
-#' @export
-setMethod(
-    "as.AutomorphismList",
-    signature(x = "GRangesList", grs = "GRanges_OR_NULL"),
-    function(x,
-            grs = GRanges(),
-            ...) {
-        if (length(grs) == 0) {
-            grs <- x[[1]]
-        }
-        mcols(grs) <- NULL
-        
-        x <- lapply(x, function(y) {
-            y <- as(y, "Automorphism")
-            gr <- y
-            mcols(gr) <- NULL
-            if (any(gr != grs)) {
-                stop("*** The ranges from the GRanges-class objects
-                    must equals.")
-            }
-            return(mcols(y))
-        })
-        
-        new("AutomorphismList",
-            DataList = x,
-            SeqRanges = grs
-        )
+#' @return An error if 'x' is not a valid AutomorphismByCoef.
+#' @keywords internal
+valid.AutomorphismByCoef <- function(x) {
+    coln <- colnames(mcols(x))
+    if (!inherits(x, "GRanges") ||
+        any(!is.element(c("autm", "cube"), coln))) {
+        return("*** This is not a valid AutomorphismByCoef
+                class object.")
+    } else {
+        NULL
     }
-)
+}
 
-#' @rdname Automorphism-methods
-#' @aliases as.AutomorphismList
-#' @import GenomicRanges
+setValidity2("AutomorphismByCoef", valid.AutomorphismByCoef)
+
+
+## ========================= AutomorphismByCoefList ======================
+
+#' @aliases AutomorphismByCoefList
+#' @rdname AutomorphismByCoefList
+#' @title A class definition for a list of AutomorphismByCoef class objects.
+#' @keywords internal
 #' @import S4Vectors
-#' @importFrom methods new
+#' @importFrom methods as
+#' @details \strong{AutomorphismByCoefList-class} has the following methods:
+#' ## as('from', "AutomorphismByCoefList")
+#' Where 'from' is a list of \strong{AutomorphismByCoef-class}.
+#'
+#' ## unlist(x)
+#' Where 'x' is a an \strong{AutomorphismByCoefList-class} object.
 #' @export
-setMethod(
-    "as.AutomorphismList",
-    signature(x = "list", grs = "GRanges_OR_NULL"),
-    function(x,
-            grs = GRanges(),
-            ...) {
-        if (length(grs) == 0) {
-            if (inherits(x[[1]], "GRanges")) {
-                grs <- x[[1]]
-            } else {
-                if (inherits(x[[1]], c("DataFrame", "data.frame"))) {
-                    pos <- seq(1, nrow(x[[1]]), 1)
-                    grs <- GRanges(
-                        seqnames = 1,
-                        ranges = IRanges(start = pos, end = pos),
-                        strand = "+"
-                    )
-                } else {
-                    stop(
-                        "*** The argument of 'x' must be a list of ",
-                        "objects from any of the classes: 'GRanges', ",
-                        "'DataFrame', or 'data.frame'."
-                    )
-                }
-            }
-        }
-        
-        if (!is.null(mcols(grs))) {
-            mcols(grs) <- NULL
-        }
-        
-        if (all(slapply(x, function(y) inherits(y, "GRanges")))) {
-            if (length(grs) == length(x)) {
-                grs <- x
-                mcols(grs) <- NULL
-            }
-            
-            if (length(grs) == 0) {
-                grs <- x[[1]]
-                mcols(grs) <- NULL
-            }
-            
-            x <- lapply(x, function(y) {
-                y <- as(y, "Automorphism")
-                return(mcols(y))
-            })
-            
-            x <- new("AutomorphismList",
-                    DataList = x,
-                    SeqRanges = grs
-            )
-        }
-        if (!inherits(x, "AutomorphismList")) {
-            if (all(slapply(x, function(y) inherits(y, "DataFrame")))) {
-                x <- new("AutomorphismList",
-                        DataList = x,
-                        SeqRanges = grs
-                )
-            }
-        }
-        return(x)
+#' @seealso \code{\link{AutomorphismByCoef-class}} and 
+#' \code{\link{AutomorphismList-class}}
+#' @return AutomorphismByCoefList-class definition.
+setClass(
+    "AutomorphismByCoefList",
+    slots = c(
+        elementMetadata = "DataFrame",
+        elementType = "character",
+        metadata = "list",
+        listData = "list"
+    ),
+    contains = "SimpleGRangesList"
+)
+
+# ===================== Validity AutomorphismByCoefList ================== #
+#' @rdname valid.AutomorphismByCoefList
+#' @aliases valid.AutomorphismByCoefList
+#' @title Valid AutomorphismByCoefList mcols
+#' @param x A 'AutomorphismByCoefList object'
+#' @import S4Vectors
+#' @keywords internal
+#' @return An error if 'x' is not a valid AutomorphismByCoefList.
+valid.AutomorphismByCoefList <- function(x) {
+    if (any(!slapply(x, validObject)) || any(slapply(x, function(y) {
+        coln <- colnames(mcols(y))
+        !is.element(c("autm", "cube"), coln)
+    }))) {
+        return("*** This is not a valid AutomorphismByCoefList
+                class object.")
+    } else {
+        NULL
     }
+}
+
+setValidity2(
+    "AutomorphismByCoefList",
+    valid.AutomorphismByCoefList
 )
 
-
-#' @rdname Automorphism-methods
-#' @export
-setMethod("names",
-        signature = "AutomorphismList",
-        function(x) names(x@DataList)
-)
-
-#' @rdname Automorphism-methods
-#' @title Replace names for AutomorphismList-class object
-#' @description Replace the element names in AutomorphismList-class object
-#' @export
-setReplaceMethod(
-    "names", "AutomorphismList",
-    function(x, value) {
-        names(x@DataList) <- value
-        return(x)
-    }
-)
-
-#' @rdname Automorphism-methods
-#' @export
-#' @examples 
-#' ## Load a DNA sequence alignment
-#' data("brca1_autm", package = "GenomAutomorphism")
-#' 
-#' ## The list of the first three elements
-#' autm_list <- as.list(brca1_autm[1:3])
-#' autm_list
-setMethod("as.list",
-    signature = "AutomorphismList",
-        function(x) {
-            x <- getAutomorphisms(x)
-            return(x@DataList)
-        }
-)
-
-
-#' @importFrom methods setAs coerce
-setAs(from = "AutomorphismList", to = "list", function(from) {
-    from <- getAutomorphisms(from)
-    return(from@DataList)
-})
-
-
-#' @importFrom methods setAs
-setAs("AutomorphismList", "GRangesList", function(from) {
-    from <- getAutomorphisms(from)
-    from <- as.list(from)
-    return(as(from, "GRangesList"))
-})
-
-
-#' @import GenomicRanges
-setMethod("unlist",
-    signature = "AutomorphismList",
-    function(x) {
-        x <- as(x, "GRangesList")
-        return(unlist(x))
-    }
-)
 
 as_list_of_AutomorphismByCoef <- function(from) {
     lapply(from, as, Class = "AutomorphismByCoef")
@@ -975,52 +879,6 @@ setMethod("unlist",
         return(unlist(x))
     }
 )
-
-## ======================== Show AutomorphismList ==================== #
-
-#'@rdname Automorphism-methods
-#' @aliases show-AutomorphismList
-#' @title Show method for \code{\link{AutomorphismList-class}} object
-#' @param object An object from \code{\link{AutomorphismList-class}}.
-#' @importFrom methods show
-#' @import S4Vectors
-#' @keywords internal
-setMethod(
-    "show",
-    signature = "AutomorphismList",
-    definition = function(object) {
-        nams <- names(object@DataList)
-        l <- length(nams)
-        if (l > 10) {
-            nams <- nams[c(seq(4), l - 2, l - 1, l)]
-            nams[4] <- "..."
-        }
-        cat(class(object), " object of length: ",
-            length(object@DataList), "\n",
-            sep = ""
-        )
-        cat(paste0("names(", l, "):"), nams, "\n")
-        cat("------- \n")
-        gr <- object@SeqRanges
-        if (length(gr) > 0 && inherits(object@DataList[[1]], "DataFrame")) {
-            mcols(gr) <- object@DataList[[1]]
-        } else {
-            gr <- object@DataList[[1]]
-        }
-        
-        print(as(gr, "Automorphism"))
-        cat("...\n")
-        cat("<", l - 1, " more ",
-            class(object@DataList[[1]])[1], " element(s)>\n",
-            sep = ""
-        )
-        cat("Two slots: 'DataList' & 'SeqRanges'\n")
-        cat("------- \n")
-        invisible(object)
-    }
-)
-
-
 
 ## ========================== ConservedRegion ===========================
 
@@ -1253,7 +1111,7 @@ new_SimpleList_from_list <- function(Class, x, type, ..., mcols) {
     if (!all(slapply(x, function(xi) extends(class(xi), ans_elementType)))) {
         stop(
             "all elements in 'x' must be ", ans_elementType,
-            " objects"
+            " objects."
         )
     }
     if (missing(mcols)) {

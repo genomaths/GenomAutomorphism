@@ -34,7 +34,7 @@ nams <- c(
     "gelada_baboon_1", "gelada_baboon_2", "orangutan_1", "orangutan_2"
 )
 
-cyc_autm <- automorphism(
+cyc_autm <- automorphisms(
     filepath = URL,
     group = "Z64",
     cube = c("ACGT", "TGCA"),
@@ -63,7 +63,7 @@ nams <- c(
 brca1_aln <- readDNAMultipleAlignment(filepath = URL)
 
 
-brca1_autm <- automorphism(
+brca1_autm <- automorphisms(
     seqs = brca1_aln,
     group = "Z64",
     cube = c("ACGT", "TGCA"),
@@ -72,14 +72,31 @@ brca1_autm <- automorphism(
 )
 usethis::use_data(brca1_autm, brca1_aln, overwrite = TRUE, compress = "xz")
 
-autby_coef <- automorphismByCoef(brca1_autm)
+autby_coef <- automorphism_bycoef(brca1_autm)
 autby_coef
 
 usethis::use_data(autby_coef, overwrite = TRUE, compress = "xz")
 
-autby_coef_covid <- automorphism_bycoef(covid_autm)
-usethis::use_data(autby_coef, overwrite = TRUE, compress = "xz")
 
+nams <- c(paste0("human_1.", 0:21),"human_2","gorilla_1","gorilla_2","gorilla_3",
+          "chimpanzee_1","chimpanzee_2","chimpanzee_3","chimpanzee_4",
+          "bonobos_1","bonobos_2","bonobos_3","bonobos_4","silvery_gibbon_1",
+          "silvery_gibbon_1","silvery_gibbon_3","golden_monkey_1",
+          "golden_monkey_2","gelada_baboon","bolivian_monkey")
+
+URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/BRCA1/",
+              "brca1_primates_dna_repair_41_sequences.fasta")
+
+brca1_aln2 <- readDNAMultipleAlignment(filepath = URL)
+
+brca1_autm2 <- automorphisms(
+    seqs = brca1_aln2,
+    group = "Z64",
+    cube = c("ACGT", "TGCA"),
+    cube_alt = c("CATG", "GTAC"),
+    nms = nams
+)
+usethis::use_data(brca1_autm2, brca1_aln2, overwrite = TRUE, compress = "xz")
 
 
 
@@ -88,7 +105,7 @@ URL <- paste0(
     "COVID-19/AY390556.1_265-13398_13398-21485_RNA-POL_SARS_COVI_GZ02.fas"
 )
 
-autm <- automorphism(
+autm <- automorphisms(
     filepath = URL,
     group = "Z64",
     cube = c("ACGT", "TGCA"),
@@ -113,7 +130,7 @@ covid_aln
 usethis::use_data(covid_aln, overwrite = TRUE)
 
 
-covid_autm <- automorphism(
+covid_autm <- automorphisms(
     seq = covid_aln,
     group = "Z64",
     cube = c("ACGT", "TGCA"),

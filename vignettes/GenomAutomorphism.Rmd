@@ -78,7 +78,7 @@ options(width = 120)
 
 
 # Overview
-This is a R package to compute the autimorphisms between pairwise aligned DNA
+This is a R package to compute the automorphisms between pairwise aligned DNA
 sequences represented as elements from a Genomic Abelian group as described in
 reference ([1](#1)). In a general scenario, whole chromosomes or genomic 
 regions from a population (from any species or close related species) can be
@@ -139,6 +139,39 @@ covid_aln
 ```
 
 # Group representations
+Group operations defined on the sets of DNA bases and codons are associated to
+physicochemical or/and biophysical relationships between DNA bases and between
+codons and aminoacids. In other words, a proper definition of a group 
+operation on the set of bases or on the set of codons will encode the
+physicochemical or/and biophysical relationships between the set’s elements.
+Thus, *by group operations defined on the set of bases or on the set of 
+codons, we understand an encoding applied to represent specified
+physicochemical or/and biophysical relationships as group operations between
+the elements of the set*. Then, we shall say that _*such an encoding permits
+the representation of DNA bases, codons, genes, and genomic sequences as
+elements from algebraic structures*_.
+
+The DNA base set can be represented in 24 possible base orders, which leads to
+24 possible representations of the genetic code. Each genetic code 
+representation base-triplets on the Galois field *GF(4)* (or in *GF(5)*) leads 
+to genetic code vector 3D-space, which is mathematically equivalent to a cube
+inserted in the 3D space (1). Each cube is denoted according to the 
+corresponding base order. 
+
+Given a base-order, say 'ACGT', the Abelian group defined on this ordered set
+is isomorphic to the Abelian group defined on the set of integers modulo 4
+($\mathbb{Z}_{4}$). In practical terms, this is equivalent to replace each DNA
+base by the corresponding integer element. The base replacement in cube "ACGT
+and group "Z4" ($\mathbb{Z}_{4}$) is:
+```{r int}
+base2int("ACGT", group = "Z4", cube = "ACGT")
+```
+
+The base replacement in cube "ACGT and group 'Z5' ($\mathbb{Z}_{5}$):
+```{r int2}
+base2int("ACGT", group = "Z5", cube = "ACGT")
+```
+
 After the DNA sequence is read, the corresponding codon sequences can be
 represented in the Abelian group $\mathbb{Z}_{64}$ (i.e., the set of integers
 remainder modulo 64). The codon coordinates are requested on the cube ACGT.
@@ -155,7 +188,6 @@ codons <- codon_coord(
                     end = 750)
 codons
 ```
-
 
 The codon sequences (_seq1_ and _seq2_) with their corresponding coordinates
 (left) are returned, as well as the coordinated representation on
@@ -551,25 +583,25 @@ mtext(side = 1,line = -2, at = c(0.7, 1.9),
 
 
 # References
-    1. Sanchez R, Morgado E, Grau R. Gene algebra from a 
+    1. R. Sanchez. Symmetric Group of the Genetic-Code Cubes.
+    Effect of the Genetic-Code Architecture on the Evolutionary Process MATCH
+    Commun. Math. Comput. Chem. 79 (2018) 527-560. 
+    [PDF](https://bit.ly/2Z9mjM7).
+
+    2. Sanchez R, Morgado E, Grau R. Gene algebra from a 
     genetic code algebraic structure. J Math Biol. 2005 Oct;51(4):431-57. 
     doi:10.1007/s00285-005-0332-8. Epub 2005 Jul 13. PMID: 16012800.
     ([PDF](https://arxiv.org/pdf/q-bio/0412033.pdf)).
 
-    2. Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian
+    3. Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian
     Finite Groups. 
     [doi:10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
 
-    3. M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky,
+    4. M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky,
     The 24 possible algebraic representations of the standard genetic code in
     six or in three dimensions, Adv. Stud. Biol. 4 (2012) 119-152.
     [PDF](https://is.gd/na9eap).
 
-    4. R. Sanchez. Symmetric Group of the Genetic-Code Cubes.
-    Effect of the Genetic-Code Architecture on the Evolutionary Process MATCH
-    Commun. Math. Comput. Chem. 79 (2018) 527-560. 
-    [PDF](https://bit.ly/2Z9mjM7).
-    
     5. Crick FHC. The Origin of the Genetic Code. J Mol Biol.
     1968;38: 367–379.
 

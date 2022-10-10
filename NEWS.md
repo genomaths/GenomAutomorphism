@@ -1,3 +1,11 @@
+# GenomAutomorphism 0.99.4
+
+* Expanding analyses by including amino acid similarity and statistical 
+  protein contact potentials matrices from from Amino Acid Index Database 
+  https://www.genome.jp/aaindex/.
+* Improving documentation.
+* Fixed a bug which introduced a change of protein coding frameshift.
+
 # GenomAutomorphism 0.99.3
 
 * Documentation improvement.      

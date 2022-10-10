@@ -43,7 +43,7 @@ target="_blank" rel="noopener">Bioconductor/Contributions</a>.
 
 ------------------------------------------------------------------------
 
-## Tutotials
+## Tutorials
 
 There are several tutorials on how to use the package at
 [GenomAutomorphism](https://genomaths.github.io/genomautomorphism)
