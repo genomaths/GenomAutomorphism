@@ -660,13 +660,16 @@ setValidity2("AutomorphismList", valid.AutomorphismList)
 #' data("brca1_autm", package = "GenomAutomorphism")
 #' names(brca1_autm)
 setMethod("names",
-          signature = "AutomorphismList",
-          function(x) names(x@DataList)
+        signature = "AutomorphismList",
+    function(x) names(x@DataList)
 )
 
 ## ================= AutomorphismList-methods ========================
 
 #' @rdname AutomorphismList
+#' @param x An \code{\link{AutomorphismList-class}} object.
+#' @param value A character vector naming the elements of the 
+#' \code{\link{AutomorphismList-class}} object 'x'.
 #' @export
 #' @examples 
 #' ## Load a DNA sequence alignment
@@ -975,7 +978,7 @@ setValidity2("ConservedRegionList", valid.ConservedRegionList)
 ## ========================== Class union ============================ 
 
 setClassUnion("CodonGroup_OR_Automorphisms", 
-              c("CodonGroup", "Automorphism", "AutomorphismByCoef"))
+            c("CodonGroup", "Automorphism", "AutomorphismByCoef"))
 
 ## ======================= Show methods ==============================
 

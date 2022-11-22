@@ -28,8 +28,8 @@
 #' given codon sequence as shown in reference (2-3).
 #' @param weight A numerical vector of  weights to compute weighted Manhattan 
 #' distance between codons. If \eqn{weight = NULL}, then 
-#' \eqn{weight = (1/4,1,1/16)} for \eqn{group = "Z4"} and 
-#' \eqn{weight = (1/5,1,1/25)} for \eqn{group = "Z5"} (see 
+#' \eqn{weight = (1/4,1,1/16)} for \eqn{group =} "Z4" and 
+#' \eqn{weight = (1/5,1,1/25)} for \eqn{group =} "Z5" (see 
 #' \code{\link{codon_dist}}). 
 #' @param cube A character string denoting one of the 24 Genetic-code cubes,
 #' as given in references (2-3).
@@ -74,6 +74,7 @@ codon_dist_matrix <- function(
     
     cl <- makeCluster(num.cores, type = "FORK")
     registerDoParallel(cl)
+    k <- NULL
     
     distm <- foreach(k = seq_len(63)) %dopar% {
         d <- as.vector(outer(nms[k], nms[seq((k + 1), 64, 1)], 
