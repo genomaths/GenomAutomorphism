@@ -1,4 +1,4 @@
-test_that("aa_mutmat works", {
+test_that("multiplication works", {
      data("aaindex2", package = "GenomAutomorphism" )
      mat <- aa_mutmat(aaindex = aaindex2, acc_list = TRUE)
      mat <- grepl("MIYS930101", mat[37])
