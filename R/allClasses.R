@@ -117,7 +117,7 @@ valid.BaseGroup.elem <- function(x) {
 valid.GRanges <- function(x) {
     if (length(x) > 0) {
         if (!inherits(x, "GRanges")) {
-            return("*** This is not a valid  Automorphism-class object.")
+            return("*** This is not a valid  BaseGroup-class object.")
         }
     }
     NULL
@@ -660,13 +660,16 @@ setValidity2("AutomorphismList", valid.AutomorphismList)
 #' data("brca1_autm", package = "GenomAutomorphism")
 #' names(brca1_autm)
 setMethod("names",
-          signature = "AutomorphismList",
-          function(x) names(x@DataList)
+        signature = "AutomorphismList",
+    function(x) names(x@DataList)
 )
 
 ## ================= AutomorphismList-methods ========================
 
 #' @rdname AutomorphismList
+#' @param x An \code{\link{AutomorphismList-class}} object.
+#' @param value A character vector naming the elements of the 
+#' \code{\link{AutomorphismList-class}} object 'x'.
 #' @export
 #' @examples 
 #' ## Load a DNA sequence alignment
@@ -972,8 +975,12 @@ valid.ConservedRegionList <- function(x) {
 
 setValidity2("ConservedRegionList", valid.ConservedRegionList)
 
+## ========================== Class union ============================ 
 
-## ======================= Show methods =================================
+setClassUnion("CodonGroup_OR_Automorphisms", 
+            c("CodonGroup", "Automorphism", "AutomorphismByCoef"))
+
+## ======================= Show methods ==============================
 
 
 #' @rdname CodonSeq
