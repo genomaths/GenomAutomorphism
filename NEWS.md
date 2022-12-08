@@ -1,3 +1,7 @@
+# GenomAutomorphism 1.0.2
+
+* Fix error of parallel computation on Windows (12/08/2022)
+
 # GenomAutomorphism 1.0.1
 
 * Expanding analyses by including aminoacid similarity based on codon
