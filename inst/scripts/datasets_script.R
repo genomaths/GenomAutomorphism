@@ -158,3 +158,23 @@ autm_3d <- automorphisms(
 autm_3d
 usethis::use_data(autm_3d, overwrite = TRUE)
 
+
+## Codon distance matrices for the standard genetic code on Z4
+cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", 
+         "GTAC", "CTAG", "GATC", "ACTG", "ATCG", 
+         "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", 
+         "CGAT", "AGTC", "ATGC", "CGTA", "CTGA", 
+         "GACT", "GCAT", "TACG", "TCAG")
+
+names(cube) <- cube
+
+cdm_z64 <- lapply(cube, function(x) 
+                codon_dist_matrix(
+                    cube = x,
+                    group = "Z4", 
+                    output = "vector",
+                    num.cores = 20L))
+
+usethis::use_data(cdm_z64, overwrite = TRUE, compress = "xz")
+
+
