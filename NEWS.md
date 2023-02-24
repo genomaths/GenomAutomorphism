@@ -1,3 +1,6 @@
+# GenomAutomorphism 1.0.3
+* Add new functions to work with modular matrix operations
+
 # GenomAutomorphism 1.0.2
 
 * Fix error of parallel computation on Windows (12/08/2022)
