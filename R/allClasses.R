@@ -593,6 +593,7 @@ setValidity2("Automorphism", valid.Automorphism)
 #' ## Transform a AutomorphismList-class object into an Automorphism-class
 #' ## object 
 #' unlist(brca1_autm[1:2])
+#' 
 #' @seealso \code{\link{Automorphism-class}} and 
 #' \code{\link{AutomorphismByCoefList-class}}.
 setClass("AutomorphismList",
@@ -650,6 +651,8 @@ valid.AutomorphismList <- function(x) {
 
 setValidity2("AutomorphismList", valid.AutomorphismList)
 
+## ================= AutomorphismList-methods ========================
+
 #' @rdname AutomorphismList
 #' @aliases names
 #' @param x An \code{\link{AutomorphismList}} object.
@@ -664,12 +667,7 @@ setMethod("names",
     function(x) names(x@DataList)
 )
 
-## ================= AutomorphismList-methods ========================
-
 #' @rdname AutomorphismList
-#' @param x An \code{\link{AutomorphismList-class}} object.
-#' @param value A character vector naming the elements of the 
-#' \code{\link{AutomorphismList-class}} object 'x'.
 #' @export
 #' @examples 
 #' ## Load a DNA sequence alignment
