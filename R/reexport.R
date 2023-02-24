@@ -81,3 +81,14 @@ BiocGenerics::`strand<-`
 #' @importFrom GenomicRanges GRangesList
 #' @export
 GenomicRanges::GRangesList
+
+## From numbers ---------------------------------------
+
+#' @importFrom numbers modq
+#' @export
+numbers::modq
+
+#' @importFrom numbers modlin
+#' @export
+numbers::modlin
+

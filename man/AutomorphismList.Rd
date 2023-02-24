@@ -21,10 +21,7 @@
 \S4method{show}{AutomorphismList}(object)
 }
 \arguments{
-\item{x}{An \code{\link{AutomorphismList-class}} object.}
-
-\item{value}{A character vector naming the elements of the
-\code{\link{AutomorphismList-class}} object 'x'.}
+\item{x}{An \code{\link{AutomorphismList}} object.}
 
 \item{object}{An object from \code{\link{AutomorphismList-class}}.}
 }
@@ -111,6 +108,7 @@ as.AutomorphismList(lista)
 ## Transform a AutomorphismList-class object into an Automorphism-class
 ## object 
 unlist(brca1_autm[1:2])
+
 ## Load a DNA sequence alignment
 data("brca1_autm", package = "GenomAutomorphism")
 names(brca1_autm)
