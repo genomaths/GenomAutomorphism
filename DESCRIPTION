@@ -46,7 +46,7 @@ Imports:
     stats,
     numbers,
     utils
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0
 Suggests:
     spelling,
     rmarkdown,
