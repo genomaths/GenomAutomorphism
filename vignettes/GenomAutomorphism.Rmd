@@ -3,8 +3,8 @@ title: "Get started-with GenomAutomorphism"
 author: 
     - name: Robersy Sanchez
       affiliation: Department of Biology.
-                   Pennsylvania State University, University Park, PA 16802
-      email: rus547@psu.edu
+                  Pennsylvania State University, University Park, PA 16802
+      email: genomicmath@gmail.com
 date: "`r format(Sys.time(), '%d %B %Y')`"
 fontsize: 11pt
 fontfamily: "serif"

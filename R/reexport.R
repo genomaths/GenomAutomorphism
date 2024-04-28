@@ -55,6 +55,10 @@ Biostrings::GENETIC_CODE_TABLE
 Biostrings::getGeneticCode
 
 
+#' @importFrom Biostrings unmasked
+#' @export
+Biostrings::unmasked
+
 ## From BiocGenerics ---------------------------------------
 #' @importFrom BiocGenerics width
 #' @export

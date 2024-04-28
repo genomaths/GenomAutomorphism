@@ -55,7 +55,8 @@
 #' original DNA sequence alias are stored in the slot named 'seq_alias'.
 #' (see examples).
 #' 
-#' @returns 
+#' @returns Depending on the function called, different object will be
+#' returned:
 #' 
 #' ## Function 'base_coord'
 #' 

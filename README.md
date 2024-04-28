@@ -5,7 +5,7 @@
 Robersy Sanchez  
 Department of Biology. Eberly College of Science.  
 Pennsylvania State University, University Park, PA 16802  
-<rus547@psu.edu>  
+<genomicmath@gmail.com>  
 [ORCID:
 orcid.org/0000-0002-5246-1453](https://orcid.org/0000-0002-5246-1453)
 

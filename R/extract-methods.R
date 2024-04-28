@@ -15,15 +15,19 @@
 ## ======================= AutomorphismList ======================
 
 
-#' An S4 class to extract elements from AutomorphismList-class object.
 #' @rdname extract-methods
-#' @aliases [
-#' @aliases AutomorphismList-methods
-#' @param x An \code{\link{AutomorphismList-class}} object.
+#' @aliases '['
+#' @aliases extract
+#' @aliases extract-methods
+#' @title An S4 class to extract elements for objects created with
+#' GenomAutomorphism package.
+#' @param x An object from [AutomorphismList], [ListCodonMatrix], or 
+#' [MatrixSeq].
 #' @param i,... As in \code{\link[base]{Extract}}.
 #' @description First and second level subsetting of 'x'. Extraction using
 #' names can be done as x$name.
-#' @return An element of x, an \code{\link{AutomorphismList-class}} object.
+#' @return An object from [AutomorphismList], [ListCodonMatrix], or 
+#' [MatrixSeq] class.
 #' @keywords internal
 #' @exportMethod "["
 #' @export
@@ -37,11 +41,9 @@ setMethod(
 )
 
 #' @rdname extract-methods
-#' @aliases [[
-#' @aliases AutomorphismList-methods
-#' @param x An \code{\link{AutomorphismList-class}} object.
-#' @description Second level subsetting of 'x'.
-#' @return An element of x, an \code{\link{Automorphism-class}} object.
+#' @aliases '[['
+#' @aliases extract
+#' @aliases extract-methods
 #' @exportMethod "[["
 #' @export
 #' @author Robersy Sanchez (\url{https://genomaths.com}).
@@ -69,12 +71,9 @@ setMethod(
 
 
 #' @rdname extract-methods
+#' @aliases extract
 #' @aliases $
-#' @aliases AutomorphismList-methods
-#' @param x An \code{\link{AutomorphismList-class}} object
-#' @param name A literal character string naming an element from 'x'.
-#' @description Subsetting of 'x' by element name.
-#' @return An element of x, an \code{\link{Automorphism-class}} object.
+#' @aliases extract-methods
 #' @exportMethod "$"
 #' @export
 setMethod(
@@ -89,15 +88,10 @@ setMethod(
 
 ## ======================= ListCodonMatrix ======================
 
-#' An S4 class to extract elements from ListCodonMatrix-class object.
 #' @rdname extract-methods
-#' @aliases [
-#' @aliases ListCodonMatrix-methods
-#' @param x An \code{\link{ListCodonMatrix-class}} object.
-#' @param i,... As in \code{\link[base]{Extract}}.
-#' @description First and second level subsetting of 'x'. Extraction using
-#' names can be done as x$name.
-#' @return An element of x, an \code{\link{ListCodonMatrix-class}} object.
+#' @aliases '['
+#' @aliases extract
+#' @aliases extract-methods
 #' @keywords internal
 #' @exportMethod "["
 #' @export
@@ -112,11 +106,9 @@ setMethod(
 )
 
 #' @rdname extract-methods
-#' @aliases [[
-#' @aliases ListCodonMatrix-methods
-#' @param x An \code{\link{ListCodonMatrix-class}} object.
-#' @description Second level subsetting of 'x'.
-#' @return An element of x, an \code{\link{ListCodonMatrix-class}} object.
+#' @aliases '[['
+#' @aliases extract
+#' @aliases extract-methods
 #' @exportMethod "[["
 #' @export
 #' @author Robersy Sanchez (\url{https://genomaths.com}).
@@ -132,11 +124,8 @@ setMethod(
 
 #' @rdname extract-methods
 #' @aliases $
-#' @aliases ListCodonMatrix-methods
-#' @param x An \code{\link{ListCodonMatrix-class}} object
-#' @param name A literal character string naming an element from 'x'.
-#' @description Subsetting of 'x' by element name.
-#' @return An element of x, an \code{\link{ListCodonMatrix-class}} object.
+#' @aliases extract
+#' @aliases extract-methods
 #' @exportMethod "$"
 #' @export
 setMethod(
@@ -154,15 +143,10 @@ setMethod(
 ## ======================= MatrixSeq ======================
 
 
-#' An S4 class to extract elements from BaseSeqMatrix-class object.
 #' @rdname extract-methods
-#' @aliases [
-#' @aliases MatrixSeq-methods
-#' @param x An [MatrixSeq]-class object.
-#' @param i,... As in \code{\link[base]{Extract}}.
-#' @description First and second level subsetting of 'x'. Extraction using
-#' names can be done as x$name.
-#' @return An element of x, an \code{\link{MatrixSeq-class}} object.
+#' @aliases '['
+#' @aliases extract
+#' @aliases extract-methods
 #' @keywords internal
 #' @exportMethod "["
 #' @export
@@ -196,15 +180,12 @@ setMethod(
 
 #' @rdname extract-methods
 #' @aliases $
-#' @aliases ListCodonMatrix-methods
-#' @param x An \code{\link{ListCodonMatrix-class}} object
-#' @param name A literal character string naming an element from 'x'.
-#' @description Subsetting of 'x' by element name.
-#' @return An element of x, an \code{\link{ListCodonMatrix-class}} object.
+#' @aliases extract
+#' @aliases extract-methods
 #' @exportMethod "$"
 #' @export
 setMethod(
-    "$", signature(x = "ListCodonMatrix"),
+    "$", signature(x = "MatrixSeq"),
     function(x, name) {
         i <- match(name, names(x))
         x@DataList <- x@DataList[i]

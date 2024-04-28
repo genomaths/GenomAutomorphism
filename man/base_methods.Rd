@@ -81,6 +81,8 @@ values given for the function definition will be used.}
 \item{x}{A 'BaseSeq' class object.}
 }
 \value{
+Depending on the function called, different object will be
+returned:
 \subsection{Function 'base_coord'}{
 
 This function returns a \code{\link{BaseGroup}} object

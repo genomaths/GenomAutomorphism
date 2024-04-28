@@ -49,7 +49,7 @@ physicochemical index in the database.}
 \examples{
 aln <- c(S1 = "ATGCGGATTAGA", S2 = "ATGACGATCACA", S3 = "ATGAGATCACAG")
 cd <- DNAMultipleAlignment(aln)
-r1 <- peptide_phychem_index(cd@unmasked, acc = "EISD840101")
+r1 <- peptide_phychem_index(unmasked(cd), acc = "EISD840101")
 r1
 }
 \author{

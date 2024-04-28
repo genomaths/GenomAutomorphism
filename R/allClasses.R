@@ -555,7 +555,7 @@ setClass("MatrixSeq",
 #' @examples 
 #' aln <- c(S1 = "ATGCGGATTAGA", S2 = "ATGACGATCACA", S3 = "ATGAGATCACAG")
 #' cd <- DNAMultipleAlignment(aln)
-#' r1 <- peptide_phychem_index(cd@unmasked, acc = "EISD840101")
+#' r1 <- peptide_phychem_index(unmasked(cd), acc = "EISD840101")
 #' r1
 MatrixSeq <- function(seqs, matrix, names, aaindex, phychem, accession) {
     new("MatrixSeq",
@@ -659,12 +659,12 @@ setAs("MatrixSeq", "GRangesMatrixSeq",
 #' aln <- c(S1 = "ATGCGGATTAGA", S2 = "ATGACGATCACA", 
 #'         S3 = "ATGAGATCACAG")
 #' cd <- DNAMultipleAlignment(aln)
-#' r1 <- peptide_phychem_index(cd@unmasked, acc = "EISD840101")
+#' r1 <- peptide_phychem_index(unmasked(cd), acc = "EISD840101")
 #' 
 #' r2 <- GRangesMatrixSeq(r1)
 #' r2
 #' 
-#' r2@phychem
+#' slot(r2, "phychem")
 #' 
 GRangesMatrixSeq <- function(
     object = NULL,

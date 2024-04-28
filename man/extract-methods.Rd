@@ -2,19 +2,20 @@
 % Please edit documentation in R/extract-methods.R
 \name{[,AutomorphismList,ANY-method}
 \alias{[,AutomorphismList,ANY-method}
-\alias{[}
-\alias{AutomorphismList-methods}
+\alias{'['}
+\alias{extract}
+\alias{extract-methods}
 \alias{[[,AutomorphismList-method}
-\alias{[[}
+\alias{'[['}
 \alias{$,AutomorphismList-method}
 \alias{$}
 \alias{[,ListCodonMatrix,ANY-method}
-\alias{ListCodonMatrix-methods}
 \alias{[[,ListCodonMatrix-method}
 \alias{$,ListCodonMatrix-method}
 \alias{[,MatrixSeq,ANY-method}
-\alias{MatrixSeq-methods}
-\title{An S4 class to extract elements from AutomorphismList-class object.}
+\alias{$,MatrixSeq-method}
+\title{An S4 class to extract elements for objects created with
+GenomAutomorphism package.}
 \usage{
 \S4method{[}{AutomorphismList,ANY}(x, i, j, ..., drop = TRUE)
 
@@ -30,51 +31,21 @@
 
 \S4method{[}{MatrixSeq,ANY}(x, i, j, ..., drop = TRUE)
 
-\S4method{$}{ListCodonMatrix}(x, name)
+\S4method{$}{MatrixSeq}(x, name)
 }
 \arguments{
-\item{x}{An \code{\link{ListCodonMatrix-class}} object}
+\item{x}{An object from \link{AutomorphismList}, \link{ListCodonMatrix}, or
+\link{MatrixSeq}.}
 
 \item{i, ...}{As in \code{\link[base]{Extract}}.}
-
-\item{name}{A literal character string naming an element from 'x'.}
 }
 \value{
-An element of x, an \code{\link{AutomorphismList-class}} object.
-
-An element of x, an \code{\link{Automorphism-class}} object.
-
-An element of x, an \code{\link{Automorphism-class}} object.
-
-An element of x, an \code{\link{ListCodonMatrix-class}} object.
-
-An element of x, an \code{\link{ListCodonMatrix-class}} object.
-
-An element of x, an \code{\link{ListCodonMatrix-class}} object.
-
-An element of x, an \code{\link{MatrixSeq-class}} object.
-
-An element of x, an \code{\link{ListCodonMatrix-class}} object.
+An object from \link{AutomorphismList}, \link{ListCodonMatrix}, or
+\link{MatrixSeq} class.
 }
 \description{
 First and second level subsetting of 'x'. Extraction using
 names can be done as x$name.
-
-Second level subsetting of 'x'.
-
-Subsetting of 'x' by element name.
-
-First and second level subsetting of 'x'. Extraction using
-names can be done as x$name.
-
-Second level subsetting of 'x'.
-
-Subsetting of 'x' by element name.
-
-First and second level subsetting of 'x'. Extraction using
-names can be done as x$name.
-
-Subsetting of 'x' by element name.
 }
 \examples{
 ## Load automorphisms found BRCA1 primate genes

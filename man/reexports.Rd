@@ -15,6 +15,7 @@
 \alias{translate}
 \alias{GENETIC_CODE_TABLE}
 \alias{getGeneticCode}
+\alias{unmasked}
 \alias{width}
 \alias{start}
 \alias{start<-}
@@ -50,7 +51,7 @@ below to see their documentation.
 \describe{
   \item{BiocGenerics}{\code{\link[BiocGenerics:start]{end}}, \code{\link[BiocGenerics:start]{end<-}}, \code{\link[BiocGenerics]{start}}, \code{\link[BiocGenerics:start]{start<-}}, \code{\link[BiocGenerics]{strand}}, \code{\link[BiocGenerics:strand]{strand<-}}, \code{\link[BiocGenerics:start]{width}}}
 
-  \item{Biostrings}{\code{\link[Biostrings:MultipleAlignment-class]{AAMultipleAlignment}}, \code{\link[Biostrings:XStringSet-class]{AAStringSet}}, \code{\link[Biostrings:MultipleAlignment-class]{DNAMultipleAlignment}}, \code{\link[Biostrings:XStringSet-class]{DNAStringSet}}, \code{\link[Biostrings:GENETIC_CODE]{GENETIC_CODE_TABLE}}, \code{\link[Biostrings:GENETIC_CODE]{getGeneticCode}}, \code{\link[Biostrings:MultipleAlignment-class]{readDNAMultipleAlignment}}, \code{\link[Biostrings]{translate}}}
+  \item{Biostrings}{\code{\link[Biostrings:MultipleAlignment-class]{AAMultipleAlignment}}, \code{\link[Biostrings:XStringSet-class]{AAStringSet}}, \code{\link[Biostrings:MultipleAlignment-class]{DNAMultipleAlignment}}, \code{\link[Biostrings:XStringSet-class]{DNAStringSet}}, \code{\link[Biostrings:GENETIC_CODE]{GENETIC_CODE_TABLE}}, \code{\link[Biostrings:GENETIC_CODE]{getGeneticCode}}, \code{\link[Biostrings:MultipleAlignment-class]{readDNAMultipleAlignment}}, \code{\link[Biostrings]{translate}}, \code{\link[Biostrings:MaskedXString-class]{unmasked}}}
 
   \item{GenomicRanges}{\code{\link[GenomicRanges:GRangesList-class]{GRangesList}}}
 
