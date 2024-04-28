@@ -191,10 +191,7 @@ str_set <- base_seq2string_set(gr)
 str_set
 
 ## Recovering the original MSA
-\donttest{
-require(Biostrings, quietly = TRUE)
 DNAMultipleAlignment(as.character(str_set))
-} 
 
 ## Example 5. 
 base_matrix(base = aln, cube = "CGTA", group = "Z5")

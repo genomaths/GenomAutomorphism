@@ -28,7 +28,8 @@ biocViews:
     MathematicalBiology,
     ComparativeGenomics,
     FunctionalGenomics,
-    MultipleSequenceAlignment
+    MultipleSequenceAlignment,
+    WholeGenome
 Imports:
     Biostrings,
     BiocGenerics,

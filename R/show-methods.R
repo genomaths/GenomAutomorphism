@@ -61,11 +61,11 @@ setMethod(
     signature = "ListCodonMatrix",
     definition = function(object) {
         l <- length(object@DataList) 
-        nms <- object@seq_alias
+        nms <- object@names
         cat(class(object), " object of length: ", l, "\n", sep = "")
         
         if (sum(nchar(nms)) > 50 && l > 1) 
-            nms <- paste(nms[1:6])
+            nms <- paste(nms[seq(6)])
         
         if (l > 1)
             cat("Seq.Alias:", nms, "...\n")

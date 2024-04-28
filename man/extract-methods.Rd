@@ -11,6 +11,7 @@
 \alias{$}
 \alias{[,ListCodonMatrix,ANY-method}
 \alias{[[,ListCodonMatrix-method}
+\alias{names,ListCodonMatrix-method}
 \alias{$,ListCodonMatrix-method}
 \alias{[,MatrixSeq,ANY-method}
 \alias{$,MatrixSeq-method}
@@ -26,6 +27,8 @@ GenomAutomorphism package.}
 \S4method{[}{ListCodonMatrix,ANY}(x, i, j, ..., drop = TRUE)
 
 \S4method{[[}{ListCodonMatrix}(x, i, j, ...)
+
+\S4method{names}{ListCodonMatrix}(x)
 
 \S4method{$}{ListCodonMatrix}(x, name)
 

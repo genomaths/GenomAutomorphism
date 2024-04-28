@@ -123,6 +123,18 @@ setMethod(
 
 
 #' @rdname extract-methods
+#' @aliases extract
+#' @aliases extract-methods
+#' @exportMethod "$"
+#' @export
+setMethod(
+    "names", signature(x = "ListCodonMatrix"),
+    function(x) {
+        x@names
+    }
+)
+
+#' @rdname extract-methods
 #' @aliases $
 #' @aliases extract
 #' @aliases extract-methods
@@ -132,9 +144,8 @@ setMethod(
     "$", signature(x = "ListCodonMatrix"),
     function(x, name) {
         i <- match(name, names(x))
-        x@DataList <- x@DataList[i]
-        x@seq_alias <- x@seq_alias[i] 
-        x@DataList <- x@DataList[[1]]
+        x <- x[i]
+        x <- x@DataList[[1]] 
         return(x)
     }
 )
