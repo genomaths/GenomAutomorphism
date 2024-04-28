@@ -12,7 +12,7 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-## ======================= AutomorphismList ======================
+## ======================='[' AutomorphismList ======================
 
 
 #' @rdname extract-methods
@@ -20,10 +20,10 @@
 #' @aliases extract
 #' @aliases extract-methods
 #' @title An S4 class to extract elements for objects created with
-#' GenomAutomorphism package.
+#' GenomAutomorphism package
 #' @param x An object from [AutomorphismList], [ListCodonMatrix], or 
 #' [MatrixSeq].
-#' @param i,... As in \code{\link[base]{Extract}}.
+#' @param i,j,... As in \code{\link[base]{Extract}}.
 #' @description First and second level subsetting of 'x'. Extraction using
 #' names can be done as x$name.
 #' @return An object from [AutomorphismList], [ListCodonMatrix], or 
@@ -40,53 +40,7 @@ setMethod(
     }
 )
 
-#' @rdname extract-methods
-#' @aliases '[['
-#' @aliases extract
-#' @aliases extract-methods
-#' @exportMethod "[["
-#' @export
-#' @author Robersy Sanchez (\url{https://genomaths.com}).
-#' @examples
-#' ## Load automorphisms found BRCA1 primate genes
-#' data("brca1_autm", package = "GenomAutomorphism")
-#' 
-#' ## Extract AutomorphismList object with only one element
-#' brca1_autm[1]
-#' 
-#' ## Extract Automorphism object with only one element
-#' brca1_autm[[3]]
-#' 
-#' ## Extract Automorphism object using element name.
-#' brca1_autm[["human_1.gorilla_1"]]
-setMethod(
-    "[[", signature(x = "AutomorphismList"),
-    function(x, i, ...) {
-        x <- x[i]
-        x <- getAutomorphisms(x)
-        x <- as(x, "GRangesList")
-        return(x[[1]])
-    }
-)
-
-
-#' @rdname extract-methods
-#' @aliases extract
-#' @aliases $
-#' @aliases extract-methods
-#' @exportMethod "$"
-#' @export
-setMethod(
-    "$", signature(x = "AutomorphismList"),
-    function(x, name) {
-        x@DataList <- x@DataList[match(name, names(x))]
-        x <- getAutomorphisms(x)
-        x <- as(x, "GRangesList")
-        return(x[[1]])
-    }
-)
-
-## ======================= ListCodonMatrix ======================
+## ======================='[' ListCodonMatrix ======================
 
 #' @rdname extract-methods
 #' @aliases '['
@@ -105,54 +59,7 @@ setMethod(
     }
 )
 
-#' @rdname extract-methods
-#' @aliases '[['
-#' @aliases extract
-#' @aliases extract-methods
-#' @exportMethod "[["
-#' @export
-#' @author Robersy Sanchez (\url{https://genomaths.com}).
-setMethod(
-    "[[", signature(x = "ListCodonMatrix"),
-    function(x, i, ...) {
-        x <- x[i]
-        x <- x@DataList[[1]] 
-        return(x)
-    }
-)
-
-
-#' @rdname extract-methods
-#' @aliases extract
-#' @aliases extract-methods
-#' @exportMethod "$"
-#' @export
-setMethod(
-    "names", signature(x = "ListCodonMatrix"),
-    function(x) {
-        x@names
-    }
-)
-
-#' @rdname extract-methods
-#' @aliases $
-#' @aliases extract
-#' @aliases extract-methods
-#' @exportMethod "$"
-#' @export
-setMethod(
-    "$", signature(x = "ListCodonMatrix"),
-    function(x, name) {
-        i <- match(name, names(x))
-        x <- x[i]
-        x <- x@DataList[[1]] 
-        return(x)
-    }
-)
-
-
-## ======================= MatrixSeq ======================
-
+## ======================= '[' MatrixSeq ======================
 
 #' @rdname extract-methods
 #' @aliases '['
@@ -189,6 +96,112 @@ setMethod(
 )
 
 
+## ======================= '[[' AutomorphismList ======================
+
+
+#' @rdname extract-methods
+#' @aliases '[['
+#' @aliases extract
+#' @aliases extract-methods
+#' @exportMethod "[["
+#' @export
+#' @author Robersy Sanchez (\url{https://genomaths.com}).
+#' @examples
+#' ## Load automorphisms found BRCA1 primate genes
+#' data("brca1_autm", package = "GenomAutomorphism")
+#' 
+#' ## Extract AutomorphismList object with only one element
+#' brca1_autm[1]
+#' 
+#' ## Extract Automorphism object with only one element
+#' brca1_autm[[3]]
+#' 
+#' ## Extract Automorphism object using element name.
+#' brca1_autm[["human_1.gorilla_1"]]
+setMethod(
+    "[[", signature(x = "AutomorphismList"),
+    function(x, i, ...) {
+        x <- x[i]
+        x <- getAutomorphisms(x)
+        x <- as(x, "GRangesList")
+        return(x[[1]])
+    }
+)
+
+
+## ===================== '[[' ListCodonMatrix ======================
+
+
+#' @rdname extract-methods
+#' @aliases '[['
+#' @aliases extract
+#' @aliases extract-methods
+#' @exportMethod "[["
+#' @export
+#' @author Robersy Sanchez (\url{https://genomaths.com}).
+setMethod(
+    "[[", signature(x = "ListCodonMatrix"),
+    function(x, i, ...) {
+        x <- x[i]
+        x <- x@DataList[[1]] 
+        return(x)
+    }
+)
+
+## ======================= $ AutomorphismList ======================
+
+#' @rdname extract-methods
+#' @aliases extract
+#' @aliases $
+#' @aliases extract-methods
+#' @param name Element name in the list 'x'.
+#' @exportMethod "$"
+#' @export
+setMethod(
+    "$", signature(x = "AutomorphismList"),
+    function(x, name) {
+        x@DataList <- x@DataList[match(name, names(x))]
+        x <- getAutomorphisms(x)
+        x <- as(x, "GRangesList")
+        return(x[[1]])
+    }
+)
+
+
+## ======================= $ ListCodonMatrix ======================
+
+#' @rdname extract-methods
+#' @aliases extract
+#' @aliases extract-methods
+#' @exportMethod "$"
+#' @export
+setMethod(
+    "names", signature(x = "ListCodonMatrix"),
+    function(x) {
+        x@names
+    }
+)
+
+#' @rdname extract-methods
+#' @aliases $
+#' @aliases extract
+#' @aliases extract-methods
+#' @exportMethod "$"
+#' @export
+setMethod(
+    "$", signature(x = "ListCodonMatrix"),
+    function(x, name) {
+        i <- match(name, names(x))
+        x <- x[i]
+        x <- x@DataList[[1]] 
+        return(x)
+    }
+)
+
+
+## ======================= $ MatrixSeq ======================
+
+
 #' @rdname extract-methods
 #' @aliases $
 #' @aliases extract
@@ -199,12 +212,43 @@ setMethod(
     "$", signature(x = "MatrixSeq"),
     function(x, name) {
         i <- match(name, names(x))
-        x@DataList <- x@DataList[i]
-        x@seq_alias <- x@seq_alias[i] 
-        x@DataList <- x@DataList[[1]]
+        return(x[i])
+    }
+)
+
+
+#' @rdname extract-methods
+#' @aliases extract
+#' @aliases extract-methods
+#' @param value A character vector of up to the same length as x, or NULL.
+#' @exportMethod "$"
+#' @export
+setMethod(
+    "names<-", signature(x = "MatrixSeq"),
+    function(x, value) {
+        if (length(x@names) == length(value)) {
+            x@names <- value
+            if (is.matrix(x@matrix))
+                rownames(x@matrix) <- value
+            else
+                names(x@matrix) <- value
+            
+            names(x@seqs) <- value
+        }
         return(x)
     }
 )
+
+
+
+
+
+
+
+
+
+
+
 
 
 

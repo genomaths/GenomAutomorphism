@@ -94,7 +94,7 @@ setMethod(
     }
 )
 
-## ========================= Show MatrixSeq ============================= #
+## ========================= Show MatrixSeq ============================
 
 #' @rdname MatrixSeq
 #' @aliases show-MatrixSeq
@@ -109,16 +109,17 @@ setMethod(
     signature = "MatrixSeq",
     function(object) {
         d <- dim(object@matrix)
-        if (d[2] > 1)
-            cat("MatrixSeq with", d[1], "rows (sequences) and", d[2], 
+        d2 <- d[2]
+        if (d2 > 1)
+            cat("MatrixSeq with", d[1], "rows (sequences) and", d2, 
             "columns (aminoacids/codons):\n")
         else {
             if (d[1] > 1)
                 cat("MatrixSeq with", d[1], "rows (aminoacids/codons) and", 
-                    d[2], "column (sequence):\n")
+                    d2, "column (sequence):\n")
         }
         cat("------- \n")
-        if (d[1] <= 40 && d[2] <= 20) {
+        if (d[1] <= 40 && d2 <= 20) {
             print(object@matrix)
         }
         else {
@@ -126,8 +127,8 @@ setMethod(
             cn <- colnames(x)
             rn <- rownames(x)
             
-            if (d[2] > 12) {
-                x <- x[, c(seq(6), seq(d[2] - 5, d[2]))]
+            if (d2 > 12) {
+                x <- x[, c(seq(6), seq(d2 - 5, d2))]
                 x[, 6] <- "..."
                 cn <- colnames(x)
                 cn[6] <- "..."

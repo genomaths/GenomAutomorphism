@@ -559,6 +559,8 @@ setValidity2("ListCodonMatrix", valid.ListCodonMatrix)
 
 ## ========================== MatrixSeq class =============================
 
+setClassUnion("matrix_OR_vector", c("matrix", "vector", "numeric"))
+
 #' @aliases MatrixSeq
 #' @rdname MatrixSeq
 #' @title Definition of MatrixSeq-class
@@ -571,9 +573,9 @@ setValidity2("ListCodonMatrix", valid.ListCodonMatrix)
 #' \describe{
 #'  \item{\strong{seqs}: }{A string character vector of DNA or aminoacid 
 #'  sequences.}
-#'  \item{\strong{matrix}: }{A numerical matrix carrying the specified 
-#'  aminoacid physicochemical indices for aminoacid in the DNA or aminoacid
-#'  sequences.}
+#'  \item{\strong{matrix}: }{A numerical matrix or a numerical vector
+#'  (in the constructor) carrying the specified aminoacid physicochemical
+#'  indices for aminoacid in the DNA or aminoacid sequence(s).}
 #'  \item{\strong{names}: }{Alias/names/IDs DNA or aminoacid sequences.}
 #'  \item{\strong{aaindex}: }{Aminoacid index database where the 
 #'  physicochemical index can be found.}
@@ -608,7 +610,32 @@ setClass("MatrixSeq",
 #' cd <- DNAMultipleAlignment(aln)
 #' r1 <- peptide_phychem_index(unmasked(cd), acc = "EISD840101")
 #' r1
+#' 
+#' ## Extract the second aminoacid sequence
+#' r1[2]
+#' 
+#' ## Using the sequence given name 
+#' r1$S1
+#' 
+#' ## Extract the second aminoacid value from the first sequence
+#' r1[1,2]
+#' 
+#' ## Change the name the second sequence
+#' names(r1) <- c('S1', 'Seq1', 'S1')
+#' r1
+#' 
+#' ## Extract the amino acid sequences
+#' slot(r1, 'seqs')
+#' 
 MatrixSeq <- function(seqs, matrix, names, aaindex, phychem, accession) {
+    vtr <- is.vector(matrix)
+    if (vtr)
+        matrix <- as.matrix(matrix)
+    
+    if (!vtr && nrow(matrix) != length(seqs))
+        stop("*** The number sequences must be equal to the matrix ",
+            "row-number.")
+    
     new("MatrixSeq",
         seqs = seqs,
         matrix = matrix,
