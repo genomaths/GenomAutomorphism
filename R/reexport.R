@@ -30,6 +30,18 @@ Biostrings::AAStringSet
 #' @export
 Biostrings::readDNAMultipleAlignment
 
+#' @importFrom Biostrings DNAMultipleAlignment
+#' @export
+Biostrings::DNAMultipleAlignment
+
+#' @importFrom Biostrings AAMultipleAlignment
+#' @export
+Biostrings::AAMultipleAlignment
+
+#' @importFrom XVector subseq
+#' @export
+XVector::subseq
+
 #' @importFrom Biostrings translate
 #' @export
 Biostrings::translate
@@ -82,8 +94,6 @@ BiocGenerics::`strand<-`
 #' @export
 GenomicRanges::GRangesList
 
-## From numbers ---------------------------------------
-
 #' @importFrom numbers modq
 #' @export
 numbers::modq
@@ -91,4 +101,50 @@ numbers::modq
 #' @importFrom numbers modlin
 #' @export
 numbers::modlin
+
+## From matrixStats ---------------------------------------
+
+#' @importFrom matrixStats rowSums2
+#' @export
+matrixStats::rowSums2
+
+#' @importFrom matrixStats colSums2
+#' @export
+matrixStats::colSums2
+
+#' @importFrom matrixStats colMeans2
+#' @export
+matrixStats::colMeans2
+
+#' @importFrom matrixStats rowMeans2
+#' @export
+matrixStats::rowMeans2
+
+#' @importFrom matrixStats rowVars
+#' @export
+matrixStats::rowVars
+
+#' @importFrom matrixStats colVars
+#' @export
+matrixStats::colVars
+
+#' @importFrom matrixStats colSds
+#' @export
+matrixStats::colSds
+
+#' @importFrom matrixStats rowSds
+#' @export
+matrixStats::rowSds
+
+
+
+
+
+
+
+
+
+
+
+
 

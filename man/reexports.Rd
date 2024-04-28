@@ -9,6 +9,9 @@
 \alias{DNAStringSet}
 \alias{AAStringSet}
 \alias{readDNAMultipleAlignment}
+\alias{DNAMultipleAlignment}
+\alias{AAMultipleAlignment}
+\alias{subseq}
 \alias{translate}
 \alias{GENETIC_CODE_TABLE}
 \alias{getGeneticCode}
@@ -22,6 +25,14 @@
 \alias{GRangesList}
 \alias{modq}
 \alias{modlin}
+\alias{rowSums2}
+\alias{colSums2}
+\alias{colMeans2}
+\alias{rowMeans2}
+\alias{rowVars}
+\alias{colVars}
+\alias{colSds}
+\alias{rowSds}
 \title{Reexport useful functions to be available to users}
 \examples{
 ## Load an Automorphism object and take its metacolumns
@@ -39,12 +50,16 @@ below to see their documentation.
 \describe{
   \item{BiocGenerics}{\code{\link[BiocGenerics:start]{end}}, \code{\link[BiocGenerics:start]{end<-}}, \code{\link[BiocGenerics]{start}}, \code{\link[BiocGenerics:start]{start<-}}, \code{\link[BiocGenerics]{strand}}, \code{\link[BiocGenerics:strand]{strand<-}}, \code{\link[BiocGenerics:start]{width}}}
 
-  \item{Biostrings}{\code{\link[Biostrings:XStringSet-class]{AAStringSet}}, \code{\link[Biostrings:XStringSet-class]{DNAStringSet}}, \code{\link[Biostrings:GENETIC_CODE]{GENETIC_CODE_TABLE}}, \code{\link[Biostrings:GENETIC_CODE]{getGeneticCode}}, \code{\link[Biostrings:MultipleAlignment-class]{readDNAMultipleAlignment}}, \code{\link[Biostrings]{translate}}}
+  \item{Biostrings}{\code{\link[Biostrings:MultipleAlignment-class]{AAMultipleAlignment}}, \code{\link[Biostrings:XStringSet-class]{AAStringSet}}, \code{\link[Biostrings:MultipleAlignment-class]{DNAMultipleAlignment}}, \code{\link[Biostrings:XStringSet-class]{DNAStringSet}}, \code{\link[Biostrings:GENETIC_CODE]{GENETIC_CODE_TABLE}}, \code{\link[Biostrings:GENETIC_CODE]{getGeneticCode}}, \code{\link[Biostrings:MultipleAlignment-class]{readDNAMultipleAlignment}}, \code{\link[Biostrings]{translate}}}
 
   \item{GenomicRanges}{\code{\link[GenomicRanges:GRangesList-class]{GRangesList}}}
+
+  \item{matrixStats}{\code{\link[matrixStats:rowMeans2]{colMeans2}}, \code{\link[matrixStats:rowSds]{colSds}}, \code{\link[matrixStats:rowSums2]{colSums2}}, \code{\link[matrixStats:rowVars]{colVars}}, \code{\link[matrixStats]{rowMeans2}}, \code{\link[matrixStats]{rowSds}}, \code{\link[matrixStats]{rowSums2}}, \code{\link[matrixStats]{rowVars}}}
 
   \item{numbers}{\code{\link[numbers]{modlin}}, \code{\link[numbers:mod]{modq}}}
 
   \item{S4Vectors}{\code{\link[S4Vectors:Vector-class]{mcols}}, \code{\link[S4Vectors:Vector-class]{mcols<-}}, \code{\link[S4Vectors:S4Vectors-internals]{setValidity2}}}
+
+  \item{XVector}{\code{\link[XVector:XVector-class]{subseq}}}
 }}
 

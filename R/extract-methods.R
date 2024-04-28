@@ -1,4 +1,4 @@
-## Copyright (C) 2021 Robersy Sanchez <https://genomaths.com/>
+## Copyright (C) 2021-2024 Robersy Sanchez <https://genomaths.com/>
 ## Author: Robersy Sanchez This file is part of the R package
 ## 'GenomAutomorphism'.  'GenomAutomorphism' is a free
 ## software: you can redistribute it and/or modify it under the
@@ -11,7 +11,10 @@
 ## more details.  You should have received a copy of the GNU
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
-##
+
+## ======================= AutomorphismList ======================
+
+
 #' An S4 class to extract elements from AutomorphismList-class object.
 #' @rdname extract-methods
 #' @aliases [
@@ -44,7 +47,7 @@ setMethod(
 #' @author Robersy Sanchez (\url{https://genomaths.com}).
 #' @examples
 #' ## Load automorphisms found BRCA1 primate genes
-#' data(brca1_autm, package = "GenomAutomorphism")
+#' data("brca1_autm", package = "GenomAutomorphism")
 #' 
 #' ## Extract AutomorphismList object with only one element
 #' brca1_autm[1]
@@ -83,3 +86,134 @@ setMethod(
         return(x[[1]])
     }
 )
+
+## ======================= ListCodonMatrix ======================
+
+#' An S4 class to extract elements from ListCodonMatrix-class object.
+#' @rdname extract-methods
+#' @aliases [
+#' @aliases ListCodonMatrix-methods
+#' @param x An \code{\link{ListCodonMatrix-class}} object.
+#' @param i,... As in \code{\link[base]{Extract}}.
+#' @description First and second level subsetting of 'x'. Extraction using
+#' names can be done as x$name.
+#' @return An element of x, an \code{\link{ListCodonMatrix-class}} object.
+#' @keywords internal
+#' @exportMethod "["
+#' @export
+#' @author Robersy Sanchez <https://genomaths.com>
+setMethod(
+    "[", signature(x = "ListCodonMatrix"),
+    function(x, i, ...) {
+        x@DataList <- x@DataList[i]
+        x@seq_alias <- x@seq_alias[i]
+        return(x)
+    }
+)
+
+#' @rdname extract-methods
+#' @aliases [[
+#' @aliases ListCodonMatrix-methods
+#' @param x An \code{\link{ListCodonMatrix-class}} object.
+#' @description Second level subsetting of 'x'.
+#' @return An element of x, an \code{\link{ListCodonMatrix-class}} object.
+#' @exportMethod "[["
+#' @export
+#' @author Robersy Sanchez (\url{https://genomaths.com}).
+setMethod(
+    "[[", signature(x = "ListCodonMatrix"),
+    function(x, i, ...) {
+        x <- x[i]
+        x <- x@DataList[[1]] 
+        return(x)
+    }
+)
+
+
+#' @rdname extract-methods
+#' @aliases $
+#' @aliases ListCodonMatrix-methods
+#' @param x An \code{\link{ListCodonMatrix-class}} object
+#' @param name A literal character string naming an element from 'x'.
+#' @description Subsetting of 'x' by element name.
+#' @return An element of x, an \code{\link{ListCodonMatrix-class}} object.
+#' @exportMethod "$"
+#' @export
+setMethod(
+    "$", signature(x = "ListCodonMatrix"),
+    function(x, name) {
+        i <- match(name, names(x))
+        x@DataList <- x@DataList[i]
+        x@seq_alias <- x@seq_alias[i] 
+        x@DataList <- x@DataList[[1]]
+        return(x)
+    }
+)
+
+
+## ======================= MatrixSeq ======================
+
+
+#' An S4 class to extract elements from BaseSeqMatrix-class object.
+#' @rdname extract-methods
+#' @aliases [
+#' @aliases MatrixSeq-methods
+#' @param x An [MatrixSeq]-class object.
+#' @param i,... As in \code{\link[base]{Extract}}.
+#' @description First and second level subsetting of 'x'. Extraction using
+#' names can be done as x$name.
+#' @return An element of x, an \code{\link{MatrixSeq-class}} object.
+#' @keywords internal
+#' @exportMethod "["
+#' @export
+#' @author Robersy Sanchez <https://genomaths.com>
+setMethod(
+    "[", signature(x = "MatrixSeq"),
+    function(x, i, j, ...) {
+        cn <- colnames(x@matrix)
+        rn <- rownames(x@matrix)
+        if (missing(j)) {
+            x@matrix <- as.matrix(x@matrix[i, ])
+            if (length(i) == 1)
+                colnames(x@matrix) <- rn[i]
+        }
+        if (missing(i)) {
+            x@matrix <- as.matrix(x@matrix[, j])
+            colnames(x@matrix) <- cn[j]
+        }
+        
+        if (!missing(i) && !missing(j)) {
+            x@matrix <- as.matrix(x@matrix[i, j])
+            colnames(x@matrix) <- cn[j]
+            rownames(x@matrix) <- rn[i]
+        }
+        x@seqs <- x@seqs[i]
+        x@names <- x@names[i]
+        return(x)
+    }
+)
+
+
+#' @rdname extract-methods
+#' @aliases $
+#' @aliases ListCodonMatrix-methods
+#' @param x An \code{\link{ListCodonMatrix-class}} object
+#' @param name A literal character string naming an element from 'x'.
+#' @description Subsetting of 'x' by element name.
+#' @return An element of x, an \code{\link{ListCodonMatrix-class}} object.
+#' @exportMethod "$"
+#' @export
+setMethod(
+    "$", signature(x = "ListCodonMatrix"),
+    function(x, name) {
+        i <- match(name, names(x))
+        x@DataList <- x@DataList[i]
+        x@seq_alias <- x@seq_alias[i] 
+        x@DataList <- x@DataList[[1]]
+        return(x)
+    }
+)
+
+
+
+

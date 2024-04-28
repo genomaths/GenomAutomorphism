@@ -8,6 +8,12 @@
 \alias{[[}
 \alias{$,AutomorphismList-method}
 \alias{$}
+\alias{[,ListCodonMatrix,ANY-method}
+\alias{ListCodonMatrix-methods}
+\alias{[[,ListCodonMatrix-method}
+\alias{$,ListCodonMatrix-method}
+\alias{[,MatrixSeq,ANY-method}
+\alias{MatrixSeq-methods}
 \title{An S4 class to extract elements from AutomorphismList-class object.}
 \usage{
 \S4method{[}{AutomorphismList,ANY}(x, i, j, ..., drop = TRUE)
@@ -15,9 +21,19 @@
 \S4method{[[}{AutomorphismList}(x, i, j, ...)
 
 \S4method{$}{AutomorphismList}(x, name)
+
+\S4method{[}{ListCodonMatrix,ANY}(x, i, j, ..., drop = TRUE)
+
+\S4method{[[}{ListCodonMatrix}(x, i, j, ...)
+
+\S4method{$}{ListCodonMatrix}(x, name)
+
+\S4method{[}{MatrixSeq,ANY}(x, i, j, ..., drop = TRUE)
+
+\S4method{$}{ListCodonMatrix}(x, name)
 }
 \arguments{
-\item{x}{An \code{\link{AutomorphismList-class}} object}
+\item{x}{An \code{\link{ListCodonMatrix-class}} object}
 
 \item{i, ...}{As in \code{\link[base]{Extract}}.}
 
@@ -29,6 +45,16 @@ An element of x, an \code{\link{AutomorphismList-class}} object.
 An element of x, an \code{\link{Automorphism-class}} object.
 
 An element of x, an \code{\link{Automorphism-class}} object.
+
+An element of x, an \code{\link{ListCodonMatrix-class}} object.
+
+An element of x, an \code{\link{ListCodonMatrix-class}} object.
+
+An element of x, an \code{\link{ListCodonMatrix-class}} object.
+
+An element of x, an \code{\link{MatrixSeq-class}} object.
+
+An element of x, an \code{\link{ListCodonMatrix-class}} object.
 }
 \description{
 First and second level subsetting of 'x'. Extraction using
@@ -37,10 +63,22 @@ names can be done as x$name.
 Second level subsetting of 'x'.
 
 Subsetting of 'x' by element name.
+
+First and second level subsetting of 'x'. Extraction using
+names can be done as x$name.
+
+Second level subsetting of 'x'.
+
+Subsetting of 'x' by element name.
+
+First and second level subsetting of 'x'. Extraction using
+names can be done as x$name.
+
+Subsetting of 'x' by element name.
 }
 \examples{
 ## Load automorphisms found BRCA1 primate genes
-data(brca1_autm, package = "GenomAutomorphism")
+data("brca1_autm", package = "GenomAutomorphism")
 
 ## Extract AutomorphismList object with only one element
 brca1_autm[1]
