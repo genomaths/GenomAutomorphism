@@ -11,3 +11,8 @@
 ^\.Rproj\.user$
 ^\.git$
 ^\.github$
+^doc$
+^Meta$
+^doc/.*\.R$
+^doc/.*\.Rmd$
+
