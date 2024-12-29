@@ -38,3 +38,5 @@ _pkgdown.yml
 GenomAutomorphism.Rproj
 data-raw/**
 README.Rmd
+/doc/
+/Meta/
