@@ -27,7 +27,7 @@
 #' GR <- sortByChromAndStart(GR)
 #'
 #' @importFrom BiocGenerics sort start end
-#' @importFrom GenomeInfoDb seqlevels seqlevels<- seqnames
+#' @importFrom Seqinfo seqlevels seqlevels<- seqnames
 #'
 #' @aliases sortByChromAndStart
 #' @export

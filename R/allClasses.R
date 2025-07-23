@@ -897,7 +897,7 @@ setClassUnion(
 )
 
 
-#' @importFrom GenomeInfoDb Seqinfo seqnames
+#' @importFrom Seqinfo Seqinfo seqnames
 #' @import S4Vectors
 #' @import GenomicRanges
 #' @import Biostrings

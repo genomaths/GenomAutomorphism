@@ -105,7 +105,7 @@ setGeneric(
 #' @rdname codon_coord
 #' @import GenomicRanges
 #' @import BiocGenerics
-#' @importFrom GenomeInfoDb seqnames
+#' @importFrom Seqinfo seqnames
 #' @import IRanges
 #' @import S4Vectors
 setMethod(
