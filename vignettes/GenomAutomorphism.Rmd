@@ -2,8 +2,8 @@
 title: "Get started with GenomAutomorphism"
 author: 
     - name: Robersy Sanchez
-      affiliation: EpiMethyl Analytics,
-                   10401 Baur Blvd, Suite F, St. Louis, MO 63132
+      affiliation: >
+          EpiMethyl Analytics, 10401 Baur Blvd, Suite F, St. Louis, MO 63132
       email: rsanchez@epimethyl.com
 date: "`r format(Sys.time(), '%d %B %Y')`"
 fontsize: 11pt
@@ -26,12 +26,12 @@ abstract: |
     by means of automorphisms between two DNA sequences algebraically 
     represented as Abelian finite group.
 vignette: >
-  %\VignetteIndexEntry{Get started with GenomAutomorphism}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+    %\VignetteIndexEntry{Get started with GenomAutomorphism}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
     collapse = TRUE,
     comment = "#>"
@@ -278,18 +278,18 @@ The same result for the same codon on different cubes.
 Automorphisms can be computed starting directly from the _FASTA_ file. Notice
 that we can work only with genomic regions of interest by giving the
 _start_ and _end_ alignment coordinates. In $\mathbb{Z}_{64}$ automorphisms 
-are described as functions $f(x) = k\,x\quad mod\,64$, where $k$ and $x$ are
+are described as functions $f(x) = A x \ mod \ \mathbb{Z}_{64}$, where $A$ and $x$ are
 elements from the set of integers modulo 64. Below, in function
 [automorphisms](https://is.gd/WMxUKz) three important arguments are given
 values: _group = "Z64"_, _cube = c("ACGT", "TGCA")_, and _cube_alt = c("CATG",
 "GTAC")_. 
 
-In groups "Z64" and "Z125", not all the mutational events can be described as
+In groups $\mathbb{Z}_{64}$ and $\mathbb{Z}_{125}$, not all the mutational events can be described as
 automorphisms from a given cube. The analysis of automorphisms is then 
 accomplished in the set of _dual_ genetic-code cubes. A character string 
 denoting pairs of _dual_ genetic-code cubes is given as the argument for 
 _cube_. The _group_ setting specifies on which group the automorphisms will
-be computed. These groups can be: "Z5", "Z64", "Z125", and "Z5^3".
+be computed. These groups can be: $\mathbb{Z}_{5}$ (`group = "Z5"`), $\mathbb{Z}_{64}$ (`group = "Z64"`), $\mathbb{Z}_{125}$ (`group = "Z125"`), and $\mathbb{Z}_{5}^3$ (`group = "Z5^3"`).
 
 If automorphisms are not found in the first set of dual cubes, then the 
 algorithm searches for automorphisms in an alternative set of dual cubes.
@@ -564,8 +564,8 @@ mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1),
 The Genetic-code Cube Representations on the Galois Field GF(5) were studied in
 ([4](#4)). Each codon is represented by a coordinate in the 3D space.
 
-Automorphisms are represented by diagonal matrices with elements in 
-$\mathbb{Z}_5$.
+Automorphisms are described as functions $f(x) = A x \ mod \ \mathbb{Z}^3_5$,
+where $A$ is a diagonal matrix with elements in $\mathbb{Z}_5$.
 
 ```{r aut_3, eval=FALSE}
 autm_3d <- automorphisms(

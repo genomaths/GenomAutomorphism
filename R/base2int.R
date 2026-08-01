@@ -15,11 +15,11 @@
 ## ===================== Definition ==========================
 
 
-#' Replace bases with integers from Z4 and Z5
+#' Replace bases with integers from \eqn{\mathbb{Z}_4} and \eqn{\mathbb{Z}_5}
 #' @rdname base2int
 #' @aliases base2int
 #' @description A simple function to represent DNA bases as elements from 
-#' the Abelian group of integers modulo 4 (Z4), 5 (Z5), or 2 (Z2).
+#' the Abelian group of integers modulo 4 (\eqn{\mathbb{Z}_4}), 5 (\eqn{\mathbb{Z}_5}), or 2 (Z2).
 #' @details
 #' For Z2 (binary representation of DNA bases), the cube bases are represented
 #' in their order by: '00', '01', '10', and '11' (examples section). 

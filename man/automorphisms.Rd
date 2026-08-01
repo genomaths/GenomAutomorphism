@@ -87,16 +87,14 @@ permits the classification of the pairwise alignment of protein-coding
 sub-regions based on the mutational events observed on it and on the
 genetic-code cubes that describe them.
 
-Automorphisms in Z5, Z64 and Z125 are described as functions
-\eqn{f(x) = k x mod 5}, \eqn{f(x) = k x mod 64}, and
-\eqn{f(x) = k x mod 125}, respectively, where k and x are elements from
-the set of integers modulo 5, 64, or 125, respectively. If
-an automorphisms cannot be found on any of the cubes provided in the
+Automorphisms are described as functions
+\eqn{f(x) = A x \ mod \ \mathbb{Z}_n}, where \eqn{n = 4}, 5, 64, or 125,
+and \eqn{A} and \eqn{x} are elements from the corresponding Abelian group.
+In the particular case of \eqn{\mathbb{Z}_5^3}, automorphisms are described as
+\eqn{f(x) = A x \ mod \ \mathbb{Z}^3_5}, where \eqn{A} is a diagonal matrix.
+If an automorphisms cannot be found on any of the cubes provided in the
 argument \eqn{cube}, then function \code{\link{automorphisms}} will search
 for automorphisms in the cubes provided in the argument \eqn{cube_alt}.
-
-Automorphisms in Z5^3 are described as functions \eqn{f(x) = Ax mod Z5},
-where A is a diagonal matrix.
 
 Arguments \emph{\strong{cube}} and \emph{\strong{cube_alt}} must be
 pairs of dual cubes (see section 2.4 from reference 4).

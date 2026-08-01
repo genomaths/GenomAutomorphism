@@ -15,11 +15,11 @@
 #' @rdname autZ64
 #' @aliases autZ64
 #' @title Compute the Automorphisms of Mutational Events Between two Codon
-#' Sequences Represented in Z64.
-#' @description Given two codon sequences represented in the Z64 Abelian group,
+#' Sequences Represented in \eqn{\mathbb{Z}_{64}}.
+#' @description Given two codon sequences represented in the \eqn{\mathbb{Z}_{64}} Abelian group,
 #' this function computes the automorphisms describing codon mutational events.
-#' @details Automorphisms in Z64 are described as functions
-#' \eqn{f(x) = k * x} \emph{mod 64}, where \eqn{k} and \eqn{x} are elements 
+#' @details Automorphisms in \eqn{\mathbb{Z}_{64}} are described as functions
+#' \eqn{f(x) = A x \ mod \ \mathbb{Z}_{64}}, where \eqn{A} and \eqn{x} are elements 
 #' from the set of integers modulo 64.
 #' 
 #' @param seq An object from a \code{\link[Biostrings]{DNAStringSet}} or
@@ -78,7 +78,7 @@
 #' data("aln", package = "GenomAutomorphism")
 #' aln
 #'
-#' ## Automorphism on Z64
+#' ## Automorphism on \eqn{\mathbb{Z}_{64}}
 #' autms <- autZ64(seq = aln, verbose = FALSE)
 #' autms
 #' 

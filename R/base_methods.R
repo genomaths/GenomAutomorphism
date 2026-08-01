@@ -46,7 +46,7 @@
 #' Function \strong{\emph{base_coord}} is defined only for pairwise 
 #' aligned sequences. Symbols "-" and "N" usually found in DNA sequence
 #' alignments to denote gaps and missing/unknown bases are represented by the
-#' number: '-1' on Z4 and '0' on Z5. In Z64 the symbol 'NA' will be returned
+#' number: '-1' on \eqn{\mathbb{Z}_4} and '0' on \eqn{\mathbb{Z}_5}. In \eqn{\mathbb{Z}_{64}} the symbol 'NA' will be returned
 #' for codons including symbols "-" and "N".
 #' 
 #' ## Functions 'seq2granges' and 'base_seq2string_set'
@@ -130,14 +130,14 @@
 #' data("aln", package = "GenomAutomorphism")
 #' aln
 #'
-#' ## DNA base representation in the Abelian group Z4
+#' ## DNA base representation in the Abelian group \eqn{\mathbb{Z}_4}
 #' bs_cor <- base_coord(
 #'     base = aln,
 #'     cube = "ACGT"
 #' )
 #' bs_cor
 #'
-#' ## Example 3. DNA base representation in the Abelian group Z5
+#' ## Example 3. DNA base representation in the Abelian group \eqn{\mathbb{Z}_5}
 #' bs_cor <- base_coord(
 #'     base = aln,
 #'     cube = "ACGT",

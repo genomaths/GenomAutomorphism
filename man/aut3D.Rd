@@ -3,7 +3,7 @@
 \name{aut3D}
 \alias{aut3D}
 \title{Compute the Automorphisms of Mutational Events Between two Codon
-Sequences Represented in Z5^3.}
+Sequences Represented in \eqn{\mathbb{Z}_5^3}.}
 \usage{
 aut3D(
   seq = NULL,
@@ -66,13 +66,13 @@ An object \code{\link{Automorphism-class}} with four columns on its
 metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and \emph{cube}.
 }
 \description{
-Given two codon sequences represented in the Z5^3 Abelian
+Given two codon sequences represented in the \eqn{\mathbb{Z}_5^3} Abelian
 group, this function computes the automorphisms describing codon mutational
 events.
 }
 \details{
-Automorphisms in Z5^3 are described as functions
-\eqn{f(x) = A x mod Z5}, where A is a diagonal matrix, as noticed in
+Automorphisms in \eqn{\mathbb{Z}_5^3} are described as functions
+\eqn{f(x) = A x \ mod \ \mathbb{Z}^3_5}, where \eqn{A} is a diagonal matrix, as noticed in
 reference (4).
 }
 \examples{
@@ -80,7 +80,7 @@ reference (4).
 data("aln", package = "GenomAutomorphism")
 aln
 
-## Automorphism on Z5^3
+## Automorphism on \eqn{\mathbb{Z}_5^3}
 autms <- aut3D(seq = aln)
 autms
 

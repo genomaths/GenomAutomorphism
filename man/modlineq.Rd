@@ -25,7 +25,7 @@ be returned.
 \description{
 If \eqn{a, b}, and  \eqn{n} are integer vectors, this function
 tries to find, at each coordinate, the solution of the MLE
-\eqn{a x = b}  mod \eqn{n}. If the MLE \eqn{a x = b mod n} has no
+\eqn{a x = b \ mod \ n}. If the MLE \eqn{a x = b \ mod \ n} has no
 solution for some coordinate (see \code{\link[numbers]{modlin}}), the
 value reported for that coordinate will be \emph{no.sol}, and a
 corresponding translation vector will also be returned.

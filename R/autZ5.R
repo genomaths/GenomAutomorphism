@@ -15,12 +15,12 @@
 #' @rdname autZ5
 #' @aliases autZ5
 #' @title Compute the Automorphisms of Mutational Events Between two Codon
-#' Sequences Represented in Z5.
-#' @description Given two codon sequences represented in the Z5 Abelian group,
+#' Sequences Represented in \eqn{\mathbb{Z}_5}.
+#' @description Given two codon sequences represented in the \eqn{\mathbb{Z}_5} Abelian group,
 #' this function computes the automorphisms describing codon mutational
 #' events.
-#' @details Automorphisms in Z5 are described as functions
-#' \eqn{f(x) = k x mod 5}, where k and x are elements from the set of
+#' @details Automorphisms in \eqn{\mathbb{Z}_5} are described as functions
+#' \eqn{f(x) = A x \ mod \ \mathbb{Z}_5}, where \eqn{A} and \eqn{x} are elements from the set of
 #' integers modulo 5. As noticed in reference (1). The pairwise alignment
 #' provided in argument \emph{\strong{seq}} or the 'fasta' file
 #' \emph{\strong{filepath}} must correspond to DNA base sequences.
@@ -71,7 +71,7 @@
 #' data("aln", package = "GenomAutomorphism")
 #' aln
 #'
-#' ## Automorphism on Z5
+#' ## Automorphism on \eqn{\mathbb{Z}_5}
 #' autms <- autZ5(seq = aln, verbose = FALSE)
 #' autms
 #'

@@ -15,12 +15,12 @@
 #' @rdname autZ125
 #' @aliases autZ125
 #' @title Compute the Automorphisms of Mutational Events Between two Codon
-#' Sequences Represented in Z125.
-#' @description Given two codon sequences represented in the Z125 Abelian
+#' Sequences Represented in \eqn{\mathbb{Z}_{125}}.
+#' @description Given two codon sequences represented in the \eqn{\mathbb{Z}_{125}} Abelian
 #' group, this function computes the automorphisms describing codon mutational
 #' events.
-#' @details Automorphisms in Z125 are described as functions
-#' \eqn{f(x) = k x mod 125}, where k and x are elements from the set of
+#' @details Automorphisms in \eqn{\mathbb{Z}_{125}} are described as functions
+#' \eqn{f(x) = A x \ mod \ \mathbb{Z}_{125}}, where \eqn{A} and \eqn{x} are elements from the set of
 #' integers modulo 125. As noticed in reference (1).
 #' @param seq An object from a \code{\link[Biostrings]{DNAStringSet}} or
 #' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
@@ -78,7 +78,7 @@
 #' data("aln", package = "GenomAutomorphism")
 #' aln
 #'
-#' ## Automorphism on Z125
+#' ## Automorphism on \eqn{\mathbb{Z}_{125}}
 #' autms <- autZ125(seq = aln)
 #' autms
 #'

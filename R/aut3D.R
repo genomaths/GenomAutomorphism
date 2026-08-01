@@ -15,12 +15,12 @@
 #' @rdname aut3D
 #' @aliases aut3D
 #' @title Compute the Automorphisms of Mutational Events Between two Codon
-#' Sequences Represented in Z5^3.
-#' @description Given two codon sequences represented in the Z5^3 Abelian
+#' Sequences Represented in \eqn{\mathbb{Z}_5^3}.
+#' @description Given two codon sequences represented in the \eqn{\mathbb{Z}_5^3} Abelian
 #' group, this function computes the automorphisms describing codon mutational
 #' events.
-#' @details Automorphisms in Z5^3 are described as functions
-#' \eqn{f(x) = A x mod Z5}, where A is a diagonal matrix, as noticed in
+#' @details Automorphisms in \eqn{\mathbb{Z}_5^3} are described as functions
+#' \eqn{f(x) = A x \ mod \ \mathbb{Z}^3_5}, where \eqn{A} is a diagonal matrix, as noticed in
 #' reference (4).
 #' @param seq An object from a \code{\link[Biostrings]{DNAStringSet}} or
 #' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
@@ -80,7 +80,7 @@
 #' data("aln", package = "GenomAutomorphism")
 #' aln
 #'
-#' ## Automorphism on Z5^3
+#' ## Automorphism on \eqn{\mathbb{Z}_5^3}
 #' autms <- aut3D(seq = aln)
 #' autms
 #'

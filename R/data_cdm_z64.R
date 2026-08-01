@@ -12,10 +12,10 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-#' Codon Distance Matrices for the Standard Genetic Code on Z4
+#' Codon Distance Matrices for the Standard Genetic Code on \eqn{\mathbb{Z}_4}
 #'
 #' This is a list of 24 codon distance matrices created with function
-#' [codon_dist_matrix] in the set of 24 genetic-code cubes on Z4
+#' [codon_dist_matrix] in the set of 24 genetic-code cubes on \eqn{\mathbb{Z}_4}
 #' (using the default weights and assuming the standard genetic code (SGC)).
 #' The data set is created to speed up the computation when working with DNA
 #' sequences from superior organisms. Since distance matrices are symmetric, 

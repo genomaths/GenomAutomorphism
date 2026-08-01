@@ -17,9 +17,9 @@
 #' @title A Wrapper Calling Modular Linear Equation Solver (MLE)
 #' @description It is just a wrapper function to call
 #' \code{\link[numbers]{modlin}}. This function is intended to be used
-#' internally. The MLE (\eqn{a * x = b mod n}) does not always have a
+#' internally. The MLE (\eqn{a * x = b \ mod \ n}) does not always have a
 #' solution. If the MLE has no solution the function will return the value
-#' -1. Also, if \eqn{a * x = b mod n} has solution x = 0, then function
+#' -1. Also, if \eqn{a * x = b \ mod \ n} has solution x = 0, then function
 #' \emph{'modeq'} will return -1.
 #' @keywords internal
 #' @importFrom numbers modlin

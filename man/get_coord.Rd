@@ -78,7 +78,7 @@ group.
 \details{
 Symbols '-' and 'N' usually found in DNA sequence alignments to
 denote gaps and missing/unknown bases are represented by the number: '-1'
-on Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons
+on \eqn{\mathbb{Z}_4} and '0' in \eqn{\mathbb{Z}_5}. In \eqn{\mathbb{Z}_{64}} the symbol 'NA' will be returned for codons
 including symbols '-' and 'N'.
 
 Although the \code{\link{CodonGroup-class}} object returned by
@@ -93,7 +93,7 @@ the base/codon sequence information.
 data("aln", package = "GenomAutomorphism")
 aln
 
-## DNA base representation in the Abelian group Z5
+## DNA base representation in the Abelian group \eqn{\mathbb{Z}_5}
 coord <- get_coord(
     x = aln,
     cube = "ACGT",
@@ -107,7 +107,7 @@ coordList(coord)
 ## Extract the sequence list
 seqRanges(coord)
 
-## DNA codon representation in the Abelian group Z64
+## DNA codon representation in the Abelian group \eqn{\mathbb{Z}_{64}}
 coord <- get_coord(
     x = aln,
     base_seq = FALSE,

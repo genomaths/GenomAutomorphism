@@ -1,3 +1,7 @@
+# GenomAutomorphism 1.15.1
+
+* Update math documentation notation and BiocCheck vignette fixes
+
 # GenomAutomorphism 1.15.0
 
 * Fix a bug in the internal function 'weighted_manhattan' (used by

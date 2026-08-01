@@ -33,13 +33,13 @@
 #' @param ... Not in use.
 #' @details Symbols "-" and "N" usually found in DNA sequence alignments to
 #' denote gaps and missing/unknown bases are represented by the number: '-1'
-#' on Z4 and '0' on Z5. In Z64 the symbol 'NA' will be returned for codons
+#' on \eqn{\mathbb{Z}_4} and '0' on \eqn{\mathbb{Z}_5}. In \eqn{\mathbb{Z}_{64}} the symbol 'NA' will be returned for codons
 #' including symbols "-" and "N".
 #'
 #' This function returns a \code{\link[GenomicRanges]{GRanges-class}} object
 #' carrying the codon sequence(s) and their respective coordinates in the
 #' requested Abelian group or simply, when \emph{group =  'Z5^3'}
-#' 3D-coordinates, which are derive from Z5 as indicated in reference (3).
+#' 3D-coordinates, which are derive from \eqn{\mathbb{Z}_5} as indicated in reference (3).
 #' Notice that the coordinates can be 3D or just one-dimension ("Z64" or
 #' "Z125"). Hence, the pairwise alignment provided in argument
 #' \emph{\strong{codon}} must correspond to codon sequences.
@@ -70,7 +70,7 @@
 #' data("aln", package = "GenomAutomorphism")
 #' aln
 #'
-#' ## DNA base representation in the Abelian group Z5
+#' ## DNA base representation in the Abelian group \eqn{\mathbb{Z}_5}
 #' bs_cor <- codon_coord(
 #'     codon = aln,
 #'     cube = "ACGT",
@@ -79,7 +79,7 @@
 #' bs_cor ## 3-D coordinates
 #'
 #'
-#' ## DNA base representation in the Abelian group Z64
+#' ## DNA base representation in the Abelian group \eqn{\mathbb{Z}_{64}}
 #' bs_cor <- codon_coord(
 #'     codon = aln,
 #'     cube = "ACGT",
