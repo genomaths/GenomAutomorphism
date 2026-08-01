@@ -1,4 +1,4 @@
-# GenomAutomorphism 1.15.0
+# GenomAutomorphism 1.14.1
 
 * Fix a bug in the internal function 'weighted_manhattan' (used by
   'codon_dist', 'codon_dist_matrix', and 'aminoacid_dist') where, for
