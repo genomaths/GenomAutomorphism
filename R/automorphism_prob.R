@@ -14,7 +14,7 @@
 
 #' @aliases automorphism_prob
 #' @rdname automorphism_prob
-#' @title Autmorphism Probability
+#' @title Automorphism Probability
 #' @description
 #' This function applies a Dirichlet-Multinomial Modelling (in Bayesian 
 #' framework) to compute the posterior probability of each 
@@ -59,7 +59,7 @@
 #' 
 #' ## Posterior Distribution
 #' 
-#' Let be \eqn{\theta} the vector of probabilities for each mutation type. It's 
+#' Let \eqn{\theta} be the vector of probabilities for each mutation type. It's 
 #' the parameter we're estimating, which represents the probabilities of
 #' observing each mutation type in the multinomial distribution. The conjugate
 #' distribution in this context refers to the Dirichlet distribution, which is 
@@ -102,7 +102,7 @@
 #' This approach provides a rigorous estimation of the Dirichlet parameters 
 #' under the Dirichlet-multinomial model using MLE.
 #' 
-#' @param x An AutomorphismByCoef or anAutomorphismByCoefList-class object 
+#' @param x An AutomorphismByCoef or an AutomorphismByCoefList-class object 
 #' returned by function [automorphism_bycoef].
 #' 
 #' @param initial_alpha A vector of initial guess values for pseudo counts 

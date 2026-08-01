@@ -7,7 +7,7 @@
 valid.AutomorphismList(x)
 }
 \arguments{
-\item{x}{A 'AutomorphismList object'}
+\item{x}{An 'AutomorphismList' object}
 }
 \value{
 An error if 'x' is not a valid AutomorphismList class object.

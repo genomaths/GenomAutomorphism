@@ -21,7 +21,7 @@ as.AutomorphismList(x, grs = GRanges(), ...)
 \item{...}{Not in use yet.}
 }
 \value{
-The returned an AutomorphismList-class object.
+An \code{\link{AutomorphismList-class}} object.
 }
 \description{
 Several methods are available to be applied on
@@ -32,17 +32,17 @@ objects.
 ## Load a dataset
 data("brca1_autm", package = "GenomAutomorphism")
 
-## Let's transforming into a list of Automorphisms-class objects
+## Let's transform it into a list of Automorphisms-class objects
 x1 <- as.list(brca1_autm[seq(2)])
 
-## Now, object 'x1' is transformed into a AutomorphismList-class object
+## Now, object 'x1' is transformed into an AutomorphismList-class object
 as.AutomorphismList(x1)
 
 ## Alternatively, let's transform the list 'x1' into a GRangesList-class 
 ## object.
 x1 <- GRangesList(x1)
 
-## Next, object 'x1' is transformed into a AutomorphismList-class object
+## Next, object 'x1' is transformed into an AutomorphismList-class object
 as.AutomorphismList(x1)
 }
 \seealso{

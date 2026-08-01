@@ -11,7 +11,7 @@
 data("cyc_aln", package = "GenomAutomorphism")
 }
 \description{
-This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying a MSA of
+This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying an MSA of
 \href{https://bit.ly/3kdEAzs}{Primate Somatic Cytochrome C} to be used in the
 examples provided for the package functions. The original file can be
 downloaded from GitHub at: \url{https://bit.ly/3kdEAzs}
@@ -22,7 +22,7 @@ cyc_aln
 
 }
 \seealso{
-\link{brca1_aln}, \link{brca1_aln2}, \link{covid_aln}, and \link{covid_aln}.
+\link{brca1_aln}, \link{brca1_aln2}, \link{covid_aln}, and \link{cyc_autm}.
 }
 \author{
 Robersy Sanchez \url{https://genomaths.com}

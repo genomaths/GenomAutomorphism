@@ -114,7 +114,7 @@ are: 'mean', 'median', or some user defined function.
 Only aminoacids sequences given in the following alphabet are
 accepted: "A","R","N","D","C","Q","E","G","H","I","L","K", "M","F","P",
 "S","T","W","Y","V", "\emph{", "-", and "X"; where symbols "}" and "-" denote
-the presence a stop codon and of a gap, respectively, and letter "X"
+the presence of a stop codon and of a gap, respectively, and letter "X"
 missing information, which are then taken as a gap.
 
 The distance between any aminoacid and any of the non-aminoacid symbols is

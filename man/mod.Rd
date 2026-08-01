@@ -20,7 +20,8 @@ element can be reduced to integers.}
 \item{...}{Not in use.}
 }
 \value{
-An element of x, an \code{\link{Automorphism-class}} object.
+A numeric vector or matrix carrying the remainder of the division
+of 'n' by 'm'.
 }
 \description{
 Integer remainder of the division of the integer n by m:

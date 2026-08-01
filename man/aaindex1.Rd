@@ -3,9 +3,9 @@
 \docType{data}
 \name{aaindex1}
 \alias{aaindex1}
-\title{List of 571 Amino Acid Physicochemical Indexes from AAindex Database}
+\title{List of 566 Amino Acid Physicochemical Indexes from AAindex Database}
 \format{
-A list carrying the the description 566 Amino Acid Indices in
+A list carrying the description of the 566 Amino Acid Indices in
 AAindex ver.9.2 and the text file with the matrices imported from
 \url{https://www.genome.jp/aaindex/}.
 }

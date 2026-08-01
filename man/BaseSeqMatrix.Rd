@@ -4,13 +4,14 @@
 \name{BaseSeqMatrix-class}
 \alias{BaseSeqMatrix-class}
 \alias{BaseSeqMatrix}
-\title{A class definition to Store DNA base sequence coordinates in a given
+\title{A class definition to store DNA base sequence coordinates in a given
 Genetic Code Cube.}
 \value{
-Given the slot values define a BaseSeq-class.
+Given the slot values, defines a \code{\link{BaseSeqMatrix-class}}
+object.
 }
 \description{
-A class definition to Store DNA base sequence coordinates in a given
+A class definition to store DNA base sequence coordinates in a given
 Genetic Code Cube.
 }
 \seealso{

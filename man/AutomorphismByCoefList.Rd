@@ -6,7 +6,8 @@
 \alias{AutomorphismByCoefList}
 \title{A class definition for a list of AutomorphismByCoef class objects.}
 \value{
-AutomorphismByCoefList-class definition.
+Given the slot values, defines an
+\code{\link{AutomorphismByCoefList-class}} object.
 }
 \description{
 A class definition for a list of AutomorphismByCoef class objects.
@@ -20,7 +21,7 @@ Where 'from' is a list of \strong{AutomorphismByCoef-class}.
 
 \subsection{unlist(x)}{
 
-Where 'x' is a an \strong{AutomorphismByCoefList-class} object.
+Where 'x' is an \strong{AutomorphismByCoefList-class} object.
 }
 }
 \seealso{

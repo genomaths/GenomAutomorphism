@@ -65,7 +65,7 @@ pairwise alignment of two sequences.}
 \emph{codon & base} arguments are not provided.}
 
 \item{cube}{A character string denoting one of the 24 Genetic-code cubes,
-as given in references (2 2 3).}
+as given in references (2-3).}
 
 \item{group}{A character string denoting the group representation for the
 given base or codon as shown in reference (1).}
@@ -85,20 +85,20 @@ Depending on the function called, different object will be
 returned:
 \subsection{Function 'base_coord'}{
 
-This function returns a \code{\link{BaseGroup}} object
+This function returns a \code{\link{BaseGroup-class}} object
 carrying the DNA sequence(s) and their respective coordinates in the
 requested Abelian group of base representation (one-dimension, "Z4" or
-"Z5"). Observe that to get coordinates in the set of of integer numbers
-("Z") is also possible but they are not defined to integrate a Abelian
+"Z5"). Observe that to get coordinates in the set of integer numbers
+("Z") is also possible but they are not defined to integrate an Abelian
 group. These are just used for the further insertion the codon set in the
 3D space (R^3).
 }
 
 \subsection{Function 'seq2granges'}{
 
-This function returns a \link{BaseGroup} object carrying the DNA sequence(s), one
-base per ranges. A \link{BaseGroup} class object inherits from
-\code{\link[GenomicRanges]{GRanges-class}}.
+This function returns a \link[=BaseGroup-class]{BaseGroup} object carrying the DNA
+sequence(s), one base per ranges. A \link[=BaseGroup-class]{BaseGroup} object inherits
+from \code{\link[GenomicRanges]{GRanges-class}}.
 }
 
 \subsection{Function 'base_seq2string_set'}{
@@ -106,14 +106,14 @@ base per ranges. A \link{BaseGroup} class object inherits from
 This function returns a \code{\link[Biostrings]{DNAStringSet-class}}.
 }
 
-A BaseGroup-class object.
+A \code{\link{BaseGroup-class}} object.
 }
 \description{
 \subsection{Base coordinates on a given Abelian group representation}{
 
 Given a string denoting a codon or base from the DNA (or RNA) alphabet,
-function \strong{\emph{base_coord}} return the base coordinates in the
-specify genetic-code Abelian group, as given in reference (1).
+function \strong{\emph{base_coord}} returns the base coordinates in the
+specified genetic-code Abelian group, as given in reference (1).
 }
 
 \subsection{DNA sequences to \code{\link[GenomicRanges]{GRanges}} of bases.}{
@@ -121,13 +121,14 @@ specify genetic-code Abelian group, as given in reference (1).
 Function \strong{\emph{seq2granges}} transform an object from
 \code{\link[Biostrings]{DNAStringSet}},
 \code{\link[Biostrings]{DNAMultipleAlignment-class}} or a character into
-an object from \link{BaseSeq}.
+an object from \link[=BaseSeq-class]{BaseSeq}.
 }
 
 \subsection{BaseSeq-class object to DNAStringSet-class object.}{
 
 Function \strong{\emph{base_seq2string_set}} transforms an object from
-\link{BaseSeq} into an object from \code{\link[Biostrings]{DNAStringSet-class}}.
+\link[=BaseSeq-class]{BaseSeq} into an object from
+\code{\link[Biostrings]{DNAStringSet-class}}.
 }
 }
 \details{
@@ -216,8 +217,6 @@ Comput. Chem. 79 (2018) 527-560.
 \href{https://github.com/genomaths/GenomeAlgebra_SymmetricGroup}{Symmetric Group of the Genetic-Code Cubes.}
 
 \code{\link{codon_coord}} and \code{\link{base2int}}.
-
-\href{https://github.com/genomaths/GenomeAlgebra_SymmetricGroup}{Symmetric Group of the Genetic-Code Cubes.}
 
 \link{base_coord} and \link{codon_coord}.
 }

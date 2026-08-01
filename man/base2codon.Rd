@@ -17,23 +17,23 @@ base2codon(x, ...)
 }
 \arguments{
 \item{x}{A character string, \code{\link[Biostrings]{DNAStringSet-class}}
-or \code{\link[Biostrings]{DNAMultipleAlignment-class}} object carrying the
+or \code{\link[Biostrings]{DNAMultipleAlignment-class}} object carrying
 a DNA sequence.}
 
 \item{...}{Not in use.}
 }
 \value{
-If the argument of 'x' is character string, then a character vector
-of codons will returned. If the argument of 'x' is
+If the argument of 'x' is a character string, then a character
+vector of codons will be returned. If the argument of 'x' is
 \code{\link[Biostrings]{DNAStringSet-class}} or
 \code{\link[Biostrings]{DNAMultipleAlignment-class}} object, then a matrix
 of codons is returned.
 }
 \description{
-This function split a DNA sequence into a codon sequence.
+This function splits a DNA sequence into a codon sequence.
 }
 \details{
-It is expected that the provided DNA sequence is multiple of
+It is expected that the provided DNA sequence is a multiple of
 3, otherwise gaps are added to the end of the sequence.
 }
 \examples{
@@ -42,7 +42,7 @@ It is expected that the provided DNA sequence is multiple of
 seq <- c("ACCT")
 base2codon(x = seq)
 
-## This DNA sequence is multiple of 3
+## This DNA sequence is a multiple of 3
 seq <- c("ACCTCA")
 base2codon(x = seq)
 

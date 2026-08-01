@@ -6,7 +6,8 @@
 \alias{BaseSeq}
 \title{A class definition to store DNA base sequence.}
 \value{
-Given the slot values define a BaseSeq-class.
+Given the slot values, defines a \code{\link{BaseSeq-class}}
+object.
 }
 \description{
 A class definition to store DNA base sequence.

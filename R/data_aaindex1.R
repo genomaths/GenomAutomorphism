@@ -12,7 +12,7 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-#' List of 571 Amino Acid Physicochemical Indexes from AAindex Database
+#' List of 566 Amino Acid Physicochemical Indexes from AAindex Database
 #'
 #' The aminoacid indexes from Amino Acid Index Database
 #' \url{https://www.genome.jp/aaindex/} are provided here. AAindex (ver.9.2) 
@@ -21,7 +21,7 @@
 #' 
 #' @seealso [aaindex2] and [aaindex3].
 #' @author Robersy Sanchez <https://genomaths.com>
-#' @format A list carrying the the description 566 Amino Acid Indices in 
+#' @format A list carrying the description of the 566 Amino Acid Indices in 
 #' AAindex ver.9.2 and the text file with the matrices imported from
 #' \url{https://www.genome.jp/aaindex/}.
 #' @docType data

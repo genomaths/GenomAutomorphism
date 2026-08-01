@@ -22,7 +22,7 @@
 #' pairwise alignment of two sequences.
 #' @param base_seq Logical. Whether to return the base or codon coordinates on
 #' the selected Abelian group. If codon coordinates are requested, then the
-#' number of the DNA bases in the given sequences must be multiple of 3.
+#' number of the DNA bases in the given sequences must be a multiple of 3.
 #' @param granges Logical. Whether to return a
 #' \code{\link[GenomicRanges]{GRanges-class}} object or a
 #' \code{\link[S4Vectors]{DataFrame}}.
@@ -33,11 +33,11 @@
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 #' values given for the function definition will be used.
 #' @param ... Not in use.
-#' @details This function provide an alternative way to get the codon
+#' @details This function provides an alternative way to get the codon
 #' coordinate and the information on the codon sequence from a
 #' \code{\link{CodonSeq}} class objects. The function can either take the
 #' output from functions \code{\link{codon_coord}} or to operate directly on a
-#' \code{\link[Biostrings]{DNAStringSet}} or to retrieve the a DNA sequence
+#' \code{\link[Biostrings]{DNAStringSet}} or to retrieve a DNA sequence
 #' alignment from a file.
 #' @import S4Vectors
 #' @importFrom methods new
@@ -76,7 +76,9 @@
 #'     filepath = NULL,
 #' )
 #' @aliases seqranges
-#' @return A \code{\link[GenomicRanges]{GRanges-class}}
+#' @return A \code{\link[GenomicRanges]{GRanges-class}} object if
+#' \emph{granges = TRUE} (default), or a \code{\link[S4Vectors]{DataFrame}}
+#' object otherwise.
 setGeneric(
     "seqranges",
     function(x,

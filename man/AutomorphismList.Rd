@@ -10,7 +10,7 @@
 \alias{as.list,AutomorphismList-method}
 \alias{show,AutomorphismList-method}
 \alias{show-AutomorphismList}
-\title{A class definition to store list of Automorphism class objects.}
+\title{A class definition to store a list of Automorphism class objects.}
 \usage{
 \S4method{names}{AutomorphismList}(x)
 
@@ -29,10 +29,11 @@
 \item{object}{An object from \code{\link{AutomorphismList-class}}.}
 }
 \value{
-An object from AutomorphismList-class
+An object from \code{\link{AutomorphismList-class}}.
 }
 \description{
-A class definition to store list of Automorphism class objects
+A class definition to store a list of Automorphism class
+objects
 derived from the pairwise automorphism estimation from pairwise
 alignments. Objects from this class are created by function
 \code{\link{automorphisms}} and \code{\link{as.AutomorphismList}}.
@@ -46,12 +47,12 @@ alignments. Objects from this class are created by function
 \code{\link[GenomicRanges]{GRangesList-class}}, a list of
 \code{\link[base]{data.frame}} or a
 \code{\link[S4Vectors]{DataFrame-class}}
-objects into a \emph{\strong{AutomorphismList-class}} object.
+objects into an \emph{\strong{AutomorphismList-class}} object.
 }
 
 \subsection{unlist(x)}{
 
-It transforms a AutomorphismList-class object into an Automorphism-class
+It transforms an AutomorphismList-class object into an Automorphism-class
 object.
 }
 
@@ -108,7 +109,7 @@ names(aut)
 lista <- as(lista, "GRangesList")
 as.AutomorphismList(lista)
 
-## Transform a AutomorphismList-class object into an Automorphism-class
+## Transform an AutomorphismList-class object into an Automorphism-class
 ## object 
 unlist(brca1_autm[seq(2)])
 ## Load a DNA sequence alignment

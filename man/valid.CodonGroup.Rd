@@ -10,7 +10,7 @@ valid.CodonGroup.mcols(x)
 valid.CodonGroup(x)
 }
 \arguments{
-\item{x}{A 'CodonGroup object'}
+\item{x}{A 'CodonGroup' object}
 }
 \value{
 If valid return NULL

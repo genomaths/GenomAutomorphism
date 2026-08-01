@@ -80,13 +80,13 @@ sequences 'x' and 'y'.
 This function computes the weighted Manhattan distance between
 codons from two sequences as given in reference (1). That is, given two
 codons \eqn{x} and \eqn{y} with coordinates on the set of integers modulo 5
-("Z5"): \eqn{x = (x_1, x_2, x_3)} and  \eqn{x = (y_1, y_2, y_3)} (see (1)),
-the Weighted Manhattan distance between this two codons is defined as:
+("Z5"): \eqn{x = (x_1, x_2, x_3)} and  \eqn{y = (y_1, y_2, y_3)} (see (1)),
+the Weighted Manhattan distance between these two codons is defined as:
 
 \deqn{d_w(x,y) = |x_1 - y_1|/5 + |x_2 - y_2| + |x_3 -y_3|/25}
 
 If the codon coordinates are given on "Z4", then the Weighted Manhattan
-distance is define as:
+distance is defined as:
 
 \deqn{d_w(x,y) = |x_1 - y_1|/4 + |x_2 - y_2| + |x_3 -y_3|/16}
 
@@ -105,7 +105,7 @@ y = "TGCGCCCGTGACGCGTGA"
 codon_dist(x, y, group = "Z5")
 
 ## Alternatively, data can be vectors of codons, i.e., vectors of DNA 
-## base-triplets (including gaps simbol "-").
+## base-triplets (including gap symbol "-").
 x = c("ACG","CGT","GTA","CCG","TGA","CTG","ACG")
 y = c("TGC","GCC","CGT","GAC","---","TGA","A-G")
 

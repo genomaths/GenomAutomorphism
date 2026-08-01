@@ -30,11 +30,11 @@ the DNA pairwise alignment of two sequences.}
 \item{phychem}{A list of DNA bases physicochemical properties, e.g., like
 those provided in \link{dna_phyche}.}
 
-\item{index_name}{Optional. Name of breve description of the base
+\item{index_name}{Optional. Name or brief description of the base
 physicochemical property applied to represent the DNA sequence.}
 }
 \value{
-A \link{MatrixSeq}-class object.
+A \link[=MatrixSeq-class]{MatrixSeq} object.
 }
 \description{
 This function applies the numerical indices representing various

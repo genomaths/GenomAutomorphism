@@ -6,7 +6,8 @@
 \alias{MatrixList}
 \title{Definition of MatrixList-class}
 \value{
-Given the slot values, it defines a MatrixList-class.
+Given the slot values, defines a \code{\link{MatrixList-class}}
+object.
 }
 \description{
 A class denoting a list of matrices.

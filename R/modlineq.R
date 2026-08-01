@@ -20,17 +20,18 @@
 #' @param n An integer or a vector of integers.
 #' @param no.sol Values to return when the equation is not solvable or yield
 #' the value 0. Default is 0.
-#' @description If \eqn{a, b}, and  \eqn{c} are integer vectors, this function 
-#' try to find, at each coordinate, the solution of the MLE 
-#' \eqn{a x = b}  mod \eqn{n}. If the MLE \eqn{a x = b mod n} has not 
-#' solutions (see \code{\link[numbers]{modlin}}), the value reported for the 
-#' coordinate will be 0 and the corresponding translation.
-#' @details For \eqn{a, b}, and \eqn{c} integer scalars, it is just a 
+#' @description If \eqn{a, b}, and  \eqn{n} are integer vectors, this function 
+#' tries to find, at each coordinate, the solution of the MLE 
+#' \eqn{a x = b}  mod \eqn{n}. If the MLE \eqn{a x = b mod n} has no 
+#' solution for some coordinate (see \code{\link[numbers]{modlin}}), the
+#' value reported for that coordinate will be \emph{no.sol}, and a
+#' corresponding translation vector will also be returned.
+#' @details For \eqn{a, b}, and \eqn{n} integer scalars, it is just a 
 #' wrapper function to call \code{\link[numbers]{modlin}}. 
 #' @importFrom numbers modlin
 #' @export
 #' @return If the solution is exact, then a numerical vector will be returned,
-#' otherwise, if there is not exact solution for some coordinate, the a list
+#' otherwise, if there is no exact solution for some coordinate, a list
 #' carrying the element on the diagonal matrix and a translation vector will
 #' be returned.
 #' @examples
@@ -50,7 +51,7 @@
 #' mt <- modlineq(a = y, b = x, n = modulo, no.sol = 1L)
 #' mt
 #' 
-#' ## That is, vector 'x' is revovered with the transformaiton
+#' ## That is, vector 'x' is recovered with the transformation
 #' (y %*% diag(mt$diag) + mt$translation) %% modulo
 #' 
 #' # Or

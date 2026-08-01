@@ -27,7 +27,8 @@
 #' @param verbose If TRUE, prints the function log to stdout.
 #' @param ... Further parameters for \code{\link[base]{strsplit}}.
 #' @export
-#' @returns A character string
+#' @returns A character vector, or a list of character vectors if 'x' is a
+#' list.
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @examples
 #' ## A character string

@@ -19,9 +19,11 @@
 \item{object}{An object from 'MatrixList' class}
 }
 \value{
-Print/show of a ListCodonMatrix-class object.
+Prints a summary of the \code{\link{ListCodonMatrix-class}}
+object and returns it invisibly.
 
-Print/show of a MatrixList-class object.
+Prints a summary of the \code{\link{MatrixList-class}} object and
+returns it invisibly.
 }
 \description{
 Show method for 'CodonSeq' class object

@@ -17,7 +17,7 @@
 #' This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying the
 #' pairwise sequence alignment of SARS coronavirus GZ02 (GenBank: AY390556.1:
 #' 265-13398_13398-21485) and Bat SARS-like coronavirus isolate bat-SL-CoVZC45
-#' (GenBank: MG772933.1:265-1345513455-21542), complete genomes. The alignment
+#' (GenBank: MG772933.1:265-13455_13455-21542), complete genomes. The alignment
 #' is available at GitHub:
 #' <https://github.com/genomaths/seqalignments/tree/master/COVID-19>
 #' @usage 
@@ -25,7 +25,7 @@
 #'
 #' @format \code{\link[Biostrings]{DNAMultipleAlignment}} class object.
 #' @author Robersy Sanchez <https://genomaths.com>
-#' @seealso  [brca1_aln], [brca1_autm2], [cyc_aln] and [covid_aln].
+#' @seealso  [brca1_aln], [brca1_autm2], [cyc_aln] and [covid_autm].
 #' @examples
 #' data("covid_aln", package = "GenomAutomorphism")
 #' covid_aln

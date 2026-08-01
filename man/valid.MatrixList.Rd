@@ -9,7 +9,7 @@
 valid.MatrixList(x)
 }
 \arguments{
-\item{x}{A 'MatrixList object'}
+\item{x}{A 'MatrixList' object}
 }
 \value{
 If valid return NULL

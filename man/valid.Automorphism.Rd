@@ -10,7 +10,7 @@ valid.Automorphism.mcols(x)
 valid.Automorphism(x)
 }
 \arguments{
-\item{x}{A 'Automorphism object'}
+\item{x}{An 'Automorphism' object}
 }
 \value{
 An Error if the metacolumn does not have a valid format

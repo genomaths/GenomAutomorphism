@@ -5,7 +5,7 @@
 \alias{codon_coord,BaseGroup-method}
 \alias{codon_coord,DNAStringSet_OR_NULL-method}
 \alias{codon_coord,matrix_OR_data_frame-method}
-\title{Codon coordinates on a given a given Abelian group representation.}
+\title{Codon coordinates on a given Abelian group representation.}
 \usage{
 codon_coord(codon = NULL, ...)
 

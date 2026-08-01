@@ -22,7 +22,7 @@ hydrogen bonds) and weak \eqn{W=(A,U)} (two hydrogen bonds); 2. According to
 the chemical type: purines \eqn{R=(A, G)} and pyrimidines \eqn{Y=(C,U)}. 3.
 According to the presence of amino or keto groups on the base rings: amino
 \eqn{M=(C,A)} and keto \eqn{K=(G,U)}. So, each mutational event can be
-classified as according to the type of involved in it (2).
+classified according to the type of mutation involved (2).
 }
 \examples{
 ## Mutation type 'R'

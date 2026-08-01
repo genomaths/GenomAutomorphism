@@ -14,13 +14,13 @@ data("dna_phyche", package = "GenomAutomorphism")
 This data set carries some relevant physicochemical properties of the
 DNA bases. Available properties are:
 \describe{
-\item{"proton_affinity: "}{It is an indicatio of the thermodynamic
+\item{"proton_affinity: "}{It is an indication of the thermodynamic
 gradient between a molecule and the anionic form of that molecule upon
 removal of a proton from it
 (\href{https://en.wikipedia.org/wiki/Proton_affinity}{Wikipedia}). The
 proton affinity values, given in kJ/mol, were taken from reference (1),
 also available in Wolfram Alpha at https://www.wolframalpha.com/ and in
-the cell phone App 'Wolfram Alpha'.. Reference (2) provides several
+the cell phone App 'Wolfram Alpha'. Reference (2) provides several
 measurements accomplished by several computational and experimental
 approaches.
 }

@@ -14,17 +14,17 @@
 
 #' @rdname conserved_regions
 #' @aliases conserved_regions
-#' @title Conserved and Non-conserved Regions from a MSA
-#' @description Returns the Conserved or the Non-conserved Regions from a MSA.
-#' @param x A \code{\link{Automorphism-class}}, a
+#' @title Conserved and Non-conserved Regions from an MSA
+#' @description Returns the Conserved or the Non-conserved Regions from an MSA.
+#' @param x An \code{\link{Automorphism-class}}, an
 #' \code{\link{AutomorphismList-class}},
-#' a \code{\link{AutomorphismByCoef}} or a
-#' \code{\link{AutomorphismByCoefList}} class object.
+#' an \code{\link{AutomorphismByCoef-class}}, or an
+#' \code{\link{AutomorphismByCoefList-class}} object.
 #' @param conserved Logical, Whether to return the \emph{conserved} or the
 #' \emph{non-conserved regions}.
 #' @param output A character string. Type of output.
 #' @param ... Not in use.
-#' @return A \code{\link{AutomorphismByCoef}} class object containing the
+#' @return An \code{\link{AutomorphismByCoef-class}} object containing the
 #' requested regions.
 #' @import S4Vectors
 #' @export
@@ -70,7 +70,7 @@ setMethod("conserved_regions",
 #' number of cores to use, i.e. at most how many child processes will be run
 #' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
 #' BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
-#' job. value must be a scalar integer >= 0L. In this documentation a job is
+#' job. Value must be a scalar integer >= 0L. In this documentation a job is
 #' defined as a single call to a function, such as
 #' \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
 #' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as

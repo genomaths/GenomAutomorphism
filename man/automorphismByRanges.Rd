@@ -30,7 +30,7 @@ automorphismByRanges(x, ...)
 number of cores to use, i.e. at most how many child processes will be run
 simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
 BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
-job. value must be a scalar integer >= 0L. In this documentation a job is
+job. Value must be a scalar integer >= 0L. In this documentation a job is
 defined as a single call to a function, such as
 \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
 argument into chunks. When tasks == 0 (default), \eqn{X} is divided as
@@ -43,10 +43,10 @@ evenly as possible over the number of workers (see
 A  \code{\link[GenomicRanges]{GRanges-class}} or a
 \code{\link[GenomicRanges]{GRangesList-class}}. Each
 \code{\link[GenomicRanges]{GRanges-class}} object with a column
-named \emph{cube}, which carries the type of \emph{cube} automorphims.
+named \emph{cube}, which carries the type of \emph{cube} automorphisms.
 }
 \description{
-Automorphisms estimated on a pairwise or a MSA alignment
+Automorphisms estimated on a pairwise or an MSA alignment
 can be grouped by ranges which inherits from
 \code{\link[GenomicRanges]{GRanges-class}} or a
 \code{\link[GenomicRanges]{GRanges-class}}.

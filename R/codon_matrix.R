@@ -20,7 +20,7 @@
 #' @aliases codon_matrix
 #' @import Biostrings
 #' @description
-#' This function build the coordinate matrix for each sequence from an aligned
+#' This function builds the coordinate matrix for each sequence from an aligned
 #' set of DNA codon sequences.
 #' @details
 #' The purpose of this function is making the codon coordinates from multiple
@@ -28,9 +28,9 @@
 #' analyses, like those reported in references (1) and (2).
 #' 
 #' @param base A \code{\link[Biostrings]{DNAMultipleAlignment}}, a 
-#' \code{\link[Biostrings]{DNAStringSet}}, or a [BaseSeqMatrix].
+#' \code{\link[Biostrings]{DNAStringSet}}, or a [BaseSeqMatrix-class].
 #' @author Robersy Sanchez <https://genomaths.com>
-#' @returns A [ListCodonMatrix] class object with the codon coordinate on its
+#' @returns A [ListCodonMatrix-class] object with the codon coordinate on its
 #' metacolumns.
 #' @seealso [codon_coord], [base_coord] and [base2int].
 #' @export
@@ -53,10 +53,6 @@
 #'  Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
 #'  Comput. Chem. 79 (2018) 527-560.
 #' }
-
-#' @references 
-#' 1. 
-#' 2. 
 #' @examples
 #' ## Load the MSA of Primate BRCA1 DNA repair genes
 #' data("brca1_aln")
@@ -108,7 +104,7 @@ setMethod(
         if (length(base) %% 3 != 0) {
             stop(
                 "*** 'base' argument does not carry base-triplet sequences.",
-                " A base-triplet sequence is multiple of 3."
+                " A base-triplet sequence is a multiple of 3."
             )
         }
         

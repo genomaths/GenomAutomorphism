@@ -28,7 +28,8 @@ use, i.e. at most how many child processes will be run simultaneously
 \item{verbose}{If TRUE, prints the function log to stdout.}
 }
 \value{
-A character string
+A character vector, or a list of character vectors if 'x' is a
+list.
 }
 \description{
 A simple function to transform a string into character vector.

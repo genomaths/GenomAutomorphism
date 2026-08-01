@@ -9,21 +9,23 @@
 \alias{ConservedRegionList}
 \alias{valid.ConservedRegionList}
 \title{A class definition to store conserved gene/genomic regions found
-in a MSA.}
+in an MSA.}
 \usage{
 valid.ConservedRegion(x)
 
 valid.ConservedRegionList(x)
 }
 \arguments{
-\item{x}{A 'ConservedRegionList object'}
+\item{x}{A 'ConservedRegionList' object}
 }
 \value{
-Definition of the \strong{ConservedRegion-class}.
+Given the slot values, defines a
+\code{\link{ConservedRegion-class}} or
+\code{\link{ConservedRegionList-class}} object.
 }
 \description{
 A class definition to store conserved gene/genomic regions found
-in a MSA.
+in an MSA.
 
 Valid ConservedRegion mcols
 

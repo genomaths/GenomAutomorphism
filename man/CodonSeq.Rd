@@ -23,10 +23,11 @@ seqRanges(x)
 \item{x}{An object from \code{\link{CodonSeq-class}}.}
 }
 \value{
-Given the slot values define a CodonSeq-class.
+Given the slot values, defines a \code{\link{CodonSeq-class}}
+object.
 }
 \description{
-An objects from 'CodonSeq' or 'MatrixList' class is returned
+An object from 'CodonSeq' or 'MatrixList' class is returned
 by function \code{\link{get_coord}}. This object will store the coordinate
 of each sequence in a list of 3D-vectors or a list of vectors located in
 the slot named 'CoordList'. The original codon sequence (if provided) will

@@ -23,7 +23,7 @@
 #' Default is NULL.
 #' @param simplify,USE.NAMES The same as described in
 #' \code{\link[base]{sapply}}.
-#' @description This function apply a function over a list-like object
+#' @description This function applies a function over a list-like object
 #' preserving its attributes and simplify (if requested) the list as
 #' \code{\link[base]{sapply}} function does. \strong{slapply} returns a
 #' list of the same length as 'x', each element of which is the result of
@@ -48,7 +48,6 @@
 #' slapply(x, mean, keep.attr = TRUE, simplify = TRUE)
 #'
 #' @author Robersy Sanchez (\url{https://genomaths.com}).
-#' @export
 #' @export
 slapply <- function(x,
     FUN,

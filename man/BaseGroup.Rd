@@ -4,13 +4,14 @@
 \name{BaseGroup-class}
 \alias{BaseGroup-class}
 \alias{BaseGroup}
-\title{A class definition to store codon automorphisms in given in the
+\title{A class definition to store codon automorphisms in a given
 Abelian group representation.}
 \value{
-Given the slot values define a BaseGroup-class.
+Given the slot values, defines a \code{\link{BaseGroup-class}}
+object.
 }
 \description{
-A class definition to store codon automorphisms in given in the
+A class definition to store codon automorphisms in a given
 Abelian group representation.
 }
 \seealso{

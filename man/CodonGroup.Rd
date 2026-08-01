@@ -4,13 +4,14 @@
 \name{CodonGroup-class}
 \alias{CodonGroup-class}
 \alias{CodonGroup}
-\title{A class definition to store codon automorphisms in given in the
+\title{A class definition to store codon automorphisms in a given
 Abelian group representation.}
 \value{
-Given the slot values define a CodonGroup-class.
+Given the slot values, defines a \code{\link{CodonGroup-class}}
+object.
 }
 \description{
-A class definition to store codon automorphisms in given in the
+A class definition to store codon automorphisms in a given
 Abelian group representation.
 }
 \seealso{

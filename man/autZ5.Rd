@@ -30,8 +30,9 @@ pairwise alignment of two sequences.}
 
 \item{cube, cube_alt}{A character string denoting pairs of the 24
 Genetic-code cubes, as given in references (2-3). That is, the base pairs
-from the given cubes must be complementary each other. Such a cube pair are
-call dual cubes and, as shown in reference (3), each pair integrates group.}
+from the given cubes must be complementary to each other. Such a pair of
+cubes is called a dual cube pair and, as shown in reference (3), each pair
+integrates a group.}
 
 \item{start, end, chr, strand}{Optional parameters required to build a
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
@@ -56,8 +57,8 @@ events.
 }
 \details{
 Automorphisms in Z5 are described as functions
-\eqn{f(x) = k x mod 64}, where k and x are elements from the set of
-integers modulo 64. As noticed in reference (1). The pairwise alignment
+\eqn{f(x) = k x mod 5}, where k and x are elements from the set of
+integers modulo 5. As noticed in reference (1). The pairwise alignment
 provided in argument \emph{\strong{seq}} or the 'fasta' file
 \emph{\strong{filepath}} must correspond to DNA base sequences.
 }
@@ -82,7 +83,7 @@ Groups.
 \href{https://doi.org/10.1101/2021.06.01.446543}{doi:10.1101/2021.06.01.446543}
 \item M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24 possible
 algebraic representations of the standard genetic code in six or in three
-dimensions, Adv. Stud. Biol. 4 (2012) 110-152.\href{https://is.gd/na9eap}{PDF}.
+dimensions, Adv. Stud. Biol. 4 (2012) 119-152.\href{https://is.gd/na9eap}{PDF}.
 \item R. Sanchez. Symmetric Group of the Genetic-Code Cubes. Effect of the
 Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
 Comput. Chem. 79 (2018) 527-560. \href{https://bit.ly/2Z9mjM7}{PDF}

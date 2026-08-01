@@ -11,9 +11,9 @@
 data("brca1_autm", package = "GenomAutomorphism")
 }
 \description{
-This is a \link{AutomorphismList} object carrying a list of pairwise
+This is an \link{AutomorphismList} object carrying a list of pairwise
 automorphisms between the DNA sequences from the MSA of primate BRCA1
-DNA repair gene. The automorphisms were estimated from the
+DNA repair genes. The automorphisms were estimated from the
 \link{brca1_aln} MSA with function \link{autZ64}.
 }
 \examples{

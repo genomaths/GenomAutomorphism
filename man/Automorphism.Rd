@@ -8,7 +8,8 @@
 \title{A class definition to store codon automorphisms in a given Abelian
 group representation.}
 \value{
-Given the slot values, it defines an Automorphism-class object.
+Given the slot values, defines an \code{\link{Automorphism-class}}
+object.
 }
 \description{
 Two classes are involved in to storing codon automorphisms:

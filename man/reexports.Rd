@@ -118,18 +118,18 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{BiocGenerics}{\code{\link[BiocGenerics:start]{end}}, \code{\link[BiocGenerics:start]{end<-}}, \code{\link[BiocGenerics]{start}}, \code{\link[BiocGenerics:start]{start<-}}, \code{\link[BiocGenerics]{strand}}, \code{\link[BiocGenerics:strand]{strand<-}}, \code{\link[BiocGenerics:start]{width}}}
+  \item{BiocGenerics}{\code{\link[BiocGenerics:end]{end()}}, \code{\link[BiocGenerics:end<-]{end<-()}}, \code{\link[BiocGenerics:start]{start()}}, \code{\link[BiocGenerics:start<-]{start<-()}}, \code{\link[BiocGenerics:strand]{strand()}}, \code{\link[BiocGenerics:strand<-]{strand<-()}}, \code{\link[BiocGenerics:width]{width()}}}
 
-  \item{Biostrings}{\code{\link[Biostrings:MultipleAlignment-class]{AAMultipleAlignment}}, \code{\link[Biostrings:XStringSet-class]{AAStringSet}}, \code{\link[Biostrings:MultipleAlignment-class]{DNAMultipleAlignment}}, \code{\link[Biostrings:XStringSet-class]{DNAStringSet}}, \code{\link[Biostrings:GENETIC_CODE]{GENETIC_CODE_TABLE}}, \code{\link[Biostrings:GENETIC_CODE]{getGeneticCode}}, \code{\link[Biostrings:MultipleAlignment-class]{readDNAMultipleAlignment}}, \code{\link[Biostrings]{translate}}, \code{\link[Biostrings:MaskedXString-class]{unmasked}}}
+  \item{Biostrings}{\code{\link[Biostrings:AAMultipleAlignment]{AAMultipleAlignment()}}, \code{\link[Biostrings:AAStringSet]{AAStringSet()}}, \code{\link[Biostrings:DNAMultipleAlignment]{DNAMultipleAlignment()}}, \code{\link[Biostrings:DNAStringSet]{DNAStringSet()}}, \code{\link[Biostrings:GENETIC_CODE_TABLE]{GENETIC_CODE_TABLE}}, \code{\link[Biostrings:getGeneticCode]{getGeneticCode()}}, \code{\link[Biostrings:readDNAMultipleAlignment]{readDNAMultipleAlignment()}}, \code{\link[Biostrings:translate]{translate()}}, \code{\link[Biostrings:unmasked]{unmasked()}}}
 
-  \item{GenomicRanges}{\code{\link[GenomicRanges:GRangesList-class]{GRangesList}}, \code{\link[GenomicRanges]{makeGRangesFromDataFrame}}}
+  \item{GenomicRanges}{\code{\link[GenomicRanges:GRangesList]{GRangesList()}}, \code{\link[GenomicRanges:makeGRangesFromDataFrame]{makeGRangesFromDataFrame()}}}
 
-  \item{matrixStats}{\code{\link[matrixStats:rowMeans2]{colMeans2}}, \code{\link[matrixStats:rowSds]{colSds}}, \code{\link[matrixStats:rowSums2]{colSums2}}, \code{\link[matrixStats:rowVars]{colVars}}, \code{\link[matrixStats]{rowMeans2}}, \code{\link[matrixStats]{rowSds}}, \code{\link[matrixStats]{rowSums2}}, \code{\link[matrixStats]{rowVars}}}
+  \item{matrixStats}{\code{\link[matrixStats:colMeans2]{colMeans2()}}, \code{\link[matrixStats:colSds]{colSds()}}, \code{\link[matrixStats:colSums2]{colSums2()}}, \code{\link[matrixStats:colVars]{colVars()}}, \code{\link[matrixStats:rowMeans2]{rowMeans2()}}, \code{\link[matrixStats:rowSds]{rowSds()}}, \code{\link[matrixStats:rowSums2]{rowSums2()}}, \code{\link[matrixStats:rowVars]{rowVars()}}}
 
-  \item{numbers}{\code{\link[numbers]{modlin}}, \code{\link[numbers:mod]{modq}}}
+  \item{numbers}{\code{\link[numbers:modlin]{modlin()}}, \code{\link[numbers:modq]{modq()}}}
 
-  \item{S4Vectors}{\code{\link[S4Vectors:Vector-class]{mcols}}, \code{\link[S4Vectors:Vector-class]{mcols<-}}, \code{\link[S4Vectors:S4Vectors-internals]{setValidity2}}}
+  \item{S4Vectors}{\code{\link[S4Vectors:mcols]{mcols()}}, \code{\link[S4Vectors:mcols<-]{mcols<-()}}, \code{\link[S4Vectors:setValidity2]{setValidity2()}}}
 
-  \item{XVector}{\code{\link[XVector:XVector-class]{subseq}}}
+  \item{XVector}{\code{\link[XVector:subseq]{subseq()}}}
 }}
 

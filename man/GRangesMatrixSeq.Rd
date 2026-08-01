@@ -34,7 +34,8 @@ in \code{\link[GenomicRanges]{GRanges}}}
 \link{MatrixSeq}.}
 }
 \value{
-Given the slot values, it defines a MatrixList-class.
+Given the slot values, defines a
+\code{\link{GRangesMatrixSeq-class}} object.
 
 Only used to specify signature in the S4 setMethod.
 }

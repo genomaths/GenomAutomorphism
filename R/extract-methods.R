@@ -21,13 +21,18 @@
 #' @aliases extract-methods
 #' @title An S4 class to extract elements for objects created with
 #' GenomAutomorphism package
-#' @param x An object from [AutomorphismList], [ListCodonMatrix], or 
-#' [MatrixSeq].
+#' @param x An object from [AutomorphismList-class], [ListCodonMatrix-class],
+#' or [MatrixSeq-class].
 #' @param i,j,... As in \code{\link[base]{Extract}}.
 #' @description First and second level subsetting of 'x'. Extraction using
 #' names can be done as x$name.
-#' @return An object from [AutomorphismList], [ListCodonMatrix], or 
-#' [MatrixSeq] class.
+#' @return For the \code{[} method, an object of the same class as \emph{x}
+#' (an [AutomorphismList-class], [ListCodonMatrix-class], or
+#' [MatrixSeq-class] object) carrying the requested subset. For the
+#' \code{[[} and \code{$} methods applied on an [AutomorphismList-class]
+#' object, a single unwrapped \code{\link[GenomicRanges]{GRanges-class}}
+#' element. For the \code{[[} and \code{$} methods applied on a
+#' [ListCodonMatrix-class] object, a single [CodonMatrix-class] element.
 #' @keywords internal
 #' @exportMethod "["
 #' @export

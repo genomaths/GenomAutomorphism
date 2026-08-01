@@ -14,7 +14,7 @@
 
 #' Automorphisms between DNA Sequences from two COVID-19 genomes
 #'
-#' This is a [AutomorphismList] object carrying a list of pairwise
+#' This is an [AutomorphismList] object carrying a list of pairwise
 #' automorphisms between the SARS coronavirus GZ02 (GenBank: AY390556.1:
 #' 265-13398_13398-21485) and Bat SARS-like coronavirus isolate bat-SL-CoVZC45
 #' (GenBank: KY417151.1: protein-coding regions). The pairwise

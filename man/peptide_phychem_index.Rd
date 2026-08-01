@@ -45,13 +45,13 @@ the DNA pairwise alignment of two sequences.}
 \item{acc}{Accession id for a specified mutation or contact potential
 matrix.}
 
-\item{aaindex}{Database where the requested accession id is locate and from
+\item{aaindex}{Database where the requested accession id is located and from
 where the aminoacid indices can be obtained. The possible values are:
 "aaindex2" or "aaindex3".}
 
 \item{userindex}{User provided aminoacid indices. This can be a numerical
 vector or a matrix (20 x 20). If a numerical matrix is provided, then the
-aminoacid indices are computes as column averages.}
+aminoacid indices are computed as column averages.}
 
 \item{alphabet}{Whether the alphabet is from the 20 aminoacid (AA) or
 four (DNA)/RNA base alphabet. This would prevent mistakes, i.e.,
@@ -70,16 +70,13 @@ use, i.e. at most how many child processes will be run simultaneously
 \item{verbose}{If TRUE, prints the function log to stdout.}
 }
 \value{
-Depending on the user specifications, a mutation or contact
-potential matrix, a list of available matrices (indices) ids or index
-names can be returned. More specifically:
-
-\describe{
-\item{\strong{aa_mutmat}: }{Returns an aminoacid mutation matrix or
-a statistical protein contact potentials matrix.}
-\item{\strong{aa_index}: }{Returns the specified aminoacid physicochemical
-indices.}
-}
+If argument \strong{\emph{aa}} is a character string, a numerical
+vector carrying the physicochemical index values for the given amino
+acid or DNA protein-coding sequence is returned. If \strong{\emph{aa}} is
+a \code{\link[Biostrings]{DNAStringSet}} or
+\code{\link[Biostrings]{DNAMultipleAlignment}} object, then a
+\link[=MatrixSeq-class]{MatrixSeq} object carrying the numerical matrix for all the given
+sequences is returned.
 }
 \description{
 This function applies numerical indices representing various physicochemical
@@ -91,7 +88,7 @@ processing.
 }
 \details{
 If a DNA sequence is given, then it is assumed that it is a DNA base-triplet
-sequence, i.e., the base sequence must be multiple of 3.
+sequence, i.e., the base sequence must be a multiple of 3.
 
 Errors can be originated if the given sequences carry letter which are not
 from the DNA or aminoacid alphabet.
@@ -102,7 +99,7 @@ base <- DNAStringSet(x = c( seq1 ='ACGTCATAAAGT',
                             seq2 = 'GTGTAATACAGT',
                             seq3 = 'TCCTCATAAGGT'))
 
-## The stop condon 'TAA' yields NA
+## The stop codon 'TAA' yields NA
 aa <- peptide_phychem_index(base, acc = "EISD840101")
 aa
 

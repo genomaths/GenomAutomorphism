@@ -13,7 +13,7 @@
 ## <http://www.gnu.org/licenses/>.
 
 #' @rdname codon_coord
-#' @title Codon coordinates on a given a given Abelian group representation.
+#' @title Codon coordinates on a given Abelian group representation.
 #' @description Given a string denoting a codon or base from the DNA (or RNA)
 #' alphabet and a genetic-code Abelian group as given in reference (1).
 #' @param codon An object from \code{\link{BaseGroup-class}} (generated with
@@ -211,7 +211,7 @@ setMethod(
         if (any(nchar(codon) %% 3 != 0)) {
             stop(
                 "*** 'codon' argument is not a base-triplet sequence.",
-                " A base-triplet sequence is multiple of 3."
+                " A base-triplet sequence is a multiple of 3."
             )
         }
 
