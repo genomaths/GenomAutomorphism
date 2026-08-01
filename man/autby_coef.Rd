@@ -11,10 +11,10 @@
 data("autby_coef", package = "GenomAutomorphism")
 }
 \description{
-This is a \link{AutomorphismList} object carrying a list of pairwise
-automorphisms between the DNA sequences from the MSA of primate somatic
-cytochrome C grouped by automorphism's coefficients. The grouping derives
-from the dataset \link{brca1_autm} after applying function
+This is an \link{AutomorphismList} object carrying a list of pairwise
+automorphisms between the DNA sequences from the MSA of primate BRCA1
+DNA repair genes grouped by automorphism's coefficients. The grouping
+derives from the dataset \link{brca1_autm} after applying function
 \link{automorphism_bycoef}.
 }
 \examples{

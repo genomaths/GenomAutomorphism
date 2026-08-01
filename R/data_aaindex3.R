@@ -29,7 +29,7 @@
 #' 
 #' @seealso [aaindex1], [aaindex2], and [get_mutscore].
 #' @author Robersy Sanchez <https://genomaths.com>
-#' @format A list carrying the the description 47 Amino Acid Matrices in 
+#' @format A list carrying the description of the 47 Amino Acid Matrices in 
 #' AAindex ver.9.2 and the text file of matrices imported from
 #' \url{https://www.genome.jp/aaindex/}.
 #' @usage 

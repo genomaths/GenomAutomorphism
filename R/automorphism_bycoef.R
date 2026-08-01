@@ -15,7 +15,7 @@
 
 #' @aliases automorphism_bycoef
 #' @rdname automorphism_bycoef
-#' @title Autmorphism Grouping by Coefficient
+#' @title Automorphism Grouping by Coefficient
 #' @description Automorphisms with the same automorphism's coefficients are
 #' grouped.
 #' @param x An \code{\link{Automorphism-class}} or an
@@ -24,9 +24,12 @@
 #' @param mut.type Logical. Whether to include the mutation type as given by
 #' function \code{\link{mut_type}}.
 #' @param ... Not in use.
-#' @return An \code{\link{AutomorphismByCoef}} class object. A coefficient 
-#' with 0 value is assigned to mutational events that are not automorphisms,
-#' e.g., indel mutations.
+#' @return An \code{\link{AutomorphismByCoef-class}} object when \emph{x} is
+#' an \code{\link{Automorphism-class}} object, or an
+#' \code{\link{AutomorphismByCoefList-class}} object when \emph{x} is an
+#' \code{\link{AutomorphismList-class}} object. A coefficient with 0 value is
+#' assigned to mutational events that are not automorphisms, e.g., indel
+#' mutations.
 #' @import GenomicRanges
 #' @export
 #' @seealso \code{\link{automorphisms}}
@@ -46,7 +49,7 @@ setGeneric(
 
 #' @aliases automorphism_bycoef
 #' @rdname automorphism_bycoef
-#' @param x An automorphism-class object returned by function
+#' @param x An \code{\link{Automorphism-class}} object returned by function
 #' \code{\link{automorphisms}}.
 #' @importFrom data.table data.table
 #' @importFrom dplyr mutate lag %>%
@@ -156,7 +159,7 @@ setMethod(
 #' number of cores to use, i.e. at most how many child processes will be run
 #' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
 #' BiocParallel package). Argument \emph{tasks} denotes the number of tasks 
-#' per job. value must be a scalar integer >= 0L. In this documentation a job
+#' per job. Value must be a scalar integer >= 0L. In this documentation a job
 #' is defined as a single call to a function, such as
 #' \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
 #' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as
@@ -227,6 +230,5 @@ setMethod(
         x <- x[idx]
 
         return(as(x, "AutomorphismByCoefList"))
-        return(x)
     }
 )

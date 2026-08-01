@@ -14,15 +14,15 @@
 
 #' @rdname base2codon
 #' @title Split a DNA sequence into codons
-#' @description This function split a DNA sequence into a codon sequence.
-#' @details It is expected that the provided DNA sequence is multiple of
+#' @description This function splits a DNA sequence into a codon sequence.
+#' @details It is expected that the provided DNA sequence is a multiple of
 #' 3, otherwise gaps are added to the end of the sequence.
 #' @param x A character string, \code{\link[Biostrings]{DNAStringSet-class}}
-#' or \code{\link[Biostrings]{DNAMultipleAlignment-class}} object carrying the
+#' or \code{\link[Biostrings]{DNAMultipleAlignment-class}} object carrying
 #' a DNA sequence.
 #' @param ... Not in use.
-#' @return If the argument of 'x' is character string, then a character vector
-#' of codons will returned. If the argument of 'x' is
+#' @return If the argument of 'x' is a character string, then a character
+#' vector of codons will be returned. If the argument of 'x' is
 #' \code{\link[Biostrings]{DNAStringSet-class}} or
 #' \code{\link[Biostrings]{DNAMultipleAlignment-class}} object, then a matrix
 #' of codons is returned.
@@ -33,7 +33,7 @@
 #' seq <- c("ACCT")
 #' base2codon(x = seq)
 #'
-#' ## This DNA sequence is multiple of 3
+#' ## This DNA sequence is a multiple of 3
 #' seq <- c("ACCTCA")
 #' base2codon(x = seq)
 #'
@@ -63,7 +63,7 @@ setMethod(
             n <- paste(rep("-", n), collapse = "")
             x <- paste0(x, n)
             warning(
-                "*** Base sequence of 'x' is not multiple of 3. ",
+                "*** Base sequence of 'x' is not a multiple of 3. ",
                 "Gaps '-' have been added at the end of the sequence."
             )
         }

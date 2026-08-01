@@ -7,7 +7,7 @@
 valid.AutomorphismByCoefList(x)
 }
 \arguments{
-\item{x}{A 'AutomorphismByCoefList object'}
+\item{x}{An 'AutomorphismByCoefList' object}
 }
 \value{
 An error if 'x' is not a valid AutomorphismByCoefList.

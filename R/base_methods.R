@@ -23,20 +23,21 @@
 #' ## Base coordinates on a given Abelian group representation
 #' 
 #' Given a string denoting a codon or base from the DNA (or RNA) alphabet,
-#' function \strong{\emph{base_coord}} return the base coordinates in the
-#' specify genetic-code Abelian group, as given in reference (1).
+#' function \strong{\emph{base_coord}} returns the base coordinates in the
+#' specified genetic-code Abelian group, as given in reference (1).
 #' 
 #' ## DNA sequences to \code{\link[GenomicRanges]{GRanges}} of bases. 
 #' 
 #' Function \strong{\emph{seq2granges}} transform an object from  
 #' \code{\link[Biostrings]{DNAStringSet}}, 
 #' \code{\link[Biostrings]{DNAMultipleAlignment-class}} or a character into
-#' an object from [BaseSeq]. 
+#' an object from [BaseSeq-class]. 
 #' 
 #' ## BaseSeq-class object to DNAStringSet-class object.
 #' 
 #' Function \strong{\emph{base_seq2string_set}} transforms an object from 
-#' [BaseSeq] into an object from \code{\link[Biostrings]{DNAStringSet-class}}.
+#' [BaseSeq-class] into an object from
+#' \code{\link[Biostrings]{DNAStringSet-class}}.
 #' 
 #' @details
 #' 
@@ -60,19 +61,19 @@
 #' 
 #' ## Function 'base_coord'
 #' 
-#' This function returns a \code{\link{BaseGroup}} object
+#' This function returns a \code{\link{BaseGroup-class}} object
 #' carrying the DNA sequence(s) and their respective coordinates in the
 #' requested Abelian group of base representation (one-dimension, "Z4" or
-#' "Z5"). Observe that to get coordinates in the set of of integer numbers
-#' ("Z") is also possible but they are not defined to integrate a Abelian
+#' "Z5"). Observe that to get coordinates in the set of integer numbers
+#' ("Z") is also possible but they are not defined to integrate an Abelian
 #' group. These are just used for the further insertion the codon set in the
 #' 3D space (R^3).
 #'  
 #' ## Function 'seq2granges'
 #' 
-#' This function returns a [BaseGroup] object carrying the DNA sequence(s), one
-#' base per ranges. A [BaseGroup] class object inherits from  
-#' \code{\link[GenomicRanges]{GRanges-class}}.
+#' This function returns a [BaseGroup-class] object carrying the DNA
+#' sequence(s), one base per ranges. A [BaseGroup-class] object inherits
+#' from \code{\link[GenomicRanges]{GRanges-class}}.
 #' 
 #' ## Function 'base_seq2string_set'
 #' 
@@ -88,7 +89,7 @@
 #' \emph{\strong{fasta}} format to be read. This argument must be given if
 #' \emph{codon & base} arguments are not provided.
 #' @param cube A character string denoting one of the 24 Genetic-code cubes,
-#' as given in references (2 2 3).
+#' as given in references (2-3).
 #' @param group A character string denoting the group representation for the
 #' given base or codon as shown in reference (1).
 #' @param start,end,chr,strand Optional parameters required to build a
@@ -165,7 +166,7 @@
 #' 
 #' @aliases base_coord
 #' @export
-#' @return A BaseGroup-class object.
+#' @return A \code{\link{BaseGroup-class}} object.
 setGeneric(
     "base_coord",
     function(base = NULL,
@@ -513,7 +514,7 @@ setMethod(
         group <- match.arg(group)
         
         if (is.null(seq_alias) && inherits(base, "DNAStringSet"))
-            seq_alias <- names(DNAStringSet)
+            seq_alias <- names(base)
         
         base <- seq2granges(base)
         if (is.null(seq_alias)) 

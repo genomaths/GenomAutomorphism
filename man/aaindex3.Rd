@@ -5,7 +5,7 @@
 \alias{aaindex3}
 \title{Statistical protein contact potentials matrices from AAindex ver.9.2}
 \format{
-A list carrying the the description 47 Amino Acid Matrices in
+A list carrying the description of the 47 Amino Acid Matrices in
 AAindex ver.9.2 and the text file of matrices imported from
 \url{https://www.genome.jp/aaindex/}.
 }

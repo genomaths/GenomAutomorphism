@@ -16,7 +16,7 @@ aa_index(acc = NA, acc_list = FALSE, info = FALSE)
 \item{acc}{Accession id for a specified mutation or contact potential
 matrix.}
 
-\item{aaindex}{Database where the requested accession id is locate. The
+\item{aaindex}{Database where the requested accession id is located. The
 possible values are:  "aaindex2" or "aaindex3".}
 
 \item{acc_list}{Logical. If TRUE, then the list of available matrices ids
@@ -50,7 +50,7 @@ matrix, also called a mutation matrix, is a set of 210 numerical values, 20
 diagonal and 20x19/2 off-diagonal elements, used for sequence alignments
 and similarity searches.
 
-Function \strong{\emph{aa_phychem_index}} is wrapper function to call two
+Function \strong{\emph{aa_phychem_index}} is a wrapper function to call two
 other functions: \strong{\emph{aa_mutmat}} and \strong{\emph{aa_index}}
 }
 \examples{
@@ -72,7 +72,7 @@ aa_mutmat(acc = "HENS920103", aaindex = "aaindex2")
 aa_phychem_index(acc = "EISD840101", aaindex = "aaindex1")
 
 ## Just the info. The information provided after the reference
-## corresponds to the correlaiton of 'EISD840101' with other indices.
+## corresponds to the correlation of 'EISD840101' with other indices.
 aa_phychem_index(acc = "EISD840101", aaindex = "aaindex1", info = TRUE)
 
 }

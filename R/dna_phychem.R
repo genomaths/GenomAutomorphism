@@ -7,8 +7,10 @@
 ## your option) any later version.  This program is distributed in
 ## the hope that it will be useful, but WITHOUT ANY WARRANTY;
 ## without even the implied warranty of MERCHANTABILITY or FITNESS
-## FOR A PARTICULAR P
-
+## FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+## more details.  You should have received a copy of the GNU
+## General Public License along with this program; if not, see
+## <http://www.gnu.org/licenses/>.
 
 ## =========================== Definition ==========================
 
@@ -20,7 +22,7 @@
 #' the DNA pairwise alignment of two sequences.
 #' @param phychem A list of DNA bases physicochemical properties, e.g., like
 #' those provided in [dna_phyche].
-#' @param index_name Optional. Name of breve description of the base
+#' @param index_name Optional. Name or brief description of the base
 #' physicochemical property applied to represent the DNA sequence.
 #' @param ... Not in use.
 #' @description 
@@ -30,7 +32,7 @@
 #' further downstream statistical analysis and digital signal processing.
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @seealso [peptide_phychem_index]
-#' @returns A [MatrixSeq]-class object.
+#' @returns A [MatrixSeq-class] object.
 #' @export
 #' @examples
 #' ## Let's create DNAStringSet-class object 

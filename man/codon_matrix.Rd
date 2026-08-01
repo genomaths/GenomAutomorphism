@@ -35,7 +35,7 @@ codon_matrix(base, ...)
 }
 \arguments{
 \item{base}{A \code{\link[Biostrings]{DNAMultipleAlignment}}, a
-\code{\link[Biostrings]{DNAStringSet}}, or a \link{BaseSeqMatrix}.}
+\code{\link[Biostrings]{DNAStringSet}}, or a \link[=BaseSeqMatrix-class]{BaseSeqMatrix}.}
 
 \item{...}{Not in use yet.}
 
@@ -54,11 +54,11 @@ as given in references (3-4).}
 given base or codon as shown in reference (3-4).}
 }
 \value{
-A \link{ListCodonMatrix} class object with the codon coordinate on its
+A \link[=ListCodonMatrix-class]{ListCodonMatrix} object with the codon coordinate on its
 metacolumns.
 }
 \description{
-This function build the coordinate matrix for each sequence from an aligned
+This function builds the coordinate matrix for each sequence from an aligned
 set of DNA codon sequences.
 }
 \details{
@@ -99,11 +99,6 @@ dimensions, Adv. Stud. Biol. 4 (2012) 119-152.\href{https://is.gd/na9eap}{PDF}.
 \item R. Sanchez. Symmetric Group of the Genetic-Code Cubes. Effect of the
 Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
 Comput. Chem. 79 (2018) 527-560.
-}
-
-\enumerate{
-\item 
-\item 
 }
 }
 \seealso{

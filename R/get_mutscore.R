@@ -25,7 +25,7 @@
 #' Alternatively, the mutation scores can be estimated based on an user 
 #' mutation matrix, for example, see [aminoacid_dist] and [codon_dist_matrix].
 #' 
-#' @param aa1,aa2 A simple character representing an amino acids or a 
+#' @param aa1,aa2 A simple character representing an amino acid or a 
 #' character string of letter from the amino acid alphabet or base-triplets
 #' from the DNA/RNA alphabet. If \strong{\emph{aa1}} is an object from any
 #' of the classes: [BaseSeq], \code{\link[Biostrings]{DNAStringSet}}, or
@@ -33,7 +33,7 @@
 #' \strong{\emph{aa2}} is not required.
 #' @param acc Accession id for a specified mutation or contact potential 
 #' matrix.
-#' @param aaindex Database where the requested accession id is locate. The 
+#' @param aaindex Database where the requested accession id is located. The 
 #' possible values are:  "aaindex2" or "aaindex3".
 #' @param mutmat A mutation or any score matrix provided by the user.
 #' @param alphabet Whether the alphabet is from the 20 amino acid (AA) or
@@ -137,21 +137,21 @@ setMethod("get_mutscore", signature(aa1 = "character", aa2 = "character"),
         if (length(aa1) == 1 && nchar(aa1) > 1 && alphabet == "AA") {
             aa1 <- str2chr(aa1)
             aa2 <- str2chr(aa2)
-            if (length(aa1) != length(aa2))
-                stop("Arguments 'aa1' annd 'aa2' must have the same",
-                    "the number of characters.")
+        if (length(aa1) != length(aa2))
+            stop("Arguments 'aa1' and 'aa2' must have the same",
+                " number of characters.")
         }
         
         if (length(aa1) == 1 && (nchar(aa1) == 1)) {
             if (nchar(aa1) != nchar(aa2))
-                stop("Arguments 'aa1' annd 'aa2' must have the same",
-                    "the number of characters.")
+                stop("Arguments 'aa1' and 'aa2' must have the same",
+                    " number of characters.")
             if (!is.null(mutmat))
                 return(mutmat[ match(aa1, aa), match(aa2, aa) ])
             else {
                 if (is.null(acc))
-                    stop("The accesion ID for the mutation",
-                        " matrix must be provides")
+                    stop("The accession ID for the mutation",
+                        " matrix must be provided")
                 if (is.null(aaindex))
                     stop("The name of amino acid index database",
                         " matrix must be provided")
@@ -167,17 +167,17 @@ setMethod("get_mutscore", signature(aa1 = "character", aa2 = "character"),
                 stop("All the element from 'aa1' must have the same number", 
                     " of characters.")
             if (any(ch1 != ch2)) 
-                stop("Not all the elements of 'aa1' and 'aa2' has the same ",
+                stop("Not all the elements of 'aa1' and 'aa2' have the same ",
                     "number of characters.")
             if (any(!is.element(ch1, c(1,3))))
                 stop("The elements from 'aa1' must be single letters of ",
-                    "amino acid laphabet or base-triples on DNA/RNA", 
-                    " alphabets.")
+                    "the amino acid alphabet or base-triples of the DNA/RNA", 
+                    " alphabet.")
                 
             if (any(!is.element(ch2, c(1,3))))
                 stop("The elements from 'aa2' must be single letters of ",
-                    "amino acid laphabet or base-triples on DNA/RNA",
-                    " alphabets.")
+                    "the amino acid alphabet or base-triples of the DNA/RNA",
+                    " alphabet.")
             if (num.cores == 1) {
                 score <- slapply(seq_along(aa1), 
                         function(k) {

@@ -21,7 +21,7 @@
 #' @details Only aminoacids sequences given in the following alphabet are 
 #' accepted: "A","R","N","D","C","Q","E","G","H","I","L","K", "M","F","P",
 #' "S","T","W","Y","V", "*", "-", and "X"; where symbols "*" and "-" denote 
-#' the presence a stop codon and of a gap, respectively, and letter "X" 
+#' the presence of a stop codon and of a gap, respectively, and letter "X" 
 #' missing information, which are then taken as a gap.
 #' 
 #' The distance between any aminoacid and any of the non-aminoacid symbols is
@@ -148,7 +148,7 @@ setMethod(
         )
         
         if (!is.function(stat))
-            stop("*** Argument 'stat' must a function.")
+            stop("*** Argument 'stat' must be a function.")
         
         if (length(aa1) == 1) {
             if (nchar(aa1) > 1) 
@@ -190,7 +190,7 @@ setMethod(
                         silent = TRUE)
                 if (inherits(dm, "try-error"))
                     stop("*** The statistic given in function 'stat'",
-                        " cannot be computes.")
+                        " cannot be computed.")
             }
         }
         else {
@@ -244,7 +244,7 @@ setMethod(
                         dm <- 0
                     if (inherits(dm, "try-error"))
                         stop("*** The statistic given in function 'stat'",
-                            " cannot be computes.")
+                            " cannot be computed.")
                 }
                 return(dm)
             })

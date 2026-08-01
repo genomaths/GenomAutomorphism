@@ -6,7 +6,7 @@
 \alias{conserved_regions,AutomorphismList-method}
 \alias{conserved_regions,AutomorphismByCoef-method}
 \alias{conserved_regions,AutomorphismByCoefList-method}
-\title{Conserved and Non-conserved Regions from a MSA}
+\title{Conserved and Non-conserved Regions from an MSA}
 \usage{
 conserved_regions(x, ...)
 
@@ -38,10 +38,10 @@ conserved_regions(x, ...)
 )
 }
 \arguments{
-\item{x}{A \code{\link{Automorphism-class}}, a
+\item{x}{An \code{\link{Automorphism-class}}, an
 \code{\link{AutomorphismList-class}},
-a \code{\link{AutomorphismByCoef}} or a
-\code{\link{AutomorphismByCoefList}} class object.}
+an \code{\link{AutomorphismByCoef-class}}, or an
+\code{\link{AutomorphismByCoefList-class}} object.}
 
 \item{...}{Not in use.}
 
@@ -54,7 +54,7 @@ a \code{\link{AutomorphismByCoef}} or a
 number of cores to use, i.e. at most how many child processes will be run
 simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
 BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
-job. value must be a scalar integer >= 0L. In this documentation a job is
+job. Value must be a scalar integer >= 0L. In this documentation a job is
 defined as a single call to a function, such as
 \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
 argument into chunks. When tasks == 0 (default), \eqn{X} is divided as
@@ -64,11 +64,11 @@ evenly as possible over the number of workers (see
 \item{verbose}{logic(1). If TRUE, enable progress bar.}
 }
 \value{
-A \code{\link{AutomorphismByCoef}} class object containing the
+An \code{\link{AutomorphismByCoef-class}} object containing the
 requested regions.
 }
 \description{
-Returns the Conserved or the Non-conserved Regions from a MSA.
+Returns the Conserved or the Non-conserved Regions from an MSA.
 }
 \examples{
 ## Load dataset

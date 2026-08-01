@@ -14,10 +14,10 @@
 
 #' Automorphisms between DNA Primate BRCA1 Genes Grouped by Coefficients
 #'
-#' This is a [AutomorphismList] object carrying a list of pairwise
-#' automorphisms between the DNA sequences from the MSA of primate somatic
-#' cytochrome C grouped by automorphism's coefficients. The grouping derives
-#' from the dataset [brca1_autm] after applying function
+#' This is an [AutomorphismList] object carrying a list of pairwise
+#' automorphisms between the DNA sequences from the MSA of primate BRCA1
+#' DNA repair genes grouped by automorphism's coefficients. The grouping
+#' derives from the dataset [brca1_autm] after applying function
 #' [automorphism_bycoef].
 #'
 #' @format [AutomorphismByCoefList] class object.

@@ -19,9 +19,9 @@
 #' @param ... Not in use.
 #' @description For the sake of saving memory, each
 #' \code{\link{Automorphism-class}}
-#' objects is stored in an \code{\link{AutomorphismList-class}}, which  does
-#' not inherits from a \code{\link[GenomicRanges]{GRanges-class}}.
-#' @details This function just transform each \code{\link{Automorphism-class}}
+#' objects is stored in an \code{\link{AutomorphismList-class}}, which does
+#' not inherit from a \code{\link[GenomicRanges]{GRanges-class}}.
+#' @details This function just transforms each \code{\link{Automorphism-class}}
 #' object into an object from the same class but now inheriting from a
 #' \code{\link[GenomicRanges]{GRanges-class}}.
 #' @export
@@ -58,7 +58,7 @@ setGeneric(
 #' @import S4Vectors
 #' @export
 #' @return This function returns an \code{\link{AutomorphismList-class}}
-#' object as a list of \code{\link{Automorphism-class}} objects, which inherits
+#' object as a list of \code{\link{Automorphism-class}} objects, which inherit
 #' from \code{\link[GenomicRanges]{GRanges-class}} objects.
 setMethod("getAutomorphisms",
     signature = "AutomorphismList",
@@ -104,7 +104,7 @@ setMethod("getAutomorphisms",
 #' @aliases getAutomorphisms
 #' @import GenomicRanges
 #' @export
-#' @return An \code{\link{AutomorphismList-class}}
+#' @return An \code{\link{AutomorphismList-class}} object.
 setMethod("getAutomorphisms",
     signature = "list",
     function(x) {
@@ -119,7 +119,7 @@ setMethod("getAutomorphisms",
 #' @aliases getAutomorphisms
 #' @import GenomicRanges
 #' @export
-#' @return An \code{\link{Automorphism-class}}
+#' @return An \code{\link{Automorphism-class}} object.
 setMethod("getAutomorphisms",
     signature = "DataFrame_OR_data.frame",
     function(x) {

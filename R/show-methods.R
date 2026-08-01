@@ -55,7 +55,8 @@ setMethod(
 #' @importFrom methods show
 #' @keywords internal
 #' @export
-#' @return Print/show of a ListCodonMatrix-class object.
+#' @return Prints a summary of the \code{\link{ListCodonMatrix-class}}
+#' object and returns it invisibly.
 setMethod(
     "show",
     signature = "ListCodonMatrix",
@@ -88,7 +89,7 @@ setMethod(
             )
         }
         
-        cat("Three slots: 'DataList', 'group', 'cube' & 'seq_alias'\n")
+        cat("Five slots: 'DataList', 'group', 'cube', 'seq_alias' & 'names'\n")
         cat("------- \n")
         invisible(object)
     }
@@ -103,7 +104,8 @@ setMethod(
 #' @importFrom methods show
 #' @keywords internal
 #' @export
-#' @return Print/show of a MatrixSeq-class object.
+#' @return Prints a summary of the \code{\link{MatrixSeq-class}} object and
+#' returns it invisibly.
 setMethod(
     "show",
     signature = "MatrixSeq",
@@ -152,7 +154,7 @@ setMethod(
         }
         cat("------- \n")
         cat("Slots: 'seqs', 'matrix', 'names', 'aaindex',",
-            "'phychem', 'accession")
+            "'phychem', 'accession'")
         invisible(object)
     }
 )
@@ -167,7 +169,8 @@ setMethod(
 #' @importFrom methods show
 #' @keywords internal
 #' @export
-#' @return Print/show of a MatrixList-class object.
+#' @return Prints a summary of the \code{\link{MatrixList-class}} object and
+#' returns it invisibly.
 setMethod(
     "show",
     signature = "MatrixList",
@@ -195,7 +198,7 @@ setMethod(
 .showMatrix <- function(x) {
     d <- dim(x)
     if (!is.null(d)) {
-        cat("Matrix with", d[1], "rows and", d[2], "columns:\n")
+        message("Matrix with ", d[1], " rows and ", d[2], " columns:")
         if (d[1] > 10) {
             r <- c()
             for (k in c(seq(5), seq(d[1] - 5, d[1]))) {
@@ -209,7 +212,7 @@ setMethod(
         rownames(r) <- rown
     } else {
         l <- length(x)
-        cat("Vector of length:", l, "\n")
+        message("Vector of length: ", l)
         if (l > 10) {
             r <- x[c(seq(5), seq(l - 5, l))]
             r[6] <- "..."

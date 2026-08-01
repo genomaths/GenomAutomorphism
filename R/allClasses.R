@@ -34,7 +34,8 @@ setClassUnion("character_OR_NULL", c("character", "NULL", "missing"))
 #' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @export
-#' @return Given the slot values define a BaseSeq-class.
+#' @return Given the slot values, defines a \code{\link{BaseSeq-class}}
+#' object.
 setClass("BaseSeq",
     slots = c(
         seqnames = "Rle",
@@ -53,14 +54,15 @@ setClass("BaseSeq",
 
 #' @aliases BaseSeqMatrix
 #' @rdname BaseSeqMatrix
-#' @title A class definition to Store DNA base sequence coordinates in a given
+#' @title A class definition to store DNA base sequence coordinates in a given
 #' Genetic Code Cube.
 #' @import S4Vectors
 #' @import GenomicRanges
 #' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @export
-#' @return Given the slot values define a BaseSeq-class.
+#' @return Given the slot values, defines a \code{\link{BaseSeqMatrix-class}}
+#' object.
 setClass("BaseSeqMatrix",
     slots = c(
         seqnames = "Rle",
@@ -80,14 +82,15 @@ setClass("BaseSeqMatrix",
 
 #' @aliases BaseGroup
 #' @rdname BaseGroup
-#' @title A class definition to store codon automorphisms in given in the
+#' @title A class definition to store codon automorphisms in a given
 #' Abelian group representation.
 #' @import S4Vectors
 #' @import GenomicRanges
 #' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @export
-#' @return Given the slot values define a BaseGroup-class.
+#' @return Given the slot values, defines a \code{\link{BaseGroup-class}}
+#' object.
 setClass("BaseGroup",
     slots = c(
         seqnames = "Rle",
@@ -168,7 +171,7 @@ valid.BaseGroup.elem <- function(x) {
 #' @rdname valid.BaseGroup
 #' @aliases valid.GRanges
 #' @title Valid 'BaseGroup' inheritance from 'GRanges' class
-#' @param x A 'BaseGroup object'
+#' @param x A 'BaseGroup' object
 #' @keywords internal
 #' @return If valid return NULL
 valid.GRanges <- function(x) {
@@ -183,7 +186,7 @@ valid.GRanges <- function(x) {
 #' @rdname valid.BaseGroup
 #' @aliases valid.BaseGroup
 #' @title Valid BaseGroup
-#' @param x A 'BaseGroup object'
+#' @param x A 'BaseGroup' object
 #' @keywords internal
 #' @return If valid return NULL
 valid.BaseGroup <- function(x) {
@@ -197,14 +200,15 @@ setValidity2("BaseGroup", valid.BaseGroup)
 
 #' @aliases CodonGroup
 #' @rdname CodonGroup
-#' @title A class definition to store codon automorphisms in given in the
+#' @title A class definition to store codon automorphisms in a given
 #' Abelian group representation.
 #' @import S4Vectors
 #' @import GenomicRanges
 #' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @export
-#' @return Given the slot values define a CodonGroup-class.
+#' @return Given the slot values, defines a \code{\link{CodonGroup-class}}
+#' object.
 setClass("CodonGroup",
     slots = c(
         seqnames = "Rle",
@@ -281,8 +285,8 @@ valid.CodonGroup.mcols <- function(x) {
         }
 
         group <- try(x@group, silent = TRUE)
-        elem <- is.element(group, c("Z4", "Z5", "Z4^3", "
-                                    Z5^3", "Z64", "Z125"))
+        elem <- is.element(group, c("Z4", "Z5", "Z4^3",
+                                    "Z5^3", "Z64", "Z125"))
         if (inherits(group, "try-error") || !elem) {
             r4 <- TRUE
         }
@@ -297,7 +301,7 @@ valid.CodonGroup.mcols <- function(x) {
 #' @rdname valid.CodonGroup
 #' @aliases valid.CodonGroup
 #' @title Valid CodonGroup
-#' @param x A 'CodonGroup object'
+#' @param x A 'CodonGroup' object
 #' @keywords internal
 #' @return If valid return NULL
 valid.CodonGroup <- function(x) {
@@ -313,7 +317,7 @@ setValidity2("CodonGroup", valid.CodonGroup)
 #' @aliases CodonSeq
 #' @title A class definition to store codon coordinates given in the Abelian
 #' group and the codon sequence.
-#' @description An objects from 'CodonSeq' or 'MatrixList' class is returned 
+#' @description An object from 'CodonSeq' or 'MatrixList' class is returned 
 #' by function \code{\link{get_coord}}. This object will store the coordinate
 #' of each sequence in a list of 3D-vectors or a list of vectors located in 
 #' the slot named 'CoordList'. The original codon sequence (if provided) will
@@ -322,7 +326,8 @@ setValidity2("CodonGroup", valid.CodonGroup)
 #' @import GenomicRanges
 #' @keywords internal
 #' @export
-#' @return Given the slot values define a CodonSeq-class.
+#' @return Given the slot values, defines a \code{\link{CodonSeq-class}}
+#' object.
 setClass("CodonSeq",
     slots = c(
         CoordList = "list",
@@ -437,7 +442,7 @@ setClass("CodonMatrix",
 #' codon coordinates.
 #' @param seq_alias The 'alias' given to the codon sequence.
 #' @seealso [base_coord] and [codon_coord].
-#' @returns A 'CodonMatrix' class object
+#' @returns A \code{\link{CodonMatrix-class}} object.
 #' @export
 CodonMatrix <- function(object, group, cube, seq_alias = NULL) {
     new("CodonMatrix",
@@ -491,6 +496,7 @@ setClass("ListCodonMatrix",
 #' @aliases ListCodonMatrix
 #' @rdname ListCodonMatrix
 #' @param object A list of CodonMatrix-class objects
+#' @returns A \code{\link{ListCodonMatrix-class}} object.
 #' @export
 ListCodonMatrix <- function(
     object, cube, group, seq_alias = NULL, names = NULL) {
@@ -588,7 +594,8 @@ setClassUnion("matrix_OR_vector", c("matrix", "vector", "numeric"))
 #' @keywords internal
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @export
-#' @return Given the slot values, it defines a MatrixSeq-class.
+#' @return Given the slot values, defines a \code{\link{MatrixSeq-class}}
+#' object.
 setClass("MatrixSeq",
     slots = c(
         seqs = "character",
@@ -604,7 +611,7 @@ setClass("MatrixSeq",
 #' @rdname MatrixSeq
 #' @param seqs,matrix,names,aaindex,phychem,accession See detail section 
 #' @export
-#' @returns A MatrixSeq-class object
+#' @returns A \code{\link{MatrixSeq-class}} object.
 #' @examples 
 #' aln <- c(S1 = "ATGCGGATTAGA", S2 = "ATGACGATCACA", S3 = "ATGAGATCACAG")
 #' cd <- DNAMultipleAlignment(aln)
@@ -620,7 +627,7 @@ setClass("MatrixSeq",
 #' ## Extract the second aminoacid value from the first sequence
 #' r1[1,2]
 #' 
-#' ## Change the name the second sequence
+#' ## Change the name of the second sequence
 #' names(r1) <- c('S1', 'Seq1', 'S1')
 #' r1
 #' 
@@ -633,7 +640,7 @@ MatrixSeq <- function(seqs, matrix, names, aaindex, phychem, accession) {
         matrix <- as.matrix(matrix)
     
     if (!vtr && nrow(matrix) != length(seqs))
-        stop("*** The number sequences must be equal to the matrix ",
+        stop("*** The number of sequences must be equal to the matrix ",
             "row-number.")
     
     new("MatrixSeq",
@@ -657,7 +664,8 @@ MatrixSeq <- function(seqs, matrix, names, aaindex, phychem, accession) {
 #' represented by numerical value from a physicochemical index.
 #' @keywords internal
 #' @export
-#' @return Given the slot values, it defines a MatrixList-class.
+#' @return Given the slot values, defines a
+#' \code{\link{GRangesMatrixSeq-class}} object.
 setClass("GRangesMatrixSeq",
     slots = c(
         seqnames = "Rle",
@@ -798,7 +806,8 @@ setClassUnion(
 #' @description  A class denoting a list of matrices.
 #' @keywords internal
 #' @export
-#' @return Given the slot values, it defines a MatrixList-class.
+#' @return Given the slot values, defines a \code{\link{MatrixList-class}}
+#' object.
 setClass("MatrixList",
     slots = c(
         matrices = "list",
@@ -809,15 +818,15 @@ setClass("MatrixList",
 ## ======================== Validity MatrixList ======================= #
 #' @rdname valid.MatrixList
 #' @title Valid MatrixList
-#' @param x A 'MatrixList object'
+#' @param x A 'MatrixList' object
 #' @keywords internal
 #' @return If valid return NULL
 valid.MatrixList <- function(x) {
     if (!all(slapply(x, function(y) inherits(y, "matrix")))) {
-        return(
+        return(paste0(
             "*** Not all the elements of the MatrixList object",
             " are from 'matrix' class."
-        )
+        ))
     }
     NULL
 }
@@ -873,7 +882,8 @@ setClassUnion(
 #' @seealso \code{\link{AutomorphismByCoef-class}} and
 #' \code{\link{AutomorphismList-class}}
 #' @export
-#' @return Given the slot values, it defines an Automorphism-class object.
+#' @return Given the slot values, defines an \code{\link{Automorphism-class}}
+#' object.
 setClass("Automorphism",
     slots = c(
         seqnames = "Rle",
@@ -931,7 +941,7 @@ setAs(
 # ======================== Validity Automorphism ======================= #
 #' @rdname valid.Automorphism
 #' @title Valid Automorphism mcols
-#' @param x A 'Automorphism object'
+#' @param x An 'Automorphism' object
 #' @keywords internal
 #' @return An Error if the metacolumn does not have a valid format
 valid.Automorphism.mcols <- function(x) {
@@ -971,7 +981,7 @@ valid.Automorphism.mcols <- function(x) {
 
 #' @rdname valid.Automorphism
 #' @title Valid Automorphism
-#' @param x A 'Automorphism object'
+#' @param x An 'Automorphism' object
 #' @keywords internal
 #' @return An Error if the Automorphism-class object is not valid.
 valid.Automorphism <- function(x) {
@@ -984,14 +994,15 @@ setValidity2("Automorphism", valid.Automorphism)
 ## ======================= AutomorphismList-class =========================
 
 #' @rdname AutomorphismList
-#' @title A class definition to store list of Automorphism class objects.
-#' @description A class definition to store list of Automorphism class objects
+#' @title A class definition to store a list of Automorphism class objects.
+#' @description A class definition to store a list of Automorphism class
+#' objects
 #' derived from the pairwise automorphism estimation from pairwise
 #' alignments. Objects from this class are created by function 
 #' \code{\link{automorphisms}} and \code{\link{as.AutomorphismList}}.
 #' @importFrom methods validObject setClass
 #' @keywords internal
-#' @return An object from AutomorphismList-class 
+#' @return An object from \code{\link{AutomorphismList-class}}.
 #' @export
 #' @aliases AutomorphismList
 #' @section AutomorphismList-class methods:
@@ -1001,10 +1012,10 @@ setValidity2("Automorphism", valid.Automorphism)
 #' \code{\link[GenomicRanges]{GRangesList-class}}, a list of
 #' \code{\link[base]{data.frame}} or a
 #' \code{\link[S4Vectors]{DataFrame-class}}
-#' objects into a \emph{\strong{AutomorphismList-class}} object.
+#' objects into an \emph{\strong{AutomorphismList-class}} object.
 #' 
 #' ## unlist(x)
-#' It transforms a AutomorphismList-class object into an Automorphism-class
+#' It transforms an AutomorphismList-class object into an Automorphism-class
 #' object. 
 #'
 #' ## as.list(x)
@@ -1050,7 +1061,7 @@ setValidity2("Automorphism", valid.Automorphism)
 #' lista <- as(lista, "GRangesList")
 #' as.AutomorphismList(lista)
 #'
-#' ## Transform a AutomorphismList-class object into an Automorphism-class
+#' ## Transform an AutomorphismList-class object into an Automorphism-class
 #' ## object 
 #' unlist(brca1_autm[seq(2)])
 #' @seealso \code{\link{Automorphism-class}} and 
@@ -1066,7 +1077,7 @@ setClass("AutomorphismList",
 
 #' @rdname valid.AutomorphismList
 #' @title Valid AutomorphismList mcols
-#' @param x A 'AutomorphismList object'
+#' @param x An 'AutomorphismList' object
 #' @return An error if 'x' is not a valid AutomorphismList class object.
 #' @import S4Vectors
 #' @keywords internal
@@ -1193,7 +1204,7 @@ setMethod("unlist",
 #' @aliases AutomorphismByCoef
 #' @rdname AutomorphismByCoef
 #' @title A class definition to store conserved gene/genomic regions found
-#' in a MSA. 
+#' in an MSA. 
 #' @description Objects from this class are generated by function 
 #' \code{\link{automorphism_bycoef}}.
 #' @seealso \code{\link{automorphism_bycoef}}
@@ -1201,7 +1212,7 @@ setMethod("unlist",
 #' @import GenomicRanges
 #' @section AutomorphismByCoefList-class methods:
 #' ## unlist(x):
-#' It transforms a AutomorphismByCoefList-class object into an 
+#' It transforms an AutomorphismByCoefList-class object into an 
 #' AutomorphismByCoef-class object. 
 #' 
 #' ## as(x, "AutomorphismByCoefList")
@@ -1209,7 +1220,7 @@ setMethod("unlist",
 #' AutomorphismByCoefList-class object.
 #' @export
 #' @examples 
-#' ## Let's transform a AutomorphismByCoefList-class object into an 
+#' ## Let's transform an AutomorphismByCoefList-class object into an 
 #' ## AutomorphismByCoef-class object
 #' data("autby_coef")
 #' unlist(autby_coef[1:2])
@@ -1217,7 +1228,7 @@ setMethod("unlist",
 #' ## Herein a 'list' object of AutomorphismByCoef-class objects
 #' lista <- list(human = autby_coef[[1]], gorilla = autby_coef[[2]])
 #' 
-#' ## Let's transform the the last list 'lista' into an
+#' ## Let's transform the last list 'lista' into an
 #' ## AutomorphismByCoefList-class object
 #' aut <- as(lista, "AutomorphismByCoefList")
 #' aut
@@ -1230,7 +1241,8 @@ setMethod("unlist",
 #' names(aut)
 #' @seealso \code{\link{AutomorphismByCoefList-class}} and 
 #' \code{\link{Automorphism-class}}
-#' @return AutomorphismByCoef-class definition.
+#' @return Given the slot values, defines an
+#' \code{\link{AutomorphismByCoef-class}} object.
 setClass("AutomorphismByCoef",
     slots = c(
         seqnames = "Rle",
@@ -1247,7 +1259,7 @@ setClass("AutomorphismByCoef",
 #' @rdname valid.AutomorphismByCoef
 #' @aliases valid.AutomorphismByCoef
 #' @title Valid AutomorphismByCoef mcols
-#' @param x A 'AutomorphismByCoef object'
+#' @param x An 'AutomorphismByCoef' object
 #' @import S4Vectors
 #' @return An error if 'x' is not a valid AutomorphismByCoef.
 #' @keywords internal
@@ -1278,11 +1290,12 @@ setValidity2("AutomorphismByCoef", valid.AutomorphismByCoef)
 #' Where 'from' is a list of \strong{AutomorphismByCoef-class}.
 #'
 #' ## unlist(x)
-#' Where 'x' is a an \strong{AutomorphismByCoefList-class} object.
+#' Where 'x' is an \strong{AutomorphismByCoefList-class} object.
 #' @export
 #' @seealso \code{\link{AutomorphismByCoef-class}} and 
 #' \code{\link{AutomorphismList-class}}
-#' @return AutomorphismByCoefList-class definition.
+#' @return Given the slot values, defines an
+#' \code{\link{AutomorphismByCoefList-class}} object.
 setClass(
     "AutomorphismByCoefList",
     slots = c(
@@ -1298,7 +1311,7 @@ setClass(
 #' @rdname valid.AutomorphismByCoefList
 #' @aliases valid.AutomorphismByCoefList
 #' @title Valid AutomorphismByCoefList mcols
-#' @param x A 'AutomorphismByCoefList object'
+#' @param x An 'AutomorphismByCoefList' object
 #' @import S4Vectors
 #' @keywords internal
 #' @return An error if 'x' is not a valid AutomorphismByCoefList.
@@ -1347,10 +1360,12 @@ setMethod("unlist",
 #' @aliases ConservedRegion
 #' @rdname ConservedRegion
 #' @title A class definition to store conserved gene/genomic regions found
-#' in a MSA.
+#' in an MSA.
 #' @keywords internal
 #' @export
-#' @return Definition of the \strong{ConservedRegion-class}.
+#' @return Given the slot values, defines a
+#' \code{\link{ConservedRegion-class}} or
+#' \code{\link{ConservedRegionList-class}} object.
 setClass("ConservedRegion",
     contains = "GRanges"
 )
@@ -1359,7 +1374,7 @@ setClass("ConservedRegion",
 #' @aliases valid.ConservedRegion
 #' @rdname ConservedRegion
 #' @title Valid ConservedRegion mcols
-#' @param x A 'ConservedRegion object'
+#' @param x A 'ConservedRegion' object
 #' @import S4Vectors
 #' @keywords internal
 
@@ -1416,7 +1431,7 @@ setAs("list", "ConservedRegionList", function(from) {
 #' @rdname ConservedRegion
 #' @aliases valid.ConservedRegion
 #' @title Valid ConservedRegionList mcols
-#' @param x A 'ConservedRegionList object'
+#' @param x A 'ConservedRegionList' object
 #' @import S4Vectors
 #' @keywords internal
 

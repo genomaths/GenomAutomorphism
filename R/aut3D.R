@@ -19,8 +19,8 @@
 #' @description Given two codon sequences represented in the Z5^3 Abelian
 #' group, this function computes the automorphisms describing codon mutational
 #' events.
-#' @details Automorphisms in Z5^3' are described as functions
-#' \eqn{f(x) = A x mod Z5}, where A is diagonal matrix, as noticed in
+#' @details Automorphisms in Z5^3 are described as functions
+#' \eqn{f(x) = A x mod Z5}, where A is a diagonal matrix, as noticed in
 #' reference (4).
 #' @param seq An object from a \code{\link[Biostrings]{DNAStringSet}} or
 #' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
@@ -32,8 +32,9 @@
 #' \emph{codon & base} arguments are not provided.
 #' @param cube,cube_alt A character string denoting pairs of the 24
 #' Genetic-code cubes, as given in references (2-3). That is, the base pairs
-#' from the given cubes must be complementary each other. Such a cube pair are
-#' call dual cubes and, as shown in reference (3), each pair integrates group.
+#' from the given cubes must be complementary to each other. Such a pair of
+#' cubes is called a dual cube pair and, as shown in reference (3), each pair
+#' integrates a group.
 #' @param field  A character string denoting the Galois field where the 3D
 #' automorphisms are estimated. This can be 'GF(4)' or 'GF(5)', but only
 #' 'GF(5)' is implemented so far.
@@ -42,10 +43,10 @@
 #' values given for the function definition will be used.
 #' @param genetic_code The named character vector returned by  
 #' \code{\link[Biostrings]{getGeneticCode}} or similar. The translation of
-#' codon into aminoacids is a valuable information useful for downstream
+#' codon into aminoacids is valuable information useful for downstream
 #' statistical analysis. The standard genetic code is the default argument
 #' value applied in the translation of codons into aminoacids
-#' (see \code{\link[Biostrings]{GENETIC_CODE_TABLE}}. 
+#' (see \code{\link[Biostrings]{GENETIC_CODE_TABLE}}). 
 #' @param num.cores,tasks Parameters for parallel computation using package
 #' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
 #' use, i.e. at most how many child processes will be run simultaneously (see
@@ -103,8 +104,8 @@ aut3D <- function(seq = NULL,
     if (!is.null(seq)) {
         if (!inherits(seq, c("DNAStringSet", "DNAMultipleAlignment"))) {
             stop(
-                "*** Agument 'seq' must belong to 'DNAStringSet'",
-                " DNAMultipleAlignment class."
+                "*** Argument 'seq' must belong to 'DNAStringSet' or",
+                " 'DNAMultipleAlignment' class."
             )
         }
         if (any(nchar(seq) %% 3 != 0)) {

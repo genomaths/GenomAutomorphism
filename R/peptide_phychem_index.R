@@ -28,7 +28,7 @@
 #' 
 #' @details
 #' If a DNA sequence is given, then it is assumed that it is a DNA base-triplet
-#' sequence, i.e., the base sequence must be multiple of 3. 
+#' sequence, i.e., the base sequence must be a multiple of 3. 
 #' 
 #' Errors can be originated if the given sequences carry letter which are not
 #' from the DNA or aminoacid alphabet.
@@ -40,7 +40,7 @@
 #'                             seq2 = 'GTGTAATACAGT',
 #'                             seq3 = 'TCCTCATAAGGT'))
 #' 
-#' ## The stop condon 'TAA' yields NA
+#' ## The stop codon 'TAA' yields NA
 #' aa <- peptide_phychem_index(base, acc = "EISD840101")
 #' aa
 #' 
@@ -75,28 +75,25 @@ setGeneric("peptide_phychem_index",
 #' the DNA pairwise alignment of two sequences.
 #' @param acc Accession id for a specified mutation or contact potential 
 #' matrix.
-#' @param aaindex Database where the requested accession id is locate and from
+#' @param aaindex Database where the requested accession id is located and from
 #' where the aminoacid indices can be obtained. The possible values are:
 #' "aaindex2" or "aaindex3".
 #' @param userindex User provided aminoacid indices. This can be a numerical
 #' vector or a matrix (20 x 20). If a numerical matrix is provided, then the 
-#' aminoacid indices are computes as column averages. 
+#' aminoacid indices are computed as column averages. 
 #' @param alphabet Whether the alphabet is from the 20 aminoacid (AA) or
 #' four (DNA)/RNA base alphabet. This would prevent mistakes, i.e., 
 #' the strings "ACG" would be a base-triplet on the DNA alphabet or simply
 #' the amino acid sequence of alanine, cysteine, and glutamic acid.
 #' @param genetic.code,no.init.codon,if.fuzzy.codon The same as given in 
 #' function [translation].
-#' @return Depending on the user specifications, a mutation or contact 
-#' potential matrix, a list of available matrices (indices) ids or index 
-#' names can be returned. More specifically:
-#' 
-#' \describe{
-#'  \item{\strong{aa_mutmat}: }{Returns an aminoacid mutation matrix or
-#'    a statistical protein contact potentials matrix.}
-#'  \item{\strong{aa_index}: }{Returns the specified aminoacid physicochemical 
-#'    indices.}
-#' }
+#' @return If argument \strong{\emph{aa}} is a character string, a numerical
+#' vector carrying the physicochemical index values for the given amino
+#' acid or DNA protein-coding sequence is returned. If \strong{\emph{aa}} is
+#' a \code{\link[Biostrings]{DNAStringSet}} or
+#' \code{\link[Biostrings]{DNAMultipleAlignment}} object, then a
+#' [MatrixSeq-class] object carrying the numerical matrix for all the given
+#' sequences is returned.
 #' 
 #' @export
 setMethod("peptide_phychem_index", signature(aa = "character"),
@@ -146,7 +143,7 @@ setMethod("peptide_phychem_index", signature(aa = "character"),
         }
         else {
             if (is.null(acc))
-                stop("The accesion ID for the aaindex must be provided")
+                stop("The accession ID for the aaindex must be provided")
             phychem <- aa_phychem_index(acc = acc, aaindex = aaindex)
             if (is.matrix(phychem))
                 phychem <- colMeans(phychem)

@@ -20,7 +20,7 @@ codon coordinates.}
 \item{seq_alias}{The 'alias' given to the codon sequence.}
 }
 \value{
-A 'CodonMatrix' class object
+A \code{\link{CodonMatrix-class}} object.
 }
 \description{
 A CodonMatrix is the object created by function \link{codon_matrix}

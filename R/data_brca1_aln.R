@@ -14,7 +14,7 @@
 
 #' Multiple Sequence Alignment (MSA) of Primate BRCA1 DNA repair genes.
 #'
-#' This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying a MSA of
+#' This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying an MSA of
 #' [BRCA1 DNA repair genes](https://bit.ly/3DimROD) to be used in the
 #' examples provided for the package functions. The original file can be
 #' downloaded from GitHub at: <https://bit.ly/3DimROD>

@@ -18,11 +18,13 @@ MatrixSeq(seqs, matrix, names, aaindex, phychem, accession)
 \item{object}{An object from 'MatrixSeq' class}
 }
 \value{
-Given the slot values, it defines a MatrixSeq-class.
+Given the slot values, defines a \code{\link{MatrixSeq-class}}
+object.
 
-A MatrixSeq-class object
+A \code{\link{MatrixSeq-class}} object.
 
-Print/show of a MatrixSeq-class object.
+Prints a summary of the \code{\link{MatrixSeq-class}} object and
+returns it invisibly.
 }
 \description{
 This is a very simple flexible class to store DNA and
@@ -61,7 +63,7 @@ r1$S1
 ## Extract the second aminoacid value from the first sequence
 r1[1,2]
 
-## Change the name the second sequence
+## Change the name of the second sequence
 names(r1) <- c('S1', 'Seq1', 'S1')
 r1
 

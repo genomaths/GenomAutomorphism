@@ -30,12 +30,12 @@
 #' \code{\link{codon_coord}}, respectively.
 #' @param base_seq Logical. Whether to return the base or codon coordinates on
 #' the selected Abelian group. If codon coordinates are requested, then the
-#' number of the DNA bases in the given sequences must be multiple of 3.
+#' number of the DNA bases in the given sequences must be a multiple of 3.
 #' @param filepath A character vector containing the path to a file in
 #' \emph{\strong{fasta}} format to be read. This argument must be given if
 #' \emph{codon & base} arguments are not provided.
 #' @param cube A character string denoting one of the 24 Genetic-code cubes,
-#' as given in references (2 2 3).
+#' as given in references (2-3).
 #' @param group A character string denoting the group representation for the
 #' given base or codon as shown in reference (1).
 #' @param start,end,chr,strand Optional parameters required to build a
@@ -52,17 +52,17 @@
 #' functions \code{\link{codon_coord}} and \code{\link{base_coord}} are useful
 #' to store genomic information, the base and codon coordinates are not given
 #' on them as numeric magnitudes. Function \code{\link{get_coord}} provides
-#' the way to get the coordinates in a numeric object in object from and still
-#' to preserve the base/codon sequence information.
+#' a way to get the coordinates as a numeric object while still preserving
+#' the base/codon sequence information.
 #'
 #' @import S4Vectors
 #' @import Biostrings
 #' @importFrom methods new
-#' @return An object from \code{\link{CodonGroup-class}} class is returned
+#' @return An object from \code{\link{CodonSeq-class}} class is returned
 #' when \emph{output = 'all'}. This has two slots, the first one carrying a
 #' list of matrices and the second one carrying the codon/base sequence
 #' information. That is, if \emph{x} is an object from
-#' \code{\link{CodonGroup-class}} class, then a list of matrices of codon
+#' \code{\link{CodonSeq-class}} class, then a list of matrices of codon
 #' coordinate can be retrieved as x@CoordList and the information on the
 #' codon sequence as x@SeqRanges.
 #'

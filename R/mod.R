@@ -10,7 +10,8 @@
 #' Integer remainder of the division of the integer n by m:
 #' n mod m. 
 #' @param ... Not in use.
-#' @return An element of x, an \code{\link{Automorphism-class}} object.
+#' @return A numeric vector or matrix carrying the remainder of the division
+#' of 'n' by 'm'.
 #' @export
 #' @author Robersy Sanchez (\url{https://genomaths.com}).
 #' @examples 

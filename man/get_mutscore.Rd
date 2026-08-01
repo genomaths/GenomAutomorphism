@@ -73,7 +73,7 @@ get_mutscore(aa1, aa2, ...)
 )
 }
 \arguments{
-\item{aa1, aa2}{A simple character representing an amino acids or a
+\item{aa1, aa2}{A simple character representing an amino acid or a
 character string of letter from the amino acid alphabet or base-triplets
 from the DNA/RNA alphabet. If \strong{\emph{aa1}} is an object from any
 of the classes: \link{BaseSeq}, \code{\link[Biostrings]{DNAStringSet}}, or
@@ -85,7 +85,7 @@ of the classes: \link{BaseSeq}, \code{\link[Biostrings]{DNAStringSet}}, or
 \item{acc}{Accession id for a specified mutation or contact potential
 matrix.}
 
-\item{aaindex}{Database where the requested accession id is locate. The
+\item{aaindex}{Database where the requested accession id is located. The
 possible values are:  "aaindex2" or "aaindex3".}
 
 \item{mutmat}{A mutation or any score matrix provided by the user.}

@@ -7,7 +7,7 @@
 valid.AutomorphismByCoef(x)
 }
 \arguments{
-\item{x}{A 'AutomorphismByCoef object'}
+\item{x}{An 'AutomorphismByCoef' object}
 }
 \value{
 An error if 'x' is not a valid AutomorphismByCoef.

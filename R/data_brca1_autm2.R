@@ -14,13 +14,13 @@
 
 #' Automorphisms between DNA Sequences from Primate BRCA1 Genes
 #'
-#' This is a [AutomorphismList] object carrying a list of pairwise
+#' This is an [AutomorphismList] object carrying a list of pairwise
 #' automorphisms between the DNA sequences from the MSA of primate BRCA1
-#' DNA repair gene. The data set brca1_aln2 has 41 DNA sequences and it 
-#' contains the previous 20 primate variants found in 'braca1_aln' data set
+#' DNA repair genes. The data set brca1_aln2 has 41 DNA sequences and it 
+#' contains the previous 20 primate variants found in 'brca1_aln' data set
 #' plus 21 single mutation variants (SMV) from the human sequence NM_007298 
 #' transcript variant 4. The location of each SMV is given in the heading from
-#' each sequence. The automorphisms were estimated from the [brca1_aln] MSA
+#' each sequence. The automorphisms were estimated from the [brca1_aln2] MSA
 #' with function [autZ64].
 #' @usage 
 #' data("brca1_autm2", package = "GenomAutomorphism")

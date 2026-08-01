@@ -22,21 +22,21 @@ getAutomorphisms(x, ...)
 }
 \value{
 This function returns an \code{\link{AutomorphismList-class}}
-object as a list of \code{\link{Automorphism-class}} objects, which inherits
+object as a list of \code{\link{Automorphism-class}} objects, which inherit
 from \code{\link[GenomicRanges]{GRanges-class}} objects.
 
-An \code{\link{AutomorphismList-class}}
+An \code{\link{AutomorphismList-class}} object.
 
-An \code{\link{Automorphism-class}}
+An \code{\link{Automorphism-class}} object.
 }
 \description{
 For the sake of saving memory, each
 \code{\link{Automorphism-class}}
-objects is stored in an \code{\link{AutomorphismList-class}}, which  does
-not inherits from a \code{\link[GenomicRanges]{GRanges-class}}.
+objects is stored in an \code{\link{AutomorphismList-class}}, which does
+not inherit from a \code{\link[GenomicRanges]{GRanges-class}}.
 }
 \details{
-This function just transform each \code{\link{Automorphism-class}}
+This function just transforms each \code{\link{Automorphism-class}}
 object into an object from the same class but now inheriting from a
 \code{\link[GenomicRanges]{GRanges-class}}.
 }

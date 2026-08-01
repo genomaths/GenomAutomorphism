@@ -4,7 +4,7 @@
 \alias{automorphism_prob}
 \alias{automorphism_prob,AutomorphismByCoef-method}
 \alias{automorphism_prob,AutomorphismByCoefList-method}
-\title{Autmorphism Probability}
+\title{Automorphism Probability}
 \usage{
 automorphism_prob(x, ...)
 
@@ -89,7 +89,7 @@ with initial guess set as \eqn{\alpha_i = 1 / (n_i + 1)}.
 
 \subsection{Posterior Distribution}{
 
-Let be \eqn{\theta} the vector of probabilities for each mutation type. It's
+Let \eqn{\theta} be the vector of probabilities for each mutation type. It's
 the parameter we're estimating, which represents the probabilities of
 observing each mutation type in the multinomial distribution. The conjugate
 distribution in this context refers to the Dirichlet distribution, which is

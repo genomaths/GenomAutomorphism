@@ -11,7 +11,7 @@
 data("covid_autm", package = "GenomAutomorphism")
 }
 \description{
-This is a \link{AutomorphismList} object carrying a list of pairwise
+This is an \link{AutomorphismList} object carrying a list of pairwise
 automorphisms between the SARS coronavirus GZ02 (GenBank: AY390556.1:
 265-13398_13398-21485) and Bat SARS-like coronavirus isolate bat-SL-CoVZC45
 (GenBank: KY417151.1: protein-coding regions). The pairwise

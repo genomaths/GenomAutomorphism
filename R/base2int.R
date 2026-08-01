@@ -39,7 +39,8 @@
 #' 
 #' \eqn{list('A' = 0.87, 'C' = 0.88, 'T' = 0.82, 'G' = 0.89, 'N' = NA)}
 #' 
-#' where symbol 'N' provide the value for any letter out of DNA base alphabet.
+#' where symbol 'N' provides the value for any letter out of the DNA base
+#' alphabet.
 #' In this example, we could write NA or 0 (see example section).
 #' 
 #' @param ... Not in use.
@@ -70,9 +71,9 @@
 #' base2int(data.frame(x1 = c("UTG", "GTA"), x2 = c("UTG", "GTA")))
 #' 
 #' 
-#' ## Cube bases are represented n their order by: '00', '01', '10', and '11',
+#' ## Cube bases are represented in their order by: '00', '01', '10', and '11',
 #' ## For example for cube = "ACGT" we have mapping: A -> '00', C -> '01',
-#' ## G -> '11', and C -> '10'.
+#' ## G -> '10', and T -> '11'.
 #' 
 #' base2int("ACGT", group = "Z2", cube = "ACGT")
 #' 
@@ -170,7 +171,7 @@ setMethod("base2int", signature(base = "data.frame"),
             nch <- unique(as.vector(nch))
             if (length(nch) > 1)
                 stop("*** All the strings in argument 'base' must have",
-                    "the same number of letters.")
+                    " the same number of letters.")
 
             base <- try(apply(base, 1, str2chr ), silent = TRUE)
             if (inherits(base, "try-error"))

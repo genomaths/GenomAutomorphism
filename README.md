@@ -3,8 +3,9 @@
 # GenomAutomorphism [<img src="man/figures/logo.png" align="right" />](https://genomaths.github.io/genomautomorphism)
 
 Robersy Sanchez  
-Department of Biology. Eberly College of Science.  
-Pennsylvania State University, University Park, PA 16802  
+EpiMethyl Analytics. 
+10401 Baur Blvd, Suite F
+St. Louis, MO 63132 
 <genomicmath@gmail.com>  
 [ORCID:
 orcid.org/0000-0002-5246-1453](https://orcid.org/0000-0002-5246-1453)

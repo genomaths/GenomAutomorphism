@@ -18,7 +18,7 @@
 #' @title String to Digits
 #' @description A simple function to transform a string of digits into a 
 #' numeric vector.
-#' @param x A character string or a list/ of character strings of 
+#' @param x A character string or a list of character strings of 
 #' numeric/digit symbols.
 #' @param split The same as in \code{\link[base]{strsplit}}
 #' @param num.cores,tasks Parameters for parallel computation using package
@@ -29,10 +29,10 @@
 #' @param verbose If TRUE, prints the function log to stdout.
 #' @param ... Further parameters for \code{\link[base]{strsplit}}.
 #' @export
-#' @returns A integer vector or a list of integer vectors.
+#' @returns An integer vector or a list of integer vectors.
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @examples
-#' ## A integer vector
+#' ## An integer vector
 #' str2dig("12231456247")
 #'
 #' ## A list of integer vectors

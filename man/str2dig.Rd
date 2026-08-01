@@ -13,7 +13,7 @@ str2dig(x, split = "", ...)
 \S4method{str2dig}{list}(x, split = "", num.cores = 1L, tasks = 0L, verbose = FALSE, ...)
 }
 \arguments{
-\item{x}{A character string or a list/ of character strings of
+\item{x}{A character string or a list of character strings of
 numeric/digit symbols.}
 
 \item{split}{The same as in \code{\link[base]{strsplit}}}
@@ -29,14 +29,14 @@ for Linux OS).}
 \item{verbose}{If TRUE, prints the function log to stdout.}
 }
 \value{
-A integer vector or a list of integer vectors.
+An integer vector or a list of integer vectors.
 }
 \description{
 A simple function to transform a string of digits into a
 numeric vector.
 }
 \examples{
-## A integer vector
+## An integer vector
 str2dig("12231456247")
 
 ## A list of integer vectors

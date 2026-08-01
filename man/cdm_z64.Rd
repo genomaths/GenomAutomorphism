@@ -13,7 +13,7 @@ data("cdm_z64", package = "GenomAutomorphism")
 \description{
 This is a list of 24 codon distance matrices created with function
 \link{codon_dist_matrix} in the set of 24 genetic-code cubes on Z4
-(using the default weights and assuming the standard genetic code (SGC).
+(using the default weights and assuming the standard genetic code (SGC)).
 The data set is created to speed up the computation when working with DNA
 sequences from superior organisms. Since distance matrices are symmetric,
 it is enough to provide the lower matrix. Each matrix is given as
@@ -28,7 +28,7 @@ cdm_z64
 ## first values). Observe that this vector is labeled. Each numerical value 
 ## corresponds to the distance between the codons specified by the 
 ## name/label on it. For example, the distance between codons TTT and TCT 
-## is: 0.0625.
+## is: 1.
 
 head(cdm_z64[[ "TCGA" ]], 20)
 

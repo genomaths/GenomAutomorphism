@@ -40,8 +40,8 @@ GenomAutomorphism package}
 \S4method{names}{MatrixSeq}(x) <- value
 }
 \arguments{
-\item{x}{An object from \link{AutomorphismList}, \link{ListCodonMatrix}, or
-\link{MatrixSeq}.}
+\item{x}{An object from \link[=AutomorphismList-class]{AutomorphismList}, \link[=ListCodonMatrix-class]{ListCodonMatrix},
+or \link[=MatrixSeq-class]{MatrixSeq}.}
 
 \item{i, j, ...}{As in \code{\link[base]{Extract}}.}
 
@@ -50,8 +50,13 @@ GenomAutomorphism package}
 \item{value}{A character vector of up to the same length as x, or NULL.}
 }
 \value{
-An object from \link{AutomorphismList}, \link{ListCodonMatrix}, or
-\link{MatrixSeq} class.
+For the \code{[} method, an object of the same class as \emph{x}
+(an \link[=AutomorphismList-class]{AutomorphismList}, \link[=ListCodonMatrix-class]{ListCodonMatrix}, or
+\link[=MatrixSeq-class]{MatrixSeq} object) carrying the requested subset. For the
+\code{[[} and \code{$} methods applied on an \link[=AutomorphismList-class]{AutomorphismList}
+object, a single unwrapped \code{\link[GenomicRanges]{GRanges-class}}
+element. For the \code{[[} and \code{$} methods applied on a
+\link[=ListCodonMatrix-class]{ListCodonMatrix} object, a single \link[=CodonMatrix-class]{CodonMatrix} element.
 }
 \description{
 First and second level subsetting of 'x'. Extraction using

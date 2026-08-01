@@ -33,17 +33,18 @@
 #' genetic-code cubes that describe them.
 #'
 #' Automorphisms in Z5, Z64 and Z125 are described as functions
-#' \eqn{f(x) = k x mod 64} and \eqn{f(x) = k x mod 125}, where k and x are
-#' elements from the set of integers modulo 64 or modulo 125, respectively. If
+#' \eqn{f(x) = k x mod 5}, \eqn{f(x) = k x mod 64}, and
+#' \eqn{f(x) = k x mod 125}, respectively, where k and x are elements from
+#' the set of integers modulo 5, 64, or 125, respectively. If
 #' an automorphisms cannot be found on any of the cubes provided in the
 #' argument \eqn{cube}, then function \code{\link{automorphisms}} will search
 #' for automorphisms in the cubes provided in the argument \eqn{cube_alt}.
 #'
-#' Automorphisms in Z5^3' are described as functions \eqn{f(x) = Ax mod Z5},
-#' where A is diagonal matrix.
+#' Automorphisms in Z5^3 are described as functions \eqn{f(x) = Ax mod Z5},
+#' where A is a diagonal matrix.
 #'
 #' Arguments \emph{\strong{cube}} and \emph{\strong{cube_alt}} must be
-#' pairs of' dual cubes (see section 2.4 from reference 4).
+#' pairs of dual cubes (see section 2.4 from reference 4).
 #'
 #' @param seqs An object from a \code{\link[Biostrings]{DNAStringSet}} or
 #' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
@@ -55,9 +56,9 @@
 #' \emph{codon & base} arguments are not provided.
 #' @param cube,cube_alt A character string denoting pairs of the 24
 #' Genetic-code cubes, as given in references (2-3). That is, the base pairs
-#' from the given cubes must be complementary each other. Such a cube pair are
-#' call \eqn{dual cubes} and, as shown in reference (3), each pair integrates
-#' group.
+#' from the given cubes must be complementary to each other. Such a pair of
+#' cubes is called a dual cube pair and, as shown in reference (3), each pair
+#' integrates a group.
 #' @param nms Optional. Only used if the DNA sequence alignment provided
 #' carries more than two sequences. A character string giving short names for
 #' the alignments to be compared. If not given then the automorphisms between
@@ -91,7 +92,7 @@
 #'
 #' ### \code{\link{getAutomorphisms}}
 #' This function returns an AutomorphismList-class object as a list of
-#' Automorphism-class objects, which inherits from
+#' Automorphism-class objects, which inherit from
 #' \code{\link[GenomicRanges]{GRanges-class}} objects.
 #'
 #' ### \code{\link{conserved_regions}}
@@ -112,7 +113,7 @@
 #'  [doi:10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
 #'  \item M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24 possible
 #'  algebraic representations of the standard genetic code in six or in three
-#'  dimensions, Adv. Stud. Biol. 4 (2012) 110-152.[PDF](https://is.gd/na9eap).
+#'  dimensions, Adv. Stud. Biol. 4 (2012) 119-152.[PDF](https://is.gd/na9eap).
 #'  \item R. Sanchez. Symmetric Group of the Genetic-Code Cubes. Effect of the
 #'  Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
 #'  Comput. Chem. 79 (2018) 527-560. [PDF](https://bit.ly/2Z9mjM7)

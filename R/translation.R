@@ -16,10 +16,10 @@
 #' @title Translation of DNA/RNA sequences
 #' @description This function extends \code{\link[Biostrings]{translate}} 
 #' function to include letters that are frequently found in the DNA sequence
-#' databases to indicate missing information and are not part of the the 
+#' databases to indicate missing information and are not part of the
 #' DNA/RNA alphabet. Also, it is able to process sequences as just simple 
 #' 'character' objects. 
-#' @details If argument 'x' belong to any of the classes admitted by function 
+#' @details If argument 'x' belongs to any of the classes admitted by function 
 #' \code{\link[Biostrings]{translate}}, then this function is called to make
 #' the translation.
 #' @param x A character string or the same arguments given to function
@@ -32,16 +32,20 @@
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @import Biostrings
 #' @examples 
-#' ## Load a small DNA sequence alingment 
+#' ## Load a small DNA sequence alignment 
 #' data("aln", package = "GenomAutomorphism")
 #' 
 #' translation(aln)
 #' 
-#' ## Load a pairwise DNA sequence alingment of COVID-19 genomes
+#' ## Load a pairwise DNA sequence alignment of COVID-19 genomes
 #' data("covid_aln", package = "GenomAutomorphism")
 #' 
 #' translation(covid_aln)
-#' @return The translated amino acid sequence.
+#' @return If argument \emph{x} is a character string, a character string
+#' or vector with the translated amino acid sequence(s) is returned.
+#' Otherwise, the object type returned by
+#' \code{\link[Biostrings]{translate}} is returned, typically an
+#' \code{\link[Biostrings]{AAStringSet}} object.
 #' @export
 setGeneric(
     "translation",
@@ -131,8 +135,8 @@ transl <- function(
     }
     
     if (any((nchar(x) %% 3) != 0))
-        stop("*** The number of characters in argument 'x' ,
-                    must be multiple of 3")
+        stop("*** The number of characters in argument 'x'",
+                    " must be a multiple of 3")
     
     x <- toupper(x)
     x <- gsub("U", "T", x)

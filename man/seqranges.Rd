@@ -35,7 +35,7 @@ pairwise alignment of two sequences.}
 
 \item{base_seq}{Logical. Whether to return the base or codon coordinates on
 the selected Abelian group. If codon coordinates are requested, then the
-number of the DNA bases in the given sequences must be multiple of 3.}
+number of the DNA bases in the given sequences must be a multiple of 3.}
 
 \item{filepath}{A character vector containing the path to a file in
 \emph{\strong{fasta}} format to be read. This argument must be given if
@@ -46,18 +46,20 @@ number of the DNA bases in the given sequences must be multiple of 3.}
 values given for the function definition will be used.}
 }
 \value{
-A \code{\link[GenomicRanges]{GRanges-class}}
+A \code{\link[GenomicRanges]{GRanges-class}} object if
+\emph{granges = TRUE} (default), or a \code{\link[S4Vectors]{DataFrame}}
+object otherwise.
 }
 \description{
 Extract the gene ranges and coordinates from a pairwise
 alignment of codon/base sequences represented on a given Abelian group.
 }
 \details{
-This function provide an alternative way to get the codon
+This function provides an alternative way to get the codon
 coordinate and the information on the codon sequence from a
 \code{\link{CodonSeq}} class objects. The function can either take the
 output from functions \code{\link{codon_coord}} or to operate directly on a
-\code{\link[Biostrings]{DNAStringSet}} or to retrieve the a DNA sequence
+\code{\link[Biostrings]{DNAStringSet}} or to retrieve a DNA sequence
 alignment from a file.
 }
 \examples{

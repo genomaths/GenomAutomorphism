@@ -13,7 +13,7 @@ valid.GRanges(x)
 valid.BaseGroup(x)
 }
 \arguments{
-\item{x}{A 'BaseGroup object'}
+\item{x}{A 'BaseGroup' object}
 }
 \value{
 If valid return NULL

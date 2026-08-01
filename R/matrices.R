@@ -22,7 +22,7 @@
 #' pairwise alignment of two sequences.
 #' @param base_seq Logical. Whether to return the base or codon coordinates on
 #' the selected Abelian group. If codon coordinates are requested, then the
-#' number of the DNA bases in the given sequences must be multiple of 3.
+#' number of the DNA bases in the given sequences must be a multiple of 3.
 #' @param filepath A character vector containing the path to a file in
 #' \emph{\strong{fasta}} format to be read. This argument must be given if
 #' \emph{codon & base} arguments are not provided.
@@ -40,7 +40,7 @@
 #' \code{\link{CodonSeq}} and \code{\link{MatrixList}} class objects. These
 #' functions can either take the output from functions \code{\link{base_coord}}
 #' and \code{\link{matrices}}  or to operate directly on a
-#' \code{\link[Biostrings]{DNAStringSet}} or to retrieve the a DNA sequence
+#' \code{\link[Biostrings]{DNAStringSet}} or to retrieve a DNA sequence
 #' alignment from a file.
 #'
 #' \emph{\strong{base_seq}} parameter will determine whether to return the
@@ -55,7 +55,7 @@
 #' @importFrom methods new
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
-#' @return The a list of vectors (group = c("Z4", "Z5", "Z64", "Z125") or a
+#' @return A list of vectors (group = c("Z4", "Z5", "Z64", "Z125")) or a
 #' list of matrices (group = ("Z4^3", "Z5^3")) carrying the coordinate
 #' representation on the specified Abelian group.
 #' @references

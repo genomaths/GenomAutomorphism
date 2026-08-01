@@ -40,14 +40,14 @@ generated with functions: \code{\link{base_coord}} and
 
 \item{base_seq}{Logical. Whether to return the base or codon coordinates on
 the selected Abelian group. If codon coordinates are requested, then the
-number of the DNA bases in the given sequences must be multiple of 3.}
+number of the DNA bases in the given sequences must be a multiple of 3.}
 
 \item{filepath}{A character vector containing the path to a file in
 \emph{\strong{fasta}} format to be read. This argument must be given if
 \emph{codon & base} arguments are not provided.}
 
 \item{cube}{A character string denoting one of the 24 Genetic-code cubes,
-as given in references (2 2 3).}
+as given in references (2-3).}
 
 \item{group}{A character string denoting the group representation for the
 given base or codon as shown in reference (1).}
@@ -57,11 +57,11 @@ given base or codon as shown in reference (1).}
 values given for the function definition will be used.}
 }
 \value{
-An object from \code{\link{CodonGroup-class}} class is returned
+An object from \code{\link{CodonSeq-class}} class is returned
 when \emph{output = 'all'}. This has two slots, the first one carrying a
 list of matrices and the second one carrying the codon/base sequence
 information. That is, if \emph{x} is an object from
-\code{\link{CodonGroup-class}} class, then a list of matrices of codon
+\code{\link{CodonSeq-class}} class, then a list of matrices of codon
 coordinate can be retrieved as x@CoordList and the information on the
 codon sequence as x@SeqRanges.
 
@@ -85,8 +85,8 @@ Although the \code{\link{CodonGroup-class}} object returned by
 functions \code{\link{codon_coord}} and \code{\link{base_coord}} are useful
 to store genomic information, the base and codon coordinates are not given
 on them as numeric magnitudes. Function \code{\link{get_coord}} provides
-the way to get the coordinates in a numeric object in object from and still
-to preserve the base/codon sequence information.
+a way to get the coordinates as a numeric object while still preserving
+the base/codon sequence information.
 }
 \examples{
 ## Load a pairwise alignment

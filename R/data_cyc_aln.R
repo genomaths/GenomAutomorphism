@@ -14,12 +14,12 @@
 
 #' Multiple Sequence Alignment (MSA) of Primate Somatic Cytochrome C
 #'
-#' This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying a MSA of
+#' This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying an MSA of
 #' [Primate Somatic Cytochrome C](https://bit.ly/3kdEAzs) to be used in the
 #' examples provided for the package functions. The original file can be
 #' downloaded from GitHub at: <https://bit.ly/3kdEAzs>
 #' @author Robersy Sanchez <https://genomaths.com>
-#' @seealso  [brca1_aln], [brca1_aln2], [covid_aln], and [covid_aln].
+#' @seealso  [brca1_aln], [brca1_aln2], [covid_aln], and [cyc_autm].
 #' @usage 
 #' data("cyc_aln", package = "GenomAutomorphism")
 #' @format [DNAMultipleAlignment] class object.
