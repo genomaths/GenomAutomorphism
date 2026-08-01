@@ -23,7 +23,7 @@
 #' \eqn{f(x) = A x \ mod \ \mathbb{Z}^3_5}, where \eqn{A} is a diagonal matrix, as noticed in
 #' reference (4).
 #' @param seq An object from a \code{\link[Biostrings]{DNAStringSet}} or
-#' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
+#' \code{\link[MultipleAlignment]{DNAMultipleAlignment}} class carrying the DNA
 #' pairwise alignment of two sequences. The pairwise alignment provided in
 #' argument \emph{\strong{seq}} or the 'fasta' file \emph{\strong{filepath}}
 #' must correspond to codon sequences.

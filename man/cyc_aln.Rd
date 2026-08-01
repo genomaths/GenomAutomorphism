@@ -11,7 +11,7 @@
 data("cyc_aln", package = "GenomAutomorphism")
 }
 \description{
-This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying an MSA of
+This is a \code{\link[MultipleAlignment]{DNAMultipleAlignment}} carrying an MSA of
 \href{https://bit.ly/3kdEAzs}{Primate Somatic Cytochrome C} to be used in the
 examples provided for the package functions. The original file can be
 downloaded from GitHub at: \url{https://bit.ly/3kdEAzs}

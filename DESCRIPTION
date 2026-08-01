@@ -1,6 +1,6 @@
 Package: GenomAutomorphism
 Title: Compute the automorphisms between DNA's Abelian group representations
-Version: 1.15.1
+Version: 1.15.2
 Authors@R: 
     person( given = "Robersy",
             family = "Sanchez",
@@ -32,6 +32,7 @@ biocViews:
     WholeGenome
 Imports:
     Biostrings,
+    MultipleAlignment,
     BiocGenerics,
     BiocParallel,
     Seqinfo,

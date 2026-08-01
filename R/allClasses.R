@@ -790,7 +790,8 @@ GRangesMatrixSeq <- function(
 
 #' @rdname GRangesMatrixSeq
 #' @keywords internal
-#' @import Biostrings
+#' @importClassesFrom Biostrings DNAStringSet
+#' @importClassesFrom MultipleAlignment DNAMultipleAlignment
 #' @export
 #' @return Only used to specify signature in the S4 setMethod.
 setClassUnion(
@@ -834,7 +835,8 @@ valid.MatrixList <- function(x) {
 
 #' @rdname valid.MatrixList
 #' @keywords internal
-#' @import Biostrings
+#' @importClassesFrom Biostrings DNAStringSet
+#' @importClassesFrom MultipleAlignment DNAMultipleAlignment
 #' @export
 #' @return Only used to specify signature in the S4 setMethod.
 setClassUnion(

@@ -34,7 +34,7 @@ codon_matrix(base, ...)
 )
 }
 \arguments{
-\item{base}{A \code{\link[Biostrings]{DNAMultipleAlignment}}, a
+\item{base}{A \code{\link[MultipleAlignment]{DNAMultipleAlignment}}, a
 \code{\link[Biostrings]{DNAStringSet}}, or a \link[=BaseSeqMatrix-class]{BaseSeqMatrix}.}
 
 \item{...}{Not in use yet.}

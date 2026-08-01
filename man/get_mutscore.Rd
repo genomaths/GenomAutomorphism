@@ -77,7 +77,7 @@ get_mutscore(aa1, aa2, ...)
 character string of letter from the amino acid alphabet or base-triplets
 from the DNA/RNA alphabet. If \strong{\emph{aa1}} is an object from any
 of the classes: \link{BaseSeq}, \code{\link[Biostrings]{DNAStringSet}}, or
-\code{\link[Biostrings]{DNAMultipleAlignment}}, then argument
+\code{\link[MultipleAlignment]{DNAMultipleAlignment}}, then argument
 \strong{\emph{aa2}} is not required.}
 
 \item{...}{Not in use.}
@@ -107,7 +107,7 @@ function log to stdout.}
 \item{stat}{Statistic that will be used to summarize the scores of the
 DNA sequences provided. Only if \strong{\emph{aa1}} is an object from any of
 the classes: \link{BaseSeq}, \code{\link[Biostrings]{DNAStringSet}}, or
-\code{\link[Biostrings]{DNAMultipleAlignment}}.}
+\code{\link[MultipleAlignment]{DNAMultipleAlignment}}.}
 
 \item{numcores}{An integer to setup the number of parallel workers via
 \code{\link[parallel]{makeCluster}}.}
@@ -115,7 +115,7 @@ the classes: \link{BaseSeq}, \code{\link[Biostrings]{DNAStringSet}}, or
 \item{output}{Optional. Class of the returned object. Only if
 \strong{\emph{aa1}} is an object from any of the classes: \link{BaseSeq},
 \code{\link[Biostrings]{DNAStringSet}}, or
-\code{\link[Biostrings]{DNAMultipleAlignment}}.}
+\code{\link[MultipleAlignment]{DNAMultipleAlignment}}.}
 
 \item{na.rm}{a logical evaluating to TRUE or FALSE indicating whether NA
 values should be stripped before the computation proceeds.}
@@ -124,7 +124,7 @@ values should be stripped before the computation proceeds.}
 A single numeric score or a numerical vector, or if
 \strong{\emph{aa1}} is an object from any of the classes: \link{BaseSeq},
 \code{\link[Biostrings]{DNAStringSet}}, or
-\code{\link[Biostrings]{DNAMultipleAlignment}}, then depending on the
+\code{\link[MultipleAlignment]{DNAMultipleAlignment}}, then depending on the
 user selection the returned object will be:
 \enumerate{
 \item A lower diagonal numerical vector of the sequence pairwise scores.

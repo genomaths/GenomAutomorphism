@@ -22,7 +22,7 @@ dna_phychem(seqs, ...)
 }
 \arguments{
 \item{seqs}{A character string, a \code{\link[Biostrings]{DNAStringSet}}
-or a \code{\link[Biostrings]{DNAMultipleAlignment}} class object carrying
+or a \code{\link[MultipleAlignment]{DNAMultipleAlignment}} class object carrying
 the DNA pairwise alignment of two sequences.}
 
 \item{...}{Not in use.}

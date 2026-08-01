@@ -18,7 +18,7 @@
 #' @description Extract the gene ranges and coordinates from a pairwise
 #' alignment of codon/base sequences represented on a given Abelian group.
 #' @param x An object from a \code{\link[Biostrings]{DNAStringSet}} or
-#' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
+#' \code{\link[MultipleAlignment]{DNAMultipleAlignment}} class carrying the DNA
 #' pairwise alignment of two sequences.
 #' @param base_seq Logical. Whether to return the base or codon coordinates on
 #' the selected Abelian group. If codon coordinates are requested, then the

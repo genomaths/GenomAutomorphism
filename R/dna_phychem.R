@@ -18,7 +18,7 @@
 #' @aliases dna_phychem
 #' @title DNA numerical matrix
 #' @param seqs A character string, a \code{\link[Biostrings]{DNAStringSet}}
-#' or a \code{\link[Biostrings]{DNAMultipleAlignment}} class object carrying
+#' or a \code{\link[MultipleAlignment]{DNAMultipleAlignment}} class object carrying
 #' the DNA pairwise alignment of two sequences.
 #' @param phychem A list of DNA bases physicochemical properties, e.g., like
 #' those provided in [dna_phyche].

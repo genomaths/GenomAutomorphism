@@ -37,7 +37,7 @@ peptide_phychem_index(aa, ...)
 }
 \arguments{
 \item{aa}{A character string, a \code{\link[Biostrings]{DNAStringSet}}
-or a \code{\link[Biostrings]{DNAMultipleAlignment}} class object carrying
+or a \code{\link[MultipleAlignment]{DNAMultipleAlignment}} class object carrying
 the DNA pairwise alignment of two sequences.}
 
 \item{...}{Not in use.}
@@ -74,7 +74,7 @@ If argument \strong{\emph{aa}} is a character string, a numerical
 vector carrying the physicochemical index values for the given amino
 acid or DNA protein-coding sequence is returned. If \strong{\emph{aa}} is
 a \code{\link[Biostrings]{DNAStringSet}} or
-\code{\link[Biostrings]{DNAMultipleAlignment}} object, then a
+\code{\link[MultipleAlignment]{DNAMultipleAlignment}} object, then a
 \link[=MatrixSeq-class]{MatrixSeq} object carrying the numerical matrix for all the given
 sequences is returned.
 }

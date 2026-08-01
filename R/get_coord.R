@@ -23,7 +23,7 @@
 #' @param x An object from a \code{\link{BaseGroup-class}},
 #' \code{\link{CodonGroup-class}},
 #' \code{\link[Biostrings]{DNAStringSet}} or
-#' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
+#' \code{\link[MultipleAlignment]{DNAMultipleAlignment}} class carrying the DNA
 #' pairwise alignment of two sequences. Objects from
 #' \code{\link{BaseGroup-class}} and \code{\link{CodonGroup-class}} are
 #' generated with functions: \code{\link{base_coord}} and

@@ -35,7 +35,7 @@ codon_coord(codon = NULL, ...)
 \arguments{
 \item{codon}{An object from \code{\link{BaseGroup-class}} (generated with
 function \code{\link{base_coord}}), \code{\link[Biostrings]{DNAStringSet}}
-or from \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the
+or from \code{\link[MultipleAlignment]{DNAMultipleAlignment}} class carrying the
 DNA pairwise alignment of two sequences.}
 
 \item{...}{Not in use.}

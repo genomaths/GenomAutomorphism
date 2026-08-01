@@ -31,20 +31,20 @@ Biostrings::DNAStringSet
 #' @export
 Biostrings::AAStringSet
 
-#' @importFrom Biostrings readDNAMultipleAlignment
-#' @returns The same as in \code{\link[Biostrings]{readDNAMultipleAlignment}}. 
+#' @importFrom MultipleAlignment readDNAMultipleAlignment
+#' @returns The same as in \code{\link[MultipleAlignment]{readDNAMultipleAlignment}}. 
 #' @export
-Biostrings::readDNAMultipleAlignment
+MultipleAlignment::readDNAMultipleAlignment
 
-#' @importFrom Biostrings DNAMultipleAlignment
-#' @returns The same as in \code{\link[Biostrings]{DNAMultipleAlignment}}. 
+#' @importFrom MultipleAlignment DNAMultipleAlignment
+#' @returns The same as in \code{\link[MultipleAlignment]{DNAMultipleAlignment}}. 
 #' @export
-Biostrings::DNAMultipleAlignment
+MultipleAlignment::DNAMultipleAlignment
 
-#' @importFrom Biostrings AAMultipleAlignment
-#' @returns The same as in \code{\link[Biostrings]{AAMultipleAlignment}}. 
+#' @importFrom MultipleAlignment AAMultipleAlignment
+#' @returns The same as in \code{\link[MultipleAlignment]{AAMultipleAlignment}}. 
 #' @export
-Biostrings::AAMultipleAlignment
+MultipleAlignment::AAMultipleAlignment
 
 #' @importFrom XVector subseq
 #' @returns The same as in \code{\link[XVector]{subseq}}. 

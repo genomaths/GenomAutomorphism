@@ -21,7 +21,7 @@ autZ5(
 }
 \arguments{
 \item{seq}{An object from a \code{\link[Biostrings]{DNAStringSet}} or
-\code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
+\code{\link[MultipleAlignment]{DNAMultipleAlignment}} class carrying the DNA
 pairwise alignment of two sequences.}
 
 \item{filepath}{A character vector containing the path to a file in

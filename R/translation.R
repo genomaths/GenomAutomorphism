@@ -74,6 +74,7 @@ setMethod(
     }
 )
 
+#' @importClassesFrom MultipleAlignment DNAMultipleAlignment
 setClassUnion(
     "BioString", 
     c("DNAStringSet","RNAStringSet","DNAStringSet", 

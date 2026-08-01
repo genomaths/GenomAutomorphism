@@ -14,7 +14,7 @@
 
 #' Pairwise Sequence Alignment (MSA) of COVID-19 genomes.
 #'
-#' This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying the
+#' This is a \code{\link[MultipleAlignment]{DNAMultipleAlignment}} carrying the
 #' pairwise sequence alignment of SARS coronavirus GZ02 (GenBank: AY390556.1:
 #' 265-13398_13398-21485) and Bat SARS-like coronavirus isolate bat-SL-CoVZC45
 #' (GenBank: MG772933.1:265-13455_13455-21542), complete genomes. The alignment
@@ -23,7 +23,7 @@
 #' @usage 
 #' data("covid_aln", package = "GenomAutomorphism")
 #'
-#' @format \code{\link[Biostrings]{DNAMultipleAlignment}} class object.
+#' @format \code{\link[MultipleAlignment]{DNAMultipleAlignment}} class object.
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @seealso  [brca1_aln], [brca1_autm2], [cyc_aln] and [covid_autm].
 #' @examples

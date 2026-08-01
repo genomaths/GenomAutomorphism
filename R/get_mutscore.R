@@ -29,7 +29,7 @@
 #' character string of letter from the amino acid alphabet or base-triplets
 #' from the DNA/RNA alphabet. If \strong{\emph{aa1}} is an object from any
 #' of the classes: [BaseSeq], \code{\link[Biostrings]{DNAStringSet}}, or
-#' \code{\link[Biostrings]{DNAMultipleAlignment}}, then argument 
+#' \code{\link[MultipleAlignment]{DNAMultipleAlignment}}, then argument 
 #' \strong{\emph{aa2}} is not required.
 #' @param acc Accession id for a specified mutation or contact potential 
 #' matrix.
@@ -56,7 +56,7 @@
 #' @return A single numeric score or a numerical vector, or if
 #' \strong{\emph{aa1}} is an object from any of the classes: [BaseSeq],
 #' \code{\link[Biostrings]{DNAStringSet}}, or
-#' \code{\link[Biostrings]{DNAMultipleAlignment}}, then depending on the 
+#' \code{\link[MultipleAlignment]{DNAMultipleAlignment}}, then depending on the 
 #' user selection the returned object will be:
 #' 
 #' 1. A lower diagonal numerical vector of the sequence pairwise scores.
@@ -238,7 +238,7 @@ setMethod("get_mutscore", signature(aa1 = "character", aa2 = "character"),
 #' @param stat Statistic that will be used to summarize the scores of the 
 #' DNA sequences provided. Only if \strong{\emph{aa1}} is an object from any of
 #' the classes: [BaseSeq], \code{\link[Biostrings]{DNAStringSet}}, or
-#' \code{\link[Biostrings]{DNAMultipleAlignment}}.
+#' \code{\link[MultipleAlignment]{DNAMultipleAlignment}}.
 #' @param numcores An integer to setup the number of parallel workers via 
 #' \code{\link[parallel]{makeCluster}}.
 #' @param num.cores,tasks Parameters for parallel computation using package
@@ -249,7 +249,7 @@ setMethod("get_mutscore", signature(aa1 = "character", aa2 = "character"),
 #' @param output Optional. Class of the returned object. Only if 
 #' \strong{\emph{aa1}} is an object from any of the classes: [BaseSeq],
 #' \code{\link[Biostrings]{DNAStringSet}}, or
-#' \code{\link[Biostrings]{DNAMultipleAlignment}}.
+#' \code{\link[MultipleAlignment]{DNAMultipleAlignment}}.
 #' @param na.rm a logical evaluating to TRUE or FALSE indicating whether NA 
 #' values should be stripped before the computation proceeds.
 #' @param verbose Optional. Only if num.cores > 1. If TRUE, prints the 

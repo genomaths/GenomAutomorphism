@@ -23,7 +23,7 @@
 #' from the set of integers modulo 64.
 #' 
 #' @param seq An object from a \code{\link[Biostrings]{DNAStringSet}} or
-#' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
+#' \code{\link[MultipleAlignment]{DNAMultipleAlignment}} class carrying the DNA
 #' pairwise alignment of two sequences. The pairwise alignment provided in
 #' argument \emph{\strong{seq}} or the 'fasta' file \emph{\strong{filepath}}
 #' must correspond to codon sequences.

@@ -47,11 +47,11 @@ The same as in \code{\link[Biostrings]{DNAStringSet}}.
 
 The same as in \code{\link[Biostrings]{AAStringSet}}.
 
-The same as in \code{\link[Biostrings]{readDNAMultipleAlignment}}.
+The same as in \code{\link[MultipleAlignment]{readDNAMultipleAlignment}}.
 
-The same as in \code{\link[Biostrings]{DNAMultipleAlignment}}.
+The same as in \code{\link[MultipleAlignment]{DNAMultipleAlignment}}.
 
-The same as in \code{\link[Biostrings]{AAMultipleAlignment}}.
+The same as in \code{\link[MultipleAlignment]{AAMultipleAlignment}}.
 
 The same as in \code{\link[XVector]{subseq}}.
 
@@ -120,7 +120,9 @@ below to see their documentation.
 \describe{
   \item{BiocGenerics}{\code{\link[BiocGenerics:end]{end()}}, \code{\link[BiocGenerics:end<-]{end<-()}}, \code{\link[BiocGenerics:start]{start()}}, \code{\link[BiocGenerics:start<-]{start<-()}}, \code{\link[BiocGenerics:strand]{strand()}}, \code{\link[BiocGenerics:strand<-]{strand<-()}}, \code{\link[BiocGenerics:width]{width()}}}
 
-  \item{Biostrings}{\code{\link[Biostrings:AAMultipleAlignment]{AAMultipleAlignment()}}, \code{\link[Biostrings:AAStringSet]{AAStringSet()}}, \code{\link[Biostrings:DNAMultipleAlignment]{DNAMultipleAlignment()}}, \code{\link[Biostrings:DNAStringSet]{DNAStringSet()}}, \code{\link[Biostrings:GENETIC_CODE_TABLE]{GENETIC_CODE_TABLE}}, \code{\link[Biostrings:getGeneticCode]{getGeneticCode()}}, \code{\link[Biostrings:readDNAMultipleAlignment]{readDNAMultipleAlignment()}}, \code{\link[Biostrings:translate]{translate()}}, \code{\link[Biostrings:unmasked]{unmasked()}}}
+  \item{Biostrings}{\code{\link[Biostrings:AAStringSet]{AAStringSet()}}, \code{\link[Biostrings:DNAStringSet]{DNAStringSet()}}, \code{\link[Biostrings:GENETIC_CODE_TABLE]{GENETIC_CODE_TABLE}}, \code{\link[Biostrings:getGeneticCode]{getGeneticCode()}}, \code{\link[Biostrings:translate]{translate()}}, \code{\link[Biostrings:unmasked]{unmasked()}}}
+
+  \item{MultipleAlignment}{\code{\link[MultipleAlignment:AAMultipleAlignment]{AAMultipleAlignment()}}, \code{\link[MultipleAlignment:DNAMultipleAlignment]{DNAMultipleAlignment()}}, \code{\link[MultipleAlignment:readDNAMultipleAlignment]{readDNAMultipleAlignment()}}}
 
   \item{GenomicRanges}{\code{\link[GenomicRanges:GRangesList]{GRangesList()}}, \code{\link[GenomicRanges:makeGRangesFromDataFrame]{makeGRangesFromDataFrame()}}}
 

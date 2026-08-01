@@ -5,13 +5,13 @@
 \alias{brca1_aln}
 \title{Multiple Sequence Alignment (MSA) of Primate BRCA1 DNA repair genes.}
 \format{
-\code{\link[Biostrings]{DNAMultipleAlignment}} class object.
+\code{\link[MultipleAlignment]{DNAMultipleAlignment}} class object.
 }
 \usage{
 data("brca1_aln", package = "GenomAutomorphism")
 }
 \description{
-This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying an MSA of
+This is a \code{\link[MultipleAlignment]{DNAMultipleAlignment}} carrying an MSA of
 \href{https://bit.ly/3DimROD}{BRCA1 DNA repair genes} to be used in the
 examples provided for the package functions. The original file can be
 downloaded from GitHub at: \url{https://bit.ly/3DimROD}

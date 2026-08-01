@@ -14,7 +14,7 @@
 
 #' Multiple Sequence Alignment (MSA) of Primate Somatic Cytochrome C
 #'
-#' This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying an MSA of
+#' This is a \code{\link[MultipleAlignment]{DNAMultipleAlignment}} carrying an MSA of
 #' [Primate Somatic Cytochrome C](https://bit.ly/3kdEAzs) to be used in the
 #' examples provided for the package functions. The original file can be
 #' downloaded from GitHub at: <https://bit.ly/3kdEAzs>

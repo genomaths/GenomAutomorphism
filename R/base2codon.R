@@ -18,13 +18,13 @@
 #' @details It is expected that the provided DNA sequence is a multiple of
 #' 3, otherwise gaps are added to the end of the sequence.
 #' @param x A character string, \code{\link[Biostrings]{DNAStringSet-class}}
-#' or \code{\link[Biostrings]{DNAMultipleAlignment-class}} object carrying
+#' or \code{\link[MultipleAlignment]{DNAMultipleAlignment-class}} object carrying
 #' a DNA sequence.
 #' @param ... Not in use.
 #' @return If the argument of 'x' is a character string, then a character
 #' vector of codons will be returned. If the argument of 'x' is
 #' \code{\link[Biostrings]{DNAStringSet-class}} or
-#' \code{\link[Biostrings]{DNAMultipleAlignment-class}} object, then a matrix
+#' \code{\link[MultipleAlignment]{DNAMultipleAlignment-class}} object, then a matrix
 #' of codons is returned.
 #' @author Robersy Sanchez <https://genomaths.com>. 01/15/2022
 #' @examples

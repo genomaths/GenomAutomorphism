@@ -27,7 +27,7 @@
 #' sequence alignments (MSA) available for further downstream statistical
 #' analyses, like those reported in references (1) and (2).
 #' 
-#' @param base A \code{\link[Biostrings]{DNAMultipleAlignment}}, a 
+#' @param base A \code{\link[MultipleAlignment]{DNAMultipleAlignment}}, a 
 #' \code{\link[Biostrings]{DNAStringSet}}, or a [BaseSeqMatrix-class].
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @returns A [ListCodonMatrix-class] object with the codon coordinate on its

@@ -25,7 +25,7 @@
 #' provided in argument \emph{\strong{seq}} or the 'fasta' file
 #' \emph{\strong{filepath}} must correspond to DNA base sequences.
 #' @param seq An object from a \code{\link[Biostrings]{DNAStringSet}} or
-#' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
+#' \code{\link[MultipleAlignment]{DNAMultipleAlignment}} class carrying the DNA
 #' pairwise alignment of two sequences.
 #' @param filepath A character vector containing the path to a file in
 #' \emph{\strong{fasta}} format to be read. This argument must be given if

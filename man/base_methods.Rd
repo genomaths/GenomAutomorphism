@@ -57,7 +57,7 @@ base_matrix(base, ...)
 }
 \arguments{
 \item{base}{An object from a \code{\link[Biostrings]{DNAStringSet}} or
-\code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
+\code{\link[MultipleAlignment]{DNAMultipleAlignment}} class carrying the DNA
 pairwise alignment of two sequences.}
 
 \item{filepath}{A character vector containing the path to a file in
@@ -120,7 +120,7 @@ specified genetic-code Abelian group, as given in reference (1).
 
 Function \strong{\emph{seq2granges}} transform an object from
 \code{\link[Biostrings]{DNAStringSet}},
-\code{\link[Biostrings]{DNAMultipleAlignment-class}} or a character into
+\code{\link[MultipleAlignment]{DNAMultipleAlignment-class}} or a character into
 an object from \link[=BaseSeq-class]{BaseSeq}.
 }
 
