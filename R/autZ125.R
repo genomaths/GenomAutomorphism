@@ -55,7 +55,6 @@
 #' \emph{cube}.
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam multicoreWorkers
 #' @importFrom methods new
-#' @import Biostrings
 #' @export
 #' @references
 #' \enumerate{

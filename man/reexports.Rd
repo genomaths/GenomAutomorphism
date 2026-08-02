@@ -122,16 +122,16 @@ below to see their documentation.
 
   \item{Biostrings}{\code{\link[Biostrings:AAStringSet]{AAStringSet()}}, \code{\link[Biostrings:DNAStringSet]{DNAStringSet()}}, \code{\link[Biostrings:GENETIC_CODE_TABLE]{GENETIC_CODE_TABLE}}, \code{\link[Biostrings:getGeneticCode]{getGeneticCode()}}, \code{\link[Biostrings:translate]{translate()}}, \code{\link[Biostrings:unmasked]{unmasked()}}}
 
-  \item{MultipleAlignment}{\code{\link[MultipleAlignment:AAMultipleAlignment]{AAMultipleAlignment()}}, \code{\link[MultipleAlignment:DNAMultipleAlignment]{DNAMultipleAlignment()}}, \code{\link[MultipleAlignment:readDNAMultipleAlignment]{readDNAMultipleAlignment()}}}
-
   \item{GenomicRanges}{\code{\link[GenomicRanges:GRangesList]{GRangesList()}}, \code{\link[GenomicRanges:makeGRangesFromDataFrame]{makeGRangesFromDataFrame()}}}
 
-  \item{matrixStats}{\code{\link[matrixStats:colMeans2]{colMeans2()}}, \code{\link[matrixStats:colSds]{colSds()}}, \code{\link[matrixStats:colSums2]{colSums2()}}, \code{\link[matrixStats:colVars]{colVars()}}, \code{\link[matrixStats:rowMeans2]{rowMeans2()}}, \code{\link[matrixStats:rowSds]{rowSds()}}, \code{\link[matrixStats:rowSums2]{rowSums2()}}, \code{\link[matrixStats:rowVars]{rowVars()}}}
-
-  \item{numbers}{\code{\link[numbers:modlin]{modlin()}}, \code{\link[numbers:modq]{modq()}}}
+  \item{MultipleAlignment}{\code{\link[MultipleAlignment:AAMultipleAlignment]{AAMultipleAlignment()}}, \code{\link[MultipleAlignment:DNAMultipleAlignment]{DNAMultipleAlignment()}}, \code{\link[MultipleAlignment:readDNAMultipleAlignment]{readDNAMultipleAlignment()}}}
 
   \item{S4Vectors}{\code{\link[S4Vectors:mcols]{mcols()}}, \code{\link[S4Vectors:mcols<-]{mcols<-()}}, \code{\link[S4Vectors:setValidity2]{setValidity2()}}}
 
   \item{XVector}{\code{\link[XVector:subseq]{subseq()}}}
+
+  \item{matrixStats}{\code{\link[matrixStats:colMeans2]{colMeans2()}}, \code{\link[matrixStats:colSds]{colSds()}}, \code{\link[matrixStats:colSums2]{colSums2()}}, \code{\link[matrixStats:colVars]{colVars()}}, \code{\link[matrixStats:rowMeans2]{rowMeans2()}}, \code{\link[matrixStats:rowSds]{rowSds()}}, \code{\link[matrixStats:rowSums2]{rowSums2()}}, \code{\link[matrixStats:rowVars]{rowVars()}}}
+
+  \item{numbers}{\code{\link[numbers:modlin]{modlin()}}, \code{\link[numbers:modq]{modq()}}}
 }}
 

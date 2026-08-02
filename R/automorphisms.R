@@ -159,7 +159,6 @@ setGeneric(
 #' @importFrom parallel makeCluster stopCluster
 #' @importFrom BiocParallel multicoreWorkers
 #' @importFrom BiocGenerics width
-#' @import Biostrings
 #' @import S4Vectors
 #' @export
 setMethod(

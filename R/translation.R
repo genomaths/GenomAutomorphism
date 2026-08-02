@@ -30,7 +30,6 @@
 #' @param ... Not in use yet.
 #' @seealso \code{\link[Biostrings]{translate}}
 #' @author Robersy Sanchez <https://genomaths.com>
-#' @import Biostrings
 #' @examples 
 #' ## Load a small DNA sequence alignment 
 #' data("aln", package = "GenomAutomorphism")
@@ -74,6 +73,7 @@ setMethod(
     }
 )
 
+#' @importClassesFrom Biostrings DNAStringSet RNAStringSet DNAString RNAString MaskedDNAString MaskedRNAString
 #' @importClassesFrom MultipleAlignment DNAMultipleAlignment
 setClassUnion(
     "BioString", 

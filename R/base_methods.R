@@ -99,7 +99,6 @@
 #' @seealso [Symmetric Group of the Genetic-Code Cubes.](
 #' https://github.com/genomaths/GenomeAlgebra_SymmetricGroup)
 #' @import S4Vectors
-#' @import Biostrings
 #' @importFrom methods new
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
@@ -183,7 +182,6 @@ setGeneric(
 #' @rdname base_methods
 #' @import GenomicRanges
 #' @importFrom methods new
-#' @import Biostrings
 #' @export
 setMethod(
     "base_coord", signature(base = "DNAStringSet_OR_NULL"),
@@ -310,7 +308,6 @@ setMethod(
 #' @seealso [Symmetric Group of the Genetic-Code Cubes.](
 #' https://github.com/genomaths/GenomeAlgebra_SymmetricGroup)
 #' @import S4Vectors
-#' @import Biostrings
 #' @importFrom methods new
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
@@ -333,7 +330,6 @@ setGeneric(
 #' @param ... Not in use yet.
 #' @import GenomicRanges
 #' @importFrom methods new
-#' @import Biostrings
 #' @export
 setMethod(
     "seq2granges", signature(base = "DNAStringSet_OR_NULL"),
@@ -438,7 +434,6 @@ setMethod(
 #' @rdname base_methods
 #' @import GenomicRanges
 #' @importFrom methods new
-#' @import Biostrings
 #' @param x A 'BaseSeq' class object. 
 #' @export
 #' @examples
@@ -457,7 +452,6 @@ setGeneric(
 #' @aliases base_seq2string_set
 #' @rdname base_methods
 #' @import GenomicRanges
-#' @import Biostrings
 #' @export
 setMethod(
     "base_seq2string_set", signature(x = "BaseSeq"),
@@ -478,7 +472,6 @@ setMethod(
 #' @rdname base_methods
 #' @import GenomicRanges
 #' @importFrom methods new
-#' @import Biostrings
 #' @export
 setGeneric(
     "base_matrix",
@@ -493,7 +486,6 @@ setGeneric(
 #' @aliases base_matrix
 #' @rdname base_methods
 #' @import GenomicRanges
-#' @import Biostrings
 #' @export
 setMethod(
     "base_matrix", signature(base = "DNAStringSet_OR_NULL"),

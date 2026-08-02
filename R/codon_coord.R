@@ -47,7 +47,6 @@
 #' @seealso [Symmetric Group of the Genetic-Code Cubes.](
 #' https://github.com/genomaths/GenomeAlgebra_SymmetricGroup)
 #' @import S4Vectors
-#' @import Biostrings
 #' @importFrom methods new
 #' @export
 #' @return A \code{\link{CodonGroup-class}} object.
@@ -104,7 +103,6 @@ setGeneric(
 #' @aliases codon_coord
 #' @rdname codon_coord
 #' @import GenomicRanges
-#' @import BiocGenerics
 #' @importFrom Seqinfo seqnames
 #' @import IRanges
 #' @import S4Vectors
@@ -187,7 +185,6 @@ setMethod(
 
 #' @aliases codon_coord
 #' @rdname codon_coord
-#' @import Biostrings
 setMethod(
     "codon_coord", signature(codon = "DNAStringSet_OR_NULL"),
     function(codon = NULL,

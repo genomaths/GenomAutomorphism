@@ -1,10 +1,19 @@
 # ========================================================================= #
 #
-# ======== Script used to generate the datasets used in the examples ====== 
+# ======== Script used to generate the datasets used in the examples ======
+#
+# Requires Bioconductor devel (>= 3.24) with MultipleAlignment installed.
+# readDNAMultipleAlignment() lives in MultipleAlignment as of Biostrings 2.81.3;
+# loading MultipleAlignment ensures DNAMultipleAlignment objects have the
+# current S4 class (required for method dispatch on bundled .rda data).
+#
+# Run from the package root, e.g.:
+#   R_LIBS_USER="" R_LIBS_SITE="/usr/lib/R/site-library" Rscript inst/scripts/datasets_script.R
 #
 # ========================================================================= #
 library(GenomAutomorphism)
 library(Biostrings)
+library(MultipleAlignment)
 
 
 aln <- c(
@@ -25,7 +34,7 @@ URL <- paste0(
 
 cyc_aln <- readDNAMultipleAlignment(filepath = URL)
 
-usethis::use_data(cyc_aln, overwrite = TRUE)
+usethis::use_data(cyc_aln, overwrite = TRUE, compress = "xz")
 
 
 nams <- c(
@@ -125,18 +134,14 @@ URL <- paste0(
     "COVID-19/AY390556.1_and_KY417151.1_aligned_protein-coding.fas"
 )
 
-URL <- paste0(
-    "https://github.com/genomaths/seqalignments/raw/master/", 
-    "COVID-19/AY390556.1_and_KY417151.1_aligned_protein-coding.fas")
-
 covid_aln <- readDNAMultipleAlignment(filepath = URL)
 covid_aln
 
-usethis::use_data(covid_aln, overwrite = TRUE)
+usethis::use_data(covid_aln, overwrite = TRUE, compress = "xz")
 
 
 covid_autm <- automorphisms(
-    seq = covid_aln,
+    seqs = covid_aln,
     group = "Z64",
     cube = c("ACGT", "TGCA"),
     cube_alt = c("CATG", "GTAC")
@@ -146,7 +151,7 @@ covid_autm
 usethis::use_data(covid_autm, overwrite = TRUE)
 
 autm_z125 <- automorphisms(
-    seq = covid_aln, 
+    seqs = covid_aln, 
     group = "Z125", 
     cube = c("ACGT", "TGCA"),
     cube_alt = c("CATG", "GTAC"),
@@ -155,7 +160,7 @@ autm_z125
 usethis::use_data(autm_z125, overwrite = TRUE)
 
 autm_3d <- automorphisms(
-    seq = covid_aln, 
+    seqs = covid_aln, 
     group = "Z5^3", 
     cube = c("ACGT", "TGCA"),
     cube_alt = c("CATG", "GTAC"),
@@ -213,6 +218,7 @@ usethis::use_data(dna_phyche, overwrite = TRUE, compress = "xz")
 library(foreach)
 library(GenomAutomorphism)
 library(Biostrings)
+library(MultipleAlignment)
 
 library(doParallel)
 library(parallel)

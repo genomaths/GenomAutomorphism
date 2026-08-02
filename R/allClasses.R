@@ -912,7 +912,6 @@ setClassUnion(
 #' @importFrom Seqinfo Seqinfo seqnames
 #' @import S4Vectors
 #' @import GenomicRanges
-#' @import Biostrings
 #' @importFrom BiocGenerics strand
 #' @importFrom IRanges IRanges ranges
 #' @importFrom methods new setAs

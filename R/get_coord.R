@@ -56,7 +56,6 @@
 #' the base/codon sequence information.
 #'
 #' @import S4Vectors
-#' @import Biostrings
 #' @importFrom methods new
 #' @return An object from \code{\link{CodonSeq-class}} class is returned
 #' when \emph{output = 'all'}. This has two slots, the first one carrying a

@@ -1,11 +1,14 @@
 # GenomAutomorphism 1.15.2
 
-* Adjusting a Bioconductor build failure caused by a breaking change in 
-  Biostrings 2.81.3. Adapt to Biostrings >= 2.81.3 (Bioconductor 3.24): 
-  import `DNAMultipleAlignment`, `AAMultipleAlignment`, and
-  `readDNAMultipleAlignment` from the new **MultipleAlignment** package,
-  and declare the S4 class via `importClassesFrom()`. This fixes lazy
-  loading failures on the Bioconductor build system.
+* Fix Bioconductor devel build failure from Biostrings >= 2.81.3
+  (Bioconductor 3.24). Adapt to Biostrings >= 2.81.3 (Bioconductor 3.24),
+  where `DNAMultipleAlignment`, `AAMultipleAlignment`, and
+  `readDNAMultipleAlignment` moved to the new **MultipleAlignment** package.
+  Import from **MultipleAlignment**, declare the S4 class via
+  `importClassesFrom()`, add explicit `DNAMultipleAlignment` methods, and
+  regenerate bundled MSA datasets. This fixes lazy-loading and example
+  failures on the Bioconductor build system. (Not applicable to Bioconductor
+  3.23 / Biostrings 2.80.1.)
 
 # GenomAutomorphism 1.15.1
 

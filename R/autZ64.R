@@ -53,7 +53,6 @@
 #' @return An object \code{\link{Automorphism-class}} with four columns on its
 #' metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and \emph{cube}.
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam multicoreWorkers
-#' @import Biostrings
 #' @importFrom methods new
 #' @export
 #' @author Robersy Sanchez (\url{https://genomaths.com}).

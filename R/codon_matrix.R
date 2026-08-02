@@ -18,7 +18,6 @@
 #' Codon Coordinate Matrix
 #' @rdname codon_matrix
 #' @aliases codon_matrix
-#' @import Biostrings
 #' @description
 #' This function builds the coordinate matrix for each sequence from an aligned
 #' set of DNA codon sequences.
@@ -85,7 +84,6 @@ setGeneric(
 #' for Linux OS).
 #' @param verbose If TRUE, prints the function log to stdout
 #' @param ... Not in use yet.
-#' @import Biostrings
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam multicoreWorkers
 #' @export
 setMethod(
