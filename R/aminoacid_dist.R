@@ -57,7 +57,7 @@
 #' @param ... Not in use yet.
 #' @return A numerical vector with the pairwise distances between codons in 
 #' sequences 'x' and 'y'.
-#' @importFrom utils data
+#' @importFrom BiocGenerics data
 #' @export
 #' @seealso \code{\link{automorphisms}} and \code{\link{codon_coord}}
 #' @references
